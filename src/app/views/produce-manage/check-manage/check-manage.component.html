@@ -1,0 +1,212 @@
+<div class="page">
+
+  <div class="bg-white padding-16">
+
+    <div class="ax_default" style="margin-bottom: 15px;">
+      <!-- Unnamed (矩形) -->
+      <div id="u625" class="ax_default box_1">
+        <div id="u625_text" class="text ">
+          <!--<p>-->
+          <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
+          <span style="text-decoration:none;">筛选查询</span>
+          <!--</p>-->
+          <div id="u627" class="ax_default">
+            <div id="u627_text" class="text ">
+              <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer" (click)="toggleCollapse()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-conds" *ngIf="!isCollapse">
+        <div nz-row nzGutter="16">
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input type="text" nz-input placeholder="请输入丝车编号" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <i nz-icon type="calendar"></i>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">线别</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group>
+                  <input type="text" nz-input placeholder="请输入线别" />
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">批号</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group>
+                  <input type="text" nz-input placeholder="请输入批号" />
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">规格</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group >
+                  <input type="text" nz-input placeholder="请输入规格" />
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div nz-row nzGutter="16">
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">纺位</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group >
+                  <input type="text" nz-input placeholder="请输入纺位" />
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">工艺状态</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <nz-select style="width: 100%;" nzPlaceHolder="请选择">
+                  <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                  <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                  <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">生产日期</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group>
+                  <nz-date-picker style="width:100%;"></nz-date-picker>
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">检验操作员</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group >
+                  <input type="text" nz-input placeholder="请输入检验操作员" />
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div nz-row nzGutter="16">
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">检验时间</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group>
+                  <nz-date-picker style="width:100%;"></nz-date-picker>
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">落丝开始时间</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <nz-input-group>
+                  <nz-date-picker style="width:100%;"></nz-date-picker>
+                </nz-input-group>
+              </div>
+            </div>
+          </div>
+
+          <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+            <button nz-button nzType="primary" style="margin-right:20px">查询</button>
+            <button nz-button style="margin-right:20px;">重置</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Unnamed (图片 ) -->
+    </div>
+
+    <div nz-row nzGutter="16">
+      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px"><i nz-icon type="form" theme="outline"></i>操作</button>
+
+      <div nz-col class="gutter-row" style="float:right">
+        <span style="margin-right:20px;">今日产量：550kg</span>
+        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
+      </div>
+    </div>
+
+    <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+              style="text-align:center"
+              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
+              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
+              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange(true)">
+      <thead >
+      <tr>
+        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th nzWidth="70px">序号</th>
+        <th class="align-center">丝车编号</th>
+        <th class="align-center">落丝时间</th>
+        <th class="align-center">线别</th>
+        <th class="align-center">批号</th>
+        <th class="align-center">规格</th>
+        <th class="align-center">班别</th>
+        <th class="align-center">净重（kg）</th>
+        <th class="align-center">生产日期</th>
+        <th class="align-center">工艺状态</th>
+        <th class="align-center">检验操作员</th>
+        <th class="align-center">检验时间</th>
+        <th class="align-center">位置信息</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+        <td nzShowCheckbox ></td>
+        <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
+        <td>{{data.no}}</td>
+        <td>{{data.luosishijian}}</td>
+        <td>{{data.xianbie}}</td>
+        <td>{{data.pihao}}</td>
+        <td>{{data.guige}}</td>
+        <td>{{data.banbie}}</td>
+        <td>{{data.jinzhong}}</td>
+        <td>{{data.shengchanriqi}}</td>
+        <td>{{data.gongyizhuangtai}}</td>
+        <td>{{data.luosicaozuoyuan}}</td>
+        <td>{{data.luosikaishijian}}</td>
+        <td><span class="blue-txt transparen-btn">查看</span></td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <ng-template #totalTemplate let-total>
+    <span class="m-r-sm">
+    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+      条记录，共计{{tableConfig.pageTotal}}条记录
+  </span>
+  </ng-template>
+
+
+</div>

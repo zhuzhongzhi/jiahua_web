@@ -1,0 +1,129 @@
+<app-tab-route tabTitle="角色管理">
+  <ng-container *ngIf="tabIndex === 0" nzTitle="角色管理">
+    <div class="main-content">
+      <div class="table-header clear-fix" #searchWarpEle>
+        <button nz-button class="m-r-sm" (click)="getRolesList()"><i nz-icon type="sync" theme="outline"></i></button>
+        <button nz-button nzType="primary" class="m-r-sm" (click)="switchTab('addRole')" *appAuthBtu="ActionCode.roleManageAdd">
+          <i nz-icon type="plus" theme="outline"></i>新增</button>
+        <button nz-button nzType="danger" class="m-r-sm" (click)="deleteSelected()" *appAuthBtu="ActionCode.roleManageDel">
+          <i nz-icon type="delete" theme="outline"></i>删除</button>
+      </div>
+      <div class="table-wrap" #tableWarpEle [ngStyle]="{top: searchWarpEle.clientHeight + 'px'}">
+        <nz-table nzSize="small" #nzTable [nzData]="rolesList" [nzBordered]="true"  [nzShowPagination]="false" [nzFrontPagination]="false"
+                  [nzScroll]="{y: tableWarpEle.clientHeight - theadEle.clientHeight + 'px'}">
+          <thead>
+          <tr #theadEle>
+            <th nzWidth="30px" nzShowCheckbox [(nzChecked)]="allChecked" (nzCheckedChange)="checkAll($event)" ></th>
+            <th nzWidth="300px"><span>角色名称</span></th>
+            <th nzWidth="340px"><span>备注</span></th>
+            <th nzWidth="300px"><span>操作</span></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let role of nzTable.data;trackBy:trackByRole;let roleIndex=index;">
+            <td  nzShowCheckbox [(nzChecked)]="role.checked" (nzCheckedChange)="checkSingle($event,role)"></td>
+            <td>{{role.name}}</td>
+            <td>{{role.remark}}</td>
+            <td class="operate-text" [ngClass]="{'options-cell':role.id !== '1'}">
+              <button nz-button nz-tooltip="权限分配" nzType="default" nzShape="circle" nzSize="small" (click)="switchTab('privilege',role)" *appAuthBtu="ActionCode.roleManageSetAuth"><i nz-icon type="setting" theme="outline"></i></button>
+              <button nz-button nz-tooltip="编辑" nzType="edit" nzShape="circle" nzSize="small" (click)="switchTab('editRole',role)" *appAuthBtu="ActionCode.roleManageEdit"><i nz-icon type="edit" theme="outline"></i></button>
+              <button nz-button nz-tooltip="删除" nzType="danger" nzShape="circle" nzSize="small" (click)="deleteSingle(roleIndex,role)" *appAuthBtu="ActionCode.roleManageDel"><i nz-icon type="delete" theme="outline"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="tabPage === 'addRole' || tabPage==='editRole'" >
+    <div>
+      <form nz-form class="add-form" [formGroup]="addRoleForm" (ngSubmit)="addRoleSubmit()">
+        <nz-form-item>
+          <nz-form-label nzSpan="4"><span class="font-red">*&nbsp;</span>名称&nbsp;</nz-form-label>
+          <nz-form-control nzSpan="20" >
+            <input nz-input nzSize="default" formControlName="roleName" [(ngModel)]="addRoleData.name" placeholder="给角色起个名字"/>
+            <nz-form-explain  *ngIf="addRoleData.name.length > 20">不超过20个字符</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSpan="4">备注&nbsp;</nz-form-label>
+          <nz-form-control nzSpan="20" >
+            <textarea nz-input nzSize="default" formControlName="roleRemark" [(ngModel)]="addRoleData.remark"
+                      rows="2" placeholder="请输入角色备注"></textarea>
+            <nz-form-explain *ngIf="addRoleData.remark && addRoleData.remark.length > 50">不超过50个字符</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <div nz-row>
+          <nz-form-label class="ant-form-item-label-none" nzSpan="4"></nz-form-label>
+          <div nz-col nzSpan="20">
+            <button nz-button nzType="primary" class="submit-button"  type="submit">保存</button>
+            <button nz-button nzType="primary" class="submit-button" nzGhost="true" (click)="cancelTabPage()">取消</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="tabPage === 'privilege'" >
+    <div class="privilege-wrap">
+      <div class="role-name">&nbsp;当前角色：{{privilegeRole.name}}</div>
+      <ul class="main-list ">
+        <li class="top-menu-item" *ngFor="let topMenuItem of authTree;let topMenuIndex=index;">
+          <input type="checkbox" [id]="'privilegePrivilege' + topMenuIndex" #menuControl (change)="void;" checked/>
+          <div class="menu-main-wrap">
+            <div class="top-menu-header">
+              <span>
+                <label nz-checkbox [(ngModel)]="menuCodeObj[topMenuItem.id]" [nzIndeterminate]="menuIndeterminateObj[topMenuItem.id]" (ngModelChange)="checkAllMenuState($event,[topMenuItem])">
+                  {{topMenuItem.name}}
+                </label>
+              </span>
+              <label [for]="'privilegePrivilege' + topMenuIndex">
+                <span *ngIf="menuControl.checked">展开<i class="anticon anticon-down"></i></span>
+                <span *ngIf="!menuControl.checked">收起<i class="anticon anticon-up"></i></span>
+              </label>
+            </div>
+            <div class="menu-content">
+              <div *ngFor="let sideMenuItem of topMenuItem.children;">
+                <div class="side-menu-item">
+                  <div >
+                    <label nz-checkbox [(ngModel)]="menuCodeObj[sideMenuItem.id]" [nzIndeterminate]="menuIndeterminateObj[sideMenuItem.id]" (ngModelChange)="checkAllMenuState($event,[sideMenuItem,topMenuItem])">
+                      {{sideMenuItem.name}}
+                    </label>
+                  </div>
+                  <ng-container *ngIf="!sideMenuItem.children || sideMenuItem.children.length === 0;else subGroupItem;">
+                    <div class="most-deep" *ngIf="sideMenuItem.auths.length > 0" >
+                      <span >授权:</span>
+                      <span *ngFor="let authItem of sideMenuItem.auths;">
+                        <label nz-checkbox [(ngModel)]="authCodeObj[authItem.authId]" (ngModelChange)="checkAllAuthState($event,[sideMenuItem,topMenuItem])">{{authItem.authName}}</label>
+                      </span>
+                    </div>
+                  </ng-container>
+                  <ng-template #subGroupItem>
+                    <div *ngFor="let subItem of sideMenuItem.children;" class="side-menu-item">
+                      <div>
+                        <label nz-checkbox [(ngModel)]="menuCodeObj[subItem.id]" [nzIndeterminate]="menuIndeterminateObj[subItem.id]" (ngModelChange)="checkAllMenuState($event,[subItem,sideMenuItem,topMenuItem])">
+                          {{subItem.name}}
+                        </label>
+                      </div>
+                      <div class="most-deep" *ngIf="subItem.auths.length > 0" >
+                        <span >授权:</span>
+                        <span *ngFor="let subAuthItem of subItem.auths;">
+                          <label nz-checkbox [(ngModel)]="authCodeObj[subAuthItem.authId]" (ngModelChange)="checkAllAuthState($event,[subItem,sideMenuItem,topMenuItem])">{{subAuthItem.authName}}</label>
+                        </span>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <div class="buttons-wrap">
+          <button nz-button nzType="primary" class="submit-button" (click)="setAuthSubmit()">保存</button>
+          <button nz-button nzType="primary" class="submit-button" nzGhost="true" (click)="cancelTabPage()">取消</button>
+        </div>
+      </ul>
+    </div>
+  </ng-container>
+</app-tab-route>

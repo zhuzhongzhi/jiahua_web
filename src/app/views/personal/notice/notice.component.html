@@ -1,0 +1,275 @@
+<div class="page">
+  <h3 class="page-title">通知列表</h3>
+  <div class="bg-white padding-16 notice">
+    <div class="search-form clearfix ant-form-inline">
+      <nz-form-item>
+        <nz-form-control>
+          <button (click)="showDetailModal2()" nz-button nzType="primary"><i nz-icon type="file-done"></i>处理</button>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="pull-right">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-select style="width: 100px;" [(ngModel)]="alertStatus" *ngIf="tabIndex!==1"
+                       name="alertStatus" nzAllowClear nzPlaceHolder="通知类型">
+              <nz-option *ngFor="let node of typeNodes" [nzValue]="node.alarmTypeCode" [nzLabel]="node.alarmTypeName"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <input nzSize="default" [(ngModel)]="searchName"
+                   (input)="onInput($event.target?.value)"
+                   [nzAutocomplete]="auto"
+                   nz-input type="text" placeholder="请输入车牌">
+            <nz-autocomplete nzBackfill #auto>
+              <nz-auto-option *ngFor="let option of searchVehicleList" [nzValue]="option.vehicleLicense">
+                {{option.vehicleLicense}}
+              </nz-auto-option>
+            </nz-autocomplete>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button (click)="SearchInfo()" nz-button nzType="primary"><i nz-icon type="search"></i>搜索</button>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button (click)="resetSearchInfo()" nz-button><i nz-icon type="reload"></i>重置</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <nz-tabset [nzAnimated]="false" [(nzSelectedIndex)]="tabIndex" (nzSelectedIndexChange)="tabChange([$event])">
+      <nz-tab nzTitle="全部">
+        <nz-table class="table-list" #thisTable1
+                  nzShowPagination nzShowSizeChanger [nzShowTotal]="totalTemplate1"
+                  [nzData]="listOfAllData" [nzLoading]="infoLoading"
+                  [nzFrontPagination]="false"
+                  [nzTotal]="pageTotal" [(nzPageIndex)]="pageNum" [(nzPageSize)]="pageSize"
+                  (nzPageIndexChange)="searchData1()"
+                  (nzPageSizeChange)="searchData1(true)">
+          <thead (nzSortChange)="sort($event)" [nzSingleSort]="true">
+          <tr>
+            <th nzShowCheckbox [(nzChecked)]="isAllChecked1" (nzCheckedChange)="checkAll1($event)"></th>
+            <th nzWidth="70px">序号</th>
+            <th nzShowSort nzSortKey="start_time">时间</th>
+            <th nzShowSort nzSortKey="vehicle_license">车牌号码</th>
+            <th>司机</th>
+            <th>通知类型</th>
+            <th>内容</th>
+            <th>处理状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of thisTable1.data; let i = index;">
+            <td nzShowCheckbox [(nzChecked)]="checkedId1[data.id]"
+                [nzDisabled]=""
+                (nzCheckedChange)="refreshStatus1()"></td>
+            <td>{{(pageNum - 1) * pageSize + i + 1}}</td>
+            <td>{{data.startTime}}</td>
+            <td>{{data.vehicleLicense}}</td>
+            <td>{{data.workPersonnelName}}</td>
+            <td>{{data.informTypeName}}</td>
+            <td>{{data.informContent}}</td>
+            <td>{{data.dealFlag===1?'已处理':'未处理'}}</td>
+            <td>
+              <span (click)="showModal2(data)" class="blue-txt transparen-btn">详情</span>
+              <i *ngIf="data.dealFlag!==1" class="line"></i>
+              <span *ngIf="data.dealFlag!==1" (click)="showDetailModal(data)" class="blue-txt transparen-btn">处理</span>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+        <ng-template #totalTemplate1 let-total>
+          <span class="m-r-sm">
+            当前显示第{{(pageNum-1)*pageSize+1}}至第{{pageNum*pageSize-pageTotal>0?pageTotal:pageNum*pageSize}}条记录，共计{{pageTotal}}条记录
+          </span>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="保养提醒">
+        <nz-table class="table-list" #thisTable2
+                  nzShowPagination nzShowSizeChanger [nzShowTotal]="totalTemplate2"
+                  [nzData]="listOfKeepData" [nzLoading]="infoLoading2"
+                  [nzFrontPagination]="false"
+                  [nzTotal]="pageTotal2" [(nzPageIndex)]="pageNum2" [(nzPageSize)]="pageSize2"
+                  (nzPageIndexChange)="searchData2()"
+                  (nzPageSizeChange)="searchData2(true)">
+          <thead (nzSortChange)="sort($event)" [nzSingleSort]="true">
+          <tr>
+            <th nzShowCheckbox [(nzChecked)]="isAllChecked3" (nzCheckedChange)="checkAll2($event)"></th>
+            <th nzWidth="70px">序号</th>
+            <th nzShowSort nzSortKey="start_time">时间</th>
+            <th nzShowSort nzSortKey="vehicle_license">车牌号码</th>
+            <th>司机</th>
+            <th>通知类型</th>
+            <th>内容</th>
+            <th>处理状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of thisTable2.data; let i = index;">
+            <td nzShowCheckbox [(nzChecked)]="checkedId2[data.id]"
+                [nzDisabled]=""
+                (nzCheckedChange)="refreshStatus2()"></td>
+            <td>{{(pageNum - 1) * pageSize + i + 1}}</td>
+            <td>{{data.startTime}}</td>
+            <td>{{data.vehicleLicense}}</td>
+            <td>{{data.workPersonnelName}}</td>
+            <td>{{data.informTypeName}}</td>
+            <td>{{data.informContent}}</td>
+            <td>{{data.dealFlag===1?'已处理':'未处理'}}</td>
+            <td>
+              <span (click)="showModal2(data)" class="blue-txt transparen-btn">详情</span>
+              <i *ngIf="data.dealFlag===0" class="line"></i>
+              <span *ngIf="data.dealFlag===0" (click)="showDetailModal(data)" class="blue-txt transparen-btn">处理</span>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+        <ng-template #totalTemplate2 let-total>
+          <span class="m-r-sm">
+            当前显示第{{(pageNum2-1)*pageSize2+1}}至第{{pageNum2*pageSize2-pageTotal2>0?pageTotal2:pageNum2*pageSize2}}条记录，共计{{pageTotal2}}条记录
+          </span>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="车辆报警">
+        <nz-table class="table-list" #thisTable3
+                  nzShowPagination nzShowSizeChanger [nzShowTotal]="totalTemplate3"
+                  [nzData]="listOfAlarmData" [nzLoading]="infoLoading3"
+                  [nzFrontPagination]="false"
+                  [nzTotal]="pageTotal3" [(nzPageIndex)]="pageNum3" [(nzPageSize)]="pageSize3"
+                  (nzPageIndexChange)="searchData3()"
+                  (nzPageSizeChange)="searchData3(true)">
+          <thead (nzSortChange)="sort($event)" nzSingleSort>
+          <tr>
+            <th nzShowCheckbox [(nzChecked)]="isAllChecked3" (nzCheckedChange)="checkAll3($event)"></th>
+            <th nzWidth="70px">序号</th>
+            <th nzShowSort nzSortKey="start_time">时间</th>
+            <th nzShowSort nzSortKey="vehicle_license">车牌号码</th>
+            <th>司机</th>
+            <th>通知类型</th>
+            <th>内容</th>
+            <th>处理状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of thisTable3.data; let i = index;">
+            <td nzShowCheckbox [(nzChecked)]="checkedId3[data.id]"
+                [nzDisabled]=""
+                (nzCheckedChange)="refreshStatus3()"></td>
+            <td>{{(pageNum - 1) * pageSize + i + 1}}</td>
+            <td>{{data.startTime}}</td>
+            <td>{{data.vehicleLicense}}</td>
+            <td>{{data.workPersonnelName}}</td>
+            <td>{{data.informTypeName}}</td>
+            <td>{{data.informContent}}</td>
+            <td>{{data.dealFlag===1||data.dealFlag==='1'?'已处理':'未处理'}}</td>
+            <td>
+              <span (click)="showModal2(data)" class="blue-txt transparen-btn">详情</span>
+              <i *ngIf="data.dealFlag!==1" class="line"></i>
+              <span *ngIf="data.dealFlag!==1" (click)="showDetailModal(data)" class="blue-txt transparen-btn">处理</span>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+        <ng-template #totalTemplate3 let-total>
+          <span class="m-r-sm">
+            当前显示第{{(pageNum3-1)*pageSize3+1}}至第{{pageNum3*pageSize3-pageTotal3>0?pageTotal3:pageNum3*pageSize3}}条记录，共计{{pageTotal3}}条记录
+          </span>
+        </ng-template>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+
+<!--弹框——处理弹框-->
+<nz-modal [(nzVisible)]="detailModal.show1" [nzTitle]="detailModal.title"
+          [nzFooter]="modelFooter1"
+          (nzOnCancel)="handleDetailCancel()">
+  <form nz-row class="modal-form">
+    <nz-form-item class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4" for="handleVal">处理类型</label>
+      <div nz-col nzSpan="20" class="form-control">
+        <nz-select style="width: 100%;" [(ngModel)]="handleVal"
+                   name="handleVal" id="handleVal">
+          <nz-option *ngFor="let node of handleNodes" [nzValue]="node.val" [nzLabel]="node.label"></nz-option>
+        </nz-select>
+      </div>
+    </nz-form-item>
+    <nz-form-item class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4" for="handleContent">处理内容</label>
+      <div nz-col nzSpan="20" class="form-control">
+        <div class="textarea">
+        <textarea nz-input [nzAutosize]="{minRows: 3, maxRows: 6}" maxlength="100"
+                  [(ngModel)]="handleContent" name="handleContent" id="handleContent" type="text"></textarea>
+          <span class="text-num">{{handleContent?handleContent.length:0}}/100</span>
+        </div>
+
+      </div>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+<ng-template #modelFooter1>
+  <button nz-button nzType="primary" (click)="handleDetailSave()" [nzLoading]="detailModal.loading"><i nz-icon type="save"></i>保存</button>
+  <button nz-button nzType="default" (click)="handleDetailCancel()"><i nz-icon type="undo"></i>取消</button>
+</ng-template>
+
+<!--报警详情弹框-->
+<nz-modal [(nzVisible)]="detailModal.show2"
+          (nzOnCancel)="cancelModal2()"
+          [nzFooter]="null" [nzTitle]="detailModal.title"
+          nzWidth="800px" class="padding-0">
+  <app-cehicle-detail-model *ngIf="detailModal.show2" [info]="alarmDetailInfo"></app-cehicle-detail-model>
+</nz-modal>
+
+<!--保养详情弹框-->
+<nz-modal [(nzVisible)]="detailModal.show3" (nzOnCancel)="cancelModal3()"
+          [nzFooter]="null" [nzTitle]="detailModal.title">
+  <form nz-row class="modal-form">
+    <h4 class="form-item">车辆信息</h4>
+    <div class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4">车牌号码</label>
+      <div nz-col nzSpan="20" class="form-control">
+        {{keepDetailInfo.num}}
+      </div>
+    </div>
+    <div class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4">机构名称</label>
+      <div nz-col nzSpan="20" class="form-control">
+        {{keepDetailInfo.section}}
+      </div>
+    </div>
+
+    <h4 class="form-item">保养信息</h4>
+    <div class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4">保养类型</label>
+      <div nz-col nzSpan="20" class="form-control">
+        {{keepDetailInfo.type}}
+      </div>
+    </div>
+    <div class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4">保养数值</label>
+      <div nz-col nzSpan="20" class="form-control">
+        {{keepDetailInfo.val}}
+      </div>
+    </div>
+    <div class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4">当前数值</label>
+      <div nz-col nzSpan="20" class="form-control">
+        {{keepDetailInfo.curVal}}
+      </div>
+    </div>
+    <div class="form-item" nz-row>
+      <label class="inline-block" nz-col nzSpan="4">状态</label>
+      <div nz-col nzSpan="20" class="form-control">
+        {{keepDetailInfo.state}}
+      </div>
+    </div>
+  </form>
+</nz-modal>

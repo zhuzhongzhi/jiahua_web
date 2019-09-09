@@ -1,0 +1,51 @@
+.card{
+  margin-bottom: 16px;
+  margin-left: 27px;
+  width: 250px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #ccc;
+  .top{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px 8px;
+    .avatar{
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      margin-right: 20px;
+      img{
+        width: 100%;
+      }
+    }
+    p{
+      margin-bottom: 2px;
+      font-size: 12px;
+    }
+    h4{
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+  }
+  .state{
+    padding: 4px 8px 5px;
+    color: #fff;
+    text-align: center;
+  }
+}
+.bg-red{
+  background-color: #F97372;
+}
+.bg-yellow{
+  background-color: #F9CB72;
+}
+.bg-blue{
+  background-color: #95ACDF;
+}
+.bg-gray{
+  background-color: #ccc;
+}
+.bg-green{
+  background-color: #38DDB8;
+}

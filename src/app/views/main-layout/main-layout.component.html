@@ -1,0 +1,105 @@
+<nz-layout class="layout full-screen">
+  <!--头部-->
+  <nz-header class="header">
+    <div class="logo"><img src="/assets/image/jiahua/jiahua.png"></div>
+    <h2 class="brand-name">浙江嘉华丝车监控&质量管理系统</h2>
+    <div class="right">
+      <div class="welcome">
+        你好，ADMIN
+      </div>
+      <nz-divider nzType="vertical" class="welcome"></nz-divider>
+      <div class="welcome">
+        <i class="anticon anticon-poweroff margin-r-10"></i>退出
+      </div>
+    </div>
+  </nz-header>
+  <!--下边-->
+  <nz-layout>
+    <nz-sider [nzWidth]="170" style="background-color: rgba(38, 44, 92, 1);">
+      <ul nz-menu [nzMode]="'inline'" style="height:100%;background-color: rgb(38, 44, 92);">
+        <ng-container *ngFor="let menu of mainMenu">
+          <ng-container *ngIf="menu.url === '/monitor'">
+            <a target="_blank" style="color: #FFFFFF">
+              <li nz-menu-item class="noselect" (click)="selectMenu(menu)">
+                <img src="../../../assets/image/jiahua/monitor.png" class="menu-icon"/><span title>{{menu.name}}
+              </span>
+              </li>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="menu.url==='/system'">
+            <a target="_blank" style="color: #FFFFFF">
+              <li nz-menu-item class="noselect" (click)="selectMenu(menu)">
+                <img src="../../../assets/image/jiahua/system.png" class="menu-icon" style="width: 18px;"/><span title>{{menu.name}}
+              </span>
+              </li>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="menu.url!=='/system' && menu.url !== '/monitor'">
+            <li nz-submenu class="noselect" [(nzOpen)]="menu.open" (nzOpenChange)="openHandle(menu.id)">
+              <span title><img src="../../../assets/image/jiahua/produce.png" class="menu-icon" style="width: 18px;"/>{{menu.name}}
+              </span>
+              <ul>
+                <li nz-menu-item *ngFor="let child of menu.children" (click)="selectMenu(child)"
+                    [(nzSelected)]="child.open">
+                  {{child.name}}
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </nz-sider>
+    <nz-layout style="height: 100%">
+      <nz-sider [nzWidth]="160" style="background: #f0f2f5;margin: 16px;margin-right: 0px; color: #000" class="subMenu">
+        <ul nz-menu [nzMode]="'inline'" style="height:100%;background-color: #fff;">
+          <ng-container *ngFor="let menu of subMenu">
+            <ng-container>
+              <a target="menu.url" style="color: #000">
+                <li nz-menu-item class="noselect" (click)="goRoute(menu)">
+                  <span title>{{menu.name}}
+              </span>
+                </li>
+              </a>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </nz-sider>
+      <nz-content style="height: 100%">
+        <div class="content-container">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
+<ng-template #noticeTemplate let-notification>
+  <div class="ant-notification-notice-content">
+    <div>
+      <div class="ant-notification-notice-message">提示消息</div>
+      <div class="ant-notification-notice-description">
+        <b>{{noticeInfo?.vehicleLicense}}</b>
+        于
+        <b>{{noticeInfo?.alarmTime}}</b>
+        <b *ngIf="noticeInfo && noticeInfo.address">在 {{noticeInfo?.address}}</b>
+        <span *ngIf="noticeInfo&&noticeInfo.messageType>0 && noticeInfo.messageType<=alertStatusNode.length">
+          发生{{alertStatusNode[noticeInfo?.messageType + 1]?.alarmTypeName}}报警
+        </span>
+        <span *ngIf="noticeInfo&&noticeInfo.messageContent">({{noticeInfo?.messageContent}})</span>
+
+      </div>
+      <span class="ant-notification-notice-btn">
+            <button nz-button nzType="primary" nzSize="small" (click)="lookNoticeDetail()">
+              <span>查看详情</span>
+            </button>
+          </span>
+    </div>
+  </div>
+</ng-template>
+
+<!--报警详情弹框-->
+<nz-modal [(nzVisible)]="showAlarmModel"
+          (nzOnCancel)="cancleAlarm()"
+          [nzFooter]="null" [nzTitle]="alarmTitle"
+          nzWidth="800px" class="padding-0">
+  <app-cehicle-detail-model *ngIf="showAlarmModel" [info]="alarmDetailInfo"></app-cehicle-detail-model>
+</nz-modal>

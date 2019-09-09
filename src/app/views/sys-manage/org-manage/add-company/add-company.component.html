@@ -1,0 +1,155 @@
+<div class="companyform clear-fix">
+<form nz-form [formGroup]="companyForm">
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6" nzRequired>公司名称</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="orgName">
+        <nz-form-explain *ngIf="companyForm.get('orgName').dirty && companyForm.get('orgName').errors">必填项，请输入
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6" nzRequired>公司性质</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <nz-select formControlName="orgNature" nzPlaceHolder="==请选择==">
+          <nz-option *ngFor="let nature of companyNatureList" [nzLabel]="nature.name" [nzValue]="nature.id">
+          </nz-option>
+        </nz-select>
+        <nz-form-explain *ngIf="companyForm.get('orgNature').dirty && companyForm.get('orgNature').errors">必填项，请选择</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6" nzRequired>外文名称</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="engName">
+        <nz-form-explain *ngIf="companyForm.get('engName').dirty && companyForm.get('engName').errors">必填项，请输入
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6" nzRequired>中文名称</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="chineseName">
+        <nz-form-explain *ngIf="companyForm.get('chineseName').dirty && companyForm.get('chineseName').errors">必填项，请输入
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6" nzRequired>管理员账号</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="loginName" [maxlength]="MaxInputLenEnum.Default" [disabled]="true">
+        <nz-form-explain *ngIf="companyForm.get('loginName').dirty && companyForm.get('loginName').errors">必填项，请输入
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">成立时间</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <nz-date-picker formControlName="setupDate"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">负责人</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="principal">
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">电话</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="tel" spellcheck="false" />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">电子邮箱</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="email" spellcheck="false" />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">传真</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="fax" spellcheck="false" />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">邮编</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="zipcode" />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">公司地点</nz-form-label>
+      <nz-form-control nzSpan="16"  (click)="showPositionLocation()">
+        <nz-input-group [nzSuffix]="suffixTemplate">
+          <input nz-input formControlName="fullAddress" style="cursor: pointer"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">公司网址</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="companyWebsite">
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label nzSpan="6">经营范围</nz-form-label>
+      <nz-form-control nzSpan="16">
+        <input nz-input formControlName="scopeBusiness">
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="24">
+    <nz-form-item>
+      <nz-form-label nzSpan="3">备注说明</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <textarea nz-input formControlName="remark" rows="2" placeholder="请输入文本"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="24">
+  <nz-form-item *ngIf="!companyInfo">
+    <nz-form-label nzSpan="3" class="font-red-color">注</nz-form-label>
+    <nz-form-control  nzSpan="20" class="font-red-color">
+      管理员初始密码为：123456
+    </nz-form-control>
+  </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="24">
+    <nz-form-item style="height: auto;">
+      <nz-form-control nzSpan="20" nzOffset="3">
+        <button nz-button nzType="primary" class="m-r-sm" (click)="submitCompany()">保存</button>
+        <button nz-button nzType="info" (click)="emitFinish()">取消</button>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</form>
+<ng-template #suffixTemplate><i class="iconfont icon-location cursor-pointer"></i></ng-template>
+</div>

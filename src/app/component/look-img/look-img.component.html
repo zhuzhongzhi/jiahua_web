@@ -1,0 +1,30 @@
+<div class="look-img">
+  <div class="prev" (click)="prev()">
+    <i nz-icon type="left"></i>
+  </div>
+  <div class="next" (click)="next()">
+    <i nz-icon type="right"></i>
+  </div>
+  <!--<nz-carousel nzEffect="scrollx">-->
+    <!--<div nz-carousel-content *ngFor="let item of imgList" class="img-kuang">-->
+      <!--<h3>item</h3>-->
+      <!--&lt;!&ndash;<div class="img-kuang">&ndash;&gt;-->
+        <!--<img [src]="'/iot/SysObjectStorage/read?fileId='+item"/>-->
+        <!--&lt;!&ndash;<img [src]="item"/>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+  <!--</nz-carousel>-->
+  <div class="carousel-display">
+    <ul class="carousel" [ngStyle]="carouselStyle">
+      <li class="carousel-item" *ngFor="let fileId of imgList">
+        <div class="img-kuang" [style.background-image]="'url(/iot/SysObjectStorage/read?fileId='+fileId+')'">
+          <!--<img [src]="'/iot/SysObjectStorage/read?fileId='+index"/>-->
+        </div>
+      </li>
+    </ul>
+    <ul class="carouse-dot">
+      <li *ngFor="let fileId of imgList; let i = index;" (click)="sele(i)"
+          [class.active]="i===carouselIndex" class="dot-item"></li>
+    </ul>
+  </div>
+</div>

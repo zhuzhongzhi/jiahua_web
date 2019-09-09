@@ -1,0 +1,43 @@
+<!--<app-tab-route tabTitle="个人信息">-->
+  <div>
+    <h3 class="page-title">个人信息</h3>
+    <form nz-form class="add-form">
+      <nz-form-item>
+        <nz-form-label nzSpan="4">登录名称&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-form-text>{{userInfo.loginName}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSpan="4">登录密码&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-form-text>******&emsp;<span class="operate-text" (click)="navigatePd()">修改密码</span></nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSpan="4">所属机构&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-form-text>{{userInfo?.deptName}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSpan="4">角色&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-form-text>{{userInfo.roleNames}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSpan="4">真实姓名&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-form-text>{{userInfo.name}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzSpan="4">手机号&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-form-text>{{userInfo.mobile}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+<!--</app-tab-route>-->

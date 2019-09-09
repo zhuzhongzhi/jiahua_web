@@ -1,0 +1,6 @@
+<div #googleMapContainer style="width: 100%;height: 100%"></div>
+<!--弹框-->
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="" (nzOnCancel)="handleDetailCancel()" [nzFooter]="null" nzWidth="1000px"
+          class="padding-0">
+  <app-cehicle-model *ngIf="detailModal.show" [info]="detailInfo"></app-cehicle-model>
+</nz-modal>

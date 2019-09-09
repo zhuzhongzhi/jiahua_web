@@ -1,0 +1,56 @@
+.card {
+  //margin-bottom: 16px;
+  //margin-left: 27px;
+  //width: 520px;
+  width: 100%;
+  // background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #ccc;
+  height: 100%;
+  position: relative;
+
+  .top {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px 8px;
+  }
+  .ditu {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+  .weixing {
+    position: absolute;
+    right: 8px;
+    bottom: 34px;
+    width: 45px;
+    height: 45px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .state {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    padding: 4px 0 4px;
+    color: #fff;
+    text-align: center;
+  }
+}
+
+.bg-gray {
+  background-color: #ccc;
+}
+
+.org-veh-tree {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.ant-radio-group{
+  font-size: 12px;
+}

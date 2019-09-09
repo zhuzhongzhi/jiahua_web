@@ -1,0 +1,7 @@
+<nz-form-item class="no-margin">
+  <label nz-checkbox [(ngModel)]="refreshParams.isAutoRefresh" (ngModelChange)="refreshAuto($event)">自动刷新</label>
+  <nz-select style="width: 80px;" [(ngModel)]="refreshParams.refreshTime" nzPlaceHolder="==请选择==" (ngModelChange)="updateRefreshTime()">
+    <nz-option *ngFor="let time of refreshParams.timeList" [nzLabel]="time.label" [nzValue]="time.value"></nz-option>
+  </nz-select>
+  <label class="m-l-sm">刷新一次</label>
+</nz-form-item>

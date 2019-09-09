@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="top">
+    <div class="avatar" [ngSwitch]="info.vehicleTypeName">
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='叉车'" src="../../../assets/image/chache.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='油罐车'" src="../../../assets/image/youguanche.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='渣包车'" src="../../../assets/image/zhabaoche.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='重型汽车'" src="../../../assets/image/zhongxingqiche.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='装载机'" src="../../../assets/image/zhuangzaiche.png" alt="">-->
+      <img *ngSwitchCase="'叉车'" src="../../../assets/image/chache.png" alt="">
+      <img *ngSwitchCase="'油罐车'" src="../../../assets/image/youguanche.png" alt="">
+      <img *ngSwitchCase="'渣包车'" src="../../../assets/image/zhabaoche.png" alt="">
+      <img *ngSwitchCase="'重型汽车'" src="../../../assets/image/zhongxingqiche.png" alt="">
+      <img *ngSwitchCase="'装载机'" src="../../../assets/image/zhuangzaiche.png" alt="">
+      <img *ngSwitchCase="'挖掘机'" src="../../../assets/image/wajueji.png" alt="">
+    </div>
+    <div class="content">
+      <h4 class="title">{{info.vehicleLicense}}</h4>
+      <p class="section">{{info.deptName}}</p>
+      <p class="team">{{info.workGroupName}}</p>
+      <p class="driver">{{info.workPersonnelName}}</p>
+    </div>
+  </div>
+  <div *ngIf="info.alarmTypeCode" class="bg-red state text-ellipsis">
+    {{info.alarmTypeStr}}
+  </div>
+  <div *ngIf="!info.alarmTypeCode && info.vehicleState==='3'" class="bg-yellow state">
+    维修
+  </div>
+  <!--<div *ngIf="!info.alarmTypeCode && info.vehicleState==='2'" class="bg-yellow state">-->
+    <!--怠速-->
+  <!--</div>-->
+  <div *ngIf="!info.alarmTypeCode && info.vehicleState==='0'" class="bg-blue state">
+    闲置
+  </div>
+  <div *ngIf="!info.alarmTypeCode && (info.vehicleState==='1' || info.vehicleState==='2' || !info.vehicleState) && info.onlineState==='0'" class="bg-gray state">
+    离线
+  </div>
+  <div *ngIf="!info.alarmTypeCode && (info.vehicleState==='1' || info.vehicleState==='2' || !info.vehicleState) && info.onlineState==='1'" class="bg-green state">
+    工作
+  </div>
+</div>

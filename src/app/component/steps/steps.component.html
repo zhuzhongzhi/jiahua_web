@@ -1,0 +1,13 @@
+<div class="steps">
+  <ng-container *ngFor="let item of info">
+    <div class="step" [ngClass]="item.detail&&item.detail.length>0?'over':''">
+      <div class="step-icon">
+        <i *ngIf="item.detail && item.detail.length > 0" nz-icon type="check"></i>
+        <i *ngIf="!item.detail || item.detail.length === 0" nz-icon type="info"></i>
+      </div>
+      <div class="step-title">{{item.label}}</div>
+      <div class="step-description">{{item.detail}}</div>
+    </div>
+    <div class="step-line"></div>
+  </ng-container>
+</div>

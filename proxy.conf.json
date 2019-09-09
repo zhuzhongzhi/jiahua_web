@@ -1,0 +1,18 @@
+{
+
+  "/site": {
+    "target": "http://10.90.1.226:9002/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/site": "/"
+    }
+  },
+  "/iot": {
+    "target": "http://10.90.1.226:9002/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

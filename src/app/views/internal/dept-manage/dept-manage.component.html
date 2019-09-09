@@ -1,0 +1,99 @@
+<app-tab-route tabTitle="部门管理">
+  <ng-container *ngIf="tabPageType === 0">
+    <div class="main-content">
+    <div class="table-header clear-fix" #searchWarpEle>
+      <button nz-button class="m-r-sm" (click)="getDepts()"><i nz-icon type="sync" theme="outline"></i></button>
+      <button nz-button nzType="primary" class="m-r-sm" (click)="addOrEditDept(1)" *appAuthBtu="ActionCode.deptManageAdd">
+        <i nz-icon type="plus" theme="outline"></i>新增</button>
+    </div>
+    <div class="table-wrap" #tableWarpEle [ngStyle]="{top: searchWarpEle.clientHeight + 'px'}">
+      <nz-table nzSize="small" [nzShowPagination]="false" #deptTable [nzData]="deptDataList" [nzBordered]="true"
+                [nzLoading]="loading" [nzScroll]="{y: tableWarpEle.clientHeight - theadEle.clientHeight + 'px'}">
+        <thead>
+        <tr #theadEle>
+          <th [nzWidth]="'50%'">部门名称</th>
+          <th [nzWidth]="'50%'">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let oneLevel of deptDataList;trackBy:trackById;">
+          <tr>
+            <td>
+              <i class="anticon anticon-plus-square-o" (click)="expandDepts(oneLevel)"
+                 *ngIf="oneLevel.leaf === 0 && !oneLevel.expand"></i>
+              <i class="anticon anticon-minus-square-o" (click)="expandDepts(oneLevel)"
+                 *ngIf="oneLevel.leaf === 0 && oneLevel.expand"></i>
+              <span>{{oneLevel.name}}</span>
+            </td>
+            <td class="operate-text">
+              <button nz-button nz-tooltip="编辑" nzType="default" nzShape="circle" nzSize="small" (click)="addOrEditDept(2,oneLevel)" *appAuthBtu="ActionCode.deptManageEdit"><i nz-icon type="edit" theme="outline"></i></button>
+              <button nz-button nz-tooltip="删除" nzType="danger" nzShape="circle" nzSize="small" (click)="deleteDept(oneLevel)" *appAuthBtu="ActionCode.deptManageDel"><i nz-icon type="delete" theme="outline"></i></button>
+              <button nz-button nz-tooltip="添加下级部门" nzType="default" nzShape="circle" nzSize="small" (click)="addOrEditDept(1,oneLevel)" *appAuthBtu="ActionCode.deptManageAddSub"><i nz-icon type="folder-add" theme="outline"></i></button>
+            </td>
+          </tr>
+          <ng-container *ngIf="oneLevel.expand && oneLevel.children">
+            <ng-container *ngFor="let twoLevel of oneLevel.children;trackBy:trackById;">
+              <tr>
+                <td [ngStyle]="{paddingLeft:'30px'}">
+                  <i class="anticon anticon-plus-square-o" (click)="expandDepts(twoLevel)"
+                     *ngIf="twoLevel.leaf === 0 && !twoLevel.expand"></i>
+                  <i class="anticon anticon-minus-square-o" (click)="expandDepts(twoLevel)"
+                     *ngIf="twoLevel.leaf === 0 && twoLevel.expand"></i>
+
+                  <span>{{twoLevel.name}}</span>
+                </td>
+                <td class="operate-text">
+                    <button nz-tooltip="编辑" nz-button nzType="default" nzShape="circle" nzSize="small" (click)="addOrEditDept(2,twoLevel)"><i nz-icon type="edit" theme="outline"></i></button>
+                    <button nz-tooltip="删除" nz-button nzType="danger" nzShape="circle" nzSize="small" (click)="deleteDept(twoLevel,oneLevel)"><i nz-icon type="delete" theme="outline"></i></button>
+                    <button nz-tooltip="添加下级部门"  nz-button nzType="default" nzShape="circle" nzSize="small" (click)="addOrEditDept(1,twoLevel)"><i nz-icon type="folder-add" theme="outline"></i></button>
+                </td>
+              </tr>
+              <ng-container *ngIf="twoLevel.expand && twoLevel.children">
+                <ng-container *ngFor="let threeLevel of twoLevel.children;trackBy:trackById;">
+                  <tr>
+                    <td [ngStyle]="{paddingLeft:'60px'}">
+                      <span>{{threeLevel.name}}</span>
+                    </td>
+                    <td class="operate-text">
+                        <button nz-tooltip="编辑" nz-button nzType="edit" nzShape="circle" nzSize="small" (click)="addOrEditDept(2,threeLevel)"><i nz-icon type="edit" theme="outline"></i></button>
+                        <button nz-tooltip="删除" nz-button nzType="danger" nzShape="circle" nzSize="small" (click)="deleteDept(threeLevel,twoLevel)"><i nz-icon type="delete" theme="outline"></i></button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <tr></tr>
+        </tbody>
+      </nz-table>
+    </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tabPageType!==0">
+    <form nz-form class="dept-form">
+      <nz-form-item>
+        <nz-form-label nzSpan="4"><span class="font-red-color">*&nbsp;</span>名称&nbsp;</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <input nz-input maxlength="50" [(ngModel)]="addOrEditName" name="deptName" placeholder="给部门起个名字"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="dept-button">
+        <nz-form-label class="ant-form-item-label-none" nzSpan="4"></nz-form-label>
+        <div nz-col nzSpan="20">
+          <button nz-button nzType="primary" nzSize="large" class="submit-button" (click)="editOrAddSubmit()">保存
+          </button>
+          <button nz-button nzType="primary" nzSize="large" nzGhost="true" class="submit-button"
+                  (click)="toggleMainPage()">取消
+          </button>
+        </div>
+      </nz-form-item>
+    </form>
+  </ng-container>
+
+</app-tab-route>
+
+
+<ng-template #navBreakcrumb>
+  <app-nav-breadcrumb></app-nav-breadcrumb>
+</ng-template>

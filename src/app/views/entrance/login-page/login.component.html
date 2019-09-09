@@ -1,0 +1,87 @@
+<div class="login-bg">
+  <div class="login-title">
+    <span style="font-size:40px;color:#fff">浙江嘉华丝车监控&质量管理系统</span>
+  </div>
+  <div class="wrap">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="loginSubmit()">
+      <nz-form-item class="form-item">
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixUser">
+            <input nz-input formControlName="userName" nzSize="default"
+                   spellcheck="false" placeholder="用户名"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixLock">
+            <input nz-input formControlName="password" nzSize="default"
+                   type="password" placeholder="密码"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="remark-row">
+        <div nz-col nzSpan="4">&nbsp;</div>
+        <div nz-col nzSpan>{{remark}}</div>
+      </div>
+      <nz-form-item class="margin-none">
+        <nz-form-control>
+          <!--<label class="check-line" nz-checkbox formControlName="remember">-->
+            <!--<span>记住密码</span>-->
+          <!--</label>-->
+          <button nz-button nzType="primary" type="submit" [nzLoading]="loading" [disabled]="!validateForm.valid"
+                  nzBlock>登录
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #prefixUser><i class="iconfont icon-zhanghu"></i></ng-template>
+    <ng-template #prefixLock><i class="iconfont icon-mima"></i></ng-template>
+  </div>
+  <div class="footer" >
+    <p></p>
+    <p><a style="color:#d0d0d0" target="_blank" href="http://www.beian.miit.gov.cn/">Copyright © 2019 taihua all rights reserved 台华新材料股份有限公司　　　　　网站备案/许可证号： 浙ICP备13010893号-2</a></p>
+  </div>
+</div>
+
+<!--重置密码弹框-->
+<nz-modal [(nzVisible)]="detailModal.show1" nzTitle="修改密码" (nzOnCancel)="handleCancelModel1()"
+          [nzFooter]="modelFooter1" [nzMaskClosable]="false">
+  <form nz-form class="add-form" [formGroup]="resetPasswordForm">
+    <nz-form-item>
+      <nz-form-label nzSpan="5">原密码&nbsp;<span class="font-red-color">*</span></nz-form-label>
+      <nz-form-control nzSpan="19">
+        <input nz-input formControlName="oldPassword" spellcheck="false" type="password"/>
+        <nz-form-explain
+          *ngIf="resetPasswordForm.get('oldPassword')?.dirty && resetPasswordForm.get('oldPassword')?.errors">
+          请填写确认密码
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="5">新密码&nbsp;<span class="font-red-color">*</span></nz-form-label>
+      <nz-form-control nzSpan="19">
+        <input nz-input formControlName="newPassword" spellcheck="false" type="password"/>
+        <nz-form-explain>由6到20位大小写字母、数字或其他字符组成</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="5">确认新密码&nbsp;<span class="font-red-color">*</span></nz-form-label>
+      <nz-form-control nzSpan="19">
+        <input nz-input formControlName="secPassword" type="password"/>
+        <nz-form-explain *ngIf="resetPasswordForm.get('secPassword')?.hasError('required')">
+          请填写确认新密码
+        </nz-form-explain>
+        <nz-form-explain *ngIf="resetPasswordForm.get('secPassword')?.hasError('confirm')">
+          确认新密码与新密码不相同
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+<ng-template #modelFooter1>
+  <button nz-button nzType="primary" (click)="saveModel1()" [nzLoading]="detailModal.loading"><i nz-icon
+                                                                                                 type="save"></i>保存
+  </button>
+  <button nz-button nzType="default" (click)="handleCancelModel1()"><i nz-icon type="undo"></i>取消</button>
+</ng-template>
