@@ -174,7 +174,7 @@
 
 //表格样式
 .table-list .ant-table{
-  height: calc(100vh - 284px);
+  //height: calc(100vh - 284px);
   overflow: auto;
   .ant-table-thead th{
     position: sticky;

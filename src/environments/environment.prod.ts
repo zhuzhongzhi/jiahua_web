@@ -17,7 +17,10 @@ export const gatewayKey = {
   /**
    * 基础服务
    */
-  Bs: 'bs'
+  Bs: 'bs',
+  Auth: 'auth',
+  Iot: 'iot',
+  Gen: 'gen'
 };
 
 export const environment = {

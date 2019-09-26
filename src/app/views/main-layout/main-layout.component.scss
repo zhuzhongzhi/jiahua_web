@@ -233,7 +233,7 @@
 
 .content-container {
   position: relative;
-  height: 100%;
+  //height: 100%;
   margin:16px;
   background-color:#fff;
 }
@@ -249,7 +249,7 @@ a-color {
 
 .menu-icon {
   height: 16px;
-  margin-right: 5px;
+  margin-right: 10px;
   margin-top: -2px;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {

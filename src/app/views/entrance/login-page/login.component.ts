@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserServiceNs, UserService} from '../../../core/common-services/user.service';
+import {UserService, UserServiceNs} from '../../../core/common-services/user.service';
 import {StorageProvider} from '../../../core/common-services/storage';
 import {UfastValidatorsService} from '../../../core/infra/validators/validators.service';
-import {environment} from '../../../../environments/environment';
 import {ShowMessageService} from '../../../widget/show-message/show-message';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {CookieService} from 'ngx-cookie-service';
+
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router,
               private storage: StorageProvider, private validator: UfastValidatorsService,
               private formBuilder: FormBuilder, private activeRouter: ActivatedRoute,
-              private messageService: ShowMessageService, private modalService: NzModalService
+              private messageService: ShowMessageService, private modalService: NzModalService,
+              private message: NzMessageService, private cookieService: CookieService
   ) {
     this.remark = '';
     this.loading = false;
@@ -40,39 +42,42 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.invalid) {
       return;
     }
-    this.storage.setItem('jiangtong_remember_account', this.validateForm.value.remember ? 1 : 0);
-    if (this.validateForm.value.remember) {
-      this.storage.setObject('jiangtong_account', {username: this.validateForm.value.userName, password: this.validateForm.value.password});
-    }
-    // this.loading = true;
-    this.router.navigate(['../main/latheManage'], {
-      relativeTo: this.activeRouter
-    });
+    this.loading = true;
 
-    // this.userService.postLogin({loginName: this.validateForm.value.userName, password: this.validateForm.value.password})
-    //   .subscribe((resData: UserServiceNs.AuthAnyResModel) => {
-    //     this.loading = false;
-    //
-    //     if (resData.code !== 0) {
-    //       this.remark = resData.message;
-    //       return;
-    //     }
-    //     if (this.validateForm.value.password === '123456') {
-    //       this.modalService.info({
-    //         nzTitle: '您当前的密码过于简单，请修改密码',
-    //         nzOnOk: () => {
-    //           this.showModel1();
-    //         }
-    //       });
-    //       return;
-    //     }
-    //     this.router.navigate(['../main/sysManage'], {
+    // axios.post('http://localhost:4202/site/iot-server/jiahua/user/login', {
+    //   userName: this.validateForm.value.userName,
+    //   password: this.validateForm.value.password
+    // }).then(res => {
+    //   if(res.status === 200) {
+    //     this.message.success('登录成功');
+    //     this.cookieService.set('authCode', res.data);
+    //     this.router.navigate(['../main/latheManage'], {
     //       relativeTo: this.activeRouter
     //     });
-    //   }, (error: UserServiceNs.HttpError) => {
-    //     this.remark = error.message;
-    //     this.loading = false;
-    //   });
+    //   }
+    // });
+    this.userService.login({userName: this.validateForm.value.userName, password: this.validateForm.value.password})
+      .subscribe((resData) => {
+        console.log(resData);
+        this.loading = false;
+        // if (resData.code !== 0) {
+        //   this.message.warning(resData.message);
+        //   return;
+        // }
+
+        // 简易密码校验
+        this.message.success('登录成功');
+        sessionStorage.setItem('x-user-id', resData.value);
+        // this.cookieService.set('x-user-id', resData.value);
+        this.router.navigate(['../main/latheManage'], {
+          relativeTo: this.activeRouter
+        });
+
+      }, (error: UserServiceNs.HttpError) => {
+        this.message.error(error.message);
+        this.loading = false;
+      });
+
   }
 
   ngOnInit() {

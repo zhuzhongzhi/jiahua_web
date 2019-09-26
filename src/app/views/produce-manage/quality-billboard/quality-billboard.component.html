@@ -1,3 +1,100 @@
-<p>
-  quality-billboard works!
-</p>
+<div style="background: #F0F2F5;">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="16">
+      <nz-card style="height: 260px;">
+        <div nz-row class="qtitle">
+          质量问题排行榜 {{time}}
+        </div>
+        <div nz-row [nzGutter]="7" style="text-align: center;">
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">毛丝</p>
+            <p class="qname2">{{causeList.crimp ? causeList.crimp : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">碰伤</p>
+            <p class="qname2">{{causeList.bruise ? causeList.bruise : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">绕外</p>
+            <p class="qname2">{{causeList.outside ? causeList.outside : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">成型不良</p>
+            <p class="qname2">{{causeList.badShape ? causeList.badShape : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">夹丝</p>
+            <p class="qname2">{{causeList.soiled ? causeList.soiled : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">污丝</p>
+            <p class="qname2">{{causeList.lousiness ? causeList.lousiness : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">黄化</p>
+            <p class="qname2">{{causeList.yellow ? causeList.yellow : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">飘丝</p>
+            <p class="qname2">{{causeList.floatSilk ? causeList.floatSilk : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">绕丝</p>
+            <p class="qname2">{{causeList.wind ? causeList.wind : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">染色</p>
+            <p class="qname2">{{causeList.dye ? causeList.dye : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">物性</p>
+            <p class="qname2">{{causeList.property ? causeList.property : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">OPU</p>
+            <p class="qname2">{{causeList.opu ? causeList.opu : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">其他</p>
+            <p class="qname2">{{causeList.other ? causeList.other : 0}}</p>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-card style="height: 260px;text-align: center;">
+        <div nz-row class="qtitle">
+          实时报警
+        </div>
+        <div nz-row *ngFor="let data of spinAlarms">
+          <div style="line-height: 34px;text-align: left;margin-left: 20px;"><span>{{data.spinPos}}纺位{{data.alarmType}}异常过多 </span><button style="float:right;" nz-button nzType="primary" (click)="go(1)">查看</button></div>
+        </div>
+        <div nz-row *ngFor="let data of residentAlarmS">
+          <div style="line-height: 34px;text-align: left;margin-left: 20px;"><span>{{data.code}}丝车{{data.craftState}}异常驻留时间过长 </span><button style="float:right;" nz-button nzType="primary" (click)="go(2)">查看</button></div>
+        </div>
+      </nz-card>
+    </div>
+
+  </div>
+  <div nz-row [nzGutter]="8" style="margin-top:10px;">
+    <nz-card style="height: auto;">
+      <div nz-row class="qtitle">
+        近三日线别不良排名 {{time}}
+      </div>
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart1"></div>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart2"></div>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart3"></div>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart4"></div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

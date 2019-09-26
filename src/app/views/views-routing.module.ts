@@ -17,7 +17,7 @@ const routes: Routes = [
       {path: 'internal', loadChildren: './internal/internal.module#InternalModule'},
       {path: 'sysManage', loadChildren: './sys-manage/sys-manage.module#SysManageModule'},
       {path: 'latheManage', loadChildren: './lathe-manage/lathe-manage.module#LatheManageModule'},
-      {path: 'produceManage', loadChildren: './produce-manage/produce-manage.module#ProduceManageModule'}
+      {path: 'produceManage', loadChildren: './produce-manage/produce-manage.module#ProduceManageModule'},
     ]
   },
   {path: '**', component: DefaultComponent},

@@ -18,26 +18,12 @@
         </div>
       </div>
       <div class="search-conds" *ngIf="!isCollapse">
-        <div nz-row nzGutter="16">
+        <div nz-row nzGutter="32">
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">月份</label>
               <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group >
-                  <nz-date-picker style="width:100%;"></nz-date-picker>
-                </nz-input-group>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">批号</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group>
-                  <input type="text" nz-input placeholder="请输入批号" />
-                </nz-input-group>
+                <nz-date-picker style="width:100%;" [(ngModel)]="filters.monthTime"></nz-date-picker>
               </div>
             </div>
           </div>
@@ -46,46 +32,50 @@
               <label class="inline-span" nz-col nzSpan="8">规格</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group >
-                  <input type="text" nz-input placeholder="请输入规格" />
-                </nz-input-group>
+                <input type="text" nz-input placeholder="请输入规格" [(ngModel)]="filters.standard"/>
               </div>
             </div>
           </div>
-        </div>
-
-        <div nz-row nzGutter="16">
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">批号</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入批号" [(ngModel)]="filters.batchNum"/>
+              </div>
+            </div>
+          </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">线别</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group >
-                  <input type="text" nz-input placeholder="请输入线别" />
-                </nz-input-group>
+                <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType"/>
               </div>
             </div>
           </div>
-
           <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
-            <button nz-button nzType="primary" style="margin-right:20px">查询</button>
-            <button nz-button style="margin-right:20px;">重置</button>
+            <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+            <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
+
         </div>
+
+        <!-- Unnamed (图片 ) -->
       </div>
 
       <!-- Unnamed (图片 ) -->
     </div>
 
     <div nz-row nzGutter="16">
-      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px">导出Excel</button>
+      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="export()">导出Excel</button>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
               style="text-align:center"
               [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
               [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
-              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange(true)">
+              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead >
       <tr>
         <th nzWidth="70px">序号</th>
@@ -101,18 +91,14 @@
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.riqi}}</td>
-        <td>{{data.pihao}}</td>
-        <td>{{data.xianbie}}</td>
-        <td>{{data.zhongliang}}</td>
-        <td><span class="blue-txt transparen-btn">查看</span></td>
-        <td><span class="blue-txt transparen-btn">查看</span></td>
+        <td>{{data.monthTime}}</td>
+        <td>{{data.batchNum}}</td>
+        <td>{{data.lineType}}</td>
+        <td>{{data.weight}}</td>
+        <td><span class="blue-txt transparen-btn" (click)="see(1, data)">查看</span></td>
+        <td><span class="blue-txt transparen-btn" (click)="see(2, data)">查看</span></td>
         <td>
-          <!--          <span *appAuthBtu="ActionCode.parkingSpotDetail" (click)="lookParkingSpot(data)" class="blue-txt transparen-btn">详情</span>-->
-          <!--          <ng-container *appAuthBtu="ActionCode.parkingSpotEdit">-->
-          <!--            <i class="line"></i>-->
-          <span class="blue-txt transparen-btn">查看</span>
-          <!--          </ng-container>-->
+          <span class="blue-txt transparen-btn" (click)="see(3, data)">查看</span>
         </td>
       </tr>
       </tbody>
@@ -127,3 +113,146 @@
 
 
 </div>
+
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null
+          (nzOnCancel)="handleDetailCancel()" nzWidth="600px">
+
+  <nz-table *ngIf="type === 1" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+            style="text-align:center"
+            [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+            [(nzPageSize)]="tableConfig.pageSize"  [nzShowPagination]="false"
+            [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
+    <thead>
+    <tr>
+      <th colspan="2" class="align-center">AA</th>
+      <th colspan="2" class="align-center">A</th>
+      <th colspan="2" class="align-center">A1</th>
+      <th colspan="2" class="align-center">B</th>
+    </tr>
+    <tr>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
+      <td>{{data1.weightAA}}</td>
+      <td>{{data1.ratioAA}}</td>
+      <td>{{data1.weightA}}</td>
+      <td>{{data1.ratioA}}</td>
+      <td>{{data1.weightA1}}</td>
+      <td>{{data1.ratioA1}}</td>
+      <td>{{data1.weightB}}</td>
+      <td>{{data1.ratioB}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-table *ngIf="type === 2" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+            style="text-align:center"
+            [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+            [(nzPageSize)]="tableConfig.pageSize"  [nzShowPagination]="false"
+            [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
+    <thead>
+    <tr>
+      <th nzWidth="150px" colspan="2" class="align-center">毛丝</th>
+      <th colspan="2" class="align-center">碰伤</th>
+      <th colspan="2" class="align-center">绕外</th>
+      <th colspan="2" class="align-center">成型不良</th>
+      <th colspan="2" class="align-center">夹丝</th>
+      <th colspan="2" class="align-center">污丝</th>
+      <th colspan="2" class="align-center">黄化</th>
+      <th colspan="2" class="align-center">飘丝</th>
+      <th colspan="2" class="align-center">绕丝</th>
+      <th colspan="2" class="align-center">染色</th>
+      <th colspan="2" class="align-center">物性</th>
+      <th colspan="2" class="align-center">OPU</th>
+      <th colspan="2" class="align-center">其他</th>
+    </tr>
+    <tr>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
+      <td>{{data1.weightLousiness}}</td>
+      <td>{{data1.ratioLousiness}}</td>
+      <td>{{data1.weightBruise}}</td>
+      <td>{{data1.ratioBruise}}</td>
+      <td>{{data1.weightOutside}}</td>
+      <td>{{data1.ratioOutside}}</td>
+      <td>{{data1.weightBadShape}}</td>
+      <td>{{data1.ratioBadShape}}</td>
+      <td>{{data1.weightCrimp}}</td>
+      <td>{{data1.ratioCrimp}}</td>
+      <td>{{data1.weightSoiled}}</td>
+      <td>{{data1.ratioSoiled}}</td>
+      <td>{{data1.weightYellow}}</td>
+      <td>{{data1.ratioYellow}}</td>
+      <td>{{data1.weightFloat}}</td>
+      <td>{{data1.ratioFloat}}</td>
+      <td>{{data1.weightWind}}</td>
+      <td>{{data1.ratioWind}}</td>
+      <td>{{data1.weightDye}}</td>
+      <td>{{data1.ratioDye}}</td>
+      <td>{{data1.weightProperty}}</td>
+      <td>{{data1.ratioProperty}}</td>
+      <td>{{data1.weightOPU}}</td>
+      <td>{{data1.ratioOPU}}</td>
+      <td>{{data1.weightOther}}</td>
+      <td>{{data1.ratioOther}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-table *ngIf="type === 3" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+            style="text-align:center"
+            [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+            [(nzPageSize)]="tableConfig.pageSize"  [nzShowPagination]="false"
+            [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
+    <thead>
+    <tr>
+      <th class="align-center">重量</th>
+      <th class="align-center">%</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
+      <td>{{data1.weight}}</td>
+      <td>{{data1.ratio}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-modal>

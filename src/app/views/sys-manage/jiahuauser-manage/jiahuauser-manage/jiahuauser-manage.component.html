@@ -1,0 +1,163 @@
+<div class="page">
+  <div class="bg-white padding-16">
+
+    <div class="ax_default" style="margin-bottom: 15px;">
+      <!-- Unnamed (矩形) -->
+      <div id="u625" class="ax_default box_1">
+        <div id="u625_text" class="text ">
+          <!--<p>-->
+          <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
+          <span style="text-decoration:none;">筛选查询</span>
+          <!--</p>-->
+          <div id="u627" class="ax_default">
+            <div id="u627_text" class="text ">
+              <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer" (click)="toggleCollapse()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-conds" *ngIf="!isCollapse">
+        <div nz-row nzGutter="16">
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">用户名</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入用户名" [(ngModel)]="filters.userName" />
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">岗位</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入岗位" [(ngModel)]="filters.post" />
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+            <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+            <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Unnamed (图片 ) -->
+    </div>
+
+    <div nz-row>
+      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="add()"><i nz-icon type="plus" theme="outline"></i>新增</button>
+      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="update()"><i nz-icon type="edit" theme="outline"></i>修改</button>
+      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="delete()"><i nz-icon type="delete" theme="outline"></i>删除</button>
+      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="open()"><i nz-icon type="check-circle" theme="outline"></i>启用</button>
+      <button nz-button nzType="danger" style=" margin-bottom:15px" (click)="stop()"><i nz-icon type="stop" theme="outline"></i>禁用</button>
+
+
+      <button nz-button nzType="default" style="float:right" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>
+    </div>
+
+    <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+              style="text-align:center"
+              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
+              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
+              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
+      <thead >
+      <tr>
+        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th nzWidth="70px">序号</th>
+        <th class="align-center">用户名</th>
+        <th class="align-center">单位</th>
+        <th class="align-center">岗位</th>
+        <th class="align-center">账户状态</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.juId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.juId === '-1'"></td>
+        <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
+        <td>{{data?.userName}}</td>
+        <td>{{data?.institution}}</td>
+        <td>{{data?.post}}</td>
+        <td>{{trans(data?.status)}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <ng-template #totalTemplate let-total>
+    <span class="m-r-sm">
+    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+      条记录，共计{{tableConfig.pageTotal}}条记录
+  </span>
+  </ng-template>
+</div>
+
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title"
+          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submitForm()">
+  <form nz-form [formGroup]="validateForm">
+    <div nz-row>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="userName">用户名 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <input nz-input formControlName="userName" placeholder="请输入用户名">
+            <nz-form-explain
+              *ngIf="getFormControl('userName')?.dirty&&getFormControl('userName')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.userName}}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="password">密码 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <input nz-input formControlName="password" placeholder="请输入密码">
+            <nz-form-explain
+              *ngIf="getFormControl('password')?.dirty&&getFormControl('password')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.password}}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="institution">单位 </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <input nz-input formControlName="institution" placeholder="请输入单位">
+            <nz-form-explain
+              *ngIf="getFormControl('institution')?.dirty&&getFormControl('institution')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.institution}}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="post">岗位 </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <input nz-input formControlName="post" placeholder="请输入岗位">
+            <nz-form-explain
+              *ngIf="getFormControl('post')?.dirty&&getFormControl('post')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.post}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <nz-radio-group [(ngModel)]="radioValue">
+        <label nz-radio nzValue="0">启用</label>
+        <label nz-radio nzValue="1">禁用</label>
+      </nz-radio-group>
+    </div>
+
+  </form>
+
+</nz-modal>

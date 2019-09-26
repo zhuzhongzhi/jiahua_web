@@ -28,28 +28,28 @@ export class PersonalInfoComponent implements OnInit {
     };
   }
   public getPersonalInfo() {
-    this.userService.getLogin().subscribe((resData: UserServiceNs.UfastHttpAnyResModel) => {
-      if (resData.code === 0) {
-        this.userInfo = {
-          locked: resData.value.locked,
-          loginName: resData.value.loginName,
-          name: resData.value.name,
-          roleIds: resData.value.roleIds,
-          sex: resData.value.sex,
-          deptId: resData.value.deptId,
-          nickname: resData.value.nickname,
-          deptName: resData.value.deptName,
-          email: resData.value.email,
-          mobile: resData.value.mobile,
-          telephone: resData.value.telephone,
-          roleNames: resData.value.roleNames,
-          spaceName: resData.value.spaceName
-        };
-        this.getUserMessage(resData.value.userId);
-      } else {
-        this.messageService.showAlertMessage('', resData.message, 'warning');
-      }
-    });
+    // this.userService.getLogin().subscribe((resData: UserServiceNs.UfastHttpAnyResModel) => {
+    //   if (resData.code === 0) {
+    //     this.userInfo = {
+    //       locked: resData.value.locked,
+    //       loginName: resData.value.loginName,
+    //       name: resData.value.name,
+    //       roleIds: resData.value.roleIds,
+    //       sex: resData.value.sex,
+    //       deptId: resData.value.deptId,
+    //       nickname: resData.value.nickname,
+    //       deptName: resData.value.deptName,
+    //       email: resData.value.email,
+    //       mobile: resData.value.mobile,
+    //       telephone: resData.value.telephone,
+    //       roleNames: resData.value.roleNames,
+    //       spaceName: resData.value.spaceName
+    //     };
+    //     this.getUserMessage(resData.value.userId);
+    //   } else {
+    //     this.messageService.showAlertMessage('', resData.message, 'warning');
+    //   }
+    // });
   }
   // 获取当前登录用户的真实姓名和手机号码
 getUserMessage(userID) {

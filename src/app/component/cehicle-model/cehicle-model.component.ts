@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import * as echarts from 'echarts';
+;import * as echarts from 'echarts'
 import { requireStatusNode } from '../../../environments/type-search';
 import { CehicleListService } from '../../core/biz-services/vehicleMonitor/cehicle-list.service';
 import { ShowMessageService } from '../../widget/show-message/show-message';

@@ -14,6 +14,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import zh from '@angular/common/locales/zh';
 import {IconDefinition} from '@ant-design/icons-angular';
 import {AccountBookFill, AlertFill, AlertOutline} from '@ant-design/icons-angular/icons';
+import {CookieService} from 'ngx-cookie-service';
 
 const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill];
 
@@ -33,9 +34,9 @@ registerLocaleData(zh);
     WidgetModule,
     ViewsModule,
     NgxEchartsModule,
-    CKEditorModule
+    CKEditorModule,
   ],
-  providers: [{provide: NZ_I18N, useValue: zh_CN}],
+  providers: [{provide: NZ_I18N, useValue: zh_CN}, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

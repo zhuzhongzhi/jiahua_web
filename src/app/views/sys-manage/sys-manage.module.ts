@@ -1,14 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { SysManageRoutingModule } from './sys-manage-routing.module';
-import { OrgManageComponent } from './org-manage/org-manage.component';
-import { UserManageComponent } from './user-manage/user-manage.component';
-import { RoleManageComponent } from './role-manage/role-manage.component';
-import { SysLogComponent } from './sys-log/sys-log.component';
-import { OperateStatisticsComponent } from './operate-statistics/operate-statistics.component';
+import {SysManageRoutingModule} from './sys-manage-routing.module';
+import {OrgManageComponent} from './org-manage/org-manage.component';
+import {UserManageComponent} from './user-manage/user-manage.component';
+import {RoleManageComponent} from './role-manage/role-manage.component';
+import {SysLogComponent} from './sys-log/sys-log.component';
+import {OperateStatisticsComponent} from './operate-statistics/operate-statistics.component';
 import {ViewsCommonModules} from '../views-common-modules';
 import {AddCompanyComponent} from './org-manage/add-company/add-company.component';
+import {LineSpinComponent} from './line-spin/line-spin.component';
+import {JiahuauserManageComponent} from './jiahuauser-manage/jiahuauser-manage/jiahuauser-manage.component';
+import {JiahuaauthManageComponent} from './jiahuaauth-manage/jiahuaauth-manage/jiahuaauth-manage.component';
 
 @NgModule({
   imports: [
@@ -22,7 +25,11 @@ import {AddCompanyComponent} from './org-manage/add-company/add-company.componen
     RoleManageComponent,
     SysLogComponent,
     OperateStatisticsComponent,
-    AddCompanyComponent
+    AddCompanyComponent,
+    LineSpinComponent,
+    JiahuauserManageComponent,
+    JiahuaauthManageComponent
   ]
 })
-export class SysManageModule { }
+export class SysManageModule {
+}

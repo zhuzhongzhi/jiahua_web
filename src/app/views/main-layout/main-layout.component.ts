@@ -13,6 +13,7 @@ import {alertStatusNodes} from '../../../environments/type-search';
 import {AlarmListService} from '../../core/biz-services/vehicleMonitor/alarm-list.service';
 import {TerminalServiceNs} from '../../core/biz-services/resource/terminal.service';
 import {UserManageService, UserManageServiceNs} from '../../core/biz-services/sysManage/user-manage.service';
+import {CookieService} from 'ngx-cookie-service';
 
 enableProdMode();
 
@@ -83,7 +84,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
               public noticeChange: NoticeChange,
               public socketService: SocketService,
               private notification: NzNotificationService,
-              private modal: NzModalService,
+              private modal: NzModalService, private cookieService: CookieService
               // public tabsetService: UfastTabsetRouteService
   ) {
     this.sideLoading = false;
@@ -91,30 +92,74 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedIndex = null;
     this.mainMenu = [
       {
-        name: '丝车监控', url: '/monitor', subMenus: [{name: '丝车分布', url: '/main/latheManage/latheDistributed'}, {name: '丝车列表', url: '/main/latheManage/latheList'}]
-      },
-      {
-        name: '生产管理', url: 'produce', children: [
-          {name: '工艺流程管理', url: '', subMenus: [
-            {name: '落丝管理', url: '/main/produceManage/hotreelManage'}, {name: '测丹尼管理', url: '/main/produceManage/danniManage'},
-            {name: '摇袜管理', url: '/main/produceManage/socksManage'}, {name: '判色管理', url: '/main/produceManage/adjustManage'},
-            {name: '检验管理', url: '/main/produceManage/checkManage'}, {name: '包装管理', url: '/main/produceManage/packManage'}
-            ]},
-          {name: '报警管理', url: '', subMenus: [
-            {name: '锭位质量报警', url: '/main/produceManage/ingotAlarm'}, {name: '线别质量报警', url: '/main/produceManage/wiringAlarm'},
-            {name: '驻留报警', url: '/main/produceManage/stayAlarm'}, {name: '报警处理日志', url: '/main/produceManage/alarmLog'}
-            ]},
-          {name: '统计分析', url: '', subMenus: [
-            {name: '产量统计', url: '/main/produceManage/outputStatistic'}, {name: '每日质量分析报告', url: '/main/produceManage/dailyQuality'},
-            {name: '每月质量分析报告', url: '/main/produceManage/monthQuality'}, {name: '年度质量分析报告', url: '/main/produceManage/yearQuality'}
-            ]},
-          {name: '看板管理', url: '', subMenus: [{name: '生产看板', url: '/main/produceManage/produceBillboard'}, {name: '质量看板', url: '/main/produceManage/qualityBillboard'}]}
+        name: '丝车监控',
+        img: '../../../assets/image/jiahua/monitor.png',
+        url: '',
+        subMenu: [
+          {name: '丝车分布', url: '/main/latheManage/latheDistributed'},
+          {name: '丝车列表', url: '/main/latheManage/latheList'}
         ]
       },
-      {name: '系统管理', url: '/system', subMenus: [
-        {name: '线别纺位管理', url: ''}, {name: '账户管理', url: ''},
-        {name: '权限管理', url: ''}, {name: '日志管理', url: ''}
-      ]}];
+      {
+        name: '生产管理',
+        img: '../../../assets/image/jiahua/produce.png',
+        url: '',
+        subMenu: [
+          {
+            name: '工艺流程管理',
+            url: '',
+            subMenu: [
+              {name: '落丝管理', url: '/main/produceManage/hotreelManage'},
+              {name: '测丹尼管理', url: '/main/produceManage/danniManage'},
+              {name: '摇袜管理', url: '/main/produceManage/socksManage'},
+              {name: '判色管理', url: '/main/produceManage/adjustManage'},
+              {name: '检验管理', url: '/main/produceManage/checkManage'},
+              {name: '包装管理', url: '/main/produceManage/packManage'},
+            ]
+          },
+          {
+            name: '报警管理',
+            url: '',
+            subMenu: [
+              {name: '锭位质量报警', url: '/main/produceManage/ingotAlarm'},
+              {name: '线别质量报警', url: '/main/produceManage/wiringAlarm'},
+              {name: '驻留报警', url: '/main/produceManage/stayAlarm'},
+              {name: '报警处理日志', url: '/main/produceManage/alarmLog'}
+            ]
+          },
+          {
+            name: '统计分析',
+            url: '',
+            subMenu: [
+              {name: '产量统计', url: '/main/produceManage/outputStatistic'},
+              {name: '每日质量分析报告', url: '/main/produceManage/dailyQuality'},
+              {name: '每月质量分析报告', url: '/main/produceManage/monthQuality'},
+              {name: '年度质量分析报告', url: '/main/produceManage/yearQuality'}
+            ]
+          },
+          {
+            name: '看板管理',
+            url: '',
+            subMenu: [
+              {name: '生产看板', url: '/main/produceManage/produceBillboard'},
+              {name: '质量看板', url: '/main/produceManage/qualityBillboard'}
+            ]
+          }
+        ]
+      },
+      {
+        name: '系统管理',
+        img: '../../../assets/image/jiahua/system.png',
+        url: '',
+        subMenu: [
+          {name: '线别纺位管理', url: '/main/sysManage/lineSpin'},
+          {name: '账户管理', url: '/main/sysManage/jiahuaUser'},
+          // {name: '权限管理', url: '/main/sysManage/jiahuaAuth'},
+          {name: '日志管理', url: '/main/sysManage/sysLog'}
+        ]
+      }
+    ];
+
     this.subMenu = [
       {name: '丝车分布', url: '/main/latheManage/latheDistributed'},
       {name: '丝车列表', url: '/main/latheManage/latheList'}
@@ -165,18 +210,28 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.userService.getLogin().subscribe((resData: UserServiceNs.UfastHttpAnyResModel) => {
-    //   if (resData.code === 0) {
-    //     this.username = resData.value.name;
-    //     this.saveInfo(resData.value);
-    //     this.connectSocketServce(resData.value.userId, resData.value.spaceId);
-    //     this.getUserMessage(resData.value.userId);
-    //   } else {
-    //     this.messageService.showAlertMessage('', resData.message, 'warning');
-    //   }
-    // }, (error: any) => {
-    //   this.messageService.showAlertMessage('', error.message, 'error');
-    // });
+    if (this.cookieService.get('x-user-id') !== undefined) {
+      // this.userService.getLogin(this.cookieService.get('x-user-id')).subscribe((resData) => {
+      //   console.log(resData);
+      //   if (resData.code === 0) {
+      //     // this.username = resData.value.name;
+      //     // console.log(this.username);
+      //   }
+      // });
+      // this.userService.getLogin(this.cookieService.get('x-user-id')).subscribe((resData: UserServiceNs.UfastHttpAnyResModel) => {
+      //   if (resData.code === 0) {
+      //     this.username = resData.value.name;
+      //     console.log(this.username);
+      //     // this.saveInfo(resData.value);
+      //     // this.connectSocketServce(resData.value.userId, resData.value.spaceId);
+      //     // this.getUserMessage(resData.value.userId);
+      //   } else {
+      //     this.messageService.showAlertMessage('', resData.message, 'warning');
+      //   }
+      // }, (error: any) => {
+      //   this.messageService.showAlertMessage('', error.message, 'error');
+      // });
+    }
     // this.noticeChange.messageSource.subscribe(Message => {
     //   this.noticeService.getNoticeNum().subscribe((resData: UserServiceNs.UfastHttpAnyResModel) => {
     //     if (resData.code === 0) {

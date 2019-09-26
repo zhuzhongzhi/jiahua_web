@@ -76,22 +76,7 @@
   <form nz-form [formGroup]="validateForm">
     <div nz-row>
       <div nz-col>
-        <nz-form-item nzFlex>
-          <nz-form-label nz-col [nzSpan]="4" nzFor="orgName">机构名称 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
-          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
-            <input nz-input formControlName="orgName" placeholder="请输入机构名称">
-            <nz-form-explain
-              *ngIf="getFormControl('orgName')?.dirty&&getFormControl('orgName')?.hasError('required')">
-              这是必填字段
-            </nz-form-explain>
-            <nz-form-explain
-              *ngIf="getFormControl('orgName')?.dirty&&getFormControl('orgName')?.hasError('maxlength')">
-              已超出最大长度</nz-form-explain>
-          </nz-form-control>
-          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
-            {{selOrgData?.orgName}}
-          </nz-form-control>
-        </nz-form-item>
+
       </div>
     </div>
     <div nz-row>

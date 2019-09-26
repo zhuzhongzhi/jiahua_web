@@ -24,12 +24,7 @@
               <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
               <div nz-col nzSpan="16" class="form-control">
 <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group [nzSuffix]="suffixIconSearch">
-                  <input type="text" nz-input placeholder="请输入丝车编号" />
-                </nz-input-group>
-                <ng-template #suffixIconSearch>
-                  <i nz-icon type="calendar"></i>
-                </ng-template>
+                  <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code" />
               </div>
             </div>
           </div>
@@ -37,17 +32,21 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">工艺状态</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-select style="width: 100%;" nzPlaceHolder="请选择">
-                  <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                  <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                  <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.craftState">
+                  <nz-option nzValue="0" nzLabel="空闲"></nz-option>
+                  <nz-option nzValue="1" nzLabel="落丝"></nz-option>
+                  <nz-option nzValue="2" nzLabel="测丹尼"></nz-option>
+                  <nz-option nzValue="3" nzLabel="摇袜"></nz-option>
+                  <nz-option nzValue="4" nzLabel="判色"></nz-option>
+                  <nz-option nzValue="5" nzLabel="检验"></nz-option>
+                  <nz-option nzValue="6" nzLabel="包装"></nz-option>
                 </nz-select>
               </div>
             </div>
           </div>
           <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
-            <button nz-button nzType="primary" style="margin-right:20px">查询</button>
-            <button nz-button style="margin-right:20px;">重置</button>
+            <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+            <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
         </div>
 
@@ -57,7 +56,7 @@
     </div>
 
     <div nz-row nzGutter="16">
-      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px">导出Excel</button>
+      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
@@ -80,17 +79,17 @@
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.no}}</td>
-        <td>{{data.xianbie}}</td>
-        <td>{{data.guige}}</td>
-        <td>{{data.pihao}}</td>
-        <td>{{data.gongyizhuangtai}}</td>
-        <td><span class="blue-txt transparen-btn">查看</span></td>
+        <td>{{data.code}}</td>
+        <td>{{data.lineType}}</td>
+        <td>{{data.standard}}</td>
+        <td>{{data.batchNum}}</td>
+        <td>{{ trans(data.craftState) }}</td>
+        <td><span class="blue-txt transparen-btn" (click)="showPos(data)">查看</span></td>
         <td>
 <!--          <span *appAuthBtu="ActionCode.parkingSpotDetail" (click)="lookParkingSpot(data)" class="blue-txt transparen-btn">详情</span>-->
 <!--          <ng-container *appAuthBtu="ActionCode.parkingSpotEdit">-->
 <!--            <i class="line"></i>-->
-            <span class="blue-txt transparen-btn">查看</span>
+            <span class="blue-txt transparen-btn" (click)="showLocus(data)">查看</span>
 <!--          </ng-container>-->
         </td>
       </tr>
@@ -106,3 +105,17 @@
 
 
 </div>
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null
+          (nzOnCancel)="handleDetailCancel()" nzWidth="900px"  >
+  <div style="min-height: 600px;">
+    <iframe
+      id="onet"
+      [src]="src"
+      name="onet"
+      frameborder="0"
+      style="background-color:transparent; position: absolute; ; width: 100%; height: 100%; top: 20;left:0;">
+    </iframe>
+
+  </div>
+
+</nz-modal>

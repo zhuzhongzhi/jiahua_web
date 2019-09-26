@@ -1,7 +1,7 @@
 {
 
   "/site": {
-    "target": "http://10.90.1.226:9002/",
+    "target": "http://120.77.253.177:80/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
@@ -10,7 +10,19 @@
     }
   },
   "/iot": {
-    "target": "http://10.90.1.226:9002/",
+    "target": "http://120.77.253.177:80/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/iot-server": {
+    "target": "http://120.77.253.177:80/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/fast-auth-server": {
+    "target": "http://120.77.253.177:80/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

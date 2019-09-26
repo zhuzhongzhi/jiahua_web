@@ -70,6 +70,7 @@ export class UfastCodeInterceptor implements HttpInterceptor {
       headers: req.headers.append('x-from-site', environment.otherData.sysSite)
         .append('Cache-Control', 'no-cache,no-store')
         .append('Pragma', 'no-cache')
+        // .append('Authorization', sessionStorage.getItem('x-user-id'))
     });
     return next.handle(newReq)
       .pipe(this.ufastCode2(req));

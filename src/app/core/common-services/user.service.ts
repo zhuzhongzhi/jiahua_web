@@ -34,6 +34,11 @@ export namespace UserServiceNs {
     password: string;
   }
 
+  export interface JiahuaLoginReqModel {
+    userName: string;
+    password: string;
+  }
+
   export interface AuthUpdateInfoReqModel {
     email?: string;
     mobile?: string;
@@ -101,12 +106,106 @@ export namespace UserServiceNs {
   export class UserServiceClass {
     private http: HttpUtilService;
     public userInfo: any;
+
     constructor(private injector: Injector) {
       this.http = injector.get(HttpUtilService);
       this.userInfo = {
         username: null
       };
     }
+
+    // iot jiahua 用户接口
+    /**
+     *  新增权限信息
+     *  JiahuaAuth {
+          authId (string): 权限id ,
+          authName (string): 权限名 ,
+          desc (string, optional): 描述 ,
+          jaId (integer): id
+        }
+     */
+    public authAdd(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/authAdd', data, config);
+    }
+
+    /**
+     *  修改权限信息
+     *  JiahuaAuth {
+          authId (string): 权限id ,
+          authName (string): 权限名 ,
+          desc (string, optional): 描述 ,
+          jaId (integer): id
+        }
+     */
+    public authModify(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/authModify', data, config);
+    }
+
+    /**
+     * 查询用户账户信息
+     {
+        "filters": {
+          "authId": "string",
+          "authName": "string",
+          "desc": "string",
+          "jaId": 0
+        },
+        "pageNum": 0,
+        "pageSize": 0,
+        "sort": "string"
+      }
+     * @param data
+     */
+    public authPage(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/authModify', data, config);
+    }
+
+    /**
+     * 清除系统操作日志信息
+     * @param data
+     */
+    public clearOperateLog(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/clearOperateLog', data, config);
+    }
+
+    /**
+     * 删除系统操作日志信息
+     * @param data
+     */
+    public delOperateLog(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/delOperateLog', data, config);
+    }
+
+    /**
+     * 获取登录信息
+     * @param data
+     */
+    public getLogin(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/getLogin', data, config);
+    }
+
+    /**
+     * 查询系统操作日志信息
+     * @param data
+     */
+    public operateLog(data): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/operateLog', data, config);
+    }
+
 
     public getAuthInfo(): Observable<AuthInfoResModel> {
       const config: HttpUtilNs.UfastHttpConfig = {};
@@ -118,21 +217,27 @@ export namespace UserServiceNs {
         }));
     }
 
+    public login(loginData: JiahuaLoginReqModel): Observable<AuthAnyResModel> {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post<AuthAnyResModel>('/jiahua/user/login', loginData, config);
+    }
+
     public postLogin(loginData: AuthLoginReqModel): Observable<AuthAnyResModel> {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Ius;
-      return this.http.Post<AuthAnyResModel>('/auth/login', loginData, config)
+      return this.http.Post<AuthAnyResModel>('/jiahua/user/login', loginData, config)
         .pipe(map((resData: AuthAnyResModel) => {
-          if (resData.code === 0) {
-            this.userInfo.username = loginData.loginName;
-          }
+          // if (resData.code === 0) {
+          //   this.userInfo.username = loginData.loginName;
+          // }
           return resData;
         }));
     }
 
     public logout(): Observable<AuthAnyResModel> {
       const config: HttpUtilNs.UfastHttpConfig = {};
-      config.gateway = HttpUtilNs.GatewayKey.Ius;
+      config.gateway = HttpUtilNs.GatewayKey.Auth;
       return this.http.Post('/auth/logout', null, config)
         .pipe(map((resData: AuthAnyResModel) => {
           if (resData.code === 0) {
@@ -151,14 +256,14 @@ export namespace UserServiceNs {
       }, config);
     }
 
-    public getLogin(): Observable<UfastHttpAnyResModel> {
-      const config: HttpUtilNs.UfastHttpConfig = {};
-      config.gateway = HttpUtilNs.GatewayKey.Ius;
-      return this.http.Get<AuthLoginInfoResModel>('/profile/getLogin', null, config).pipe(map((data: UfastHttpResT<UserInfoModel>) => {
-        this.userInfo.username = data.value.loginName;
-        return data;
-      }));
-    }
+    // public getLogin(userid: string): Observable<UfastHttpAnyResModel> {
+    //   const config: HttpUtilNs.UfastHttpConfig = {};
+    //   config.gateway = HttpUtilNs.GatewayKey.Auth;
+    //   return this.http.Get<AuthLoginInfoResModel>('/profile/getLogin', {'x-user-id': userid}, config).pipe(map((data: UfastHttpResT<UserInfoModel>) => {
+    //     this.userInfo.username = data.value.loginName;
+    //     return data;
+    //   }));
+    // }
 
     public updatePersonInfo(data: AuthUpdateInfoReqModel): Observable<UfastHttpAnyResModel> {
       const config: HttpUtilNs.UfastHttpConfig = {};
@@ -219,6 +324,7 @@ export namespace UserServiceNs {
     }
   }
 }
+
 @Injectable()
 export class UserService extends UserServiceNs.UserServiceClass {
   constructor(injector: Injector) {

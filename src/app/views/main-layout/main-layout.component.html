@@ -8,62 +8,46 @@
         你好，ADMIN
       </div>
       <nz-divider nzType="vertical" class="welcome"></nz-divider>
-      <div class="welcome">
-        <i class="anticon anticon-poweroff margin-r-10"></i>退出
+      <div class="welcome" (click)="logOut">
+        <i class="anticon anticon-poweroff margin-r-10 cursor-pointer"></i>退出
       </div>
     </div>
   </nz-header>
   <!--下边-->
   <nz-layout>
-    <nz-sider [nzWidth]="170" style="background-color: rgba(38, 44, 92, 1);">
+    <nz-sider [nzWidth]="220" style="background-color: rgba(38, 44, 92, 1);overflow: scroll">
       <ul nz-menu [nzMode]="'inline'" style="height:100%;background-color: rgb(38, 44, 92);">
         <ng-container *ngFor="let menu of mainMenu">
-          <ng-container *ngIf="menu.url === '/monitor'">
-            <a target="_blank" style="color: #FFFFFF">
-              <li nz-menu-item class="noselect" (click)="selectMenu(menu)">
-                <img src="../../../assets/image/jiahua/monitor.png" class="menu-icon"/><span title>{{menu.name}}
-              </span>
-              </li>
-            </a>
-          </ng-container>
-          <ng-container *ngIf="menu.url==='/system'">
-            <a target="_blank" style="color: #FFFFFF">
-              <li nz-menu-item class="noselect" (click)="selectMenu(menu)">
-                <img src="../../../assets/image/jiahua/system.png" class="menu-icon" style="width: 18px;"/><span title>{{menu.name}}
-              </span>
-              </li>
-            </a>
-          </ng-container>
-          <ng-container *ngIf="menu.url!=='/system' && menu.url !== '/monitor'">
+
+          <ng-container>
             <li nz-submenu class="noselect" [(nzOpen)]="menu.open" (nzOpenChange)="openHandle(menu.id)">
-              <span title><img src="../../../assets/image/jiahua/produce.png" class="menu-icon" style="width: 18px;"/>{{menu.name}}
+              <span title><img [src]="menu.img" class="menu-icon" style="width: 18px;"/>{{menu.name}}
               </span>
-              <ul>
-                <li nz-menu-item *ngFor="let child of menu.children" (click)="selectMenu(child)"
-                    [(nzSelected)]="child.open">
-                  {{child.name}}
-                </li>
-              </ul>
+              <ng-container *ngIf="menu.url === ''">
+                <ng-container *ngFor="let secMenus of menu.subMenu">
+
+                  <li *ngIf="secMenus.url === ''" nz-submenu class="noselect" [(nzOpen)]="secMenus.open" (nzOpenChange)="openHandle(secMenus.id)">
+                    <span title>{{secMenus.name}}
+                    </span>
+                    <ul>
+                      <li nz-menu-item *ngFor="let thrMenus of secMenus.subMenu" (click)="goRoute(thrMenus)"
+                          [(nzSelected)]="thrMenus.open">
+                        {{thrMenus.name}}
+                      </li>
+                    </ul>
+                  </li>
+                  <li *ngIf="secMenus.url !== ''" nz-menu-item (click)="goRoute(secMenus)"
+                      [(nzSelected)]="secMenus.open">
+                    {{secMenus.name}}
+                  </li>
+                </ng-container>
+              </ng-container>
             </li>
           </ng-container>
         </ng-container>
       </ul>
     </nz-sider>
     <nz-layout style="height: 100%">
-      <nz-sider [nzWidth]="160" style="background: #f0f2f5;margin: 16px;margin-right: 0px; color: #000" class="subMenu">
-        <ul nz-menu [nzMode]="'inline'" style="height:100%;background-color: #fff;">
-          <ng-container *ngFor="let menu of subMenu">
-            <ng-container>
-              <a target="menu.url" style="color: #000">
-                <li nz-menu-item class="noselect" (click)="goRoute(menu)">
-                  <span title>{{menu.name}}
-              </span>
-                </li>
-              </a>
-            </ng-container>
-          </ng-container>
-        </ul>
-      </nz-sider>
       <nz-content style="height: 100%">
         <div class="content-container">
           <router-outlet></router-outlet>

@@ -18,15 +18,12 @@
         </div>
       </div>
       <div class="search-conds" *ngIf="!isCollapse">
-        <div nz-row nzGutter="16">
+        <div nz-row nzGutter="32">
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group >
-                  <nz-date-picker style="width:100%;"></nz-date-picker>
-                </nz-input-group>
+                <nz-date-picker style="width:100%;" [(ngModel)]="filters.produceTime"></nz-date-picker>
               </div>
             </div>
           </div>
@@ -35,13 +32,7 @@
               <label class="inline-span" nz-col nzSpan="8">班别</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group>
-                  <nz-select style="width: 100%;" nzPlaceHolder="请选择">
-                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                  </nz-select>
-                </nz-input-group>
+                <input type="text" nz-input placeholder="请输入班别" [(ngModel)]="filters.classType" />
               </div>
             </div>
           </div>
@@ -50,33 +41,29 @@
               <label class="inline-span" nz-col nzSpan="8">工号</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group >
-                  <input type="text" nz-input placeholder="请输入工号" />
-                </nz-input-group>
+                <input type="text" nz-input placeholder="请输入工号" [(ngModel)]="filters.operator" />
               </div>
             </div>
           </div>
-
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">工艺状态</label>
               <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <nz-input-group >
-                  <nz-select style="width: 100%;" nzPlaceHolder="请选择">
-                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                  </nz-select>
-                </nz-input-group>
+                <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.craftState">
+                  <nz-option nzValue="0" nzLabel="空闲"></nz-option>
+                  <nz-option nzValue="1" nzLabel="落丝"></nz-option>
+                  <nz-option nzValue="2" nzLabel="测丹尼"></nz-option>
+                  <nz-option nzValue="3" nzLabel="摇袜"></nz-option>
+                  <nz-option nzValue="4" nzLabel="判色"></nz-option>
+                  <nz-option nzValue="5" nzLabel="检验"></nz-option>
+                  <nz-option nzValue="6" nzLabel="包装"></nz-option>
+                </nz-select>
               </div>
             </div>
           </div>
-        </div>
-        <div nz-row nzGutter="16">
           <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
-            <button nz-button nzType="primary" style="margin-right:20px">查询</button>
-            <button nz-button style="margin-right:20px;">重置</button>
+            <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+            <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
         </div>
 
@@ -86,7 +73,7 @@
     </div>
 
     <div nz-row nzGutter="16">
-      <button nz-button style="margin-left:8px; margin-bottom:15px">导出Excel</button>
+      <button nz-button style="margin-left:8px; margin-bottom:15px" (click)="export()">导出Excel</button>
 
     </div>
 
@@ -94,7 +81,7 @@
               style="text-align:center"
               [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
               [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
-              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange(true)">
+              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead >
       <tr>
         <th nzWidth="70px">序号</th>
@@ -112,15 +99,15 @@
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.riqi}}</td>
-        <td>{{data.banbie}}</td>
-        <td>{{data.gonghao}}</td>
-        <td>{{data.pihao}}</td>
-        <td>{{data.guige}}</td>
-        <td>{{data.cheliangshu}}</td>
-        <td>{{data.dingshu}}</td>
-        <td>{{data.gongyizhuangtai}}</td>
-        <td>{{data.chanliang}}</td>
+        <td>{{data.produceTime}}</td>
+        <td>{{data.classType}}</td>
+        <td>{{data.operator}}</td>
+        <td>{{data.batchNum}}</td>
+        <td>{{data.standard}}</td>
+        <td>{{data.wagonNum}}</td>
+        <td>{{data.ingotNum}}</td>
+        <td>{{trans(data.craftState)}}</td>
+        <td>{{data.output}}</td>
       </tr>
       </tbody>
     </nz-table>
