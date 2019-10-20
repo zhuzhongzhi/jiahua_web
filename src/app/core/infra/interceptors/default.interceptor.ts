@@ -40,8 +40,14 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (status >= 300 && status < 400) {
       errMsg = '请求被服务器重定向，状态码为' + status;
     }
-    if (status >= 400 && status < 500) {
+    if (status === 400) {
       errMsg = '客户端出错，可能是发送的数据有误，状态码为' + status;
+    }
+    // if (status >= 400 && status < 500) {
+    //   errMsg = '客户端出错，可能是发送的数据有误，状态码为' + status;
+    // }
+    if(status > 400 && status < 500) {
+      errMsg = error.error.message;
     }
     if (status >= 500) {
       errMsg = '服务器发生错误，状态码为' + status;

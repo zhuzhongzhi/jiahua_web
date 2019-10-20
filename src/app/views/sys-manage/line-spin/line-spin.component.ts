@@ -138,7 +138,7 @@ export class LineSpinComponent implements OnInit {
   }
 
   delete() {
-    //TODO
+    // TODO
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.lsId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');

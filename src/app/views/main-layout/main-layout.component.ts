@@ -50,7 +50,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedItem: string;
   selectedNavIndex: number;
   selectedIndex: number;
-  username: string;
+  username: string = localStorage.getItem('userName') || '';
   sideLoading: boolean;
   isCollapsed = false; // 菜单折叠
   alertStatusNode = alertStatusNodes;
@@ -94,55 +94,61 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         name: '丝车监控',
         img: '../../../assets/image/jiahua/monitor.png',
+        show: this.show(10),
         url: '',
         subMenu: [
-          {name: '丝车分布', url: '/main/latheManage/latheDistributed'},
-          {name: '丝车列表', url: '/main/latheManage/latheList'}
+          {name: '丝车分布', url: '/main/latheManage/latheDistributed', show: this.show(101)},
+          {name: '丝车列表', url: '/main/latheManage/latheList', show: this.show(102)}
         ]
       },
       {
         name: '生产管理',
         img: '../../../assets/image/jiahua/produce.png',
         url: '',
+        show: this.show(20),
         subMenu: [
           {
             name: '工艺流程管理',
+            show: this.show(201),
             url: '',
             subMenu: [
-              {name: '落丝管理', url: '/main/produceManage/hotreelManage'},
-              {name: '测丹尼管理', url: '/main/produceManage/danniManage'},
-              {name: '摇袜管理', url: '/main/produceManage/socksManage'},
-              {name: '判色管理', url: '/main/produceManage/adjustManage'},
-              {name: '检验管理', url: '/main/produceManage/checkManage'},
-              {name: '包装管理', url: '/main/produceManage/packManage'},
+              {name: '落丝管理', url: '/main/produceManage/hotreelManage', show: this.show(20101)},
+              {name: '测丹尼管理', url: '/main/produceManage/danniManage', show: this.show(20102)},
+              {name: '摇袜管理', url: '/main/produceManage/socksManage', show: this.show(20103)},
+              {name: '判色管理', url: '/main/produceManage/adjustManage', show: this.show(20104)},
+              {name: '检验管理', url: '/main/produceManage/checkManage', show: this.show(20105)},
+              {name: '包装管理', url: '/main/produceManage/packManage', show: this.show(20106)},
             ]
           },
           {
             name: '报警管理',
             url: '',
+            show: this.show(202),
             subMenu: [
-              {name: '锭位质量报警', url: '/main/produceManage/ingotAlarm'},
-              {name: '线别质量报警', url: '/main/produceManage/wiringAlarm'},
-              {name: '驻留报警', url: '/main/produceManage/stayAlarm'},
-              {name: '报警处理日志', url: '/main/produceManage/alarmLog'}
+              {name: '锭位质量报警', url: '/main/produceManage/ingotAlarm', show: this.show(20201)},
+              {name: '线别质量报警', url: '/main/produceManage/wiringAlarm', show: this.show(20202)},
+              {name: '驻留报警', url: '/main/produceManage/stayAlarm', show: this.show(20203)},
+              {name: '报警处理日志', url: '/main/produceManage/alarmLog', show: this.show(20204)}
             ]
           },
           {
             name: '统计分析',
             url: '',
+            show: this.show(203),
             subMenu: [
-              {name: '产量统计', url: '/main/produceManage/outputStatistic'},
-              {name: '每日质量分析报告', url: '/main/produceManage/dailyQuality'},
-              {name: '每月质量分析报告', url: '/main/produceManage/monthQuality'},
-              {name: '年度质量分析报告', url: '/main/produceManage/yearQuality'}
+              {name: '产量统计', url: '/main/produceManage/outputStatistic', show: this.show(20301)},
+              {name: '每日质量分析报告', url: '/main/produceManage/dailyQuality', show: this.show(20302)},
+              {name: '每月质量分析报告', url: '/main/produceManage/monthQuality', show: this.show(20303)},
+              {name: '年度质量分析报告', url: '/main/produceManage/yearQuality', show: this.show(20304)}
             ]
           },
           {
             name: '看板管理',
             url: '',
+            show: this.show(204),
             subMenu: [
-              {name: '生产看板', url: '/main/produceManage/produceBillboard'},
-              {name: '质量看板', url: '/main/produceManage/qualityBillboard'}
+              {name: '生产看板', url: '/main/produceManage/produceBillboard', show: this.show(20401)},
+              {name: '质量看板', url: '/main/produceManage/qualityBillboard', show: this.show(20402)}
             ]
           }
         ]
@@ -150,16 +156,18 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         name: '系统管理',
         img: '../../../assets/image/jiahua/system.png',
+        show: this.show(30),
         url: '',
         subMenu: [
-          {name: '线别纺位管理', url: '/main/sysManage/lineSpin'},
-          {name: '账户管理', url: '/main/sysManage/jiahuaUser'},
-          // {name: '权限管理', url: '/main/sysManage/jiahuaAuth'},
-          {name: '日志管理', url: '/main/sysManage/sysLog'}
+          {name: '线别纺位管理', url: '/main/sysManage/lineSpin', show: this.show(301)},
+          {name: '账户管理', url: '/main/sysManage/jiahuaUser', show: this.show(302)},
+          {name: '权限管理', url: '/main/sysManage/jiahuaAuth', show: this.show(303)},
+          {name: '日志管理', url: '/main/sysManage/sysLog', show: this.show(304)}
         ]
       }
     ];
 
+    console.log(this.mainMenu)
     this.subMenu = [
       {name: '丝车分布', url: '/main/latheManage/latheDistributed'},
       {name: '丝车列表', url: '/main/latheManage/latheList'}
@@ -185,6 +193,40 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     // });
   }
 
+  public show(code) {
+    let rights = JSON.parse(localStorage.getItem('rights') || null);
+    let bool = false;
+    if (rights === null) {
+      this.userService.getLogin({}).subscribe((res) => {
+        rights = res.value.jiahuaUserAuthList;
+        if (!rights || JSON.stringify(rights) === '{}') {
+          bool = true;
+        } else {
+          rights.forEach(right => {
+            console.log(right);
+            console.log(right.authId.startsWith(code));
+            console.log(code);
+            if (right.authId.startsWith(code) && right.status === 1) {
+              bool = true;
+            }
+          });
+          console.log(bool);
+          return bool;
+        }
+      });
+    }
+    if (!rights || JSON.stringify(rights) === '{}') {
+      bool = true;
+    } else {
+      rights.forEach(right => {
+        if (right.authId.startsWith(code) && right.status === 1) {
+          bool = true;
+        }
+      });
+      return bool;
+    }
+  }
+
   // public onSelectedIndex(index: number) {
   //   this.tabsetService.onSelectedIndexChange(index);
   // }
@@ -198,6 +240,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public logOut() {
+    console.log(123123);
+    this.messageService.showToastMessage('用户退出成功', 'success');
     this.userService.logout().subscribe(() => {
       // this.router.navigateByUrl('/login');
       this.storage.remove('rights');
@@ -210,6 +254,9 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    localStorage.setItem('demo', 'demo');
+    localStorage.removeItem('demo')
+    this.username = localStorage.getItem('userName');
     if (this.cookieService.get('x-user-id') !== undefined) {
       // this.userService.getLogin(this.cookieService.get('x-user-id')).subscribe((resData) => {
       //   console.log(resData);

@@ -1,6 +1,7 @@
 import {Injectable, Injector} from '@angular/core';
 import {HttpUtilNs, HttpUtilService} from '../../infra/http/http-util.service';
 import {Observable} from 'rxjs';
+import {HttpHeaders} from '@angular/common/http';
 
 export namespace ProduceManageServiceNs {
 
@@ -13,6 +14,8 @@ export namespace ProduceManageServiceNs {
 
     constructor(private injector: Injector) {
       this.http = this.injector.get(HttpUtilService);
+      this.defaultConfig.headers =
+        new HttpHeaders({'Authorization': sessionStorage.getItem('x-user-id')});
     }
 
     /**

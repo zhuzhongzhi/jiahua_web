@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {format} from "date-fns";
 
 @Component({
   selector: 'app-pack-manage',
@@ -13,7 +14,6 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
   styleUrls: ['./pack-manage.component.scss']
 })
 export class PackManageComponent implements OnInit {
-
 
   isCollapse = false;
   // table控件配置
@@ -31,6 +31,515 @@ export class PackManageComponent implements OnInit {
     showContinue: false,
     showSaveBtn: false
   };
+
+  dataList = [
+    {
+      exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+    {exSpinPos: '',
+      lousiness: '',
+      lousinessLevel: '',
+      bruise: '',
+      bruiseLevel: '',
+      outside: '',
+      outsideLevel: '',
+      badShape: '',
+      badShapeLevel: '',
+      crimp: '',
+      crimpLevel: '',
+      soiled: '',
+      soiledLevel: '',
+      yellow: '',
+      yellowLevel: '',
+      floatSilk: '',
+      floatSilkLevel: '',
+      wind: '',
+      windLevel: '',
+      dye: '',
+      dyeLevel: '',
+      property: '',
+      propertyLevel: '',
+      opu: '',
+      opuLevel: '',
+      other: '',
+      otherLevel: ''
+    },
+  ];
+
   // 弹窗表单
   validateForm: FormGroup;
   updateData: any;
@@ -38,6 +547,10 @@ export class PackManageComponent implements OnInit {
   isAdd = false;
   doffingWeight = 0;
   src: SafeResourceUrl = '';
+
+  showiFrame = false;
+
+  submitModel: any = {};
 
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
@@ -91,7 +604,8 @@ export class PackManageComponent implements OnInit {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('http://track.ubitraq.com/map/map2d/svg/follow/?tag=' + data.tagId);
+    // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
+    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
     this.detailModal.show = true;
   }
 
@@ -104,6 +618,517 @@ export class PackManageComponent implements OnInit {
       spinPos: [null, [Validators.required]]
     });
     this.getProduce();
+  }
+
+  resetDataList() {
+    this.dataList = [
+      {
+        exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+      {exSpinPos: '',
+        lousiness: '',
+        lousinessLevel: '',
+        bruise: '',
+        bruiseLevel: '',
+        outside: '',
+        outsideLevel: '',
+        badShape: '',
+        badShapeLevel: '',
+        crimp: '',
+        crimpLevel: '',
+        soiled: '',
+        soiledLevel: '',
+        yellow: '',
+        yellowLevel: '',
+        floatSilk: '',
+        floatSilkLevel: '',
+        wind: '',
+        windLevel: '',
+        dye: '',
+        dyeLevel: '',
+        property: '',
+        propertyLevel: '',
+        opu: '',
+        opuLevel: '',
+        other: '',
+        otherLevel: ''
+      },
+    ];
+
   }
 
   initList() {
@@ -151,6 +1176,7 @@ export class PackManageComponent implements OnInit {
    */
   handleDetailCancel() {
     this.detailModal.show = false;
+    this.showiFrame = false;
   }
 
   toggleCollapse(): void {
@@ -171,6 +1197,53 @@ export class PackManageComponent implements OnInit {
     }
     this.validateForm.reset();
     this.detailModal.show = true;
+  }
+  edit() {
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.opId]);
+    if (!hasChecked) {
+      this.isAdd = true;
+      this.detailModal.title = `新增包装记录`;
+      this.detailModal.showContinue = true;
+      this.detailModal.showSaveBtn = true;
+      this.detailModal.show = true;
+      this.submitModel = {};
+      this.resetDataList();
+      return;
+    }
+    let data;
+    let i = 0;
+    for (const key in this.checkedId) {
+      if (this.checkedId[key]) {
+        console.log(key);
+        this.listOfAllData.forEach(item => {
+          if (item.opId == key) {
+            data = item;
+          }
+        });
+        i++;
+      }
+    }
+    console.log(data);
+    if (i > 1) {
+      this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
+      return;
+    }
+    this.isAdd = false;
+    this.detailModal.title = `修改包装记录`;
+    this.detailModal.showContinue = true;
+    this.detailModal.showSaveBtn = true;
+    this.detailModal.show = true;
+    this.submitModel = data;
+    this.ingotAlarmService.craftExeptionList(data.opId).subscribe(res => {
+      const exceptions = res.value;
+
+      if (exceptions === null || exceptions === undefined || exceptions === '') {
+        this.resetDataList();
+      } else {
+        this.dataList = exceptions;
+      }
+    });
+    console.log(this.dataList);
   }
 
   editInfo(data) {
@@ -227,24 +1300,79 @@ export class PackManageComponent implements OnInit {
   refreshStatus(): void {
     this.isAllChecked = this.listOfAllData.filter(item => item.opId !== '-1').every(item => this.checkedId[item.opId]);
   }
+  parseTime(time) {
+    if (time) {
+      if (time.indexOf('GMT') >= 0) {
+        return format(time, 'yyyy-MM-dd HH:mm:ss');
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
+  }
 
   submitForm() {
-    const controls = this.validateForm.controls;
-    for (const key in controls) {
-      if (controls.hasOwnProperty(key)) {
-        controls[key].markAsDirty();
-        controls[key].updateValueAndValidity();
-      }
-    }
-    if (this.validateForm.invalid) {
-      return;
-    }
-    this.detailModal.loading = true;
-    if (this.isAdd) {
+    // const controls = this.validateForm.controls;
+    // for (const key in controls) {
+    //   if (controls.hasOwnProperty(key)) {
+    //     controls[key].markAsDirty();
+    //     controls[key].updateValueAndValidity();
+    //   }
+    // }
+    // if (this.validateForm.invalid) {
+    //   return;
+    // }
+    // this.detailModal.loading = true;
+    // if (this.isAdd) {
+    // } else {
+    //
+    // }
+    if (this.showiFrame) {
+      this.detailModal.show = false;
     } else {
+      const wagonExceptions = [];
+      // this.dataList1.forEach(el => {
+      //   el.exSpinPos = this.submitModel.doffingSpinPos1;
+      //   wagonExceptions.push(el);
+      // });
+      // this.dataList2.forEach(el => {
+      //   el.exSpinPos = this.submitModel.doffingSpinPos2;
+      //   wagonExceptions.push(el);
+      // });
+      // this.dataList3.forEach(el => {
+      //   el.exSpinPos = this.submitModel.doffingSpinPos3;
+      //   wagonExceptions.push(el);
+      // });
 
+      this.submitModel.produceTime = this.parseTime(this.submitModel.produceTime);
+      this.submitModel.craftTime = this.parseTime(this.submitModel.craftTime);
+      this.submitModel.craftState = 6;
+      const dataInfo = {wagonOperate: {}, wagonExceptions: []};
+      dataInfo.wagonOperate = this.submitModel;
+      let idx = 1;
+      this.dataList.forEach(item => {
+        item.exSpinPos = String(idx);
+        idx++;
+      });
+      dataInfo.wagonExceptions = this.dataList;
+      // this.submitModel.wagonExceptions = wagonExceptions;
+      if (this.isAdd) {
+        this.ingotAlarmService.craftAdd(dataInfo).subscribe((res) => {
+          this.messageService.showToastMessage('包装记录添加成功', 'success');
+          this.detailModal.show = false;
+          this.initList();
+        });
+      } else {
+        this.ingotAlarmService.craftModify(dataInfo).subscribe((res) => {
+          this.messageService.showToastMessage('包装记录修改成功', 'success');
+          this.detailModal.show = false;
+          this.initList();
+        });
+      }
+
+      console.log(this.submitModel);
     }
-
   }
 
   resetCond() {

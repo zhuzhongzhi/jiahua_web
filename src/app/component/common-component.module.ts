@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DirectivesModule} from '../directives/directives.module';
@@ -16,25 +16,27 @@ import {RightSideTableBoxComponent} from './platform-common/right-side-table-box
 import {InputTextComponent} from './form-common/input-text/input-text.component';
 import {ActionButtonComponent} from './form-common/action-button/action-button.component';
 import {SelectComponent} from './form-common/select/select.component';
-import { AutoRefreshComponent } from './biz-common/auto-refresh/auto-refresh.component';
-import { CehicleItemComponent } from './cehicle-item/cehicle-item.component';
-import { CehicleModelComponent } from './cehicle-model/cehicle-model.component';
+import {AutoRefreshComponent} from './biz-common/auto-refresh/auto-refresh.component';
+import {CehicleItemComponent} from './cehicle-item/cehicle-item.component';
+import {CehicleModelComponent} from './cehicle-model/cehicle-model.component';
 import {NgxEchartsModule} from 'ngx-echarts';
-import { CehicleDetailModelComponent } from './cehicle-detail-model/cehicle-detail-model.component';
-import { StepsComponent } from './steps/steps.component';
-import { CehicleScreenItemComponent } from './cehicle-screen-item/cehicle-screen-item.component';
+import {CehicleDetailModelComponent} from './cehicle-detail-model/cehicle-detail-model.component';
+import {StepsComponent} from './steps/steps.component';
+import {CehicleScreenItemComponent} from './cehicle-screen-item/cehicle-screen-item.component';
 import {OrgVehTreeComponent} from './org-veh-tree/org-veh-tree.component';
-import { MapDrawingModelComponent } from './map-drawing-model/map-drawing-model.component';
-import { MapGoogleLocsComponent } from './map-google-locs/map-google-locs.component';
-import { MapGaodeLocsComponent } from './map-gaode-locs/map-gaode-locs.component';
-import { MapGoogleShowComponent } from './map-google-show/map-google-show.component';
-import { MapGaodeShowComponent } from './map-gaode-show/map-gaode-show.component';
-import { MapGaodeDrawDrivingComponent } from './map-gaode-draw-driving/map-gaode-draw-driving.component';
-import { MapGaodeLocPlayComponent } from './map-gaode-loc-play/map-gaode-loc-play.component';
-import { MapGoogleLocPlayComponent } from './map-google-loc-play/map-google-loc-play.component';
-import { MapGoogleDrawingModelComponent } from './map-google-drawing-model/map-google-drawing-model.component';
-import { MapGoogleDrawDrivingComponent } from './map-google-draw-driving/map-google-draw-driving.component';
-import { LookImgComponent } from './look-img/look-img.component';
+import {MapDrawingModelComponent} from './map-drawing-model/map-drawing-model.component';
+import {MapGoogleLocsComponent} from './map-google-locs/map-google-locs.component';
+import {MapGaodeLocsComponent} from './map-gaode-locs/map-gaode-locs.component';
+import {MapGoogleShowComponent} from './map-google-show/map-google-show.component';
+import {MapGaodeShowComponent} from './map-gaode-show/map-gaode-show.component';
+import {MapGaodeDrawDrivingComponent} from './map-gaode-draw-driving/map-gaode-draw-driving.component';
+import {MapGaodeLocPlayComponent} from './map-gaode-loc-play/map-gaode-loc-play.component';
+import {MapGoogleLocPlayComponent} from './map-google-loc-play/map-google-loc-play.component';
+import {MapGoogleDrawingModelComponent} from './map-google-drawing-model/map-google-drawing-model.component';
+import {MapGoogleDrawDrivingComponent} from './map-google-draw-driving/map-google-draw-driving.component';
+import {LookImgComponent} from './look-img/look-img.component';
+import {LousTableComponent} from './lous-table/lous-table.component';
+import {OtherTableComponent} from './other-table/other-table.component';
 
 @NgModule({
   imports: [
@@ -76,10 +78,14 @@ import { LookImgComponent } from './look-img/look-img.component';
     MapGoogleDrawingModelComponent,
     MapGoogleDrawDrivingComponent,
     LookImgComponent,
+    LousTableComponent,
+    OtherTableComponent,
   ],
   entryComponents: [
     CehicleDetailModelComponent,
     LookImgComponent,
+    LousTableComponent,
+    OtherTableComponent,
   ],
   exports: [
     UfastTableComponent,
@@ -111,6 +117,9 @@ import { LookImgComponent } from './look-img/look-img.component';
     MapGoogleDrawingModelComponent,
     MapGoogleDrawDrivingComponent,
     LookImgComponent,
+    LousTableComponent,
+    OtherTableComponent,
   ],
 })
-export class CommonComponentModule { }
+export class CommonComponentModule {
+}

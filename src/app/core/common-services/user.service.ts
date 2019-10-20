@@ -2,6 +2,7 @@ import {Injectable, Injector} from '@angular/core';
 import {HttpUtilNs, HttpUtilService} from '../infra/http/http-util.service';
 import {Observable} from 'rxjs';
 import {map, retry} from 'rxjs/operators';
+import {HttpHeaders} from '@angular/common/http';
 
 
 export namespace UserServiceNs {
@@ -193,6 +194,8 @@ export namespace UserServiceNs {
     public getLogin(data): Observable<AuthAnyResModel> {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
+      config.headers =
+        new HttpHeaders({'Authorization': sessionStorage.getItem('x-user-id')});
       return this.http.Post('/jiahua/user/getLogin', data, config);
     }
 

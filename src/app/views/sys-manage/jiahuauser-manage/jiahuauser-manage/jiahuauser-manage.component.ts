@@ -5,6 +5,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import {LatheManageService} from '../../../../core/biz-services/latheManage/lathe-manage.service';
 
 @Component({
   selector: 'app-jiahuauser-manage',
@@ -22,6 +23,14 @@ export class JiahuauserManageComponent implements OnInit {
   // 表格类
   isAllChecked = false;
   checkedId: { [key: string]: boolean } = {};
+
+  // 权限表table
+  authTableConfig: any;
+  listOfAllAuths = [];
+  // 弹框内权限选择
+  authModalAllChecked = false;
+  authModalCheckId: { [key: string]: boolean } = {};
+
   // 弹框类
   detailModal = {
     show: false,
@@ -30,6 +39,16 @@ export class JiahuauserManageComponent implements OnInit {
     showContinue: false,
     showSaveBtn: false
   };
+  // 权限配置弹框
+  authModal2 = {
+    show: false,
+    loading: false,
+    title: '',
+    showContinue: false,
+    showSaveBtn: false
+  };
+  realRrights = [];
+
   // 弹窗表单
   validateForm: FormGroup;
   updateData: any;
@@ -40,6 +59,7 @@ export class JiahuauserManageComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private modal: NzModalService,
               private messageService: ShowMessageService,
+              private latheManageService: LatheManageService,
               private userService: UserManageService) {
     this.filters = {
       userName: '', // 用户
@@ -54,12 +74,22 @@ export class JiahuauserManageComponent implements OnInit {
       loading: false
     };
 
+    this.authTableConfig = {
+      showCheckBox: false,
+      allChecked: false,
+      pageSize: 1000,
+      pageNum: 1,
+      total: 10,
+      loading: false
+    };
+
   }
 
   ngOnInit() {
     this.initList();
     this.validateForm = this.fb.group({
       juId: [null],
+      userId: [null, [Validators.required]],
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
       institution: [null, []],
@@ -104,11 +134,53 @@ export class JiahuauserManageComponent implements OnInit {
     this.initList();
   }
 
+  pageChange2() {
+    this.authModalCheckId = {};
+    this.authModalAllChecked = false;
+    const filter = {
+      'filters': {},
+      'pageNum': this.authTableConfig.pageNum,
+      'pageSize': this.authTableConfig.pageSize
+    };
+    this.authTableConfig.loading = true;
+    this.latheManageService.getAuthList(filter).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.listOfAllAuths = res.value.list;
+      this.authTableConfig.pageTotal = res.value.total;
+      this.authTableConfig.loading = false;
+    });
+  }
+
   /**
    * 取消弹框
    */
   handleDetailCancel() {
     this.detailModal.show = false;
+    this.authModalCheckId = {};
+    this.authModalAllChecked = false;
+  }
+
+  saveAuths() {
+    this.authModal2.show = false;
+
+    for (const item of this.realRrights) {
+      item.status = this.authModalCheckId[item.authId] ? 1 : 0;
+      this.latheManageService.modifyUserAuth(item).subscribe((res) => {
+
+      });
+    }
+    // 重新查询rights
+    this.messageService.showToastMessage('权限配置保存成功', 'success');
+    console.log(this.authModalCheckId);
+
+  }
+
+  handleAuthModalCancel() {
+    this.authModal2.show = false;
+    this.authModalCheckId = {};
+    this.authModalAllChecked = false;
   }
 
   toggleCollapse(): void {
@@ -131,6 +203,49 @@ export class JiahuauserManageComponent implements OnInit {
     this.detailModal.show = true;
   }
 
+  /**
+   * 配置权限
+   */
+  editAuths(data) {
+    this.authModal2.title = `用户权限配置`;
+    this.authModal2.showContinue = true;
+    this.authModal2.showSaveBtn = true;
+    // 查询列表 checkbox
+    this.authModal2.show = true;
+    // 查询权限列表
+
+    const filter = {
+      'filters': {},
+      'pageNum': this.authTableConfig.pageNum,
+      'pageSize': this.authTableConfig.pageSize
+    };
+    this.authTableConfig.loading = true;
+    this.latheManageService.getAuthList(filter).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.listOfAllAuths = res.value.list;
+      this.authTableConfig.pageTotal = res.value.total;
+      this.authTableConfig.loading = false;
+    });
+    const requestParam = {
+      filters: {
+        userId: data.userId
+      },
+      pageNum: 0,
+      pageSize: 1000,
+    };
+    this.latheManageService.getUserAuthList(requestParam).subscribe((res) => {
+      this.realRrights = res.value.list;
+      for (const item of res.value.list) {
+        if (item.status === 1) {
+          this.authModalCheckId[item.authId] = true;
+        }
+      }
+
+    });
+  }
+
   editInfo(data) {
     this.isAdd = false;
     this.detailModal.title = `修改用户信息`;
@@ -146,6 +261,7 @@ export class JiahuauserManageComponent implements OnInit {
     this.updateData = data;
 
     this.validateForm.controls['juId'].setValue(data.juId);
+    this.validateForm.controls['userId'].setValue(data.userId);
     this.validateForm.controls['userName'].setValue(data.userName);
     this.validateForm.controls['password'].setValue(data.password);
     this.validateForm.controls['post'].setValue(data.post);
@@ -296,6 +412,20 @@ export class JiahuauserManageComponent implements OnInit {
     this.isAllChecked = this.listOfAllData.filter(item => item.juId !== '-1').every(item => this.checkedId[item.juId]);
   }
 
+  checkAllAuth(value: boolean): void {
+    this.listOfAllAuths.forEach(item => {
+      if (item.authId !== '-1') {
+        this.authModalCheckId[item.authId] = value;
+      }
+    });
+  }
+
+
+  refreshStatus2(): void {
+    this.authModalAllChecked = this.listOfAllAuths.filter(item => item.authId !== '-1').every(item => this.authModalCheckId[item.authId]);
+  }
+
+
   submitForm() {
     const controls = this.validateForm.controls;
     for (const key in controls) {
@@ -315,6 +445,22 @@ export class JiahuauserManageComponent implements OnInit {
       this.userService.addJiahuaUser(data).subscribe((res) => {
         this.detailModal.show = false;
         this.detailModal.loading = false;
+        // 插入的auth中
+        console.log(this.authModalCheckId);
+        for (let authModalCheckIdKey in this.authModalCheckId) {
+          console.log(authModalCheckIdKey);
+          const dataJson = {
+            authId: '',
+            post: '',
+            status: '0',
+            userId: ''
+          };
+          dataJson.authId = authModalCheckIdKey;
+          dataJson.post = data.post;
+          dataJson.userId = data.userId;
+
+          this.latheManageService.addUserAuth(dataJson);
+        }
         this.initList();
         this.messageService.showToastMessage('新增成功', 'success');
       });
@@ -329,6 +475,8 @@ export class JiahuauserManageComponent implements OnInit {
 
       });
     }
+
+    this.authModalCheckId = {};
 
   }
 

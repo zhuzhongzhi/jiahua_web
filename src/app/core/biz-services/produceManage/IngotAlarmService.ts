@@ -142,7 +142,7 @@ export namespace IngotAlarmServiceNs {
     public craftExeptionList(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
-      return this.http.Post('/produce/craft/exceptionList', data, this.defaultConfig);
+      return this.http.Post('/produce/craft/exceptionList?opId=' + data, {}, this.defaultConfig);
     }
 
     // 工艺流程列表查询

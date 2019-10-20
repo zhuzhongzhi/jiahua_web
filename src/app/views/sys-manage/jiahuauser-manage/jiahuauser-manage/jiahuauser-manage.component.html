@@ -71,6 +71,7 @@
         <th class="align-center">单位</th>
         <th class="align-center">岗位</th>
         <th class="align-center">账户状态</th>
+        <th class="align-center">操作</th>
 
       </tr>
       </thead>
@@ -82,6 +83,11 @@
         <td>{{data?.institution}}</td>
         <td>{{data?.post}}</td>
         <td>{{trans(data?.status)}}</td>
+        <td>
+          <ng-container>
+            <span (click)="editAuths(data)" class="blue-txt transparen-btn">权限配置</span>
+          </ng-container>
+        </td>
       </tr>
       </tbody>
     </nz-table>
@@ -99,6 +105,19 @@
   <form nz-form [formGroup]="validateForm">
     <div nz-row>
       <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="userId">用户ID <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <input nz-input formControlName="userId" placeholder="请输入用户ID">
+            <nz-form-explain
+              *ngIf="getFormControl('userId')?.dirty&&getFormControl('userId')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.userId}}
+          </nz-form-control>
+        </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label nz-col [nzSpan]="4" nzFor="userName">用户名 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
           <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
@@ -151,13 +170,48 @@
             {{updateData?.post}}
           </nz-form-control>
         </nz-form-item>
+        <!--<nz-form-item nzFlex>-->
+          <!--<nz-form-label nz-col [nzSpan]="4" nzFor="auths">权限 </nz-form-label>-->
+          <!--<nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">-->
+            <!--<button nz-button nzType="primary" style="margin-right:20px" (click)="editAuths()">配置</button>-->
+          <!--</nz-form-control>-->
+        <!--</nz-form-item>-->
       </div>
-      <nz-radio-group [(ngModel)]="radioValue">
-        <label nz-radio nzValue="0">启用</label>
-        <label nz-radio nzValue="1">禁用</label>
-      </nz-radio-group>
+      <!--<nz-radio-group [(ngModel)]="radioValue">-->
+        <!--<label nz-radio nzValue="0">启用</label>-->
+        <!--<label nz-radio nzValue="1">禁用</label>-->
+      <!--</nz-radio-group>-->
     </div>
 
   </form>
 
+</nz-modal>
+
+<nz-modal [(nzVisible)]="authModal2.show" [nzTitle]="authModal2.title"
+          (nzOnCancel)="handleAuthModalCancel()" nzWidth="850px" (nzOnOk)="saveAuths()">
+  <nz-table class="table-list" #thisTable2 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+            style="text-align:center"
+            [nzTotal]="authTableConfig.pageTotal" [(nzPageIndex)]="authTableConfig.pageNum" [(nzPageSize)]="authTableConfig.pageSize"
+            [nzData]="listOfAllAuths" [nzLoading]="authTableConfig.infoLoading"
+            (nzPageIndexChange)="pageChange2()" (nzPageSizeChange)="pageChange2()">
+    <thead >
+    <tr>
+      <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="authModalAllChecked" (nzCheckedChange)="checkAllAuth($event)"></th>
+      <th nzWidth="70px">序号</th>
+      <th class="align-center">权限id</th>
+      <th class="align-center">权限名</th>
+      <th class="align-center">描述</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of thisTable2.data; let i = index;" class="align-center">
+      <td nzShowCheckbox [(nzChecked)]="authModalCheckId[data.authId]" (nzCheckedChange)="refreshStatus2()" [nzDisabled]="data.authId === '-1'"></td>
+      <td>{{(authTableConfig.pageNum - 1) * authTableConfig.pageSize + i + 1}}</td>
+      <td>{{data?.authId}}</td>
+      <td>{{data?.authName}}</td>
+      <td>{{data?.desc}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
 </nz-modal>

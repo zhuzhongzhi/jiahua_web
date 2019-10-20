@@ -5,11 +5,11 @@
     <h2 class="brand-name">浙江嘉华丝车监控&质量管理系统</h2>
     <div class="right">
       <div class="welcome">
-        你好，ADMIN
+        你好，{{username}}
       </div>
       <nz-divider nzType="vertical" class="welcome"></nz-divider>
-      <div class="welcome" (click)="logOut">
-        <i class="anticon anticon-poweroff margin-r-10 cursor-pointer"></i>退出
+      <div class="welcome" (click)="logOut()">
+        <i class="anticon anticon-poweroff margin-r-10 cursor-pointer" (click)="logOut()"></i>退出
       </div>
     </div>
   </nz-header>
@@ -20,23 +20,25 @@
         <ng-container *ngFor="let menu of mainMenu">
 
           <ng-container>
-            <li nz-submenu class="noselect" [(nzOpen)]="menu.open" (nzOpenChange)="openHandle(menu.id)">
+            <li nz-submenu class="noselect" [(nzOpen)]="menu.open" (nzOpenChange)="openHandle(menu.id)" *ngIf="menu.show">
               <span title><img [src]="menu.img" class="menu-icon" style="width: 18px;"/>{{menu.name}}
               </span>
               <ng-container *ngIf="menu.url === ''">
                 <ng-container *ngFor="let secMenus of menu.subMenu">
 
-                  <li *ngIf="secMenus.url === ''" nz-submenu class="noselect" [(nzOpen)]="secMenus.open" (nzOpenChange)="openHandle(secMenus.id)">
+                  <li *ngIf="secMenus.url === '' && secMenus.show" nz-submenu class="noselect" [(nzOpen)]="secMenus.open" (nzOpenChange)="openHandle(secMenus.id)">
                     <span title>{{secMenus.name}}
                     </span>
                     <ul>
                       <li nz-menu-item *ngFor="let thrMenus of secMenus.subMenu" (click)="goRoute(thrMenus)"
                           [(nzSelected)]="thrMenus.open">
-                        {{thrMenus.name}}
+                        <div *ngIf="thrMenus.show">
+                          {{thrMenus.name}}
+                        </div>
                       </li>
                     </ul>
                   </li>
-                  <li *ngIf="secMenus.url !== ''" nz-menu-item (click)="goRoute(secMenus)"
+                  <li *ngIf="secMenus.url !== '' && secMenus.show" nz-menu-item (click)="goRoute(secMenus)"
                       [(nzSelected)]="secMenus.open">
                     {{secMenus.name}}
                   </li>

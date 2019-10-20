@@ -2,6 +2,7 @@ import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
 import {ScepterService, ScepterServiceNs} from '../core/common-services/scepter.service';
 import {ShowMessageService} from '../widget/show-message/show-message';
 import {StorageProvider} from '../core/common-services/storage';
+import {UserService} from '../core/common-services/user.service';
 @Directive({
   selector: '[appAuthBtu]'
 })
@@ -13,15 +14,45 @@ export class AuthBtuDirective {
       return;
     }
     this.show(false);
-    const rights = this.storage.getObject('rights');
-    if (!rights || JSON.stringify(rights) === '{}') {
-      this.saveRights(authId);
-    } else {
-      this.show(!!rights[authId]);
+    let rights = this.storage.getObject('rights');
+    if (rights === null) {
+      this.userService.getLogin({}).subscribe((res) => {
+        rights = res.value.jiahuaUserAuthList;
+        if (!rights || JSON.stringify(rights) === '{}') {
+          this.show(true);
+        } else {
+          rights.forEach(right => {
+            if (right.authId === authId && right.status === 1) {
+              this.show(true);
+            }
+          });
+          this.show(false);
+        }
+      });
     }
+    if (!rights || JSON.stringify(rights) === '{}') {
+      this.show(true);
+    } else {
+      let isShow = false;
+      console.log('start compare right');
+      rights.forEach(right => {
+        if (right.authId == authId && right.status === 1) {
+          // this.show(true);
+          isShow = true;
+          return;
+        }
+      });
+      this.show(isShow);
+    }
+    // if (!rights || JSON.stringify(rights) === '{}') {
+    //   this.saveRights(authId);
+    // } else {
+    //   this.show(!!rights[authId]);
+    // }
   }
   constructor(private scepterService: ScepterService, private templateRef: TemplateRef<any>,
               private storage: StorageProvider,
+              private userService: UserService,
               private messageService: ShowMessageService, private viewContainerRef: ViewContainerRef) {
   }
   private show(value: boolean) {

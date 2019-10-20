@@ -7,6 +7,7 @@ import {UfastValidatorsService} from '../../../core/infra/validators/validators.
 import {ShowMessageService} from '../../../widget/show-message/show-message';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {CookieService} from 'ngx-cookie-service';
+import {Md5} from 'ts-md5';
 
 @Component({
   templateUrl: './login.component.html',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   public loginSubmit() {
 
-    for (let key in this.validateForm.controls) {
+    for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
@@ -56,7 +57,8 @@ export class LoginComponent implements OnInit {
     //     });
     //   }
     // });
-    this.userService.login({userName: this.validateForm.value.userName, password: this.validateForm.value.password})
+    const pwd = String(Md5.hashStr(this.validateForm.value.password));
+    this.userService.login({userName: this.validateForm.value.userName, password: pwd})
       .subscribe((resData) => {
         console.log(resData);
         this.loading = false;
@@ -68,10 +70,17 @@ export class LoginComponent implements OnInit {
         // 简易密码校验
         this.message.success('登录成功');
         sessionStorage.setItem('x-user-id', resData.value);
-        // this.cookieService.set('x-user-id', resData.value);
-        this.router.navigate(['../main/latheManage'], {
-          relativeTo: this.activeRouter
+        // 设置rights
+        this.userService.getLogin({userName: this.validateForm.value.userName, password: pwd}).subscribe((res) => {
+          localStorage.setItem('rights', JSON.stringify(res.value.jiahuaUserAuthList));
+          localStorage.setItem('userName', this.validateForm.value.userName);
+          this.router.navigate(['../main/latheManage'], {
+            relativeTo: this.activeRouter
+          });
+
         });
+
+        // this.cookieService.set('x-user-id', resData.value);
 
       }, (error: UserServiceNs.HttpError) => {
         this.message.error(error.message);

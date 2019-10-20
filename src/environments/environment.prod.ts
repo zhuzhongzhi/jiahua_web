@@ -8,9 +8,10 @@
 
 
 // 线上内网环境
-export const webServerUrl = `${window.location.protocol}//${window.location.hostname}`;
-export const webSocketUrl = `${window.location.protocol}//${window.location.hostname}:9098`;
-
+// export const webServerUrl = `${window.location.protocol}//${window.location.hostname}`;
+// export const webSocketUrl = `${window.location.protocol}//${window.location.hostname}:9098`;
+export const webServerUrl = window.location.origin + '/site';
+export const webSocketUrl = 'http://192.168.1.103:19001';
 
 export const gatewayKey = {
   Ius: 'ius',
@@ -27,8 +28,10 @@ export const environment = {
   production: true,
   baseUrl: {
     ius: `${webServerUrl}/ius`,
-    // bs: `${webServerUrl}/iot`,
-    bs: `${webServerUrl}/iot`
+    bs: `${webServerUrl}/iot`,
+    auth: `${webServerUrl}/fast-auth-server`,
+    iot: `${webServerUrl}/iot-server`,
+    gen: `${webServerUrl}/fast-gen-service`
   },
   otherData: {
     sysRole: 0,

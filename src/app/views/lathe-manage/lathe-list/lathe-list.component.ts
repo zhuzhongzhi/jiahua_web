@@ -75,7 +75,8 @@ export class LatheListComponent implements OnInit {
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
     // @ts-ignore
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('http://track.ubitraq.com/map/map2d/svg/follow/?tag=' + data.tagId);
+    // /track/map/map2d/svg/follow/?tag=000034b5
+    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
     this.detailModal.show = true;
   }
 
@@ -84,8 +85,9 @@ export class LatheListComponent implements OnInit {
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车轨迹回看`;
     // @ts-ignore
+    // /map/map2d/svg/sim/?anony=super&map=test_4&tagmac=000034b5&starttime=1568862844240&endtime=1568863845240&isHideBtn=1
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'http://track.ubitraq.com/map/map2d/svg/sim/?anony=super&map=chelianwang_1&tagmac=' +
+      '/map/map2d/svg/sim/?anony=super&map=test_4&tagmac=' +
       data.tagId + '&starttime=' + (Date.parse(new Date().toString()) - 3600 * 1000 * 12) + '&endtime=' +
       Date.parse(new Date().toString()) + '&isHideBtn=1');
     this.detailModal.show = true;
