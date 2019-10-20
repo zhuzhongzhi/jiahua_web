@@ -1305,7 +1305,7 @@ export class HotreelManageComponent implements OnInit {
 
     this.ingotAlarmService.craftExeptionList(data.opId).subscribe(res => {
       const exceptions = res.value;
-      if (exceptions === null || exceptions === undefined || exceptions === '') {
+      if (exceptions === null || exceptions === undefined || exceptions === '' || exceptions.length === 0) {
         this.resetDataList();
       } else {
         this.dataList1 = exceptions.slice(0, 6);
