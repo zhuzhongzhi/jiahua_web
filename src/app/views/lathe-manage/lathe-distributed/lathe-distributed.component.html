@@ -1,98 +1,75 @@
 <div>
-
-  <div nz-row [nzGutter]="8"  *ngIf="!detailModal.show">
-
-    <div nz-col [nzSpan]="7">
-      <div class="form-item" nz-row style="padding-top: 20px;text-align: right;">
-        <label class="inline-span" style="line-height: 32px;margin-right: 15px;" nz-col nzSpan="8">丝车编号</label>
-        <div nz-col nzSpan="12" class="form-control">
-          <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code"/>
+  <div nz-row [nzGutter]="8" style="height:calc(100vh - 95px)">
+    <div nz-row style="text-align: center;">
+      <div style="display:flex">
+        <div class="some first" (click)="changeSelect(0)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/exit.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>空闲</div>
+            <div style="color:#89a9a9">{{data.exit ? data.exit : 0}}</div>
+          </div>
+        </div>
+        <div class="some" (click)="changeSelect(1)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/doff.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>落丝</div>
+            <div style="color:#89a9a9">{{data.doff ? data.doff : 0}}</div>
+          </div>
+        </div>
+        <div class="some" (click)="changeSelect(2)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/danni.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>测丹尼</div>
+            <div style="color:#89a9a9">{{data.danni ? data.danni : 0}}</div>
+          </div>
+        </div>
+        <div class="some" (click)="changeSelect(3)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/sock.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>摇袜</div>
+            <div style="color:#89a9a9">{{data.sock ? data.sock : 0}}</div>
+          </div>
+        </div>
+        <div class="some" (click)="changeSelect(4)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/color.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>判色</div>
+            <div style="color:#89a9a9">{{data.color ? data.color: 0}}</div>
+          </div>
+        </div>
+        <div class="some" (click)="changeSelect(5)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/check.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>检验</div>
+            <div style="color:#89a9a9">{{data.check ? data.check : 0}}</div>
+          </div>
+        </div>
+        <div class="some last" (click)="changeSelect(6)">
+          <div nz-col [nzSpan]="10" style="text-align: right"><img src='/assets/image/jiahua/icon/pack.png'></div>
+          <div nz-col [nzSpan]="14" style="text-align: left;padding-left: 28px;padding-top: 3px;">
+            <div>包装</div>
+            <div style="color:#89a9a9">{{data.pack ? data.pack : 0}}</div>
+          </div>
         </div>
       </div>
-      <div class="form-item" nz-row style="padding-top: 20px;text-align: right;">
-        <label class="inline-span" style="line-height: 32px;margin-right: 15px;" nz-col nzSpan="8">批号</label>
-        <div nz-col nzSpan="12" class="form-control">
-          <!--                <input nzSize="default" nz-input type="text">-->
-          <input type="text" nz-input placeholder="请输入批号" [(ngModel)]="filters.batchNum"/>
-        </div>
-      </div>
-      <div class="form-item" nz-row style="padding-top: 20px;text-align: right;">
-        <label class="inline-span" style="line-height: 32px;margin-right: 15px;" nz-col nzSpan="8">工艺状态</label>
-        <div nz-col nzSpan="12" class="form-control">
-          <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.craftState">
-            <nz-option nzValue="0" nzLabel="空闲"></nz-option>
-            <nz-option nzValue="1" nzLabel="落丝"></nz-option>
-            <nz-option nzValue="2" nzLabel="测丹尼"></nz-option>
-            <nz-option nzValue="3" nzLabel="摇袜"></nz-option>
-            <nz-option nzValue="4" nzLabel="判色"></nz-option>
-            <nz-option nzValue="5" nzLabel="检验"></nz-option>
-            <nz-option nzValue="6" nzLabel="包装"></nz-option>
-          </nz-select>
-        </div>
-      </div>
-      <div style="text-align: center;margin-top: 20px;margin-left: 15px;" *appAuthBtu="1010001">
-        <button nz-button nzType="primary" style="margin-right:20px" (click)="initData()">查询</button>
-        <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
-      </div>
-
-      <div nz-row style="    text-align: center;
-    margin-top: 20px;">
-        <div>
-          <p class="some">空闲（{{data.exit}}）</p>
-          <p class="some">落丝（{{data.doff}}）</p>
-          <p class="some">测丹尼（{{data.danni}}）</p>
-          <p class="some">摇袜（{{data.sock}}）</p>
-          <p class="some">检验（{{data.check}}）</p>
-          <p class="some">包装（{{data.pack}}）</p>
-        </div>
-      </div>
-
     </div>
-    <div nz-col [nzSpan]="17">
-      <button class="full" (click)="fullscreen()">全屏展示<i nz-icon type="fullscreen"></i></button>
-      <div style="min-height: 600px;border: 2px solid rgba(2, 167, 240, 1)">
-        <iframe
-          id="onet"
-          [src]="safeUrl"
-          name="onet"
-          frameborder="0"
-          style="background-color:transparent; position: absolute; ;    width: 99.9%;
-    height: 96%;top: 20;left:0;">
+
+    <div nz-row id="target" style="height:calc(100vh - 95px); ">
+      <button *ngIf="!detailModal.show" class="full" (click)="fullscreen()">全屏展示
+        <i nz-icon type="fullscreen"></i>
+      </button>
+      <button *ngIf="detailModal.show" class="full" (click)="closefullscreen()">收起全屏
+        <i nz-icon type="fullscreen-exit"></i>
+      </button>
+      <div style="min-height: 600px; height:100%;border: 1px solid rgba(2, 167, 240, 1)">
+        <iframe scrolling="no"
+                id="onet"
+                [src]="safeUrl"
+                name="onet"
+                frameborder="1px"
+                style="background-color:transparent;     width: 100%;    height: 100%;">
         </iframe>
       </div>
     </div>
   </div>
-  <div nz-row  *ngIf="detailModal.show">
-    <div nz-col>
-      <button class="full" (click)="closefullscreen()">收起全屏<i nz-icon type="fullscreen-exit"></i></button>
-      <div style="min-height: 600px;border: 2px solid rgba(2, 167, 240, 1)">
-        <iframe
-          id="onet"
-          [src]="safeUrl"
-          name="onet"
-          frameborder="0"
-          style="background-color:transparent; position: absolute; ;    width: 99.9%;
-    height: 96%;top: 20;left:0;">
-        </iframe>
-      </div>
-    </div>
-
-  </div>
-
 </div>
-
-
-<!--<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null-->
-          <!--(nzOnCancel)="handleDetailCancel()"  >-->
-  <!--<div>-->
-    <!--<iframe-->
-      <!--id="onet"-->
-      <!--[src]="safeUrl"-->
-      <!--name="onet"-->
-      <!--frameborder="0"-->
-      <!--style="background-color:transparent; position: absolute; ; width: 100%; height: 100%; top: 20;left:0;">-->
-    <!--</iframe>-->
-
-  <!--</div>-->
-
-<!--</nz-modal>-->

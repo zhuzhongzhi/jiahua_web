@@ -1200,6 +1200,7 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.title = `纺车位置查看`;
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
+    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
     this.detailModal.show = true;
   }
 
@@ -1471,7 +1472,7 @@ export class HotreelManageComponent implements OnInit {
         return;
       }
       const arr = [];
-      for (const wagon of res.value) {
+      for (const wagon of res.value.list) {
         console.log(wagon);
         const item: any = [];
         item.id = wagon.opId;
@@ -1513,7 +1514,6 @@ export class HotreelManageComponent implements OnInit {
     const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
     this.saveAsExcelFile(excelBuffer, '落丝管理列表');
   }
-
   private saveAsExcelFile(buffer: any, fileName: string) {
     const data: Blob = new Blob([buffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'

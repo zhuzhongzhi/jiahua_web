@@ -188,13 +188,14 @@
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" (nzOnOk)="submitForm()"
           (nzOnCancel)="handleDetailCancel()" nzWidth="1000px"  >
-  <div style="min-height: 600px;" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 320px)" *ngIf="showiFrame">
     <iframe
+      scrolling="no"
       id="onet"
       [src]="src"
       name="onet"
       frameborder="0"
-      style="background-color:transparent; position: absolute; ; width: 100%; height: 100%; top: 20;left:0;">
+      style="background-color:transparent; width: 100%; height: 100%;">
     </iframe>
 
   </div>

@@ -1,5 +1,23 @@
 .some {
-  margin-top:10px;
+  //margin-top: 10px;
+  cursor: pointer;
+  background-color: #faad1438;
+  //line-height: 50px;
+  width: 40%;
+  padding: 12px;
+  margin: 12px;
+  //margin-left: 30%;
+  img {width: 45px;}
+  margin-left: 13px !important;
+  margin-right: 13px !important;
+}
+.first {
+  margin-left: 4px !important;
+  margin-right: 13px !important;
+}
+.last {
+  margin-right: 4px !important;
+  margin-left: 13px !important;
 }
 
 .full {

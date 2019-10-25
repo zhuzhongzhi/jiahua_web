@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
+import * as screenfull from 'screenfull';
 
 @Component({
   selector: 'app-lathe-distributed',
@@ -15,9 +16,8 @@ export class LatheDistributedComponent implements OnInit {
     code: ''
   };
   data: any = {};
-  // safeUrl = 'http://track.ubitraq.com/map/map2d/svg/sim/?anony=super&map=chelianwang_1&isHideBtn=1';
-  // safeUrl = 'http://track.ubitraq.com/track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1';
   safeUrl = '/track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1';
+  // safeUrl = 'http://jiahuaweb.ihaniel.cn//track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1';
 
   detailModal = {
     show: false,
@@ -34,9 +34,12 @@ export class LatheDistributedComponent implements OnInit {
   ngOnInit() {
     // @ts-ignore
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.safeUrl);
-
     this.initData();
-
+    if (screenfull.isEnabled) {
+      screenfull.on('change', () => {
+        this.detailModal.show = screenfull.isFullscreen;
+      });
+    }
   }
 
   /**
@@ -47,14 +50,21 @@ export class LatheDistributedComponent implements OnInit {
   }
 
   fullscreen() {
-    this.detailModal.showContinue = false;
-    this.detailModal.showSaveBtn = false;
-    this.detailModal.title = `丝车地图查看`;
-    this.detailModal.show = true;
+    // this.detailModal.showContinue = false;
+    // this.detailModal.showSaveBtn = false;
+    // this.detailModal.title = `丝车地图查看`;
+    // this.detailModal.show = true;
+    const element = document.getElementById('target');
+    if (screenfull.isEnabled) {
+      screenfull.request(element);
+    }
   }
 
   closefullscreen() {
-    this.detailModal.show = false;
+    const element = document.getElementById('target');
+    if (screenfull.isEnabled) {
+      screenfull.exit();
+    }
   }
 
   public initData() {
@@ -81,6 +91,10 @@ export class LatheDistributedComponent implements OnInit {
 
       });
     });
+  }
+
+  changeSelect(status) {
+    console.log(status);
   }
 
   resetCond() {

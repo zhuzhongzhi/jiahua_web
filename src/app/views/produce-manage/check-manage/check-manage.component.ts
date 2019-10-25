@@ -1386,7 +1386,7 @@ export class CheckManageComponent implements OnInit {
         return;
       }
       const arr = [];
-      for (const wagon of res.value) {
+      for (const wagon of res.value.list) {
         console.log(wagon);
         const item: any = [];
         item.id = wagon.opId;

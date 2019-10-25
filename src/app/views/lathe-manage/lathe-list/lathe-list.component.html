@@ -7,13 +7,14 @@
       <div id="u625" class="ax_default box_1">
         <div id="u625_text" class="text ">
           <!--<p>-->
-            <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
-            <span style="text-decoration:none;">筛选查询</span>
+          <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
+          <span style="text-decoration:none;">筛选查询</span>
           <!--</p>-->
           <div id="u627" class="ax_default">
-          <div id="u627_text" class="text ">
-            <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer" (click)="toggleCollapse()"></i>
-          </div>
+            <div id="u627_text" class="text ">
+              <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer"
+                 (click)="toggleCollapse()"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -23,8 +24,8 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
               <div nz-col nzSpan="16" class="form-control">
-<!--                <input nzSize="default" nz-input type="text">-->
-                  <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code" />
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code"/>
               </div>
             </div>
           </div>
@@ -56,15 +57,19 @@
     </div>
 
     <div nz-row nzGutter="16" *appAuthBtu="1020004">
-      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>
+      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="export()"><i nz-icon
+                                                                                                           type="export"
+                                                                                                           theme="outline"></i>导出Excel
+      </button>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
               style="text-align:center"
-              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
+              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+              [(nzPageSize)]="tableConfig.pageSize"
               [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
               (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange(true)">
-      <thead >
+      <thead>
       <tr>
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
@@ -86,11 +91,11 @@
         <td>{{ trans(data.craftState) }}</td>
         <td *appAuthBtu="1020002"><span class="blue-txt transparen-btn" (click)="showPos(data)">查看</span></td>
         <td *appAuthBtu="1020003">
-<!--          <span *appAuthBtu="ActionCode.parkingSpotDetail" (click)="lookParkingSpot(data)" class="blue-txt transparen-btn">详情</span>-->
-<!--          <ng-container *appAuthBtu="ActionCode.parkingSpotEdit">-->
-<!--            <i class="line"></i>-->
-            <span class="blue-txt transparen-btn" (click)="showLocus(data)">查看</span>
-<!--          </ng-container>-->
+          <!--          <span *appAuthBtu="ActionCode.parkingSpotDetail" (click)="lookParkingSpot(data)" class="blue-txt transparen-btn">详情</span>-->
+          <!--          <ng-container *appAuthBtu="ActionCode.parkingSpotEdit">-->
+          <!--            <i class="line"></i>-->
+          <span class="blue-txt transparen-btn" (click)="showLocus(data)">查看</span>
+          <!--          </ng-container>-->
         </td>
       </tr>
       </tbody>
@@ -98,7 +103,8 @@
   </div>
   <ng-template #totalTemplate let-total>
     <span class="m-r-sm">
-    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}
+      至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
       条记录，共计{{tableConfig.pageTotal}}条记录
   </span>
   </ng-template>
@@ -106,16 +112,16 @@
 
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null
-          (nzOnCancel)="handleDetailCancel()" nzWidth="900px"  >
-  <div style="min-height: 600px;">
-    <iframe
-      id="onet"
-      [src]="src"
-      name="onet"
-      frameborder="0"
-      style="background-color:transparent; position: absolute; ; width: 100%; height: 100%; top: 20;left:0;">
+          (nzOnCancel)="handleDetailCancel()" nzWidth="900px" style="height: 80%; top: 10%;">
+  <div style="min-height: 600px; height: calc(100vh - 320px)">
+    <iframe scrolling="no"
+            id="onet"
+            [src]="src"
+            name="onet"
+            frameborder="0"
+            style="background-color:transparent; width: 100%; height: 100%; ">
     </iframe>
-
   </div>
+
 
 </nz-modal>

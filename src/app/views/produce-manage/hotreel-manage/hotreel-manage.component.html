@@ -188,13 +188,14 @@
     <button nz-button nzType="primary" (click)="submitForm()" >确定</button>
   </ng-template>
 
-  <div style="min-height: 600px;" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 320px)" *ngIf="showiFrame">
     <iframe
+      scrolling="no"
       id="onet"
       [src]="src"
       name="onet"
       frameborder="0"
-      style="background-color:transparent; position: absolute; ; width: 100%; height: 100%; top: 20;left:0;">
+      style="background-color:transparent; width: 100%; height: 100%;">
     </iframe>
 
   </div>
@@ -310,7 +311,7 @@
             <label class="inline-span" nz-col nzSpan="8">落丝纺位</label>
             <div nz-col nzSpan="16" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="submitModel.doffingSpinPos1"/>
+              <input type="text" nz-input placeholder="请输入落丝纺位" [(ngModel)]="submitModel.doffingSpinPos1"/>
             </div>
           </div>
         </div>
@@ -342,7 +343,7 @@
             <label class="inline-span" nz-col nzSpan="8">落丝纺位</label>
             <div nz-col nzSpan="16" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="submitModel.doffingSpinPos2"/>
+              <input type="text" nz-input placeholder="请输入落丝纺位" [(ngModel)]="submitModel.doffingSpinPos2"/>
             </div>
           </div>
         </div>
@@ -374,7 +375,7 @@
             <label class="inline-span" nz-col nzSpan="8">落丝纺位</label>
             <div nz-col nzSpan="16" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="submitModel.doffingSpinPos3"/>
+              <input type="text" nz-input placeholder="请输入落丝纺位" [(ngModel)]="submitModel.doffingSpinPos3"/>
             </div>
           </div>
         </div>

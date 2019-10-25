@@ -605,7 +605,10 @@ export class PackManageComponent implements OnInit {
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
+    // 测试
+    this.src=this.sanitizer.bypassSecurityTrustResourceUrl('http://jiahuaweb.ihaniel.cn//track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1');
+    // 线上TODO
+    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
     this.detailModal.show = true;
   }
 
@@ -1403,7 +1406,7 @@ export class PackManageComponent implements OnInit {
         return;
       }
       const arr = [];
-      for (const wagon of res.value) {
+      for (const wagon of res.value.list) {
         console.log(wagon);
         const item: any = [];
         item.id = wagon.opId;

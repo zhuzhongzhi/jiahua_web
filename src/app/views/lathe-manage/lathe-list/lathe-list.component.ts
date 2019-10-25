@@ -87,7 +87,7 @@ export class LatheListComponent implements OnInit {
     // @ts-ignore
     // /map/map2d/svg/sim/?anony=super&map=test_4&tagmac=000034b5&starttime=1568862844240&endtime=1568863845240&isHideBtn=1
     this.src = this.sanitizer.bypassSecurityTrustResourceUrl(
-      '/map/map2d/svg/sim/?anony=super&map=test_4&tagmac=' +
+      '/track/map/map2d/svg/sim/?anony=super&map=test_4&tagmac=' +
       data.tagId + '&starttime=' + (Date.parse(new Date().toString()) - 3600 * 1000 * 12) + '&endtime=' +
       Date.parse(new Date().toString()) + '&isHideBtn=1');
     this.detailModal.show = true;
