@@ -166,12 +166,84 @@ export namespace IngotAlarmServiceNs {
       return this.http.Post('/produce/craft/page', data, this.defaultConfig);
     }
 
+    // 新工艺流程分页查询
+    public newCraftPage(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/page', data, this.defaultConfig);
+    }
+
     // 丝车概要信息
     public wagonSummary(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
       return this.http.Get('/wagon/summary', data, this.defaultConfig);
     }
+
+    // 获取所有的线别信息
+    public getAllLineTypes() {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getAllLineType', null, this.defaultConfig);
+    }
+
+    // 获取所有的批次信息
+    public getAllBatchList() {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getBatch', null, this.defaultConfig);
+    }
+
+    // 根据批次获取规格
+    public getStandardByBatch(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getStandardByBatch', data, this.defaultConfig);
+    }
+
+    // 主记录创建
+    public newCraftAdd(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/add', data, this.defaultConfig);
+    }
+
+    public endDoff(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/endDoffing', data, this.defaultConfig);
+    }
+
+    public endDanni(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/endTestDanny', data, this.defaultConfig);
+    }
+
+    public endSock(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/endRock', data, this.defaultConfig);
+    }
+
+    public endColour(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/endColour', data, this.defaultConfig);
+    }
+
+    public endPackage(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/endPackage', data, this.defaultConfig);
+    }
+
+    public endCheck(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/endCheck', data, this.defaultConfig);
+    }
+
 
   }
 

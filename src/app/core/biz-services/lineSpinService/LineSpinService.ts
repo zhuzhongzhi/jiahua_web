@@ -48,6 +48,49 @@ export namespace LineSpinServiceNs {
       return this.http.Post('/wagon/lineSpin/remove', data, this.defaultConfig);
     }
 
+    // 增加批次信息
+    public addBatch(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/addBatch', data, this.defaultConfig);
+    }
+
+    // 修改批次信息
+    public updateBatch(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/updateBatch', data, this.defaultConfig);
+    }
+
+    // 查看批次列表
+    public pageBatch(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/getBatchPage', data, this.defaultConfig);
+    }
+
+    // 查看所有批次列表
+    public listAllBatch() {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/allBatch', null, this.defaultConfig);
+
+    }
+
+    // 获取所有的批次，仅包含批次
+    public getAllBatch() {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getBatch', null, this.defaultConfig);
+    }
+
+    // 删除批次
+    public removeBatch(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/batchRemove', data, this.defaultConfig);
+    }
+
   }
 
 }

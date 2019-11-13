@@ -558,14 +558,11 @@ export class ShakesockManageComponent implements OnInit {
       lineType: '',
       batchNum: '',
       standard: '',
-      spinPos: '',
-      curCraftState: '',
-      produceTime: '',
-      operator: '',
-      doffingTime1: '',
-      craftState: '3',
-      craftTime: '',
-      jobCode: ''
+      createTime: '',
+      rockOperator: '',
+      rockTime: '',
+      doffingStartTime: '',
+      craftState: '3'
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -1130,6 +1127,25 @@ export class ShakesockManageComponent implements OnInit {
     this.getProduce();
   }
 
+  saveSock() {
+  }
+
+  addSock() {}
+
+  endSock() {
+    const data = {
+      pmId: this.submitModel.pmId,
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+    };
+    this.ingotAlarmService.endSock(data).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.messageService.showToastMessage('测单尼完成提交成功', 'success');
+
+    });
+  }
+
   initList() {
     // 初始化丝车列表
     const filter = {
@@ -1138,17 +1154,12 @@ export class ShakesockManageComponent implements OnInit {
       'pageSize': this.tableConfig.pageSize
     };
     this.tableConfig.loading = true;
-    this.ingotAlarmService.craftPage(filter).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage(filter).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
       this.listOfAllData = res.value.list;
-      filter.pageNum = 0;
-      filter.pageSize = 10000;
-
-      this.ingotAlarmService.craftPage(filter).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.total;
-      });
+      this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
   }
@@ -1199,15 +1210,17 @@ export class ShakesockManageComponent implements OnInit {
   }
 
   edit() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.opId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
-      this.isAdd = true;
-      this.detailModal.title = `新增摇袜记录`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.submitModel = {};
-      this.resetDataList();
+      this.messageService.showToastMessage('请选择一条主记录', 'warning');
+
+      // this.isAdd = true;
+      // this.detailModal.title = `新增摇袜记录`;
+      // this.detailModal.showContinue = true;
+      // this.detailModal.showSaveBtn = true;
+      // this.detailModal.show = true;
+      // this.submitModel = {};
+      // this.resetDataList();
       return;
     }
     let data;
@@ -1216,7 +1229,7 @@ export class ShakesockManageComponent implements OnInit {
       if (this.checkedId[key]) {
         console.log(key);
         this.listOfAllData.forEach(item => {
-          if (item.opId == key) {
+          if (item.pmId == key) {
             data = item;
           }
         });
@@ -1268,7 +1281,7 @@ export class ShakesockManageComponent implements OnInit {
 
   delete() {
     // TODO
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.opId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');
       return;
@@ -1291,14 +1304,14 @@ export class ShakesockManageComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.listOfAllData.forEach(item => {
-      if (item.opId !== '-1') {
-        this.checkedId[item.opId] = value;
+      if (item.pmId !== '-1') {
+        this.checkedId[item.pmId] = value;
       }
     });
   }
 
   refreshStatus(): void {
-    this.isAllChecked = this.listOfAllData.filter(item => item.opId !== '-1').every(item => this.checkedId[item.opId]);
+    this.isAllChecked = this.listOfAllData.filter(item => item.pmId !== '-1').every(item => this.checkedId[item.pmId]);
   }
   parseTime(time) {
     if (time) {
@@ -1388,7 +1401,7 @@ export class ShakesockManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.craftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '3'}}).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '3'}}).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -1396,33 +1409,33 @@ export class ShakesockManageComponent implements OnInit {
       for (const wagon of res.value.list) {
         console.log(wagon);
         const item: any = [];
-        item.id = wagon.opId;
+        item.记录id = wagon.pmId;
         item.批号 = wagon.batchNum;
         item.要因记录 = wagon.cause;
         item.班别 = wagon.classType;
         item.丝车编码 = wagon.code;
         item.工艺状态 = wagon.craftState;
-        item.丝车当前的工艺状态 = wagon.curCraftState;
-        item.第一次落丝纺位 = wagon.doffingSpinPos1;
-        item.第二次落丝纺位 = wagon.doffingSpinPos2;
-        item.第三次落丝纺位 = wagon.doffingSpinPos3;
-        item.落丝时间 = wagon.doffingTime;
-        item.第一次落丝时间 = wagon.doffingTime1;
-        item.第二次落丝时间 = wagon.doffingTime2;
-        item.第三次落丝时间 = wagon.doffingTime3;
-        item.锭数 = wagon.ingotNum;
-        item.工号 = wagon.jobCode;
+        item.规格 = wagon.standard;
         item.锭数合股次数 = wagon.jointNum;
         item.线别 = wagon.lineType;
-        item.操作员 = wagon.operator;
-        item.生产日期 = wagon.produceTime;
-        item.纺位 = wagon.spinPos;
-        item.规格 = wagon.standard;
-        item.丝车定位标签ID = wagon.tagId;
         item.净重 = wagon.weight;
-        item.第一次落丝净重 = wagon.weight1;
-        item.第二次落丝净重 = wagon.weight2;
-        item.第三次落丝净重 = wagon.weight3;
+        item.检验操作员 = wagon.checkOperator;
+        item.检验时间 = wagon.checkTime;
+        item.判色操作员 = wagon.colourOperator;
+        item.判色时间 = wagon.colourTime;
+        item.创建时间 = wagon.createTime;
+        item.创建人 = wagon.creator;
+        item.落丝结束时间 = wagon.doffingEndTime;
+        item.落丝操作员 = wagon.doffingOperator;
+        item.落丝开始时间 = wagon.doffingStartTime;
+        item.包装操作员 = wagon.packageOperator;
+        item.包装时间 = wagon.packageTime;
+        item.卷别 = wagon.reelType;
+        item.摇袜操作员 = wagon.rockOperator;
+        item.摇袜时间 = wagon.rockTime;
+        item.测丹尼操作员 = wagon.testDannyOperator;
+        item.测丹尼时间 = wagon.testDannyTime;
+
         arr.push(item);
       }
       this.exportList(arr);

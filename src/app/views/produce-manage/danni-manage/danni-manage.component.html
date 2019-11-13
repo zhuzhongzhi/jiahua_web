@@ -57,34 +57,9 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">纺位</label>
+              <label class="inline-span" nz-col nzSpan="8">创建日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入纺位" [(ngModel)]="filters.spinPos"/>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">工艺状态</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.curCraftState">
-                  <nz-option nzValue="0" nzLabel="空闲"></nz-option>
-                  <nz-option nzValue="1" nzLabel="落丝"></nz-option>
-                  <nz-option nzValue="2" nzLabel="测丹尼"></nz-option>
-                  <nz-option nzValue="3" nzLabel="摇袜"></nz-option>
-                  <nz-option nzValue="4" nzLabel="判色"></nz-option>
-                  <nz-option nzValue="5" nzLabel="检验"></nz-option>
-                  <nz-option nzValue="6" nzLabel="包装"></nz-option>
-                </nz-select>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">生产日期</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.produceTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
               </div>
             </div>
           </div>
@@ -93,7 +68,7 @@
               <label class="inline-span" nz-col nzSpan="8">测丹尼操作员</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入测丹尼操作员" [(ngModel)]="filters.operator"/>
+                <input type="text" nz-input placeholder="请输入测丹尼操作员" [(ngModel)]="filters.testDannyOperator"/>
               </div>
             </div>
           </div>
@@ -101,16 +76,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">测丹尼时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.craftTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">工号查询</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入测丹尼操作员" [(ngModel)]="filters.jobCode"/>
+                <nz-date-picker [(ngModel)]="filters.testDannyTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
               </div>
             </div>
           </div>
@@ -119,7 +85,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">落丝开始时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.doffingTime1" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
               </div>
             </div>
           </div>
@@ -139,7 +105,7 @@
 
       <div nz-col class="gutter-row" style="float:right">
         <span style="margin-right:20px;">今日产量：{{doffingWeight}}kg</span>
-        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
+        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()">导出Excel</button>
       </div>
     </div>
 
@@ -153,13 +119,13 @@
         <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">落丝时间</th>
+        <th class="align-center">落丝开始时间</th>
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
         <th class="align-center">班别</th>
         <th class="align-center">净重（kg）</th>
-        <th class="align-center">生产日期</th>
+        <th class="align-center">创建日期</th>
         <th class="align-center">工艺状态</th>
         <th class="align-center">测丹尼操作员</th>
         <th class="align-center">测丹尼时间</th>
@@ -168,19 +134,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.opId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.opId === '-1'"></td>
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.code}}</td>
-        <td>{{data.doffingTime}}</td>
+        <td>{{data.doffingStartTime}}</td>
         <td>{{data.lineType}}</td>
         <td>{{data.batchNum}}</td>
         <td>{{data.standard}}</td>
         <td>{{data.classType}}</td>
         <td>{{data.weight}}</td>
-        <td>{{data.produceTime}}</td>
-        <td>{{trans(data.curCraftState)}}</td>
-        <td>{{data.operator}}</td>
-        <td>{{data.craftTime}}</td>
+        <td>{{data.createTime}}</td>
+        <td>{{trans(data.craftState)}}</td>
+        <td>{{data.testDannyOperator}}</td>
+        <td>{{data.testDannyTime}}</td>
         <td><span class="blue-txt transparen-btn" (click)="showPos(data)">查看</span></td>
       </tr>
       </tbody>
@@ -230,9 +196,9 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">日期</label>
+          <label class="inline-span" nz-col nzSpan="8">创建日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker [(ngModel)]="submitModel.produceTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+            <nz-date-picker [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
 
           </div>
         </div>
@@ -291,19 +257,16 @@
           </div>
         </div>
       </div>
+      <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
 
-      <div nz-col class="gutter-row" nzSpan="6">
-        <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">锭数次数</label>
-          <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" nz-input placeholder="请输入锭数次数" [(ngModel)]="submitModel.ingotNum"/>
-          </div>
-        </div>
+      <button nz-button nzType="primary" style="margin-right:20px" (click)="saveDanni()">保存</button>
+      <button nz-button style="margin-right:20px;" (click)="addDanni()">新增测单尼</button>
+      <button nz-button nzType="danger" style="margin-right:20px;" (click)="endDanni()">测单尼完成</button>
       </div>
+
     </div>
 
-    <div nz-row style="height: 300px; width:auto; overflow: scroll;border: 1px solid #CCCCCC;">
+    <div nz-row style="margin-top:20px; height: 300px; width:auto; overflow: scroll;border: 1px solid #CCCCCC;">
       <div nz-row style="margin-left:20px;margin-top: -10px;">
         <div nz-col class="gutter-row" nzSpan="6">
           <div class="form-item" nz-row style="padding-top: 20px;">

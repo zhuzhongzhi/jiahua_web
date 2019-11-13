@@ -5,6 +5,7 @@ import {UserManageComponent} from './user-manage/user-manage.component';
 import {RoleManageComponent} from './role-manage/role-manage.component';
 import {SysLogComponent} from './sys-log/sys-log.component';
 import {LineSpinComponent} from './line-spin/line-spin.component';
+import {BatchManageComponent} from './batch-manage/batch-manage.component';
 import {JiahuauserManageComponent} from './jiahuauser-manage/jiahuauser-manage/jiahuauser-manage.component';
 import {JiahuaauthManageComponent} from './jiahuaauth-manage/jiahuaauth-manage/jiahuaauth-manage.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'roleManage', component: RoleManageComponent},
   {path: 'sysLog', component: SysLogComponent},
   {path: 'lineSpin', component: LineSpinComponent},
+  {path: 'batchManage', component: BatchManageComponent},
   {path: 'jiahuaUser', component: JiahuauserManageComponent},
   {path: 'jiahuaAuth', component: JiahuaauthManageComponent},
 ];

@@ -18,6 +18,7 @@ export class LinealarmManageComponent implements OnInit {
   tableConfig: any;
   filters: any;
   listOfAllData = [];
+  remark: ''; // 备注
   // 表格类
   isAllChecked = false;
   checkedId: { [key: string]: boolean } = {};
@@ -105,6 +106,10 @@ export class LinealarmManageComponent implements OnInit {
    */
   handleDetailCancel() {
     this.detailModal.show = false;
+  }
+
+  submitForm() {
+    console.log(this.remark);
   }
 
   toggleCollapse(): void {

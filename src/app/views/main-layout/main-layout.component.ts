@@ -160,6 +160,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         url: '',
         subMenu: [
           {name: '线别纺位管理', url: '/main/sysManage/lineSpin', show: this.show(301)},
+          {name: '批次规格管理', url: '/main/sysManage/batchManage', show: this.show(301)},
           {name: '账户管理', url: '/main/sysManage/jiahuaUser', show: this.show(302)},
           {name: '权限管理', url: '/main/sysManage/jiahuaAuth', show: this.show(303)},
           {name: '日志管理', url: '/main/sysManage/sysLog', show: this.show(304)}

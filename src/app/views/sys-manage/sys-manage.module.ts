@@ -12,6 +12,7 @@ import {AddCompanyComponent} from './org-manage/add-company/add-company.componen
 import {LineSpinComponent} from './line-spin/line-spin.component';
 import {JiahuauserManageComponent} from './jiahuauser-manage/jiahuauser-manage/jiahuauser-manage.component';
 import {JiahuaauthManageComponent} from './jiahuaauth-manage/jiahuaauth-manage/jiahuaauth-manage.component';
+import {BatchManageComponent} from './batch-manage/batch-manage.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {JiahuaauthManageComponent} from './jiahuaauth-manage/jiahuaauth-manage/j
     AddCompanyComponent,
     LineSpinComponent,
     JiahuauserManageComponent,
-    JiahuaauthManageComponent
+    JiahuaauthManageComponent,
+    BatchManageComponent
   ]
 })
 export class SysManageModule {

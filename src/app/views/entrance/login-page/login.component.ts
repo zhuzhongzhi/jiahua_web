@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit {
         this.userService.getLogin({userName: this.validateForm.value.userName, password: pwd}).subscribe((res) => {
           localStorage.setItem('rights', JSON.stringify(res.value.jiahuaUserAuthList));
           localStorage.setItem('userName', this.validateForm.value.userName);
+          localStorage.setItem('userId', res.value.jiahuaUser.userId);
           this.router.navigate(['../main/latheManage'], {
             relativeTo: this.activeRouter
           });

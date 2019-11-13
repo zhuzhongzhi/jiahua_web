@@ -205,7 +205,7 @@ export class HotreelManageComponent implements OnInit {
       opuLevel: '',
       other: '',
       otherLevel: ''
-    },];
+    }, ];
   dataList2 = [{
     exSpinPos: '',
     lousiness: '',
@@ -379,7 +379,7 @@ export class HotreelManageComponent implements OnInit {
       opuLevel: '',
       other: '',
       otherLevel: ''
-    },];
+    }, ];
   dataList3 = [{
     exSpinPos: '',
     lousiness: '',
@@ -553,7 +553,7 @@ export class HotreelManageComponent implements OnInit {
       opuLevel: '',
       other: '',
       otherLevel: ''
-    },];
+    }, ];
 
   @ViewChild('lousTable')
   private lousTable: LousTableComponent;
@@ -567,9 +567,12 @@ export class HotreelManageComponent implements OnInit {
   isAdd = false;
   doffingWeight = 0;
   src: SafeResourceUrl = '';
-  showiFrame = false;
+  showiFrame = 0;
 
   submitModel: any = {};
+
+  lineItems: any = []; // 线别列表
+  batchList: any = []; // 批次列表
 
   dataList: any = [];
 
@@ -583,11 +586,9 @@ export class HotreelManageComponent implements OnInit {
       lineType: '',
       batchNum: '',
       standard: '',
-      spinPos: '',
-      curCraftState: '',
-      produceTime: '',
-      operator: '',
-      doffingTime1: '',
+      createTime: '',
+      doffingOperator: '',
+      doffingStartTime: '',
       craftState: '1'
     };
     this.tableConfig = {
@@ -786,7 +787,7 @@ export class HotreelManageComponent implements OnInit {
         opuLevel: '',
         other: '',
         otherLevel: ''
-      },];
+      }, ];
     this.dataList2 = [{
       exSpinPos: '',
       lousiness: '',
@@ -960,7 +961,7 @@ export class HotreelManageComponent implements OnInit {
         opuLevel: '',
         other: '',
         otherLevel: ''
-      },];
+      }, ];
     this.dataList3 = [{
       exSpinPos: '',
       lousiness: '',
@@ -1134,7 +1135,7 @@ export class HotreelManageComponent implements OnInit {
         opuLevel: '',
         other: '',
         otherLevel: ''
-      },];
+      }, ];
   }
 
   saveEdit(id: string): void {
@@ -1194,7 +1195,7 @@ export class HotreelManageComponent implements OnInit {
   }
 
   showPos(data) {
-    this.showiFrame = true;
+    this.showiFrame = 1;
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
@@ -1212,17 +1213,12 @@ export class HotreelManageComponent implements OnInit {
       'pageSize': this.tableConfig.pageSize
     };
     this.tableConfig.loading = true;
-    this.ingotAlarmService.craftPage(filter).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage(filter).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
       this.listOfAllData = res.value.list;
-      filter.pageNum = 0;
-      filter.pageSize = 10000;
-
-      this.ingotAlarmService.craftPage(filter).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.total;
-      });
+      this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
   }
@@ -1249,7 +1245,7 @@ export class HotreelManageComponent implements OnInit {
    */
   handleDetailCancel() {
     this.detailModal.show = false;
-    this.showiFrame = false;
+    this.showiFrame = 0;
   }
 
 
@@ -1259,24 +1255,67 @@ export class HotreelManageComponent implements OnInit {
 
   add() {
     this.isAdd = true;
-    this.detailModal.title = `新增落丝记录`;
+    this.detailModal.title = `新建`;
     this.detailModal.showContinue = true;
     this.detailModal.showSaveBtn = true;
     this.detailModal.show = true;
     this.submitModel = {};
+    this.showiFrame = 2;
+    // init linetypes
+    this.ingotAlarmService.getAllLineTypes().subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.lineItems = res.value;
+    });
+    this.ingotAlarmService.getAllBatchList().subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.batchList = res.value;
+    });
     this.resetDataList();
   }
 
+  refreshStandard(value) {
+    const data = {
+      'batchNum': value
+    };
+    this.ingotAlarmService.getStandardByBatch(data).subscribe((res) => {
+      this.submitModel.standard = res.value[0];
+    });
+  }
+
+  saveDoff() {
+  }
+
+  addDoff() {}
+
+  endDoff() {
+    let data = {
+      pmId: this.submitModel.pmId,
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+    };
+    this.ingotAlarmService.endDoff(data).subscribe((res) => {
+      if(res.code !== 0) {
+        return;
+      }
+      this.messageService.showToastMessage('落丝完成提交成功', 'success');
+
+    });
+  }
+
   edit() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.opId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
-      this.isAdd = true;
-      this.detailModal.title = `新增落丝记录`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.submitModel = {};
-      this.resetDataList();
+      this.messageService.showToastMessage('请选择一条主记录', 'warning');
+      // this.isAdd = true;
+      // this.detailModal.title = `新增落丝记录`;
+      // this.detailModal.showContinue = true;
+      // this.detailModal.showSaveBtn = true;
+      // this.detailModal.show = true;
+      // this.submitModel = {};
+      // this.resetDataList();
       return;
     }
     let data;
@@ -1285,7 +1324,7 @@ export class HotreelManageComponent implements OnInit {
       if (this.checkedId[key]) {
         console.log(key);
         this.listOfAllData.forEach(item => {
-          if (item.opId == key) {
+          if (item.pmId == key) {
             data = item;
           }
         });
@@ -1294,17 +1333,17 @@ export class HotreelManageComponent implements OnInit {
     }
     console.log(data);
     if (i > 1) {
-      this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
+      this.messageService.showToastMessage('一次仅能操作一条记录', 'warning');
       return;
     }
     this.isAdd = false;
-    this.detailModal.title = `修改落丝记录`;
+    this.detailModal.title = `操作落丝记录`;
     this.detailModal.showContinue = true;
     this.detailModal.showSaveBtn = true;
     this.detailModal.show = true;
     this.submitModel = data;
 
-    this.ingotAlarmService.craftExeptionList(data.opId).subscribe(res => {
+    this.ingotAlarmService.craftExeptionList(data.pmId).subscribe(res => {
       const exceptions = res.value;
       if (exceptions === null || exceptions === undefined || exceptions === '' || exceptions.length === 0) {
         this.resetDataList();
@@ -1363,14 +1402,14 @@ export class HotreelManageComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.listOfAllData.forEach(item => {
-      if (item.opId !== '-1') {
-        this.checkedId[item.opId] = value;
+      if (item.pmId !== '-1') {
+        this.checkedId[item.pmId] = value;
       }
     });
   }
 
   refreshStatus(): void {
-    this.isAllChecked = this.listOfAllData.filter(item => item.opId !== '-1').every(item => this.checkedId[item.opId]);
+    this.isAllChecked = this.listOfAllData.filter(item => item.pmId !== '-1').every(item => this.checkedId[item.pmId]);
   }
 
   parseTime(time) {
@@ -1397,9 +1436,22 @@ export class HotreelManageComponent implements OnInit {
     //   return;
     // }
     // this.detailModal.loading = true;
-    if (this.showiFrame) {
+    if (this.showiFrame === 1) {
       this.detailModal.show = false;
-    } else {
+    } else if (this.showiFrame === 2) {
+      this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
+      this.submitModel.craftState = 1;
+      this.submitModel.creator = localStorage.getItem('userId');
+      console.log(this.submitModel);
+      this.ingotAlarmService.newCraftAdd(this.submitModel).subscribe((res) => {
+        if (res.code !== 0) {
+          return;
+        }
+        this.messageService.showToastMessage('主记录新建成功', 'success');
+        this.detailModal.show = false;
+        this.initList();
+      });
+    } else if (this.showiFrame === 0) {
       const wagonExceptions = [];
       let idx = 1;
       this.dataList1.forEach(el => {
@@ -1452,11 +1504,9 @@ export class HotreelManageComponent implements OnInit {
       lineType: '',
       batchNum: '',
       standard: '',
-      spinPos: '',
-      curCraftState: '',
-      produceTime: '',
-      operator: '',
-      doffingTime1: '',
+      createTime: '',
+      doffingOperator: '',
+      doffingStartTime: '',
       craftState: '1'
     };
     this.initList();
@@ -1467,7 +1517,7 @@ export class HotreelManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.craftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '1'}}).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '1'}}).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -1475,33 +1525,33 @@ export class HotreelManageComponent implements OnInit {
       for (const wagon of res.value.list) {
         console.log(wagon);
         const item: any = [];
-        item.id = wagon.opId;
+        item.记录id = wagon.pmId;
         item.批号 = wagon.batchNum;
         item.要因记录 = wagon.cause;
         item.班别 = wagon.classType;
         item.丝车编码 = wagon.code;
         item.工艺状态 = wagon.craftState;
-        item.丝车当前的工艺状态 = wagon.curCraftState;
-        item.第一次落丝纺位 = wagon.doffingSpinPos1;
-        item.第二次落丝纺位 = wagon.doffingSpinPos2;
-        item.第三次落丝纺位 = wagon.doffingSpinPos3;
-        item.落丝时间 = wagon.doffingTime;
-        item.第一次落丝时间 = wagon.doffingTime1;
-        item.第二次落丝时间 = wagon.doffingTime2;
-        item.第三次落丝时间 = wagon.doffingTime3;
-        item.锭数 = wagon.ingotNum;
-        item.工号 = wagon.jobCode;
+        item.规格 = wagon.standard;
         item.锭数合股次数 = wagon.jointNum;
         item.线别 = wagon.lineType;
-        item.操作员 = wagon.operator;
-        item.生产日期 = wagon.produceTime;
-        item.纺位 = wagon.spinPos;
-        item.规格 = wagon.standard;
-        item.丝车定位标签ID = wagon.tagId;
         item.净重 = wagon.weight;
-        item.第一次落丝净重 = wagon.weight1;
-        item.第二次落丝净重 = wagon.weight2;
-        item.第三次落丝净重 = wagon.weight3;
+        item.检验操作员 = wagon.checkOperator;
+        item.检验时间 = wagon.checkTime;
+        item.判色操作员 = wagon.colourOperator;
+        item.判色时间 = wagon.colourTime;
+        item.创建时间 = wagon.createTime;
+        item.创建人 = wagon.creator;
+        item.落丝结束时间 = wagon.doffingEndTime;
+        item.落丝操作员 = wagon.doffingOperator;
+        item.落丝开始时间 = wagon.doffingStartTime;
+        item.包装操作员 = wagon.packageOperator;
+        item.包装时间 = wagon.packageTime;
+        item.卷别 = wagon.reelType;
+        item.摇袜操作员 = wagon.rockOperator;
+        item.摇袜时间 = wagon.rockTime;
+        item.测丹尼操作员 = wagon.testDannyOperator;
+        item.测丹尼时间 = wagon.testDannyTime;
+
         arr.push(item);
       }
       this.exportList(arr);
