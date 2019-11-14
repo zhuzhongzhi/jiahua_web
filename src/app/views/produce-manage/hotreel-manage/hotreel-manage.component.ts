@@ -1285,6 +1285,7 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.showSaveBtn = true;
     this.detailModal.show = true;
     this.submitModel = {};
+
     this.showiFrame = 2;
     // init linetypes
     this.ingotAlarmService.getAllLineTypes().subscribe((res) => {
@@ -1315,7 +1316,7 @@ export class HotreelManageComponent implements OnInit {
   // 创建表格
   addTable(item, i) {
     if (item.pdId === undefined) {
-      item.ingotNum = this.submitModel.ingotNum;
+      item.ingotNum =  6; //this.submitModel.ingotNum;
       if (item.ingotNum === undefined || item.ingotNum === null || item.ingotNum === '') {
         this.messageService.showToastMessage('请配置锭数次数', 'warning');
         return;
@@ -1676,6 +1677,7 @@ export class HotreelManageComponent implements OnInit {
         item.要因记录 = wagon.cause;
         item.班别 = wagon.classType;
         item.丝车编码 = wagon.code;
+        item.工艺状态 = wagon.craftState;
         item.工艺状态 = wagon.craftState;
         item.规格 = wagon.standard;
         item.锭数合股次数 = wagon.jointNum;

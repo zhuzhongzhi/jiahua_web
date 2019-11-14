@@ -9,6 +9,9 @@ import * as screenfull from 'screenfull';
   styleUrls: ['./lathe-distributed.component.scss']
 })
 export class LatheDistributedComponent implements OnInit {
+  isCollapse = true;
+  lineItems: any = []; // 线别列表
+  batchList: any = []; // 批次列表
 
   filters = {
     batchNum: '',
@@ -68,6 +71,19 @@ export class LatheDistributedComponent implements OnInit {
   }
 
   public initData() {
+    // init linetypes
+    this.ingotAlarmService.getAllLineTypes().subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.lineItems = res.value;
+    });
+    this.ingotAlarmService.getAllBatchList().subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.batchList = res.value;
+    });
     this.ingotAlarmService.wagonSummary(this.filters).subscribe(res => {
       res.value.forEach(item => {
         if (item.craftState === 0) {
@@ -95,6 +111,10 @@ export class LatheDistributedComponent implements OnInit {
 
   changeSelect(status) {
     console.log(status);
+  }
+
+  toggleCollapse(): void {
+    this.isCollapse = !this.isCollapse;
   }
 
   resetCond() {
