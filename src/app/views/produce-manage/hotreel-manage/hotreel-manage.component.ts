@@ -205,7 +205,7 @@ export class HotreelManageComponent implements OnInit {
       opuLevel: '',
       other: '',
       otherLevel: ''
-    }, ];
+    },];
   dataList2 = [{
     exSpinPos: '',
     lousiness: '',
@@ -379,7 +379,7 @@ export class HotreelManageComponent implements OnInit {
       opuLevel: '',
       other: '',
       otherLevel: ''
-    }, ];
+    },];
   dataList3 = [{
     exSpinPos: '',
     lousiness: '',
@@ -553,7 +553,7 @@ export class HotreelManageComponent implements OnInit {
       opuLevel: '',
       other: '',
       otherLevel: ''
-    }, ];
+    },];
 
   @ViewChild('lousTable')
   private lousTable: LousTableComponent;
@@ -576,10 +576,20 @@ export class HotreelManageComponent implements OnInit {
 
   dataList: any = [];
 
+  listData: any[] = [];
+  // 落丝异常
+  doffExceptions: any = [];
+
+  // 落丝列表
+  doffList: any = [];
+  // spinPos列表
+  spinPosList: any = [];
+
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
               private messageService: ShowMessageService,
+              private modalService: NzModalService,
               private ingotAlarmService: IngotAlarmService) {
     this.filters = {
       code: '',
@@ -599,6 +609,18 @@ export class HotreelManageComponent implements OnInit {
       total: 10,
       loading: false
     };
+    for (let i = 0; i < 100; i++) {
+      this.listData.push({
+        name: 'John Brown',
+        age: i + 1,
+        street: 'Lake Park',
+        building: 'C',
+        number: 2035,
+        companyAddress: 'Lake Street 42',
+        companyName: 'SoftLake Co',
+        gender: 'M'
+      });
+    }
   }
 
   startEdit(id: string): void {
@@ -787,7 +809,7 @@ export class HotreelManageComponent implements OnInit {
         opuLevel: '',
         other: '',
         otherLevel: ''
-      }, ];
+      },];
     this.dataList2 = [{
       exSpinPos: '',
       lousiness: '',
@@ -961,7 +983,7 @@ export class HotreelManageComponent implements OnInit {
         opuLevel: '',
         other: '',
         otherLevel: ''
-      }, ];
+      },];
     this.dataList3 = [{
       exSpinPos: '',
       lousiness: '',
@@ -1135,7 +1157,7 @@ export class HotreelManageComponent implements OnInit {
         opuLevel: '',
         other: '',
         otherLevel: ''
-      }, ];
+      },];
   }
 
   saveEdit(id: string): void {
@@ -1199,10 +1221,13 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
+
+    this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+      this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
+      this.detailModal.show = true;
+    });
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
     // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    this.detailModal.show = true;
   }
 
   initList() {
@@ -1274,6 +1299,7 @@ export class HotreelManageComponent implements OnInit {
       }
       this.batchList = res.value;
     });
+    this.messageService.showToastMessage('无批次选择列表时，请移至批次管理页面进行条件。', 'warning', 3000);
     this.resetDataList();
   }
 
@@ -1286,18 +1312,117 @@ export class HotreelManageComponent implements OnInit {
     });
   }
 
-  saveDoff() {
+  // 创建表格
+  addTable(item, i) {
+    if (item.pdId === undefined) {
+      item.ingotNum = this.submitModel.ingotNum;
+      if (item.ingotNum === undefined || item.ingotNum === null || item.ingotNum === '') {
+        this.messageService.showToastMessage('请配置锭数次数', 'warning');
+        return;
+      }
+      if (item.doffingTime === undefined || item.doffingTime === null || item.doffingTime === '') {
+        this.messageService.showToastMessage('请配置落丝时间', 'warning');
+        return;
+      }
+      if (item.weight === undefined || item.weight === null || item.weight === '') {
+        this.messageService.showToastMessage('请配置净重', 'warning');
+        return;
+      }
+      if (item.spinPos === undefined || item.spinPos === null || item.spinPos === '') {
+        this.messageService.showToastMessage('请配置落丝纺位', 'warning');
+        return;
+      }
+      const doffingTimeTemp = item.doffingTime;
+      item.doffingTime = this.parseTime(item.doffingTime);
+      this.ingotAlarmService.addDoffing(item).subscribe(res => {
+        item.pdId = res.value;
+        item.doffingTime = doffingTimeTemp;
+        this.doffList[i] = item;
+        // 进行表格创建
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res) => {
+          this.doffList[i].showtable = true;
+          this.doffList[i].exception = res.value;
+          console.log(this.doffList);
+        });
+      });
+    } else {
+      // 进行表格创建
+      this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res) => {
+        this.doffList[i].showtable = true;
+        this.doffList[i].exception = res.value;
+        console.log(this.doffList);
+      });
+    }
+
   }
 
-  addDoff() {}
+  saveDoff() {
+    this.doffList.forEach(item => {
+      if (item.pdId !== undefined) {
+        item.ingotNum = this.submitModel.ingotNum;
+        const doffingTimeTemp = item.doffingTime;
+        item.doffingTime = this.parseTime(item.doffingTime);
+        this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
+          item.pdId = res.value;
+          item.doffingTime = doffingTimeTemp;
+          if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+            this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+              this.messageService.showToastMessage('落丝记录修改成功', 'success');
+              this.modalService.confirm({
+                nzTitle: '<i>保存成功是否要回到列表页</i>',
+                nzContent: '<b>保存成功</b>',
+                nzOnOk: () => {
+                  this.detailModal.show = false;
+                  this.initList();
+                }
+              });
+            });
+          }
+        });
+      } else {
+        item.ingotNum = this.submitModel.ingotNum;
+        const doffingTimeTemp = item.doffingTime;
+        item.doffingTime = this.parseTime(item.doffingTime);
+        this.ingotAlarmService.addDoffing(item).subscribe(res => {
+          item.pdId = res.value;
+          item.doffingTime = doffingTimeTemp;
+          if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+            this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+              this.messageService.showToastMessage('落丝记录保存成功', 'success');
+              this.modalService.confirm({
+                nzTitle: '<i>保存成功是否要回到列表页</i>',
+                nzContent: '<b>保存成功</b>',
+                nzOnOk: () => {
+                  this.detailModal.show = false;
+                  this.initList();
+                }
+              });
+            });
+          }
+        });
+      }
+
+    });
+
+  }
+
+  addDoff() {
+    // this.ingotAlarmService.addDoffing()
+    // 获取线别下所有纺位
+    const data = {lineType: this.submitModel.lineType};
+    this.ingotAlarmService.getSpinPosByLineType(data).subscribe((res) => {
+      this.spinPosList = res.value;
+    });
+    this.doffList.push({ingotNum: '', pmId: this.submitModel.pmId, doffingTime: '', spinPos: '', weight: ''});
+  }
 
   endDoff() {
-    let data = {
+    const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
     };
     this.ingotAlarmService.endDoff(data).subscribe((res) => {
-      if(res.code !== 0) {
+      if (res.code !== 0) {
         return;
       }
       this.messageService.showToastMessage('落丝完成提交成功', 'success');
@@ -1306,6 +1431,7 @@ export class HotreelManageComponent implements OnInit {
   }
 
   edit() {
+    this.showiFrame = 0 ;
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
@@ -1343,14 +1469,34 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.show = true;
     this.submitModel = data;
 
-    this.ingotAlarmService.craftExeptionList(data.pmId).subscribe(res => {
-      const exceptions = res.value;
-      if (exceptions === null || exceptions === undefined || exceptions === '' || exceptions.length === 0) {
-        this.resetDataList();
-      } else {
-        this.dataList1 = exceptions.slice(0, 6);
-        this.dataList2 = exceptions.slice(6, 12);
-        this.dataList3 = exceptions.slice(12, 18);
+    // this.ingotAlarmService.craftExeptionList(data.pmId).subscribe(res => {
+    //   const exceptions = res.value;
+    //   if (exceptions === null || exceptions === undefined || exceptions === '' || exceptions.length === 0) {
+    //     this.resetDataList();
+    //   } else {
+    //     this.dataList1 = exceptions.slice(0, 6);
+    //     this.dataList2 = exceptions.slice(6, 12);
+    //     this.dataList3 = exceptions.slice(12, 18);
+    //   }
+    // });
+    const temp1 = {lineType: data.lineType};
+    this.ingotAlarmService.getSpinPosByLineType(temp1).subscribe((res) => {
+      this.spinPosList = res.value;
+    });
+    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+      this.doffList = res.value;
+      this.doffList.forEach(item => {
+        if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
+          item.doffingTime = new Date(item.doffingTime);
+        }
+        // 设置 exception
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+          item.showtable = true;
+          item.exception = res1.value;
+        });
+      });
+      if (this.doffList !== null && this.doffList.length > 0) {
+        this.submitModel.ingotNum = this.doffList[0].ingotNum;
       }
     });
 
@@ -1564,6 +1710,7 @@ export class HotreelManageComponent implements OnInit {
     const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
     this.saveAsExcelFile(excelBuffer, '落丝管理列表');
   }
+
   private saveAsExcelFile(buffer: any, fileName: string) {
     const data: Blob = new Blob([buffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'

@@ -37,6 +37,7 @@ import {MapGoogleDrawDrivingComponent} from './map-google-draw-driving/map-googl
 import {LookImgComponent} from './look-img/look-img.component';
 import {LousTableComponent} from './lous-table/lous-table.component';
 import {OtherTableComponent} from './other-table/other-table.component';
+import { NewTableComponent } from './new-table/new-table.component';
 
 @NgModule({
   imports: [
@@ -80,12 +81,14 @@ import {OtherTableComponent} from './other-table/other-table.component';
     LookImgComponent,
     LousTableComponent,
     OtherTableComponent,
+    NewTableComponent,
   ],
   entryComponents: [
     CehicleDetailModelComponent,
     LookImgComponent,
     LousTableComponent,
     OtherTableComponent,
+    NewTableComponent
   ],
   exports: [
     UfastTableComponent,
@@ -119,6 +122,7 @@ import {OtherTableComponent} from './other-table/other-table.component';
     LookImgComponent,
     LousTableComponent,
     OtherTableComponent,
+    NewTableComponent
   ],
 })
 export class CommonComponentModule {

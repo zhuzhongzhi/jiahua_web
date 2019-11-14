@@ -1,0 +1,299 @@
+<nz-table
+    #groupingTable
+    [nzData]="dataList"
+    nzBordered
+    nzSize="middle"
+    [nzWidthConfig]="widthConfig"
+    [nzScroll]="scrollConfig"
+    [nzShowPagination]="false"
+>
+  <thead>
+  <tr>
+    <th nzLeft="0px">纺锭位/异常</th>
+    <th colspan="2">毛丝</th>
+    <th colspan="2">碰伤</th>
+    <th colspan="2">绕外</th>
+    <th colspan="2">成型不良</th>
+    <th colspan="2">夹丝</th>
+    <th colspan="2">污丝</th>
+    <th colspan="2">黄化</th>
+    <th colspan="2">飘丝</th>
+    <th colspan="2">绕丝</th>
+    <th colspan="2">染色</th>
+    <th colspan="2">物性</th>
+    <th colspan="2">OPU</th>
+    <th colspan="2">其他</th>
+    <th nzRight="0px"></th>
+  </tr>
+  <tr>
+    <th nzLeft="0px">全选</th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.lousiness" (ngModelChange)="changeWithSelect('lousiness')" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items1" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.lousinessLevel" (ngModelChange)="changeWithSelect('lousinessLevel')" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.bruise" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('bruise')" style="width: 80px;">
+        <nz-option *ngFor="let item of items2" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.bruiseLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('bruiseLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.outside" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('outside')" style="width: 80px;">
+        <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.outsideLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('outsideLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.badShape" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('badShape')"  style="width: 80px;">
+        <nz-option *ngFor="let item of items3" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.badShapeLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('badShapeLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.crimp" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('crimp')" style="width: 80px;">
+        <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.crimpLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('crimpLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.soiled" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('soiled')" style="width: 80px;">
+        <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.soiledLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('soiledLevel')"  style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.yellow" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('yellow')" style="width: 80px;">
+        <nz-option *ngFor="let item of items4" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.yellowLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('yellowLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.floatSilk" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('floatSilk')" style="width: 80px;">
+        <nz-option *ngFor="let item of items11" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.floatSilkLevel" (ngModelChange)="changeWithSelect('floatSilkLevel')" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.wind" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('wind')" style="width: 80px;">
+        <nz-option *ngFor="let item of items5" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.windLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('windLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.dye" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('dye')" style="width: 80px;">
+        <nz-option *ngFor="let item of items6" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.dyeLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('dyeLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.property" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('property')" style="width: 80px;">
+        <nz-option *ngFor="let item of items7" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.propertyLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('propertyLevel')"  style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.opu" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('opu')" style="width: 80px;">
+        <nz-option *ngFor="let item of items8" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.opuLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('opuLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.other" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('other')" style="width: 80px;">
+        <nz-option *ngFor="let item of items9" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th>
+      <nz-select [(ngModel)]="checkedAll.otherLevel" nzPlaceHolder="请选择" (ngModelChange)="changeWithSelect('otherLevel')" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </th>
+    <th nzRight="0px"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of groupingTable.data; let i = index">
+    <td nzLeft="0px">{{ i+1 }}</td>
+    <td>
+      <nz-select [(ngModel)]="data.lousiness" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items1" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.lousinessLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.bruise" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items2" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.bruiseLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.outside" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.outsideLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.badShape" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items3" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.badShapeLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.crimp" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.crimpLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.soiled" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.soiledLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.yellow" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items4" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.yellowLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.floatSilk" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items11" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.floatSilkLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.wind" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items5" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.windLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.dye" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items6" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.dyeLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.property" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items7" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.propertyLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.opu" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items8" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.opuLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.other" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items9" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td>
+      <nz-select [(ngModel)]="data.otherLevel" nzPlaceHolder="请选择" style="width: 80px;">
+        <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value"></nz-option>
+      </nz-select>
+    </td>
+    <td nzRight="0px"></td>
+  </tr>
+  </tbody>
+</nz-table>

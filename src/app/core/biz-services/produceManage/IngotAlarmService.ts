@@ -244,6 +244,85 @@ export namespace IngotAlarmServiceNs {
       return this.http.Get('/produce/newCraft/endCheck', data, this.defaultConfig);
     }
 
+    /**
+     * 创建一条落丝记录
+     * @param data
+     */
+    public addDoffing(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/addDoffing', data, this.defaultConfig);
+    }
+
+    /**
+     * 修改落丝记录
+     * @param data
+     */
+    public modifyDoffing(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/modifyDoffing', data, this.defaultConfig);
+    }
+
+    /**
+     * 获取线别下所有纺位
+     * @param data
+     */
+    public getSpinPosByLineType(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getSpinPosByLineType', data, this.defaultConfig);
+    }
+
+    /**
+     * 获取丝车信息
+     * @param data
+     */
+    public getWagonByCode(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/wagon/getWagonByCode', data, this.defaultConfig);
+    }
+
+    /**
+     * 获得落丝列表
+     * @param data
+     */
+    public getDoffings(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getDoffings', data, this.defaultConfig);
+    }
+
+    /**
+     * pdId 获取落丝异常
+     * @param data
+     */
+    public getDoffingExceptions(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getDoffingExceptions', data, this.defaultConfig);
+    }
+
+    /**
+     * pmId获取异常列表
+     * @param data
+     */
+    public getExceptions(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getExceptions', data, this.defaultConfig);
+    }
+
+    /**
+     * 保存异常操作
+     * @param data
+     */
+    public modifyExceptions(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/modifyExceptions', data, this.defaultConfig);
+    }
 
   }
 
