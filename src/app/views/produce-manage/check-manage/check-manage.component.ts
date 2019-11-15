@@ -31,513 +31,7 @@ export class CheckManageComponent implements OnInit {
     showSaveBtn: false
   };
 
-  dataList = [
-    {
-      exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-    {exSpinPos: '',
-      lousiness: '',
-      lousinessLevel: '',
-      bruise: '',
-      bruiseLevel: '',
-      outside: '',
-      outsideLevel: '',
-      badShape: '',
-      badShapeLevel: '',
-      crimp: '',
-      crimpLevel: '',
-      soiled: '',
-      soiledLevel: '',
-      yellow: '',
-      yellowLevel: '',
-      floatSilk: '',
-      floatSilkLevel: '',
-      wind: '',
-      windLevel: '',
-      dye: '',
-      dyeLevel: '',
-      property: '',
-      propertyLevel: '',
-      opu: '',
-      opuLevel: '',
-      other: '',
-      otherLevel: ''
-    },
-  ];
+  dataList = [];
 
   // 弹窗表单
   validateForm: FormGroup;
@@ -548,11 +42,15 @@ export class CheckManageComponent implements OnInit {
   src: SafeResourceUrl = '';
 
   showiFrame = false;
-
+  // 异常数组
+  exceptions: any[] = [];
   submitModel: any = {};
+  // 检验详情
+  checkInfo: any = {};
 
   constructor(private fb: FormBuilder,
               private modal: NzModalService,
+              private modalService: NzModalService,
               private sanitizer: DomSanitizer,
               private messageService: ShowMessageService,
               private ingotAlarmService: IngotAlarmService) {
@@ -561,14 +59,11 @@ export class CheckManageComponent implements OnInit {
       lineType: '',
       batchNum: '',
       standard: '',
-      spinPos: '',
-      curCraftState: '',
-      produceTime: '',
-      operator: '',
-      doffingTime1: '',
-      craftState: '5',
-      craftTime: '',
-      jobCode: ''
+      createTime: '',
+      checkOperator: '',
+      checkTime: '',
+      doffingStartTime: '',
+      craftState: '5'
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -599,6 +94,44 @@ export class CheckManageComponent implements OnInit {
     }
   }
 
+  saveCheck() {
+    const tempTime = this.checkInfo.checkTime;
+    console.log(this.checkInfo.checkTime);
+    this.checkInfo.pmId = this.submitModel.pmId;
+    this.checkInfo.checkTime = this.parseTime(this.checkInfo.checkTime);
+    this.ingotAlarmService.addCheck(this.checkInfo).subscribe((res) => {
+      this.checkInfo.pcId = res.value;
+      this.checkInfo.checkTime = tempTime;
+
+      this.ingotAlarmService.modifyExceptions(this.exceptions).subscribe((res1) => {
+        this.modalService.confirm({
+          nzTitle: '<i>保存成功是否要回到列表页</i>',
+          nzContent: '<b>保存成功</b>',
+          nzOnOk: () => {
+            this.detailModal.show = false;
+            this.initList();
+          }
+        });
+      });
+    });
+
+  }
+
+  endCheck() {
+    const data = {
+      pmId: this.submitModel.pmId,
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+    };
+    this.ingotAlarmService.endCheck(data).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.messageService.showToastMessage('检查完成提交成功', 'success');
+      this.detailModal.show = false;
+      this.initList();
+    });
+  }
+
   ngOnInit() {
     this.initList();
     this.validateForm = this.fb.group({
@@ -614,518 +147,16 @@ export class CheckManageComponent implements OnInit {
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    this.detailModal.show = true;
+    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
+    // this.detailModal.show = true;
+    this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+      this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
+      this.detailModal.show = true;
+    });
   }
 
   resetDataList() {
-    this.dataList = [
-      {
-        exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-      {exSpinPos: '',
-        lousiness: '',
-        lousinessLevel: '',
-        bruise: '',
-        bruiseLevel: '',
-        outside: '',
-        outsideLevel: '',
-        badShape: '',
-        badShapeLevel: '',
-        crimp: '',
-        crimpLevel: '',
-        soiled: '',
-        soiledLevel: '',
-        yellow: '',
-        yellowLevel: '',
-        floatSilk: '',
-        floatSilkLevel: '',
-        wind: '',
-        windLevel: '',
-        dye: '',
-        dyeLevel: '',
-        property: '',
-        propertyLevel: '',
-        opu: '',
-        opuLevel: '',
-        other: '',
-        otherLevel: ''
-      },
-    ];
+    this.dataList = [];
 
   }
 
@@ -1137,17 +168,12 @@ export class CheckManageComponent implements OnInit {
       'pageSize': this.tableConfig.pageSize
     };
     this.tableConfig.loading = true;
-    this.ingotAlarmService.craftPage(filter).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage(filter).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
       this.listOfAllData = res.value.list;
-      filter.pageNum = 0;
-      filter.pageSize = 10000;
-
-      this.ingotAlarmService.craftPage(filter).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.total;
-      });
+      this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
   }
@@ -1199,15 +225,17 @@ export class CheckManageComponent implements OnInit {
 
 
   edit() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.opId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
-      this.isAdd = true;
-      this.detailModal.title = `新增检验记录`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.submitModel = {};
-      this.resetDataList();
+      this.messageService.showToastMessage('请选择一条主记录', 'warning');
+
+      // this.isAdd = true;
+      // this.detailModal.title = `新增检验记录`;
+      // this.detailModal.showContinue = true;
+      // this.detailModal.showSaveBtn = true;
+      // this.detailModal.show = true;
+      // this.submitModel = {};
+      // this.resetDataList();
       return;
     }
     let data;
@@ -1216,7 +244,7 @@ export class CheckManageComponent implements OnInit {
       if (this.checkedId[key]) {
         console.log(key);
         this.listOfAllData.forEach(item => {
-          if (item.opId == key) {
+          if (item.pmId == key) {
             data = item;
           }
         });
@@ -1225,21 +253,28 @@ export class CheckManageComponent implements OnInit {
     }
     console.log(data);
     if (i > 1) {
-      this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
-      return;
+      if (this.listOfAllData.length !== 1) {
+        this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
+        return;
+      }
+
     }
-    this.isAdd = false;
-    this.detailModal.title = `修改检验记录`;
-    this.detailModal.showContinue = true;
-    this.detailModal.showSaveBtn = true;
-    this.detailModal.show = true;
-    this.submitModel = data;
-    if(data.wagonExceptions === null || data.wagonExceptions === undefined || data.wagonExceptions === '') {
-      this.resetDataList();
-    } else {
-      this.dataList = data.wagonExceptions;
-    }
-    console.log(this.dataList);
+    this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
+      this.exceptions = res.value;
+      this.isAdd = false;
+      this.detailModal.title = `操作检验记录`;
+      this.detailModal.showContinue = true;
+      this.detailModal.showSaveBtn = true;
+      this.detailModal.show = true;
+      this.submitModel = data;
+    });
+
+    // if(data.wagonExceptions === null || data.wagonExceptions === undefined || data.wagonExceptions === '') {
+    //   this.resetDataList();
+    // } else {
+    //   this.dataList = data.wagonExceptions;
+    // }
+    // console.log(this.dataList);
   }
 
   editInfo(data) {
@@ -1287,19 +322,19 @@ export class CheckManageComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.listOfAllData.forEach(item => {
-      if (item.opId !== '-1') {
-        this.checkedId[item.opId] = value;
+      if (item.pmId !== '-1') {
+        this.checkedId[item.pmId] = value;
       }
     });
   }
 
   refreshStatus(): void {
-    this.isAllChecked = this.listOfAllData.filter(item => item.opId !== '-1').every(item => this.checkedId[item.opId]);
+    this.isAllChecked = this.listOfAllData.filter(item => item.pmId !== '-1').every(item => this.checkedId[item.pmId]);
   }
 
   parseTime(time) {
     if (time) {
-      if (time.indexOf('GMT') >= 0) {
+      if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm:ss');
       } else {
         return '';
@@ -1364,14 +399,11 @@ export class CheckManageComponent implements OnInit {
       lineType: '',
       batchNum: '',
       standard: '',
-      spinPos: '',
-      curCraftState: '',
-      produceTime: '',
-      operator: '',
-      doffingTime1: '',
-      craftState: '5',
-      craftTime: '',
-      jobCode: ''
+      createTime: '',
+      checkOperator: '',
+      checkTime: '',
+      doffingStartTime: '',
+      craftState: '5'
     };
     this.initList();
   }
@@ -1381,7 +413,7 @@ export class CheckManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.craftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '5'}}).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '5'}}).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -1389,33 +421,33 @@ export class CheckManageComponent implements OnInit {
       for (const wagon of res.value.list) {
         console.log(wagon);
         const item: any = [];
-        item.id = wagon.opId;
+        item.记录id = wagon.pmId;
         item.批号 = wagon.batchNum;
         item.要因记录 = wagon.cause;
         item.班别 = wagon.classType;
         item.丝车编码 = wagon.code;
         item.工艺状态 = wagon.craftState;
-        item.丝车当前的工艺状态 = wagon.curCraftState;
-        item.第一次落丝纺位 = wagon.doffingSpinPos1;
-        item.第二次落丝纺位 = wagon.doffingSpinPos2;
-        item.第三次落丝纺位 = wagon.doffingSpinPos3;
-        item.落丝时间 = wagon.doffingTime;
-        item.第一次落丝时间 = wagon.doffingTime1;
-        item.第二次落丝时间 = wagon.doffingTime2;
-        item.第三次落丝时间 = wagon.doffingTime3;
-        item.锭数 = wagon.ingotNum;
-        item.工号 = wagon.jobCode;
+        item.规格 = wagon.standard;
         item.锭数合股次数 = wagon.jointNum;
         item.线别 = wagon.lineType;
-        item.操作员 = wagon.operator;
-        item.生产日期 = wagon.produceTime;
-        item.纺位 = wagon.spinPos;
-        item.规格 = wagon.standard;
-        item.丝车定位标签ID = wagon.tagId;
         item.净重 = wagon.weight;
-        item.第一次落丝净重 = wagon.weight1;
-        item.第二次落丝净重 = wagon.weight2;
-        item.第三次落丝净重 = wagon.weight3;
+        item.检验操作员 = wagon.checkOperator;
+        item.检验时间 = wagon.checkTime;
+        item.判色操作员 = wagon.colourOperator;
+        item.判色时间 = wagon.colourTime;
+        item.创建时间 = wagon.createTime;
+        item.创建人 = wagon.creator;
+        item.落丝结束时间 = wagon.doffingEndTime;
+        item.落丝操作员 = wagon.doffingOperator;
+        item.落丝开始时间 = wagon.doffingStartTime;
+        item.包装操作员 = wagon.packageOperator;
+        item.包装时间 = wagon.packageTime;
+        item.卷别 = wagon.reelType;
+        item.摇袜操作员 = wagon.rockOperator;
+        item.摇袜时间 = wagon.rockTime;
+        item.测丹尼操作员 = wagon.testDannyOperator;
+        item.测丹尼时间 = wagon.testDannyTime;
+
         arr.push(item);
       }
       this.exportList(arr);

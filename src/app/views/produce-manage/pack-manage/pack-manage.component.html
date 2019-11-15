@@ -159,7 +159,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.opId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.opId === '-1'"></td>
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.code}}</td>
         <td>{{data.doffingTime}}</td>
@@ -306,7 +306,7 @@
           </div>
         </div>
       </div>
-      <app-other-table [dataList]="dataList"></app-other-table>
+<!--      <app-other-table [dataList]="dataList"></app-other-table>-->
     </div>
   </div>
 
