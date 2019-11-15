@@ -631,6 +631,7 @@ export class HotreelManageComponent implements OnInit {
         item.班别 = wagon.classType;
         item.丝车编码 = wagon.code;
         item.工艺状态 = wagon.craftState;
+        item.工艺状态 = wagon.craftState;
         item.规格 = wagon.standard;
         item.锭数合股次数 = wagon.jointNum;
         item.线别 = wagon.lineType;
