@@ -244,6 +244,12 @@ export namespace IngotAlarmServiceNs {
       return this.http.Get('/produce/newCraft/endCheck', data, this.defaultConfig);
     }
 
+    public modifyCheck(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/modifyCheck', data, this.defaultConfig);
+    }
+
     /**
      * 创建一条落丝记录
      * @param data
@@ -322,6 +328,12 @@ export namespace IngotAlarmServiceNs {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
       return this.http.Post('/produce/newCraft/getExceptions?pmId=' + data, null, this.defaultConfig);
+    }
+
+    public getCheckInfo(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getCheck?pmId=' + data, null, this.defaultConfig);
     }
 
     /**

@@ -112,8 +112,8 @@
 
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null
-          (nzOnCancel)="handleDetailCancel()" nzWidth="900px" style="height: 80%; top: 10%;">
-  <div style="min-height: 600px; height: calc(100vh - 320px)">
+          (nzOnCancel)="handleDetailCancel()" nzWidth="95%" [nzStyle]="{'top': '40px'}" >
+  <div style="min-height: 600px; height: calc(100vh - 180px)">
     <iframe scrolling="no"
             id="onet"
             [src]="src"

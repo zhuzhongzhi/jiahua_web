@@ -112,15 +112,17 @@ export class AdjustcolorManageComponent implements OnInit {
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+      if (res.code !== 0) {
+        this.messageService.showToastMessage('接口请求异常！', 'error');
+        return;
+      }
+      if (res.value !== undefined || res.value === '' || res.value === null) {
+        this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
+        return;
+      }
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
       this.detailModal.show = true;
     });
-    // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // 测试
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('http://jiahuaweb.ihaniel.cn//track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1');
-    // 线上 TODO
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // this.detailModal.show = true;
   }
 
   trans(state) {

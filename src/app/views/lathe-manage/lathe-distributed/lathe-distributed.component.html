@@ -44,7 +44,7 @@
                 <label class="inline-span" nz-col nzSpan="8">批次</label>
                 <div nz-col nzSpan="16" class="form-control">
                   <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="filters.batchNum"
-                             (ngModelChange)="refreshStandard($event)" nzPlaceHolder="请选择">
+                             nzPlaceHolder="请选择">
                     <nz-option *ngFor="let node of batchList" [nzValue]="node" [nzLabel]="node"></nz-option>
                   </nz-select>
                 </div>
@@ -120,7 +120,7 @@
       </div>
     </div>
 
-    <div nz-row id="target" style="height:calc(100vh - 95px);">
+    <div nz-row id="target" style="height:calc(100vh - 220px);">
       <button *ngIf="!detailModal.show" class="full" (click)="fullscreen()">全屏展示
         <i nz-icon type="fullscreen"></i>
       </button>

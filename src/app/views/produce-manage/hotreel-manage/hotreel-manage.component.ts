@@ -6,8 +6,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {LousTableComponent} from '../../../component/lous-table/lous-table.component';
 import {format} from 'date-fns';
+import {LineSpinService} from '../../../core/biz-services/lineSpinService/LineSpinService';
 
 @Component({
   selector: 'app-hotreel-manage',
@@ -32,12 +32,18 @@ export class HotreelManageComponent implements OnInit {
     showSaveBtn: false
   };
 
+  // 弹框类
+  detailModal2 = {
+    show: false,
+    loading: false,
+    title: '',
+    showContinue: false,
+    showSaveBtn: false
+  };
+
   dataList1 = [];
   dataList2 = [];
   dataList3 = [];
-
-  @ViewChild('lousTable')
-  private lousTable: LousTableComponent;
 
   editCache: { [key: string]: any } = {};
   listOfData: any[] = [];
@@ -54,6 +60,7 @@ export class HotreelManageComponent implements OnInit {
 
   lineItems: any = []; // 线别列表
   batchList: any = []; // 批次列表
+  hasBatchList: Boolean = true;
 
   dataList: any = [];
 
@@ -71,6 +78,7 @@ export class HotreelManageComponent implements OnInit {
               private modal: NzModalService,
               private messageService: ShowMessageService,
               private modalService: NzModalService,
+              private lineSpinService: LineSpinService,
               private ingotAlarmService: IngotAlarmService) {
     this.filters = {
       code: '',
@@ -128,16 +136,6 @@ export class HotreelManageComponent implements OnInit {
     this.editCache[id].edit = false;
   }
 
-  updateEditCache(): void {
-    this.listOfData.forEach(item => {
-      this.editCache[item.id] = {
-        edit: false,
-        data: {...item}
-      };
-    });
-  }
-
-
   trans(state) {
     switch (state) {
       case 0:
@@ -161,21 +159,12 @@ export class HotreelManageComponent implements OnInit {
   ngOnInit() {
     this.initList();
     this.validateForm = this.fb.group({
-      opId: [null],
-      ingotNum: [null, [Validators.required]],
-      lineType: [null, [Validators.required]],
-      spinPos: [null, [Validators.required]]
+      bsId: [null],
+      batchNum: [null, [Validators.required]],
+      standard: [null, [Validators.required]],
+      threshold: [null, [Validators.required]]
     });
     this.getProduce();
-    for (let i = 0; i < 100; i++) {
-      this.listOfData.push({
-        id: `${i}`,
-        name: `Edrward ${i}`,
-        age: 32,
-        address: `London Park no. ${i}`
-      });
-    }
-    this.updateEditCache();
   }
 
   showPos(data) {
@@ -185,11 +174,17 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.title = `纺车位置查看`;
 
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+      if (res.code !== 0) {
+        this.messageService.showToastMessage('接口请求异常！', 'error');
+        return;
+      }
+      if (res.value !== undefined || res.value === '' || res.value === null) {
+        this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
+        return;
+      }
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
       this.detailModal.show = true;
     });
-    // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
   }
 
   initList() {
@@ -213,11 +208,9 @@ export class HotreelManageComponent implements OnInit {
   getProduce() {
     this.ingotAlarmService.boardOutputToday().subscribe((res) => {
       // 获取看板数据
-
       res.value.forEach(item => {
         this.doffingWeight += item.doffingWeight ? item.doffingWeight : 0;
       });
-
     });
   }
 
@@ -234,10 +227,32 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.show = false;
     this.showiFrame = 0;
   }
+  /**
+   * 取消弹框
+   */
+  handleDetailCancel2() {
+    this.detailModal2.show = false;
+  }
+
 
 
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
+  }
+
+  toAddBatch() {
+    this.detailModal2.title = `新增批次规格信息`;
+    this.detailModal2.showContinue = true;
+    this.detailModal2.showSaveBtn = true;
+    const controls = this.validateForm.controls;
+    for (const key in controls) {
+      if (controls.hasOwnProperty(key)) {
+        controls[key].markAsPristine();
+        controls[key].updateValueAndValidity();
+      }
+    }
+    this.validateForm.reset();
+    this.detailModal2.show = true;
   }
 
   add() {
@@ -246,7 +261,10 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.showContinue = true;
     this.detailModal.showSaveBtn = true;
     this.detailModal.show = true;
-    this.submitModel = {};
+    this.submitModel = {
+      reelType: '0',
+      jointNum: '0'
+    };
 
     this.showiFrame = 2;
     // init linetypes
@@ -261,8 +279,12 @@ export class HotreelManageComponent implements OnInit {
         return;
       }
       this.batchList = res.value;
+      if (this.batchList.length === 0) {
+        this.hasBatchList = false;
+      } else {
+        this.hasBatchList = true;
+      }
     });
-    this.messageService.showToastMessage('无批次选择列表时，请移至批次管理页面进行条件。', 'warning', 3000);
     this.resetDataList();
   }
 
@@ -278,7 +300,7 @@ export class HotreelManageComponent implements OnInit {
   // 创建表格
   addTable(item, i) {
     if (item.pdId === undefined) {
-      item.ingotNum =  6; //this.submitModel.ingotNum;
+      item.ingotNum =  6; // this.submitModel.ingotNum;
       if (item.ingotNum === undefined || item.ingotNum === null || item.ingotNum === '') {
         this.messageService.showToastMessage('请配置锭数次数', 'warning');
         return;
@@ -317,6 +339,36 @@ export class HotreelManageComponent implements OnInit {
       });
     }
 
+  }
+
+  submitForm2() {
+    const controls = this.validateForm.controls;
+    for (const key in controls) {
+      if (controls.hasOwnProperty(key)) {
+        controls[key].markAsDirty();
+        controls[key].updateValueAndValidity();
+      }
+    }
+    if (this.validateForm.invalid) {
+      return;
+    }
+    this.detailModal.loading = true;
+    this.lineSpinService.addBatch(this.validateForm.value).subscribe((res) => {
+      this.detailModal2.show = false;
+      this.detailModal2.loading = false;
+      this.ingotAlarmService.getAllBatchList().subscribe((res) => {
+        if (res.code !== 0) {
+          return;
+        }
+        this.batchList = res.value;
+        if (this.batchList.length === 0) {
+          this.hasBatchList = false;
+        } else {
+          this.hasBatchList = true;
+        }
+      });
+      this.messageService.showToastMessage('新增成功', 'success');
+    });
   }
 
   saveDoff() {
@@ -367,6 +419,10 @@ export class HotreelManageComponent implements OnInit {
   }
 
   endDoff() {
+    if (this.doffList.length === 0) {
+      this.messageService.showToastMessage('还没有落丝记录，请添加！', 'error');
+      return;
+    }
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')

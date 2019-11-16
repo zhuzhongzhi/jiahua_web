@@ -99,15 +99,17 @@ export class PackManageComponent implements OnInit {
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+      if (res.code !== 0) {
+        this.messageService.showToastMessage('接口请求异常！', 'error');
+        return;
+      }
+      if (res.value !== undefined || res.value === '' || res.value === null) {
+        this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
+        return;
+      }
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
       this.detailModal.show = true;
     });
-    // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // 测试
-    // this.src=this.sanitizer.bypassSecurityTrustResourceUrl('http://jiahuaweb.ihaniel.cn//track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1');
-    // 线上TODO
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // this.detailModal.show = true;
   }
 
   ngOnInit() {
@@ -224,16 +226,37 @@ export class PackManageComponent implements OnInit {
       this.submitModel = data;
     });
     //
-    // this.ingotAlarmService.craftExeptionList(data.opId).subscribe(res => {
-    //   const exceptions = res.value;
-    //
-    //   if (exceptions === null || exceptions === undefined || exceptions === '') {
-    //     this.resetDataList();
-    //   } else {
-    //     this.dataList = exceptions;
-    //   }
-    // });
     console.log(this.dataList);
+  }
+
+  // 保存
+  savePack() {
+    this.ingotAlarmService.modifyExceptions(this.exceptions).subscribe((res1) => {
+      this.modalService.confirm({
+        nzTitle: '<i>保存成功是否要回到列表页</i>',
+        nzContent: '<b>保存成功</b>',
+        nzOnOk: () => {
+          this.detailModal.show = false;
+          this.initList();
+        }
+      });
+    });
+  }
+
+  // 结束
+  endPack () {
+    const data = {
+      pmId: this.submitModel.pmId,
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+    };
+    this.ingotAlarmService.endPackage(data).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.messageService.showToastMessage('包装完成提交成功', 'success');
+      this.detailModal.show = false;
+      this.initList();
+    });
   }
 
   editInfo(data) {

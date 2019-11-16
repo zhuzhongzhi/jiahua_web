@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-new-table',
@@ -126,12 +126,133 @@ export class NewTableComponent implements OnInit {
     {key: 'B', value: 'B级'},
   ];
 
-  widthConfig = ['100px', '100px', '100px', '100px', '100px', '100px', '100px', '100px', '100px', '100px',
-    '100px', '100px', '100px', '100px', '100px', '100px', '100px', '100px', '100px', '100px',
-    '100px', '100px', '100px', '100px', '100px', '100px', '100px', '1px'];
-  scrollConfig = { x: '2701px', y: '240px' };
+  widthConfig = ['150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px',
+    '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px',
+    '150px', '150px', '150px', '150px', '150px', '150px', '150px', '1px'];
+  scrollConfig = { x: '4001px' };
 
-  constructor() {
+  // 修改的列
+  editColumn = '';
+  // 备注
+  remark = '';
+  // 数据
+  data:any = {};
+  // 弹框类
+  detailModal = {
+    show: false,
+    loading: false,
+    title: '',
+    showContinue: false,
+    showSaveBtn: false
+  };
+
+  /**
+   * 取消弹框
+   */
+  handleDetailCancel() {
+    this.detailModal.show = false;
+  }
+
+  submit() {
+    switch(this.editColumn) {
+      case 'lousiness':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.lousinessRemark = this.remark;
+          }
+        });
+        break;
+      case 'bruise':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.bruiseRemark = this.remark;
+          }
+        });
+        break;
+      case 'badShape':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.badShapeRemark = this.remark;
+          }
+        });
+        break;
+      case 'yellow':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.yellowRemark = this.remark;
+          }
+        });
+        break;
+      case 'outside':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.outsideRemark = this.remark;
+          }
+        });
+        break;
+      case 'crimp':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.crimpRemark = this.remark;
+          }
+        });
+        break;
+      case 'soiled':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.soiledRemark = this.remark;
+          }
+        });
+        break;
+      case 'floatSilk':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.floatSilkRemark = this.remark;
+          }
+        });
+        break;
+      case 'wind':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.windRemark = this.remark;
+          }
+        });
+        break;
+      case 'dye':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.dyeRemark = this.remark;
+          }
+        });
+        break;
+      case 'property':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.propertyRemark = this.remark;
+          }
+        });
+        break;
+      case 'opu':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.opuRemark = this.remark;
+          }
+        });
+        break;
+      case 'other':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.otherRemark = this.remark;
+          }
+        });
+        break;
+    }
+    this.changeDetectorRef.markForCheck();
+    this.changeDetectorRef.detectChanges();
+    this.detailModal.show = false;
+  }
+
+  constructor(public changeDetectorRef: ChangeDetectorRef) {
     this.checkedAll = {
       lousiness: null,
       lousinessLevel: null,
@@ -160,10 +281,83 @@ export class NewTableComponent implements OnInit {
       other: null,
       otherLevel: null
     };
-
   }
 
   ngOnInit() {
+  }
+
+  doRemark(data, type) {
+    this.detailModal.title = `异常备注`;
+    this.detailModal.showContinue = true;
+    this.detailModal.showSaveBtn = true;
+    this.detailModal.show = true;
+    switch (type) {
+      case 'lousiness':
+        this.remark = data.lousinessRemark;
+        this.data = data;
+        this.editColumn = 'lousiness';
+        break;
+      case 'bruise':
+        this.remark = data.bruiseRemark;
+        this.data = data;
+        this.editColumn = 'bruise';
+        break;
+      case 'badShape':
+        this.remark = data.badShapeRemark;
+        this.data = data;
+        this.editColumn = 'badShape';
+        break;
+      case 'yellow':
+        this.remark = data.yellowRemark;
+        this.data = data;
+        this.editColumn = 'yellow';
+        break;
+      case 'outside':
+        this.remark = data.outsideRemark;
+        this.data = data;
+        this.editColumn = 'outside';
+        break;
+      case 'crimp':
+        this.remark = data.crimpRemark;
+        this.data = data;
+        this.editColumn = 'crimp';
+        break;
+      case 'soiled':
+        this.remark = data.soiledRemark;
+        this.data = data;
+        this.editColumn = 'soiled';
+        break;
+      case 'floatSilk':
+        this.remark = data.floatSilkRemark;
+        this.data = data;
+        this.editColumn = 'floatSilk';
+        break;
+      case 'wind':
+        this.remark = data.windRemark;
+        this.data = data;
+        this.editColumn = 'wind';
+        break;
+      case 'dye':
+        this.remark = data.dyeRemark;
+        this.data = data;
+        this.editColumn = 'dye';
+        break;
+      case 'property':
+        this.remark = data.propertyRemark;
+        this.data = data;
+        this.editColumn = 'property';
+        break;
+      case 'opu':
+        this.remark = data.opuRemark;
+        this.data = data;
+        this.editColumn = 'opu';
+        break;
+      case 'other':
+        this.remark = data.otherRemark;
+        this.data = data;
+        this.editColumn = 'other';
+        break;
+    }
   }
 
   changeWithSelect(type) {

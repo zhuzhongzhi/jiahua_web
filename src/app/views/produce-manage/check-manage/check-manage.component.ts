@@ -118,6 +118,38 @@ export class CheckManageComponent implements OnInit {
   }
 
   endCheck() {
+    if (this.checkInfo.checkTime === '' || this.checkInfo.checkTime === undefined || this.checkInfo.checkTime === null) {
+      this.messageService.showToastMessage('请配置检验时间', 'warning');
+      return;
+    }
+    if (this.checkInfo.checkNum === '' || this.checkInfo.checkNum === undefined || this.checkInfo.checkNum === null) {
+      this.messageService.showToastMessage('请配置检验手下', 'warning');
+      return;
+    }
+    if (this.checkInfo.aaWeight === '' || this.checkInfo.aaWeight === undefined || this.checkInfo.aaWeight === null) {
+      this.messageService.showToastMessage('请配置AA级重量', 'warning');
+      return;
+    }
+    if (this.checkInfo.a1Weight === '' || this.checkInfo.a1Weight === undefined || this.checkInfo.a1Weight === null) {
+      this.messageService.showToastMessage('请配置A1级重量', 'warning');
+      return;
+    }
+    if (this.checkInfo.aweight === '' || this.checkInfo.aweight === undefined || this.checkInfo.aweight === null) {
+      this.messageService.showToastMessage('请配置A级重量', 'warning');
+      return;
+    }
+    if (this.checkInfo.bweight === '' || this.checkInfo.bweight === undefined || this.checkInfo.bweight === null) {
+      this.messageService.showToastMessage('请配置B级重量', 'warning');
+      return;
+    }
+    // update
+    if (this.checkInfo.pmId !== undefined && this.checkInfo.pmId !== '' && this.checkInfo.pmId !== null) {
+      this.ingotAlarmService.modifyCheck(this.checkInfo).subscribe((res) => {
+      });
+    } else {
+      this.ingotAlarmService.addCheck(this.checkInfo).subscribe((res) => {
+      });
+    }
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
@@ -146,10 +178,15 @@ export class CheckManageComponent implements OnInit {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
-    // his.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + data.tagId);
-    // this.detailModal.show = true;
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+      if (res.code !== 0) {
+        this.messageService.showToastMessage('接口请求异常！', 'error');
+        return;
+      }
+      if (res.value !== undefined || res.value === '' || res.value === null) {
+        this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
+        return;
+      }
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
       this.detailModal.show = true;
     });
@@ -259,6 +296,11 @@ export class CheckManageComponent implements OnInit {
       }
 
     }
+    this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
+      if(res.value.length > 0) {
+        this.checkInfo = res.value[0];
+      }
+    });
     this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
       this.exceptions = res.value;
       this.isAdd = false;
@@ -268,13 +310,6 @@ export class CheckManageComponent implements OnInit {
       this.detailModal.show = true;
       this.submitModel = data;
     });
-
-    // if(data.wagonExceptions === null || data.wagonExceptions === undefined || data.wagonExceptions === '') {
-    //   this.resetDataList();
-    // } else {
-    //   this.dataList = data.wagonExceptions;
-    // }
-    // console.log(this.dataList);
   }
 
   editInfo(data) {
