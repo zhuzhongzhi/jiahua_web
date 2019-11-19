@@ -116,7 +116,7 @@ export class AdjustcolorManageComponent implements OnInit {
         this.messageService.showToastMessage('接口请求异常！', 'error');
         return;
       }
-      if (res.value !== undefined || res.value === '' || res.value === null) {
+      if (res.value === undefined || res.value === '' || res.value === null) {
         this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
         return;
       }

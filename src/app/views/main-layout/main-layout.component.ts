@@ -118,6 +118,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
               {name: '判色管理', url: '/main/produceManage/adjustManage', show: this.show(20104)},
               {name: '检验管理', url: '/main/produceManage/checkManage', show: this.show(20105)},
               {name: '包装管理', url: '/main/produceManage/packManage', show: this.show(20106)},
+              {name: '历史管理', url: '/main/produceManage/historyManage', show: this.show(20106)},
             ]
           },
           {

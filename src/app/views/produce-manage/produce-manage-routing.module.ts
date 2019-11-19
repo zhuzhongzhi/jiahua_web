@@ -16,6 +16,7 @@ import { MonthqualityStatisticComponent } from './monthquality-statistic/monthqu
 import { YearqualityStatisticComponent } from './yearquality-statistic/yearquality-statistic.component';
 import { ProduceBillboardComponent } from './produce-billboard/produce-billboard.component';
 import { QualityBillboardComponent } from './quality-billboard/quality-billboard.component';
+import { HistoryManageComponent } from './history-manage/history-manage.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'hotreelManage', pathMatch: 'full'},
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path: 'yearQuality', component: YearqualityStatisticComponent},
   {path: 'produceBillboard', component: ProduceBillboardComponent},
   {path: 'qualityBillboard', component: QualityBillboardComponent},
+  {path: 'historyManage', component: HistoryManageComponent},
 ];
 
 @NgModule({
