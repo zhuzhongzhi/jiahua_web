@@ -257,13 +257,13 @@
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">批次</label>
-          <div nz-col nzSpan="{{hasBatchList ? 16 : 10}}" class="form-control">
+          <div nz-col nzSpan="10" class="form-control">
             <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="submitModel.batchNum"
                        (ngModelChange)="refreshStandard($event)" nzPlaceHolder="请选择">
               <nz-option *ngFor="let node of batchList" [nzValue]="node" [nzLabel]="node"></nz-option>
             </nz-select>
           </div>
-          <div nz-col *ngIf="hasBatchList === false" nzSpan="6" class="form-control" style="padding-left: 10px">
+          <div nz-col nzSpan="6" class="form-control" style="padding-left: 10px">
             <button nz-button nzType="default" (click)="toAddBatch()" nzBlock>新增批次</button>
           </div>
         </div>
