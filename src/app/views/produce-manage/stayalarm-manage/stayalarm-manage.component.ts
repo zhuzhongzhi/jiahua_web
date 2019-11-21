@@ -43,8 +43,9 @@ export class StayalarmManageComponent implements OnInit {
       batchNum: '', // 锭数
       standard: '', // 线别
       lineType: '', // 纺位
-      code: '', // 纺位
-      alarmTime: '', // 纺位
+      code: '',
+      alarmTime: '',
+      isHandled: '0', // 是否已经处理
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -186,8 +187,9 @@ export class StayalarmManageComponent implements OnInit {
       batchNum: '', // 锭数
       standard: '', // 线别
       lineType: '', // 纺位
-      spinPos: '', // 纺位
-      ingotPos: '', // 纺位
+      code: '',
+      alarmTime: '',
+      isHandled: '0', // 是否已经处理
     };
     this.initList();
   }

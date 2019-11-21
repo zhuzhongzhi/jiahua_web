@@ -20,6 +20,7 @@ import { YearqualityStatisticComponent } from './yearquality-statistic/yearquali
 import { ProduceBillboardComponent } from './produce-billboard/produce-billboard.component';
 import { QualityBillboardComponent } from './quality-billboard/quality-billboard.component';
 import { HistoryManageComponent } from './history-manage/history-manage.component';
+import { StatisticAlarmComponent } from './statistic-alarm/statistic-alarm.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { HistoryManageComponent } from './history-manage/history-manage.componen
     YearqualityStatisticComponent,
     ProduceBillboardComponent,
     QualityBillboardComponent,
-    HistoryManageComponent
+    HistoryManageComponent,
+    StatisticAlarmComponent
   ]
 })
 export class ProduceManageModule {

@@ -412,10 +412,10 @@ export class HotreelManageComponent implements OnInit {
   addDoff() {
     // 获取线别下所有纺位
     const data = {lineType: this.submitModel.lineType};
-    this.ingotAlarmService.getSpinPosByLineType(data).subscribe((res) => {
+      this.ingotAlarmService.getSpinPosByLineType(data).subscribe((res) => {
       this.spinPosList = res.value;
     });
-    this.doffList.push({ingotNum: '', pmId: this.submitModel.pmId, doffingTime: '', spinPos: '', weight: ''});
+    this.doffList.push({ingotNum: '', pmId: this.submitModel.pmId, doffingTime: new Date(), spinPos: '', weight: ''});
   }
 
   endDoff() {

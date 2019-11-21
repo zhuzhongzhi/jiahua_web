@@ -45,6 +45,7 @@ export class IngotalarmManageComponent implements OnInit {
       lineType: '', // 纺位
       spinPos: '', // 纺位
       ingotPos: '', // 纺位
+      isHandled: '0', // 是否已经处理
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -194,6 +195,7 @@ export class IngotalarmManageComponent implements OnInit {
       lineType: '', // 纺位
       spinPos: '', // 纺位
       ingotPos: '', // 纺位
+      isHandled: '0', // 是否已经处理
     };
     this.initList();
   }

@@ -1,0 +1,87 @@
+<div class="page">
+
+  <div class="bg-white padding-16">
+    <div class="search-conds">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <div class="form-item" nz-row style="padding-top: 20px;">
+          <label class="inline-span" nz-col nzSpan="8">起始日期</label>
+          <div nz-col nzSpan="16" class="form-control">
+            <nz-date-picker nzShowTime [(ngModel)]="filters.startTime"
+                            nzFormat="yyyy-MM-dd"></nz-date-picker>
+          </div>
+        </div>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <div class="form-item" nz-row style="padding-top: 20px;">
+          <label class="inline-span" nz-col nzSpan="8">统计类型</label>
+          <div nz-col nzSpan="16" class="form-control">
+            <!--                <input nzSize="default" nz-input type="text">-->
+            <nz-input-group>
+              <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.statType">
+                <nz-option nzValue="0" nzLabel="纺位质量报警"></nz-option>
+                <nz-option nzValue="1" nzLabel="批次质量报警"></nz-option>
+                <nz-option nzValue="2" nzLabel="驻留报警"></nz-option>
+              </nz-select>
+            </nz-input-group>
+          </div>
+        </div>
+      </div>
+      <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+        <button nz-button nzType="primary" style="margin-right:20px" (click)="search()">统计查询</button>
+      </div>
+    </div>
+
+    <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+              style="text-align:center"
+              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+              [(nzPageSize)]="tableConfig.pageSize"
+              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
+              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()" [nzWidthConfig]="widthConfig"
+              [nzScroll]="scrollConfig">
+      <thead>
+      <tr>
+        <th nzLeft="0px">统计报警</th>
+        <th colspan="3">0-8</th>
+        <th colspan="3">8-16</th>
+        <th colspan="3">16-24</th>
+        <th nzRight="0px"></th>
+      </tr>
+      <tr>
+        <th nzLeft="0px">日期</th>
+        <th>产生</th>
+        <th>处理</th>
+        <th>未处理</th>
+        <th>产生</th>
+        <th>处理</th>
+        <th>未处理</th>
+        <th>产生</th>
+        <th>处理</th>
+        <th>未处理</th>
+        <th nzRight="0px"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+        <td nzLeft="0px">{{data.statYear}}年{{data.statMonth}}月{{data.statDay}}日</td>
+        <td>{{data.genNum1}}</td>
+        <td>{{data.handleNum1}}</td>
+        <td>{{data.stillNum1}}</td>
+        <td>{{data.genNum2}}</td>
+        <td>{{data.handleNum2}}</td>
+        <td>{{data.stillNum2}}</td>
+        <td>{{data.genNum3}}</td>
+        <td>{{data.handleNum3}}</td>
+        <td>{{data.stillNum3}}</td>
+        <th nzRight="0px"></th>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <ng-template #totalTemplate let-total>
+    <span class="m-r-sm">
+    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}
+      至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+      条记录，共计{{tableConfig.pageTotal}}条记录
+  </span>
+  </ng-template>
+</div>

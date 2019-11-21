@@ -346,6 +346,15 @@ export namespace IngotAlarmServiceNs {
       return this.http.Post('/produce/newCraft/modifyExceptions', data, this.defaultConfig);
     }
 
+    /**
+     * 查询统计汇总 /warn/stat/listAllPage
+     */
+    public pageAlarm(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/warn/stat/listAllPage', data, this.defaultConfig);
+    }
+
   }
 
 }

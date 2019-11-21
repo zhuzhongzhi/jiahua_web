@@ -126,9 +126,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
             url: '',
             show: this.show(202),
             subMenu: [
-              {name: '锭位质量报警', url: '/main/produceManage/ingotAlarm', show: this.show(20201)},
-              {name: '线别质量报警', url: '/main/produceManage/wiringAlarm', show: this.show(20202)},
+              {name: '纺位质量报警', url: '/main/produceManage/ingotAlarm', show: this.show(20201)},
+              {name: '批次质量报警', url: '/main/produceManage/wiringAlarm', show: this.show(20202)},
               {name: '驻留报警', url: '/main/produceManage/stayAlarm', show: this.show(20203)},
+              {name: '报警统计', url: '/main/produceManage/statisticAlarm', show: this.show(20203)},
               {name: '报警处理日志', url: '/main/produceManage/alarmLog', show: this.show(20204)}
             ]
           },
