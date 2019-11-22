@@ -61,6 +61,23 @@
               </div>
             </div>
           </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">起止日期</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--            <nz-date-picker nzShowTime [(ngModel)]="filters.startTime"-->
+                <!--                            nzFormat="yyyy-MM-dd"></nz-date-picker>-->
+                <!--            <nz-range-picker [(ngModel)]=""></nz-range-picker>-->
+                <nz-range-picker
+                  [(ngModel)]="dateRange"
+                  nzShowTime
+                  nzFormat="yyyy-MM-dd HH:mm:ss"
+                  ngModel
+                ></nz-range-picker>
+              </div>
+            </div>
+          </div>
+
           <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
             <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
             <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>

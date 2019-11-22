@@ -5,6 +5,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import {format} from "date-fns";
 
 @Component({
   selector: 'app-daliyquality-statistic',
@@ -36,7 +37,7 @@ export class DaliyqualityStatisticComponent implements OnInit {
   // 是否新增
   isAdd = false;
   type = 1;
-
+  dateRange = [];
   constructor(private fb: FormBuilder,
               private modal: NzModalService,
               private messageService: ShowMessageService,
@@ -69,6 +70,10 @@ export class DaliyqualityStatisticComponent implements OnInit {
   initList() {
     // 初始化丝车列表
     // clear filters
+    if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
+      this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
+      this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
+    }
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,

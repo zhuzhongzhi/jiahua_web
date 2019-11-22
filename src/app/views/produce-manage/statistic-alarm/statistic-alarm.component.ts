@@ -6,6 +6,7 @@ import {ShowMessageService} from '../../../widget/show-message/show-message';
 import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
 import {format} from "date-fns";
 
+
 @Component({
   selector: 'app-statistic-alarm',
   templateUrl: './statistic-alarm.component.html',
@@ -20,6 +21,8 @@ export class StatisticAlarmComponent implements OnInit {
   isAllChecked = false;
   widthConfig = ['150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '1px'];
   scrollConfig = { x: '1501px' };
+  dateRange = [];
+  // ranges1 = { Today: [new Date(), new Date()], 'This Month': [new Date(), endOfMonth(new Date())] };
 
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
@@ -29,7 +32,8 @@ export class StatisticAlarmComponent implements OnInit {
               private ingotAlarmService: IngotAlarmService) {
     this.filters = {
       startTime: '',
-      statType: '',
+      endTime: '',
+      statType: '0',
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -42,42 +46,46 @@ export class StatisticAlarmComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.search();
   }
 
   search() {
-    if(this.filters.startTime === '' || this.filters.startTime === undefined || this.filters.startTime === null) {
-      this.messageService.showToastMessage('起始日期未选择', 'error');
-      return;
-    }
-    if(this.filters.statType === '' || this.filters.statType === undefined || this.filters.statType === null) {
-      this.messageService.showToastMessage('统计类型未选择', 'error');
-      return;
-    }
-    const date = new Date(this.filters.startTime);
-    let month;
-    if (date.getMonth() === 12) {
-      month = 1;
+    console.log(this.dateRange);
+    if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
+      const filter: any = {
+        'statType': this.filters.statType,
+        'pageNum': this.tableConfig.pageNum,
+        'pageSize': this.tableConfig.pageSize
+      };
+      filter.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
+      filter.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
+      this.tableConfig.loading = true;
+      this.ingotAlarmService.pageRangeAlarm(filter).subscribe((res) => {
+        if (res.code !== 0) {
+          return;
+        }
+        this.listOfAllData = res.value.list;
+        this.tableConfig.pageTotal = res.value.total;
+        this.tableConfig.loading = false;
+      });
     } else {
-      month = date.getMonth() + 1;
+      const cond: any ={};
+      cond.statType = this.filters.statType;
+      const filter: any = {
+        'filters': cond,
+        'pageNum': this.tableConfig.pageNum,
+        'pageSize': this.tableConfig.pageSize
+      };
+      this.tableConfig.loading = true;
+      this.ingotAlarmService.pageAlarm(filter).subscribe((res) => {
+        if (res.code !== 0) {
+          return;
+        }
+        this.listOfAllData = res.value.list;
+        this.tableConfig.pageTotal = res.value.total;
+        this.tableConfig.loading = false;
+      });
     }
-    const filter = {
-      'filters': {
-        'statMonth': month,
-        'statYear': date.getFullYear(),
-        'statDay': date.getDate()
-      },
-      'pageNum': this.tableConfig.pageNum,
-      'pageSize': this.tableConfig.pageSize
-    };
-    this.tableConfig.loading = true;
-    this.ingotAlarmService.pageAlarm(filter).subscribe((res) => {
-      if (res.code !== 0) {
-        return;
-      }
-      this.listOfAllData = res.value.list;
-      this.tableConfig.pageTotal = res.value.total;
-      this.tableConfig.loading = false;
-    });
   }
 
   pageChange() {

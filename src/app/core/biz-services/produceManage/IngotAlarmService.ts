@@ -355,6 +355,16 @@ export namespace IngotAlarmServiceNs {
       return this.http.Post('/warn/stat/listAllPage', data, this.defaultConfig);
     }
 
+    /**
+     * 范围查询
+     * @param data
+     */
+    public pageRangeAlarm(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/warn/stat/listRangePage', data, this.defaultConfig);
+    }
+
   }
 
 }
