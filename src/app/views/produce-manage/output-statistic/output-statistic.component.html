@@ -78,7 +78,7 @@
             </div>
           </div>
 
-          <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+          <div nz-col class="gutter-row" style="float:right;padding-top: 20px" *appAuthBtu="2030101">
             <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
             <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
@@ -90,7 +90,7 @@
     </div>
 
     <div nz-row nzGutter="16">
-      <button nz-button style="margin-left:8px; margin-bottom:15px" (click)="export()">导出Excel</button>
+      <button *appAuthBtu="2030102" nz-button style="margin-left:8px; margin-bottom:15px" (click)="export()">导出Excel</button>
 
     </div>
 

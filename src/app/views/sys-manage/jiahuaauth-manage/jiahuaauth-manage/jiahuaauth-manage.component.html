@@ -5,7 +5,7 @@
     <!--<nz-tabset (nzSelectChange)="changeTab([$event])">-->
       <!--<nz-tab nzTitle="权限列表">-->
         <div nz-row nzGutter="16">
-          <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>新增</button>
+          <button *appAuthBtu="3030002" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>新增</button>
         </div>
 
         <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
@@ -19,7 +19,7 @@
             <th class="align-center">权限id</th>
             <th class="align-center">权限名</th>
             <th class="align-center">描述</th>
-            <th class="align-center">操作</th>
+            <th *appAuthBtu="3030003" class="align-center">操作</th>
           </tr>
           </thead>
           <tbody>
@@ -28,7 +28,7 @@
             <td>{{data.authId}}</td>
             <td>{{data.authName}}</td>
             <td>{{data.desc}}</td>
-            <td>
+            <td *appAuthBtu="3030003">
               <ng-container>
                 <span (click)="editInfo(data)" class="blue-txt transparen-btn">编辑</span>
               </ng-container>

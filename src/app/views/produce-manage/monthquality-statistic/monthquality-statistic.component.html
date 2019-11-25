@@ -84,7 +84,7 @@
               </div>
             </div>
           </div>
-          <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+          <div nz-col class="gutter-row" style="float:right;padding-top: 20px" *appAuthBtu="2030301">
             <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
             <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
@@ -98,7 +98,7 @@
     </div>
 
     <div nz-row nzGutter="16">
-      <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="export()">导出Excel</button>
+      <button *appAuthBtu="2030305" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="export()">导出Excel</button>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
@@ -113,9 +113,9 @@
         <th class="align-center">批号</th>
         <th class="align-center">线别</th>
         <th class="align-center">检验重量（kg）</th>
-        <th class="align-center">登记重量及比例</th>
-        <th class="align-center">不良要因重量及比例</th>
-        <th class="align-center">重量不足的小卷重量及比例</th>
+        <th *appAuthBtu="2030302" class="align-center">登记重量及比例</th>
+        <th *appAuthBtu="2030303" class="align-center">不良要因重量及比例</th>
+        <th *appAuthBtu="2030304" class="align-center">重量不足的小卷重量及比例</th>
       </tr>
       </thead>
       <tbody>
@@ -125,9 +125,9 @@
         <td>{{data.batchNum}}</td>
         <td>{{data.lineType}}</td>
         <td>{{data.weight}}</td>
-        <td><span class="blue-txt transparen-btn" (click)="see(1, data)">查看</span></td>
-        <td><span class="blue-txt transparen-btn" (click)="see(2, data)">查看</span></td>
-        <td>
+        <td *appAuthBtu="2030302"><span class="blue-txt transparen-btn" (click)="see(1, data)">查看</span></td>
+        <td *appAuthBtu="2030303"><span class="blue-txt transparen-btn" (click)="see(2, data)">查看</span></td>
+        <td *appAuthBtu="2030304">
           <span class="blue-txt transparen-btn" (click)="see(3, data)">查看</span>
         </td>
       </tr>

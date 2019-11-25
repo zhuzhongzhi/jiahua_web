@@ -36,7 +36,7 @@
               </div>
             </div>
           </div>
-          <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+          <div nz-col class="gutter-row" style="float:right;padding-top: 20px" *appAuthBtu="3020001">
             <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
             <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
@@ -48,14 +48,14 @@
     </div>
 
     <div nz-row>
-      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="add()"><i nz-icon type="plus" theme="outline"></i>新增</button>
-      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="update()"><i nz-icon type="edit" theme="outline"></i>修改</button>
-      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="delete()"><i nz-icon type="delete" theme="outline"></i>删除</button>
-      <button nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="open()"><i nz-icon type="check-circle" theme="outline"></i>启用</button>
-      <button nz-button nzType="danger" style=" margin-bottom:15px" (click)="stop()"><i nz-icon type="stop" theme="outline"></i>禁用</button>
+      <button *appAuthBtu="3020002" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="add()"><i nz-icon type="plus" theme="outline"></i>新增</button>
+      <button *appAuthBtu="3020003" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="update()"><i nz-icon type="edit" theme="outline"></i>修改</button>
+      <button *appAuthBtu="3020004" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="delete()"><i nz-icon type="delete" theme="outline"></i>删除</button>
+      <button *appAuthBtu="3020005" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="open()"><i nz-icon type="check-circle" theme="outline"></i>启用</button>
+      <button *appAuthBtu="3020006" nz-button nzType="danger" style=" margin-bottom:15px" (click)="stop()"><i nz-icon type="stop" theme="outline"></i>禁用</button>
 
 
-      <button nz-button nzType="default" style="float:right" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>
+      <button *appAuthBtu="3020007" nz-button nzType="default" style="float:right" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"

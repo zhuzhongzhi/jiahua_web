@@ -46,8 +46,8 @@
             </div>
           </div>
           <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
-            <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
-            <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
+            <button *appAuthBtu="3050001" nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+            <button *appAuthBtu="3050002" nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
         </div>
 
@@ -57,8 +57,8 @@
     </div>
 
     <div nz-row>
-      <button nz-button nzType="primary" style="margin-bottom:15px" (click)="add()"><i nz-icon type="plus" theme="outline"></i>新建</button>
-      <button nz-button nzType="danger" style="margin-left:8px; margin-bottom:15px" (click)="delete()"><i nz-icon type="delete" theme="outline"></i>删除</button>
+      <button *appAuthBtu="3050003" nz-button nzType="primary" style="margin-bottom:15px" (click)="add()"><i nz-icon type="plus" theme="outline"></i>新建</button>
+      <button *appAuthBtu="3050004" nz-button nzType="danger" style="margin-left:8px; margin-bottom:15px" (click)="delete()"><i nz-icon type="delete" theme="outline"></i>删除</button>
 
 
       <button nz-button nzType="default" style="float:right" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>

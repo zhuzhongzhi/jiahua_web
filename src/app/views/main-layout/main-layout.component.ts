@@ -118,7 +118,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
               {name: '判色管理', url: '/main/produceManage/adjustManage', show: this.show(20104)},
               {name: '检验管理', url: '/main/produceManage/checkManage', show: this.show(20105)},
               {name: '包装管理', url: '/main/produceManage/packManage', show: this.show(20106)},
-              {name: '历史管理', url: '/main/produceManage/historyManage', show: this.show(20106)},
+              {name: '历史管理', url: '/main/produceManage/historyManage', show: this.show(20107)},
             ]
           },
           {
@@ -129,7 +129,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
               {name: '纺位质量报警', url: '/main/produceManage/ingotAlarm', show: this.show(20201)},
               {name: '批次质量报警', url: '/main/produceManage/wiringAlarm', show: this.show(20202)},
               {name: '驻留报警', url: '/main/produceManage/stayAlarm', show: this.show(20203)},
-              {name: '报警统计', url: '/main/produceManage/statisticAlarm', show: this.show(20203)},
+              {name: '报警统计', url: '/main/produceManage/statisticAlarm', show: this.show(20205)},
               {name: '报警处理日志', url: '/main/produceManage/alarmLog', show: this.show(20204)}
             ]
           },
@@ -162,7 +162,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         url: '',
         subMenu: [
           {name: '线别纺位管理', url: '/main/sysManage/lineSpin', show: this.show(301)},
-          {name: '批次规格管理', url: '/main/sysManage/batchManage', show: this.show(301)},
+          {name: '批次规格管理', url: '/main/sysManage/batchManage', show: this.show(305)},
           {name: '账户管理', url: '/main/sysManage/jiahuaUser', show: this.show(302)},
           {name: '权限管理', url: '/main/sysManage/jiahuaAuth', show: this.show(303)},
           {name: '日志管理', url: '/main/sysManage/sysLog', show: this.show(304)}

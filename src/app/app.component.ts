@@ -1,6 +1,8 @@
 import {Component, OnInit, NgZone} from '@angular/core';
 import {ShowMessageService} from './widget/show-message/show-message';
 import { UploadImageService } from './widget/upload-image/upload-image.service';
+import {UserService} from './core/common-services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,7 @@ import { UploadImageService } from './widget/upload-image/upload-image.service';
 export class AppComponent implements OnInit {
   loading: boolean;
   loadingMsg: string;
-  constructor(private messageService: ShowMessageService, private uploadImageService: UploadImageService, private zone: NgZone) {
+  constructor(private messageService: ShowMessageService, private router: Router, private userService: UserService, private uploadImageService: UploadImageService, private zone: NgZone) {
     this.loading = false;
     this.loadingMsg = '';
     window['showUploadImageModal'] = this.showUploadImageModal.bind(this);
@@ -21,6 +23,11 @@ export class AppComponent implements OnInit {
     this.messageService.loadEvent.subscribe((event) => {
       this.loading = event.loading;
       this.loadingMsg = event.message;
+    });
+
+    this.userService.getLogin(
+      {userName: sessionStorage.getItem('userName'), password: sessionStorage.getItem('saved')}).subscribe((res) => {
+      localStorage.setItem('rights', JSON.stringify(res.value.jiahuaUserAuthList));
     });
   }
 
