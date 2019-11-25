@@ -97,6 +97,12 @@ export namespace LatheManageServiceNs {
       return this.http.Post('/jiahua/user/userAuthPage', filter, config);
     }
 
+    public deleteUsers(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/jiahua/user/userRemove', data, this.defaultConfig);
+    }
+
   }
 
 }

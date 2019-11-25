@@ -375,10 +375,6 @@ export class JiahuauserManageComponent implements OnInit {
 
 
   delete() {
-    // TODO
-    this.messageService.showToastMessage('暂不支持删除', 'warning');
-    return;
-
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.juId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');
@@ -395,9 +391,17 @@ export class JiahuauserManageComponent implements OnInit {
             ids.push(key);
           }
         }
+        debugger;
+        this.userService.deleteUsers(ids).subscribe((res) => {
+          localStorage.setItem('res', JSON.stringify(res));
+          this.messageService.showToastMessage('用户删除成功', 'success');
+          this.tableConfig.loading = false;
+          this.checkedId = {};
+          this.isAllChecked = false;
+          this.initList();
+        });
       }
     });
-
   }
 
   checkAll(value: boolean): void {

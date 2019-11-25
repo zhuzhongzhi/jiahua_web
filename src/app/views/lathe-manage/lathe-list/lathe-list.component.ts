@@ -180,5 +180,8 @@ export class LatheListComponent implements OnInit {
     // this.checkedId = {};
     // this.isAllChecked = false;
     // this.searchData();
+    // this.checkedId = {};
+    // this.isAllChecked = false;
+    this.initList();
   }
 }

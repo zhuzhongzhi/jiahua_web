@@ -104,6 +104,7 @@ export class HistoryManageComponent implements OnInit {
   showPos(data) {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
+    this.showiFrame = true;
     this.detailModal.title = `纺车位置查看`;
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
       if (res.code !== 0) {
@@ -150,6 +151,7 @@ export class HistoryManageComponent implements OnInit {
       this.detailModal.showContinue = true;
       this.detailModal.showSaveBtn = true;
       this.detailModal.show = true;
+      this.showiFrame = false;
       this.submitModel = data;
     });
   }

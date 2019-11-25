@@ -84,7 +84,7 @@
               </div>
             </div>
           </div>
-          <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+          <div nz-col class="gutter-row" style="float:right;padding-top: 20px" *appAuthBtu="2010101">
             <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
             <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
@@ -96,16 +96,16 @@
     </div>
 
     <div nz-row nzGutter="16">
-      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="add()">
+      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="add()" *appAuthBtu="2010104">
         <i nz-icon type="plus" theme="outline"></i>新增
       </button>
-      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()">
+      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()" *appAuthBtu="2010105">
         <i nz-icon type="form" theme="outline"></i>操作
       </button>
 
       <div nz-col class="gutter-row" style="float:right">
         <span style="margin-right:20px;">今日产量：{{doffingWeight}}kg</span>
-        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()">导出Excel
+        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()" *appAuthBtu="2010103">导出Excel
         </button>
       </div>
     </div>
@@ -130,7 +130,7 @@
         <th class="align-center">工艺状态</th>
         <th class="align-center">落丝操作员</th>
         <th class="align-center">落丝开始时间</th>
-        <th class="align-center">位置信息</th>
+        <th class="align-center" *appAuthBtu="2010102">位置信息</th>
       </tr>
       </thead>
       <tbody>
@@ -148,7 +148,7 @@
         <td>{{trans(data.craftState)}}</td>
         <td>{{data.doffingOperator}}</td>
         <td>{{data.doffingStartTime}}</td>
-        <td><span class="blue-txt transparen-btn" (click)="showPos(data)">查看</span></td>
+        <td *appAuthBtu="2010102"><span class="blue-txt transparen-btn" (click)="showPos(data)" >查看</span></td>
       </tr>
       </tbody>
     </nz-table>
@@ -248,7 +248,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">车号</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>车号</label>
           <div nz-col nzSpan="16" class="form-control">
             <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="submitModel.code"/>
           </div>
@@ -256,7 +256,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">批次</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>批次</label>
           <div nz-col nzSpan="10" class="form-control">
             <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="submitModel.batchNum"
                        (ngModelChange)="refreshStandard($event)" nzPlaceHolder="请选择">
@@ -270,7 +270,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">规格</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>规格</label>
           <div nz-col nzSpan="16" class="form-control">
             <input type="text" nz-input placeholder="请输入规格" [(ngModel)]="submitModel.standard"/>
           </div>
@@ -278,7 +278,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">班别</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>班别</label>
           <div nz-col nzSpan="16" class="form-control">
             <input type="text" nz-input placeholder="请输入班别" [(ngModel)]="submitModel.classType"/>
           </div>
@@ -286,7 +286,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">日期</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>日期</label>
           <div nz-col nzSpan="16" class="form-control">
             <nz-date-picker nzShowTime [(ngModel)]="submitModel.createTime"
                             nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
@@ -295,7 +295,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">卷类别</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>卷类别</label>
           <div nz-col nzSpan="16" class="form-control">
             <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="submitModel.reelType">
               <nz-option nzValue="0" nzLabel="满卷"></nz-option>
@@ -306,7 +306,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">合股次数</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>合股次数</label>
           <div nz-col nzSpan="16" class="form-control">
             <nz-select style="width: 100%;" nzPlaceHolder="请选择合股次数" [(ngModel)]="submitModel.jointNum">
               <nz-option nzValue="0" nzLabel="0" ></nz-option>

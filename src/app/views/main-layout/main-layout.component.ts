@@ -243,16 +243,15 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public logOut() {
-    console.log(123123);
     this.messageService.showToastMessage('用户退出成功', 'success');
     this.userService.logout().subscribe(() => {
-      // this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/login');
       this.storage.remove('rights');
-      window.location.href = environment.otherData.defaultPath;
+      // window.location.href = environment.otherData.defaultPath;
     }, (error: any) => {
-      // this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/login');
       this.storage.remove('rights');
-      window.location.href = environment.otherData.defaultPath;
+      // window.location.href = environment.otherData.defaultPath;
     });
   }
 

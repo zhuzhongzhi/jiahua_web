@@ -73,6 +73,14 @@ export namespace UserManageServiceNs {
     }
 
     /**
+     * 用户删除
+     * @param data
+     */
+    public deleteUsers(data) {
+      return this.http.Post('/jiahua/user/userRemove', data, this.defaultConfig);
+    }
+
+    /**
      * 新增用户
      * @param data
      */
