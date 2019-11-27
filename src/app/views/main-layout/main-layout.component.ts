@@ -213,7 +213,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
               bool = true;
             }
           });
-          console.log(bool);
           return bool;
         }
       });
@@ -221,11 +220,13 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!rights || JSON.stringify(rights) === '{}') {
       bool = true;
     } else {
+      console.log(code);
       rights.forEach(right => {
         if (right.authId.startsWith(code) && right.status === 1) {
           bool = true;
         }
       });
+      console.log(bool);
       return bool;
     }
   }

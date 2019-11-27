@@ -415,6 +415,33 @@ export class HotreelManageComponent implements OnInit {
       this.ingotAlarmService.getSpinPosByLineType(data).subscribe((res) => {
       this.spinPosList = res.value;
     });
+    this.doffList.forEach(item => {
+      if (item.pdId !== undefined) {
+        item.ingotNum = this.submitModel.ingotNum;
+        const doffingTimeTemp = item.doffingTime;
+        item.doffingTime = this.parseTime(item.doffingTime);
+        this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
+          item.pdId = res.value;
+          item.doffingTime = doffingTimeTemp;
+          if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+            this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+            });
+          }
+        });
+      } else {
+        item.ingotNum = this.submitModel.ingotNum;
+        const doffingTimeTemp = item.doffingTime;
+        item.doffingTime = this.parseTime(item.doffingTime);
+        this.ingotAlarmService.addDoffing(item).subscribe(res => {
+          item.pdId = res.value;
+          item.doffingTime = doffingTimeTemp;
+          if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+            this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+            });
+          }
+        });
+      }
+    });
     this.doffList.push({ingotNum: '', pmId: this.submitModel.pmId, doffingTime: new Date(), spinPos: '', weight: ''});
   }
 
@@ -495,19 +522,24 @@ export class HotreelManageComponent implements OnInit {
     });
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
-      this.doffList.forEach(item => {
-        if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
-          item.doffingTime = new Date(item.doffingTime);
-        }
-        // 设置 exception
-        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
-          item.showtable = true;
-          item.exception = res1.value;
+      if (this.doffList !== null && this.doffList.length === 0) {
+        this.addDoff();
+      } else {
+        this.doffList.forEach(item => {
+          if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
+            item.doffingTime = new Date(item.doffingTime);
+          }
+          // 设置 exception
+          this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+            item.showtable = true;
+            item.exception = res1.value;
+          });
         });
-      });
-      if (this.doffList !== null && this.doffList.length > 0) {
-        this.submitModel.ingotNum = this.doffList[0].ingotNum;
+        if (this.doffList !== null && this.doffList.length > 0) {
+          this.submitModel.ingotNum = this.doffList[0].ingotNum;
+        }
       }
+
     });
 
 
@@ -595,12 +627,55 @@ export class HotreelManageComponent implements OnInit {
     if (this.showiFrame === 1) {
       this.detailModal.show = false;
     } else if (this.showiFrame === 2) {
+
+      if (this.submitModel.lineType === undefined || this.submitModel.lineType === null || this.submitModel.lineType === '') {
+        this.messageService.showToastMessage('请选择线别', 'warning');
+        return;
+      }
+      if (this.submitModel.code === undefined || this.submitModel.code === null || this.submitModel.code === '') {
+        this.messageService.showToastMessage('请输入丝车编号', 'warning');
+        return;
+      }
+      if (this.submitModel.batchNum === undefined || this.submitModel.batchNum === null || this.submitModel.batchNum === '') {
+        this.messageService.showToastMessage('请选择批次', 'warning');
+        return;
+      }
+      if (this.submitModel.standard === undefined || this.submitModel.standard === null || this.submitModel.standard === '') {
+        this.messageService.showToastMessage('请输入规格', 'warning');
+        return;
+      }
+      if (this.submitModel.classType === undefined || this.submitModel.classType === null || this.submitModel.classType === '') {
+        this.messageService.showToastMessage('请选择班别', 'warning');
+        return;
+      }
+      if (this.submitModel.classShift === undefined || this.submitModel.classShift === null || this.submitModel.classShift === '') {
+        this.messageService.showToastMessage('请选择班次', 'warning');
+        return;
+      }
+      if (this.submitModel.createTime === undefined || this.submitModel.createTime === null || this.submitModel.createTime === '') {
+        this.messageService.showToastMessage('请选择日期', 'warning');
+        return;
+      }
+      if (this.submitModel.reelType === undefined || this.submitModel.reelType === null || this.submitModel.reelType === '') {
+        this.messageService.showToastMessage('请选择卷类别', 'warning');
+        return;
+      }
+      if (this.submitModel.jointNum === undefined || this.submitModel.jointNum === null || this.submitModel.jointNum === '') {
+        this.messageService.showToastMessage('请选择合股次数', 'warning');
+        return;
+      }
+      if (this.submitModel.cause === undefined || this.submitModel.cause === null || this.submitModel.cause === '') {
+        this.messageService.showToastMessage('请输入要因记录', 'warning');
+        return;
+      }
+
       this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
       this.submitModel.craftState = 1;
       this.submitModel.creator = localStorage.getItem('userId');
       console.log(this.submitModel);
       this.ingotAlarmService.newCraftAdd(this.submitModel).subscribe((res) => {
         if (res.code !== 0) {
+          this.messageService.showToastMessage(res.message + ':' + res.value, 'warning');
           return;
         }
         this.messageService.showToastMessage('主记录新建成功', 'success');

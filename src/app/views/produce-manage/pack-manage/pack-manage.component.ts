@@ -33,6 +33,7 @@ export class PackManageComponent implements OnInit {
   };
 
   dataList = [];
+  doffList = [];
 
   // 弹窗表单
   validateForm: FormGroup;
@@ -216,6 +217,23 @@ export class PackManageComponent implements OnInit {
       }
 
     }
+    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+      this.doffList = res.value;
+      this.doffList.forEach(item => {
+        if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
+          item.doffingTime = new Date(item.doffingTime);
+        }
+        // 设置 exception
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+          item.showtable = true;
+          item.exception = res1.value;
+        });
+      });
+      if (this.doffList !== null && this.doffList.length > 0) {
+        this.submitModel.ingotNum = this.doffList[0].ingotNum;
+      }
+    });
+
     this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
       this.exceptions = res.value;
       this.isAdd = false;
@@ -231,7 +249,9 @@ export class PackManageComponent implements OnInit {
 
   // 保存
   savePack() {
-    this.ingotAlarmService.modifyExceptions(this.exceptions).subscribe((res1) => {
+    const exceptions = [];
+    this.doffList.map(item => exceptions.push(...item.exception));
+    this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
       this.modalService.confirm({
         nzTitle: '<i>保存成功是否要回到列表页</i>',
         nzContent: '<b>保存成功</b>',

@@ -30,7 +30,8 @@ export class CheckManageComponent implements OnInit {
     showContinue: false,
     showSaveBtn: false
   };
-
+  // 落丝列表
+  doffList: any = [];
   dataList = [];
 
   // 弹窗表单
@@ -102,8 +103,9 @@ export class CheckManageComponent implements OnInit {
     this.ingotAlarmService.addCheck(this.checkInfo).subscribe((res) => {
       this.checkInfo.pcId = res.value;
       this.checkInfo.checkTime = tempTime;
-
-      this.ingotAlarmService.modifyExceptions(this.exceptions).subscribe((res1) => {
+      const exceptions = [];
+      this.doffList.map(item => exceptions.push(...item.exception));
+      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
         this.modalService.confirm({
           nzTitle: '<i>保存成功是否要回到列表页</i>',
           nzContent: '<b>保存成功</b>',
@@ -299,6 +301,22 @@ export class CheckManageComponent implements OnInit {
     this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
       if(res.value.length > 0) {
         this.checkInfo = res.value[0];
+      }
+    });
+    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+      this.doffList = res.value;
+      this.doffList.forEach(item => {
+        if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
+          item.doffingTime = new Date(item.doffingTime);
+        }
+        // 设置 exception
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+          item.showtable = true;
+          item.exception = res1.value;
+        });
+      });
+      if (this.doffList !== null && this.doffList.length > 0) {
+        this.submitModel.ingotNum = this.doffList[0].ingotNum;
       }
     });
     this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {

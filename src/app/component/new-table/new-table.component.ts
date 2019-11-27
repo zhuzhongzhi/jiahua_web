@@ -121,8 +121,16 @@ export class NewTableComponent implements OnInit {
   items12 = [
     {key: 'AA', value: 'AA级'},
     {key: 'AA纬', value: 'AA纬'},
-    {key: 'A1', value: 'A1级'},
     {key: 'A', value: 'A级'},
+    {key: 'A1', value: 'A1级'},
+    {key: 'B', value: 'B级'},
+  ];
+  items13 = [
+    {key: '', value: '未选择'},
+    {key: 'AA', value: 'AA级'},
+    {key: 'AA纬', value: 'AA纬'},
+    {key: 'A', value: 'A级'},
+    {key: 'A1', value: 'A1级'},
     {key: 'B', value: 'B级'},
   ];
 

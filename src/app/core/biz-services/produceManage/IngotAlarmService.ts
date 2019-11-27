@@ -31,6 +31,12 @@ export namespace IngotAlarmServiceNs {
       return this.http.Post('/warn/spin/modify', data, this.defaultConfig);
     }
 
+    public dealIngotAlarm(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/warn/spin/deal', data, this.defaultConfig);
+    }
+
     public pageLineAlarms(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;

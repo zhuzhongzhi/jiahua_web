@@ -30,12 +30,15 @@
                     <span title>{{secMenus.name}}
                     </span>
                     <ul>
-                      <li nz-menu-item *ngFor="let thrMenus of secMenus.subMenu" (click)="goRoute(thrMenus)"
-                          [(nzSelected)]="thrMenus.open">
-                        <div *ngIf="thrMenus.show">
-                          {{thrMenus.name}}
-                        </div>
-                      </li>
+                      <ng-container *ngFor="let thrMenus of secMenus.subMenu">
+                        <li nz-menu-item  (click)="goRoute(thrMenus)" *ngIf="thrMenus.show"
+                            [(nzSelected)]="thrMenus.open">
+                          <div>
+                            {{thrMenus.name}}
+                          </div>
+                        </li>
+                      </ng-container>
+
                     </ul>
                   </li>
                   <li *ngIf="secMenus.url !== '' && secMenus.show" nz-menu-item (click)="goRoute(secMenus)"

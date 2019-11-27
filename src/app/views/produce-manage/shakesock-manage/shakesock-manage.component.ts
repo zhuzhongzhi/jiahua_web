@@ -30,6 +30,8 @@ export class ShakesockManageComponent implements OnInit {
     showContinue: false,
     showSaveBtn: false
   };
+  // 落丝列表
+  doffList: any = [];
   dataList = [];
   // 弹窗表单
   validateForm: FormGroup;
@@ -130,7 +132,9 @@ export class ShakesockManageComponent implements OnInit {
   }
 
   saveSock() {
-    this.ingotAlarmService.modifyExceptions(this.exceptions).subscribe((res1) => {
+    const exceptions = [];
+    this.doffList.map(item => exceptions.push(...item.exception));
+    this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
       this.modalService.confirm({
         nzTitle: '<i>保存成功是否要回到列表页</i>',
         nzContent: '<b>保存成功</b>',
@@ -256,6 +260,22 @@ export class ShakesockManageComponent implements OnInit {
       }
 
     }
+    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+      this.doffList = res.value;
+      this.doffList.forEach(item => {
+        if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
+          item.doffingTime = new Date(item.doffingTime);
+        }
+        // 设置 exception
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+          item.showtable = true;
+          item.exception = res1.value;
+        });
+      });
+      if (this.doffList !== null && this.doffList.length > 0) {
+        this.submitModel.ingotNum = this.doffList[0].ingotNum;
+      }
+    });
     this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
       this.exceptions = res.value;
       this.isAdd = false;
@@ -265,22 +285,6 @@ export class ShakesockManageComponent implements OnInit {
       this.detailModal.show = true;
       this.submitModel = data;
     });
-    // this.isAdd = false;
-    // this.detailModal.title = `修改摇袜记录`;
-    // this.detailModal.showContinue = true;
-    // this.detailModal.showSaveBtn = true;
-    // this.detailModal.show = true;
-    // this.submitModel = data;
-    // this.ingotAlarmService.craftExeptionList(data.opId).subscribe(res => {
-    //   const exceptions = res.value;
-    //
-    //   if (exceptions === null || exceptions === undefined || exceptions === '') {
-    //     this.resetDataList();
-    //   } else {
-    //     this.dataList = exceptions;
-    //   }
-    // });
-    console.log(this.dataList);
   }
 
   editInfo(data) {

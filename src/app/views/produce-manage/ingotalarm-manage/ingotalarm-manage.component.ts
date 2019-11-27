@@ -143,9 +143,13 @@ export class IngotalarmManageComponent implements OnInit {
           if (this.checkedId[key]) {
             // ids.push(key);
 
-            this.ingotAlarmService.updateIngotAlarm({
-              'alarmId': key,
-              'isHandled': 1
+            this.ingotAlarmService.dealIngotAlarm({
+              'handleTime': new Date(),
+              'operator': 1,
+              'lineAlarm': {
+                'alarmId': key
+              },
+              'remark': '123'
             }).subscribe((res) => {
 
             });
