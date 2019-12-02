@@ -89,12 +89,12 @@
         <td>{{data.standard}}</td>
         <td>{{data.batchNum}}</td>
         <td>{{ trans(data.craftState) }}</td>
-        <td *appAuthBtu="1020002"><span class="blue-txt transparen-btn" (click)="showPos(data)">查看</span></td>
+        <td *appAuthBtu="1020002"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
         <td *appAuthBtu="1020003">
           <!--          <span *appAuthBtu="ActionCode.parkingSpotDetail" (click)="lookParkingSpot(data)" class="blue-txt transparen-btn">详情</span>-->
           <!--          <ng-container *appAuthBtu="ActionCode.parkingSpotEdit">-->
           <!--            <i class="line"></i>-->
-          <span class="blue-txt transparen-btn" (click)="showLocus(data)">查看</span>
+          <span class="blue-txt transparen-btn see-detail" (click)="showLocus(data)">查看</span>
           <!--          </ng-container>-->
         </td>
       </tr>
@@ -108,7 +108,6 @@
       条记录，共计{{tableConfig.pageTotal}}条记录
   </span>
   </ng-template>
-
 
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null

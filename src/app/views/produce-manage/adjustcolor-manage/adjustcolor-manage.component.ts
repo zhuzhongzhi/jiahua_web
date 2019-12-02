@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {format} from "date-fns";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class AdjustcolorManageComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
+              public router: Router,
               private modalService: NzModalService,
               private messageService: ShowMessageService,
               private ingotAlarmService: IngotAlarmService) {
@@ -76,17 +78,37 @@ export class AdjustcolorManageComponent implements OnInit {
     };
   }
 
+  transReelType (val) {
+    if (val === 0) {
+      return '满卷';
+    } else if (val === 1) {
+      return '小卷';
+    }
+    return '';
+  }
+
   saveSock() {
+    this.messageService.showLoading('');
+    const craftData = {
+      pmId: this.submitModel.pmId,
+      colourEmid: this.submitModel.colourEmid === null ? '' : this.submitModel.colourEmid,
+    };
     const exceptions = [];
     this.doffList.map(item => exceptions.push(...item.exception));
-    this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-      this.modalService.confirm({
-        nzTitle: '<i>保存成功是否要回到列表页</i>',
-        nzContent: '<b>保存成功</b>',
-        nzOnOk: () => {
-          this.detailModal.show = false;
-          this.initList();
-        }
+    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+        this.messageService.closeLoading();
+        this.modalService.confirm({
+          nzTitle: '<i>保存成功是否要回到列表页</i>',
+          nzContent: '<b>保存成功</b>',
+          nzOnOk: () => {
+            this.detailModal.show = false;
+            this.initList();
+          },
+          nzOnCancel: () => {
+            this.messageService.closeLoading();
+          }
+        });
       });
     });
   }
@@ -94,17 +116,31 @@ export class AdjustcolorManageComponent implements OnInit {
   addSock() {}
 
   endSock() {
+    this.messageService.showLoading('');
+
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
     };
     this.ingotAlarmService.endColour(data).subscribe((res) => {
       if (res.code !== 0) {
+        this.messageService.closeLoading();
         return;
       }
-      this.messageService.showToastMessage('判色完成提交成功', 'success');
-      this.detailModal.show = false;
       this.initList();
+      this.messageService.closeLoading();
+
+      this.modalService.confirm({
+        nzTitle: '<i>判色完成提交成功，是否跳转到下个流程页面？</i>',
+        nzContent: '<b>判色完成提交成功</b>',
+        nzOnOk: () => {
+          this.detailModal.show = false;
+          this.router.navigateByUrl('/main/produceManage/checkManage');
+        },
+        nzOnCancel: () => {
+          this.detailModal.show = false;
+        }
+      });
     });
   }
 
@@ -155,6 +191,7 @@ export class AdjustcolorManageComponent implements OnInit {
       spinPos: [null, [Validators.required]]
     });
     this.getProduce();
+    this.messageService.closeLoading();
   }
 
   resetDataList() {
@@ -226,24 +263,17 @@ export class AdjustcolorManageComponent implements OnInit {
   }
 
   edit() {
+    this.messageService.showLoading('');
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
-
-      // this.isAdd = true;
-      // this.detailModal.title = `新增判色记录`;
-      // this.detailModal.showContinue = true;
-      // this.detailModal.showSaveBtn = true;
-      // this.detailModal.show = true;
-      // this.submitModel = {};
-      // this.resetDataList();
+      this.messageService.closeLoading();
       return;
     }
     let data;
     let i = 0;
     for (const key in this.checkedId) {
       if (this.checkedId[key]) {
-        console.log(key);
         this.listOfAllData.forEach(item => {
           if (item.pmId == key) {
             data = item;
@@ -252,9 +282,9 @@ export class AdjustcolorManageComponent implements OnInit {
         i++;
       }
     }
-    console.log(data);
     if (i > 1) {
       if (this.listOfAllData.length !== 1) {
+        this.messageService.closeLoading();
         this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
         return;
       }
@@ -263,7 +293,8 @@ export class AdjustcolorManageComponent implements OnInit {
 
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
-      this.doffList.forEach(item => {
+      for (let idx = 0; idx < this.doffList.length; idx ++) {
+        const item = this.doffList[idx];
         if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
           item.doffingTime = new Date(item.doffingTime);
         }
@@ -271,22 +302,18 @@ export class AdjustcolorManageComponent implements OnInit {
         this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
+          if (idx === this.doffList.length - 1) {
+            this.isAdd = false;
+            this.detailModal.title = `操作判色记录`;
+            this.detailModal.showContinue = true;
+            this.detailModal.showSaveBtn = true;
+            this.detailModal.show = true;
+            this.submitModel = data;
+            this.messageService.closeLoading();
+          }
         });
-      });
-      if (this.doffList !== null && this.doffList.length > 0) {
-        this.submitModel.ingotNum = this.doffList[0].ingotNum;
       }
     });
-    this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
-      this.exceptions = res.value;
-      this.isAdd = false;
-      this.detailModal.title = `操作判色记录`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.submitModel = data;
-    });
-
   }
   editInfo(data) {
     this.isAdd = false;

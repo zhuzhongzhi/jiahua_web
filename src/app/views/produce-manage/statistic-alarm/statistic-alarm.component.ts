@@ -47,6 +47,8 @@ export class StatisticAlarmComponent implements OnInit {
 
   ngOnInit() {
     this.search();
+    this.messageService.closeLoading();
+
   }
 
   search() {

@@ -60,6 +60,7 @@ export class LinealarmManageComponent implements OnInit {
 
   ngOnInit() {
     this.initList();
+    this.messageService.closeLoading();
   }
 
   initList() {

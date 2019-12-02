@@ -10,6 +10,7 @@ export class OperateStatisticsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

@@ -62,6 +62,7 @@ export class BatchManageComponent implements OnInit {
       standard: [null, [Validators.required]],
       threshold: [null, [Validators.required]]
     });
+    this.messageService.closeLoading();
   }
 
   initList() {

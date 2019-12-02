@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {format} from "date-fns";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-check-manage',
@@ -53,6 +54,7 @@ export class CheckManageComponent implements OnInit {
               private modal: NzModalService,
               private modalService: NzModalService,
               private sanitizer: DomSanitizer,
+              public router: Router,
               private messageService: ShowMessageService,
               private ingotAlarmService: IngotAlarmService) {
     this.filters = {
@@ -95,53 +97,79 @@ export class CheckManageComponent implements OnInit {
     }
   }
 
+  transReelType (val) {
+    if (val === 0) {
+      return '满卷';
+    } else if (val === 1) {
+      return '小卷';
+    }
+    return '';
+  }
+
   saveCheck() {
-    const tempTime = this.checkInfo.checkTime;
-    console.log(this.checkInfo.checkTime);
-    this.checkInfo.pmId = this.submitModel.pmId;
-    this.checkInfo.checkTime = this.parseTime(this.checkInfo.checkTime);
-    this.ingotAlarmService.addCheck(this.checkInfo).subscribe((res) => {
-      this.checkInfo.pcId = res.value;
-      this.checkInfo.checkTime = tempTime;
-      const exceptions = [];
-      this.doffList.map(item => exceptions.push(...item.exception));
-      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-        this.modalService.confirm({
-          nzTitle: '<i>保存成功是否要回到列表页</i>',
-          nzContent: '<b>保存成功</b>',
-          nzOnOk: () => {
-            this.detailModal.show = false;
-            this.initList();
-          }
+    this.messageService.showLoading('');
+    const craftData = {
+      pmId: this.submitModel.pmId,
+      checkEmid: this.submitModel.checkEmid === null ? '' : this.submitModel.checkEmid,
+    };
+    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+      const tempTime = this.checkInfo.checkTime;
+      this.checkInfo.pmId = this.submitModel.pmId;
+      this.checkInfo.checkTime = this.parseTime(this.checkInfo.checkTime);
+      this.ingotAlarmService.addCheck(this.checkInfo).subscribe((res) => {
+        this.checkInfo.pcId = res.value;
+        this.checkInfo.checkTime = tempTime;
+        const exceptions = [];
+        this.doffList.map(item => exceptions.push(...item.exception));
+        this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+          this.messageService.closeLoading();
+          this.modalService.confirm({
+            nzTitle: '<i>保存成功是否要回到列表页</i>',
+            nzContent: '<b>保存成功</b>',
+            nzOnOk: () => {
+              this.detailModal.show = false;
+              this.initList();
+            },
+            nzOnCancel: () => {
+              this.messageService.closeLoading();
+            }
+          });
         });
       });
     });
-
   }
 
   endCheck() {
+    this.messageService.showLoading('');
+
     if (this.checkInfo.checkTime === '' || this.checkInfo.checkTime === undefined || this.checkInfo.checkTime === null) {
       this.messageService.showToastMessage('请配置检验时间', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     if (this.checkInfo.checkNum === '' || this.checkInfo.checkNum === undefined || this.checkInfo.checkNum === null) {
-      this.messageService.showToastMessage('请配置检验手下', 'warning');
+      this.messageService.showToastMessage('请配置检验个数', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     if (this.checkInfo.aaWeight === '' || this.checkInfo.aaWeight === undefined || this.checkInfo.aaWeight === null) {
       this.messageService.showToastMessage('请配置AA级重量', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     if (this.checkInfo.a1Weight === '' || this.checkInfo.a1Weight === undefined || this.checkInfo.a1Weight === null) {
       this.messageService.showToastMessage('请配置A1级重量', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     if (this.checkInfo.aweight === '' || this.checkInfo.aweight === undefined || this.checkInfo.aweight === null) {
       this.messageService.showToastMessage('请配置A级重量', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     if (this.checkInfo.bweight === '' || this.checkInfo.bweight === undefined || this.checkInfo.bweight === null) {
       this.messageService.showToastMessage('请配置B级重量', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     // update
@@ -158,11 +186,22 @@ export class CheckManageComponent implements OnInit {
     };
     this.ingotAlarmService.endCheck(data).subscribe((res) => {
       if (res.code !== 0) {
+        this.messageService.closeLoading();
         return;
       }
-      this.messageService.showToastMessage('检查完成提交成功', 'success');
-      this.detailModal.show = false;
       this.initList();
+      this.messageService.closeLoading();
+      this.modalService.confirm({
+        nzTitle: '<i>检查完成提交成功，是否跳转到下个流程页面？</i>',
+        nzContent: '<b>检查完成提交成功</b>',
+        nzOnOk: () => {
+          this.detailModal.show = false;
+          this.router.navigateByUrl('/main/produceManage/packManage');
+        },
+        nzOnCancel: () => {
+          this.detailModal.show = false;
+        }
+      });
     });
   }
 
@@ -175,6 +214,7 @@ export class CheckManageComponent implements OnInit {
       spinPos: [null, [Validators.required]]
     });
     this.getProduce();
+    this.messageService.closeLoading();
   }
   showPos(data) {
     this.detailModal.showContinue = false;
@@ -264,17 +304,11 @@ export class CheckManageComponent implements OnInit {
 
 
   edit() {
+    this.messageService.showLoading('');
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
-
-      // this.isAdd = true;
-      // this.detailModal.title = `新增检验记录`;
-      // this.detailModal.showContinue = true;
-      // this.detailModal.showSaveBtn = true;
-      // this.detailModal.show = true;
-      // this.submitModel = {};
-      // this.resetDataList();
+      this.messageService.closeLoading();
       return;
     }
     let data;
@@ -293,6 +327,7 @@ export class CheckManageComponent implements OnInit {
     console.log(data);
     if (i > 1) {
       if (this.listOfAllData.length !== 1) {
+        this.messageService.closeLoading();
         this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
         return;
       }
@@ -305,7 +340,8 @@ export class CheckManageComponent implements OnInit {
     });
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
-      this.doffList.forEach(item => {
+      for (let idx = 0; idx < this.doffList.length; idx ++) {
+        const item = this.doffList[idx];
         if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
           item.doffingTime = new Date(item.doffingTime);
         }
@@ -313,20 +349,17 @@ export class CheckManageComponent implements OnInit {
         this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
+          if (idx === this.doffList.length - 1) {
+            this.isAdd = false;
+            this.detailModal.title = `操作检验记录`;
+            this.detailModal.showContinue = true;
+            this.detailModal.showSaveBtn = true;
+            this.detailModal.show = true;
+            this.submitModel = data;
+            this.messageService.closeLoading();
+          }
         });
-      });
-      if (this.doffList !== null && this.doffList.length > 0) {
-        this.submitModel.ingotNum = this.doffList[0].ingotNum;
       }
-    });
-    this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
-      this.exceptions = res.value;
-      this.isAdd = false;
-      this.detailModal.title = `操作检验记录`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.submitModel = data;
     });
   }
 

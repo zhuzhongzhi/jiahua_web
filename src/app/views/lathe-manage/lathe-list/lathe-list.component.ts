@@ -49,6 +49,7 @@ export class LatheListComponent implements OnInit {
 
   ngOnInit() {
     this.initList();
+    this.messageService.closeLoading();
   }
 
   trans(state) {

@@ -90,7 +90,7 @@
           </div>
           <nz-form-item>
             <nz-form-control>
-              <nz-range-picker [(ngModel)]="hisLocDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime [nzMode]="dateMode" (ngModelChange)="modelChange()"
+              <nz-range-picker [(ngModel)]="hisLocDateRange" nzFormat="yyyy-MM-dd HH:mm:ss"  [nzMode]="dateMode" (ngModelChange)="modelChange()"
                 (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
@@ -195,8 +195,8 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="alarmDateRange" nzShowTime></nz-range-picker>-->
-              <nz-range-picker [(ngModel)]="alarmDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode" nzShowTime (ngModelChange)="modelChange()"
+              <!--<nz-range-picker [(ngModel)]="alarmDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="alarmDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"  (ngModelChange)="modelChange()"
                 (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
@@ -245,7 +245,7 @@
         <div class="pull-right">
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzShowTime]="{ nzFormat: 'HH:mm:ss' }"></nz-range-picker>-->
+              <!--<nz-range-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" []="{ nzFormat: 'HH:mm:ss' }"></nz-range-picker>-->
               <nz-date-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
@@ -301,8 +301,8 @@
         <div class="pull-right">
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="teamTallyDateRange" nzShowTime></nz-range-picker>-->
-              <nz-range-picker [(ngModel)]="teamTallyDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode" nzShowTime
+              <!--<nz-range-picker [(ngModel)]="teamTallyDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="teamTallyDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"
                                (ngModelChange)="modelChange()" (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
@@ -356,8 +356,8 @@
         <div class="pull-right">
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="refuelDateRange" nzShowTime></nz-range-picker>-->
-              <nz-range-picker [(ngModel)]="refuelDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode" nzShowTime
+              <!--<nz-range-picker [(ngModel)]="refuelDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="refuelDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"
                                (ngModelChange)="modelChange()" (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
@@ -412,7 +412,7 @@
         <div class="pull-right">
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="keepDateRange" nzShowTime></nz-range-picker>-->
+              <!--<nz-range-picker [(ngModel)]="keepDateRange" ></nz-range-picker>-->
               <nz-range-picker [(ngModel)]="keepDateRange" nzFormat="yyyy-MM-dd"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
@@ -470,8 +470,8 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="requireDateRange" nzShowTime></nz-range-picker>-->
-              <nz-range-picker [(ngModel)]="requireDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode" nzShowTime
+              <!--<nz-range-picker [(ngModel)]="requireDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="requireDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"
                                [nzPlaceHolder]="['报修开始时间', '报修结束时间']"
                                (ngModelChange)="modelChange()" (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
             </nz-form-control>
@@ -535,7 +535,7 @@
         <div class="pull-right">
           <nz-form-item>
             <nz-form-control>
-              <!--<nz-range-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzShowTime]="{ nzFormat: 'HH:mm:ss' }"></nz-range-picker>-->
+              <!--<nz-range-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" []="{ nzFormat: 'HH:mm:ss' }"></nz-range-picker>-->
               <nz-date-picker [(ngModel)]="speedLineDate" nzFormat="yyyy-MM-dd"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>

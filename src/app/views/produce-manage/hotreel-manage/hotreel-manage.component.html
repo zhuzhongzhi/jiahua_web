@@ -1,176 +1,175 @@
 <div class="page">
-
   <div class="bg-white padding-16">
 
-    <div class="ax_default" style="margin-bottom: 15px;">
-      <!-- Unnamed (矩形) -->
-      <div id="u625" class="ax_default box_1">
-        <div id="u625_text" class="text">
-          <!--<p>-->
-          <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
-          <span style="text-decoration:none;">筛选查询</span>
-          <!--</p>-->
-          <div id="u627" class="ax_default">
-            <div id="u627_text" class="text align-center">
-              <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer"
-                 (click)="toggleCollapse()"></i>
+      <div class="ax_default" style="margin-bottom: 15px;">
+        <!-- Unnamed (矩形) -->
+        <div id="u625" class="ax_default box_1">
+          <div id="u625_text" class="text">
+            <!--<p>-->
+            <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
+            <span style="text-decoration:none;">筛选查询</span>
+            <!--</p>-->
+            <div id="u627" class="ax_default">
+              <div id="u627_text" class="text align-center">
+                <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer"
+                   (click)="toggleCollapse()"></i>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="search-conds" *ngIf="!isCollapse">
-        <div nz-row nzGutter="16">
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code"/>
+        <div class="search-conds" *ngIf="!isCollapse">
+          <div nz-row nzGutter="16">
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <!--                <input nzSize="default" nz-input type="text">-->
+                  <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code"/>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">线别</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType"/>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">线别</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <!--                <input nzSize="default" nz-input type="text">-->
+                  <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType"/>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">批号</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入批号" [(ngModel)]="filters.batchNum"/>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">批号</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <!--                <input nzSize="default" nz-input type="text">-->
+                  <input type="text" nz-input placeholder="请输入批号" [(ngModel)]="filters.batchNum"/>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">卷类别</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.reelType">
-                  <nz-option nzValue="0" nzLabel="满卷"></nz-option>
-                  <nz-option nzValue="1" nzLabel="小卷"></nz-option>
-                </nz-select>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">卷类别</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.reelType">
+                    <nz-option nzValue="0" nzLabel="满卷"></nz-option>
+                    <nz-option nzValue="1" nzLabel="小卷"></nz-option>
+                  </nz-select>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">规格</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入规格" [(ngModel)]="filters.standard"/>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">规格</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <!--                <input nzSize="default" nz-input type="text">-->
+                  <input type="text" nz-input placeholder="请输入规格" [(ngModel)]="filters.standard"/>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">创建日期</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker nzShowTime [(ngModel)]="filters.createTime"
-                                nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">创建日期</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <nz-date-picker  [(ngModel)]="filters.createTime"
+                                  nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">落丝操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入落丝操作员" [(ngModel)]="filters.doffingOperator"/>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">落丝操作员</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <!--                <input nzSize="default" nz-input type="text">-->
+                  <input type="text" nz-input placeholder="请输入落丝操作员" [(ngModel)]="filters.doffingOperator"/>
+                </div>
               </div>
             </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">落丝开始时间</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker nzShowTime [(ngModel)]="filters.doffingStartTime"
-                                nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+            <div nz-col class="gutter-row" nzSpan="6">
+              <div class="form-item" nz-row style="padding-top: 20px;">
+                <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
+                <div nz-col nzSpan="16" class="form-control">
+                  <nz-date-picker  [(ngModel)]="filters.doffingTime"
+                                  nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+                </div>
               </div>
             </div>
+            <div nz-col class="gutter-row" style="float:right;padding-top: 20px" *appAuthBtu="2010101">
+              <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+              <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
+            </div>
           </div>
-          <div nz-col class="gutter-row" style="float:right;padding-top: 20px" *appAuthBtu="2010101">
-            <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
-            <button nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
-          </div>
+
         </div>
 
+        <!-- Unnamed (图片 ) -->
       </div>
 
-      <!-- Unnamed (图片 ) -->
-    </div>
-
-    <div nz-row nzGutter="16">
-      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="add()" *appAuthBtu="2010104">
-        <i nz-icon type="plus" theme="outline"></i>新增
-      </button>
-      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()" *appAuthBtu="2010105">
-        <i nz-icon type="form" theme="outline"></i>操作
-      </button>
-
-      <div nz-col class="gutter-row" style="float:right">
-        <span style="margin-right:20px;">今日产量：{{doffingWeight}}kg</span>
-        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()" *appAuthBtu="2010103">导出Excel
+      <div nz-row nzGutter="16">
+        <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="add()" *appAuthBtu="2010104">
+          <i nz-icon type="plus" theme="outline"></i>新增
         </button>
-      </div>
-    </div>
+        <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()" *appAuthBtu="2010105">
+          <i nz-icon type="form" theme="outline"></i>操作
+        </button>
 
-    <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-              style="text-align:center"
-              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
-              [(nzPageSize)]="tableConfig.pageSize"
-              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
-              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
-      <thead>
-      <tr>
-        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
-        <th nzWidth="70px">序号</th>
-        <th class="align-center">丝车编号</th>
-        <th class="align-center">线别</th>
-        <th class="align-center">批号</th>
-        <th class="align-center">规格</th>
-        <th class="align-center">班别</th>
-        <th class="align-center">净重（kg）</th>
-        <th class="align-center">创建日期</th>
-        <th class="align-center">工艺状态</th>
-        <th class="align-center">落丝操作员</th>
-        <th class="align-center">落丝开始时间</th>
-        <th class="align-center" *appAuthBtu="2010102">位置信息</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()"
-            [nzDisabled]="data.pmId === '-1'"></td>
-        <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.code}}</td>
-        <td>{{data.lineType}}</td>
-        <td>{{data.batchNum}}</td>
-        <td>{{data.standard}}</td>
-        <td>{{data.classType}}</td>
-        <td>{{data.weight}}</td>
-        <td>{{data.createTime}}</td>
-        <td>{{trans(data.craftState)}}</td>
-        <td>{{data.doffingOperator}}</td>
-        <td>{{data.doffingStartTime}}</td>
-        <td *appAuthBtu="2010102"><span class="blue-txt transparen-btn" (click)="showPos(data)" >查看</span></td>
-      </tr>
-      </tbody>
-    </nz-table>
-  </div>
-  <ng-template #totalTemplate let-total>
-    <span class="m-r-sm">
-    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}
-      至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
-      条记录，共计{{tableConfig.pageTotal}}条记录
-  </span>
-  </ng-template>
+        <div nz-col class="gutter-row" style="float:right">
+          <span style="margin-right:20px;">今日产量：{{doffingWeight}}kg</span>
+          <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()" *appAuthBtu="2010103">导出Excel
+          </button>
+        </div>
+      </div>
+
+      <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+                style="text-align:center"
+                [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+                [(nzPageSize)]="tableConfig.pageSize"
+                [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
+                (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
+        <thead>
+        <tr>
+          <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+          <th nzWidth="70px">序号</th>
+          <th class="align-center">丝车编号</th>
+          <th class="align-center">线别</th>
+          <th class="align-center">批号</th>
+          <th class="align-center">规格</th>
+          <th class="align-center">班别</th>
+          <th class="align-center">净重（kg）</th>
+          <th class="align-center">创建日期</th>
+          <th class="align-center">工艺状态</th>
+          <th class="align-center">落丝操作员</th>
+          <th class="align-center">落丝开始时间</th>
+          <th class="align-center" *appAuthBtu="2010102">位置信息</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+          <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()"
+              [nzDisabled]="data.pmId === '-1'"></td>
+          <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
+          <td>{{data.code}}</td>
+          <td>{{data.lineType}}</td>
+          <td>{{data.batchNum}}</td>
+          <td>{{data.standard}}</td>
+          <td>{{data.classType}}</td>
+          <td>{{data.weight}}</td>
+          <td>{{data.createTime}}</td>
+          <td>{{trans(data.craftState)}}</td>
+          <td>{{data.doffingOperator}}</td>
+          <td>{{data.doffingStartTime}}</td>
+          <td *appAuthBtu="2010102"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <ng-template #totalTemplate let-total>
+      <span class="m-r-sm">
+      当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}
+        至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+        条记录，共计{{tableConfig.pageTotal}}条记录
+    </span>
+    </ng-template>
 
 </div>
 
@@ -305,9 +304,9 @@
           <div nz-col nzSpan="16" class="form-control">
             <nz-select style="width: 100%;" nzPlaceHolder="请选择班次" [(ngModel)]="submitModel.classShift">
               <nz-option nzValue="0" nzLabel="早" ></nz-option>
+              <nz-option nzValue="3" nzLabel="早+4"></nz-option>
               <nz-option nzValue="1" nzLabel="中"></nz-option>
               <nz-option nzValue="2" nzLabel="晚"></nz-option>
-              <nz-option nzValue="3" nzLabel="早+4"></nz-option>
               <nz-option nzValue="4" nzLabel="晚+4"></nz-option>
             </nz-select>
           </div>
@@ -317,8 +316,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker nzShowTime [(ngModel)]="submitModel.createTime"
-                            nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="submitModel.createTime"></nz-date-picker>
           </div>
         </div>
       </div>
@@ -339,8 +337,8 @@
           <div nz-col nzSpan="16" class="form-control">
             <nz-select style="width: 100%;" nzPlaceHolder="请选择合股次数" [(ngModel)]="submitModel.jointNum">
               <nz-option nzValue="0" nzLabel="0" ></nz-option>
-              <nz-option nzValue="1" nzLabel="1"></nz-option>
-              <nz-option nzValue="2" nzLabel="2"></nz-option>
+              <nz-option nzValue="1" nzLabel="1（二合一）"></nz-option>
+              <nz-option nzValue="2" nzLabel="2（四合一）"></nz-option>
             </nz-select>
           </div>
         </div>
@@ -403,8 +401,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker disabled nzShowTime [(ngModel)]="submitModel.createTime"
-                            nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime"/>
           </div>
         </div>
       </div>
@@ -412,7 +409,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">卷类别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <input type="text" disabled nz-input placeholder="卷类别" [(ngModel)]="submitModel.reelType"/>
+            <input type="text" disabled nz-input placeholder="卷类别" [value]="transReelType(submitModel.reelType)"/>
           </div>
         </div>
       </div>
@@ -432,6 +429,14 @@
           </div>
         </div>
       </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <div class="form-item" nz-row style="padding-top: 20px;">
+          <label class="inline-span" nz-col nzSpan="8">工号</label>
+          <div nz-col nzSpan="16" class="form-control">
+            <input type="text" nz-input placeholder="请输入记录落丝员工工号" [(ngModel)]="submitModel.doffingEmid"/>
+          </div>
+        </div>
+      </div>
     </div>
     <div nz-row nzGutter="24">
       <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
@@ -447,7 +452,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker nzShowTime [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              <nz-date-picker  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
             </div>
           </div>
         </div>

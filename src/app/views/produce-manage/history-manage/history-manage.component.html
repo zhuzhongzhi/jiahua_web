@@ -21,15 +21,6 @@
         <div nz-row nzGutter="16">
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code"/>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">线别</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
@@ -59,25 +50,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">生产日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">落丝操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入落丝操作员" [(ngModel)]="filters.doffingOperator"/>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">测丹尼操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入测丹尼操作员" [(ngModel)]="filters.testDannyOperator"/>
+                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -85,16 +58,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">测丹尼时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.testDannyTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">摇袜操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入摇袜操作员" [(ngModel)]="filters.rockOperator"/>
+                <nz-date-picker [(ngModel)]="filters.testDannyTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -102,16 +66,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">摇袜时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.rockTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">判色操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入判色操作员" [(ngModel)]="filters.colourOperator"/>
+                <nz-date-picker [(ngModel)]="filters.rockTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -119,16 +74,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">判色时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.colourTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">检验操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入检验操作员" [(ngModel)]="filters.checkOperator"/>
+                <nz-date-picker [(ngModel)]="filters.colourTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -136,16 +82,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">检验时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.checkTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">包装操作员</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入包装操作员" [(ngModel)]="filters.packageOperator"/>
+                <nz-date-picker [(ngModel)]="filters.checkTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -153,16 +90,34 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">包装时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.packageTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.packageTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">工号查询</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入工号" [(ngModel)]="filters.packageOperator"/>
               </div>
             </div>
           </div>
 
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">落丝开始时间</label>
+              <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code"/>
               </div>
             </div>
           </div>
@@ -224,8 +179,8 @@
         <td>{{trans(data.craftState)}}</td>
 <!--        <td>{{data.packageOperator}}</td>-->
 <!--        <td>{{data.packageTime}}</td>-->
-        <td><span class="blue-txt transparen-btn" (click)="showPos(data)">查看</span></td>
-        <td><span class="blue-txt transparen-btn" (click)="showDetail(data)">查看</span></td>
+        <td><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
+        <td><span class="blue-txt transparen-btn see-detail" (click)="showDetail(data)">查看</span></td>
       </tr>
       </tbody>
     </nz-table>
@@ -302,7 +257,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker disabled nzShowTime [(ngModel)]="submitModel.createTime"
+            <nz-date-picker disabled  [(ngModel)]="submitModel.createTime"
                             nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
           </div>
         </div>

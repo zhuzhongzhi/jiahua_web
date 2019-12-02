@@ -107,6 +107,7 @@ export class UserManageComponent implements OnInit {
     });
     this.searchData();
     this.initList();
+    this.messageService.closeLoading();
     // this.getPersonnels(null);
   }
 

@@ -109,6 +109,7 @@ export class RoleManageComponent implements OnInit {
     });
     this.initList();
     this.searchData();
+
   }
 
   /**

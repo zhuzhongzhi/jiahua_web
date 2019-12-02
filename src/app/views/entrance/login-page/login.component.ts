@@ -6,7 +6,6 @@ import {StorageProvider} from '../../../core/common-services/storage';
 import {UfastValidatorsService} from '../../../core/infra/validators/validators.service';
 import {ShowMessageService} from '../../../widget/show-message/show-message';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
-import {CookieService} from 'ngx-cookie-service';
 import {Md5} from 'ts-md5';
 
 @Component({
@@ -28,7 +27,7 @@ export class LoginComponent implements OnInit {
               private storage: StorageProvider, private validator: UfastValidatorsService,
               private formBuilder: FormBuilder, private activeRouter: ActivatedRoute,
               private messageService: ShowMessageService, private modalService: NzModalService,
-              private message: NzMessageService, private cookieService: CookieService
+              private message: NzMessageService
   ) {
     this.remark = '';
     this.loading = false;
@@ -45,28 +44,10 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
 
-    // axios.post('http://localhost:4202/site/iot-server/jiahua/user/login', {
-    //   userName: this.validateForm.value.userName,
-    //   password: this.validateForm.value.password
-    // }).then(res => {
-    //   if(res.status === 200) {
-    //     this.message.success('登录成功');
-    //     this.cookieService.set('authCode', res.data);
-    //     this.router.navigate(['../main/latheManage'], {
-    //       relativeTo: this.activeRouter
-    //     });
-    //   }
-    // });
     const pwd = String(Md5.hashStr(this.validateForm.value.password));
     this.userService.login({userName: this.validateForm.value.userName, password: pwd})
       .subscribe((resData) => {
-        console.log(resData);
         this.loading = false;
-        // if (resData.code !== 0) {
-        //   this.message.warning(resData.message);
-        //   return;
-        // }
-
         // 简易密码校验
         this.message.success('登录成功');
         sessionStorage.setItem('x-user-id', resData.value);
@@ -76,14 +57,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userName', this.validateForm.value.userName);
           localStorage.setItem('saved', pwd);
           localStorage.setItem('userId', res.value.jiahuaUser.userId);
+          this.messageService.showLoading('加载中');
           this.router.navigate(['../main/latheManage'], {
             relativeTo: this.activeRouter
           });
 
         });
-
-        // this.cookieService.set('x-user-id', resData.value);
-
       }, (error: UserServiceNs.HttpError) => {
         this.message.error(error.message);
         this.loading = false;
@@ -94,7 +73,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const remember = Number(this.storage.getItem('jiangtong_remember_account'));
     let value;
-    // console.log(remember);
     if (remember) {
       value = this.storage.getItem('jiangtong_account');
       value = JSON.parse(value);
@@ -109,45 +87,7 @@ export class LoginComponent implements OnInit {
       newPassword: [null, [Validators.required, this.validator.passwordValidator()]],
       secPassword: [null, [Validators.required, this.confirmValidator]]
     });
-  }
-
-  // 显示重置密码弹框——弹框1
-  showModel1(): void {
-    this.detailModal.show1 = true;
-    this.detailModal.loading = false;
-  }
-
-  // 取消重置密码弹框——弹框1
-  handleCancelModel1(): void {
-    this.detailModal.show1 = false;
-    this.detailModal.loading = false;
-  }
-
-  // 保存重置密码弹框——弹框1
-  saveModel1() {
-    for (const key in this.resetPasswordForm.controls) {
-      this.resetPasswordForm.controls[key].markAsDirty();
-      this.resetPasswordForm.controls[key].updateValueAndValidity();
-    }
-    if (this.resetPasswordForm.invalid) {
-      return;
-    }
-    this.detailModal.loading = true;
-    this.userService.modifyPassword(this.resetPasswordForm.value.oldPassword, this.resetPasswordForm.value.newPassword)
-      .subscribe((resData: any) => {
-        if (resData.code === 0) {
-          this.handleCancelModel1();
-          this.userService.logout();
-          this.validateForm.controls['password'].setValue('');
-          this.messageService.showAlertMessage('', '修改密码成功,请重新登录.', 'success');
-        } else {
-          this.detailModal.loading = false;
-          this.messageService.showAlertMessage('', resData.message, 'warning');
-        }
-      }, (error: any) => {
-        this.detailModal.loading = false;
-        this.messageService.showAlertMessage('', error.message, 'error');
-      });
+    this.messageService.closeLoading();
   }
 
   // 确认密码验证

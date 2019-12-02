@@ -2,13 +2,10 @@
 
   <div nz-row [nzGutter]="8" style="height:calc(100vh - 95px); background: #3c362d70;">
     <div nz-row class="ax_default">
-      <!-- Unnamed (矩形) -->
       <div id="u625" class="ax_default box_1" >
         <div id="u625_text" class="text ">
-          <!--<p>-->
           <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
           <span style="text-decoration:none;">丝车定位查询</span>
-          <!--</p>-->
           <div id="u627" class="ax_default">
             <div id="u627_text" class="text ">
               <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer"
@@ -54,7 +51,7 @@
           <div class="form-item" nz-row style="padding-top: 15px;">
             <label class="inline-span" nz-col nzSpan="8">日期</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker nzShowTime [(ngModel)]="filters.createTime"
+              <nz-date-picker  [(ngModel)]="filters.createTime"
                               nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
             </div>
           </div>
@@ -126,15 +123,17 @@
         <button *ngIf="detailModal.show" class="full" (click)="closefullscreen()">收起全屏
           <i nz-icon type="fullscreen-exit"></i>
         </button>
-        <div style="min-height: 600px; height:100%;border: 1px solid rgba(60, 54, 45, 0.44);">
-          <iframe scrolling="no"
-                  id="onet"
-                  [src]="safeUrl"
-                  name="onet"
-                  frameborder="1px"
-                  style="background-color:transparent;     width: 100%;    height: 100%;">
-          </iframe>
+        <div id="jiahua-map" style="min-height: 600px; height:100%;border: 1px solid rgba(60, 54, 45, 0.44);">
+<!--          <iframe scrolling="no"-->
+<!--                  id="onet"-->
+<!--                  [src]="safeUrl"-->
+<!--                  allowtransparency="true"-->
+<!--                  name="onet"-->
+<!--                  frameborder="1px"-->
+<!--                  style="background-color:transparent; width: 100%; height: 100%;">-->
+<!--          </iframe>-->
         </div>
       </div>
     </div>
   </div>
+</div>

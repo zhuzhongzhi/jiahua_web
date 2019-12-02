@@ -59,7 +59,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">创建日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -76,16 +76,16 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">测丹尼时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.testDannyTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.testDannyTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
 
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">落丝开始时间</label>
+              <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" nzShowTime></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@
         <td>{{trans(data.craftState)}}</td>
         <td>{{data.testDannyOperator}}</td>
         <td>{{data.testDannyTime}}</td>
-        <td *appAuthBtu="2010202"><span class="blue-txt transparen-btn" (click)="showPos(data)" >查看</span></td>
+        <td *appAuthBtu="2010202"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
       </tr>
       </tbody>
     </nz-table>
@@ -224,8 +224,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker disabled nzShowTime [(ngModel)]="submitModel.createTime"
-                            nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime"/>
           </div>
         </div>
       </div>
@@ -233,7 +232,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">卷类别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <input type="text" disabled nz-input placeholder="卷类别" [(ngModel)]="submitModel.reelType"/>
+            <input type="text" disabled nz-input placeholder="卷类别" [value]="transReelType(submitModel.reelType)"/>
           </div>
         </div>
       </div>
@@ -254,6 +253,14 @@
           </div>
         </div>
       </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <div class="form-item" nz-row style="padding-top: 20px;">
+          <label class="inline-span" nz-col nzSpan="8">工号</label>
+          <div nz-col nzSpan="16" class="form-control">
+            <input type="text" nz-input placeholder="请输入记录测丹尼员工工号" [(ngModel)]="submitModel.testDannyEmid"/>
+          </div>
+        </div>
+      </div>
     </div>
     <div nz-row nzGutter="16">
       <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
@@ -268,7 +275,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker disabled nzShowTime [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
             </div>
           </div>
         </div>

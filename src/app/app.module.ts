@@ -15,6 +15,8 @@ import zh from '@angular/common/locales/zh';
 import {IconDefinition} from '@ant-design/icons-angular';
 import {AccountBookFill, AlertFill, AlertOutline} from '@ant-design/icons-angular/icons';
 import {CookieService} from 'ngx-cookie-service';
+import { NgMagicIframeModule } from '@sebgroup/ng-magic-iframe';
+
 
 const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill];
 
@@ -35,6 +37,7 @@ registerLocaleData(zh);
     ViewsModule,
     NgxEchartsModule,
     CKEditorModule,
+    NgMagicIframeModule,
   ],
   providers: [{provide: NZ_I18N, useValue: zh_CN}, CookieService],
   bootstrap: [AppComponent]

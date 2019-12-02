@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
 import * as screenfull from 'screenfull';
+import {ShowMessageService} from '../../../widget/show-message/show-message';
 
 @Component({
   selector: 'app-lathe-distributed',
@@ -20,7 +21,6 @@ export class LatheDistributedComponent implements OnInit {
   };
   data: any = {};
   safeUrl = '/track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1';
-  // safeUrl = 'http://jiahuaweb.ihaniel.cn//track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1';
 
   detailModal = {
     show: false,
@@ -31,18 +31,40 @@ export class LatheDistributedComponent implements OnInit {
   };
 
   constructor(private sanitizer: DomSanitizer,
+              private messageService: ShowMessageService,
               private ingotAlarmService: IngotAlarmService) {
   }
-
   ngOnInit() {
-    // @ts-ignore
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.safeUrl);
     this.initData();
     if (screenfull.isEnabled) {
       screenfull.on('change', () => {
         this.detailModal.show = screenfull.isFullscreen;
       });
     }
+    this.createIframe();
+  }
+
+  createIframe() {
+    const that = this;
+    // @ts-ignore
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.safeUrl);
+    const i = document.createElement('iframe');
+    i.src = this.safeUrl;
+    i.scrolling = 'no';
+    i.name = 'map';
+    i.id = 'jiahua';
+    i.frameBorder = '1px';
+    i.width = '100%';
+    i.height = '100%';
+    i.style.backgroundColor = 'transparent';
+    document.getElementById('jiahua-map').appendChild(i);
+
+    // const doc = i.contentWindow.document;
+    // doc.open().write('<body onload="location.href=\'' + this.safeUrl + '\'">');
+    // doc.close();
+    i.onload = function() {
+      that.messageService.closeLoading();
+    };
   }
 
   /**

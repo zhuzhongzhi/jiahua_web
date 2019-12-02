@@ -43,7 +43,7 @@
                 <!--                <input nzSize="default" nz-input type="text">-->
                 <nz-date-picker
                   [nzMode]="filters.reqTime"
-                  nzShowTime
+
                   (nzOnOpenChange)="handleDateOpenChange($event)"
                   (nzOnPanelChange)="handleDatePanelChange($event)"
                 >

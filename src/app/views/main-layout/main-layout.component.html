@@ -61,34 +61,3 @@
     </nz-layout>
   </nz-layout>
 </nz-layout>
-<ng-template #noticeTemplate let-notification>
-  <div class="ant-notification-notice-content">
-    <div>
-      <div class="ant-notification-notice-message">提示消息</div>
-      <div class="ant-notification-notice-description">
-        <b>{{noticeInfo?.vehicleLicense}}</b>
-        于
-        <b>{{noticeInfo?.alarmTime}}</b>
-        <b *ngIf="noticeInfo && noticeInfo.address">在 {{noticeInfo?.address}}</b>
-        <span *ngIf="noticeInfo&&noticeInfo.messageType>0 && noticeInfo.messageType<=alertStatusNode.length">
-          发生{{alertStatusNode[noticeInfo?.messageType + 1]?.alarmTypeName}}报警
-        </span>
-        <span *ngIf="noticeInfo&&noticeInfo.messageContent">({{noticeInfo?.messageContent}})</span>
-
-      </div>
-      <span class="ant-notification-notice-btn">
-            <button nz-button nzType="primary" nzSize="small" (click)="lookNoticeDetail()">
-              <span>查看详情</span>
-            </button>
-          </span>
-    </div>
-  </div>
-</ng-template>
-
-<!--报警详情弹框-->
-<nz-modal [(nzVisible)]="showAlarmModel"
-          (nzOnCancel)="cancleAlarm()"
-          [nzFooter]="null" [nzTitle]="alarmTitle"
-          nzWidth="800px" class="padding-0">
-  <app-cehicle-detail-model *ngIf="showAlarmModel" [info]="alarmDetailInfo"></app-cehicle-detail-model>
-</nz-modal>

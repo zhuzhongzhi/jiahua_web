@@ -59,6 +59,7 @@ export class StayalarmManageComponent implements OnInit {
 
   ngOnInit() {
     this.initList();
+    this.messageService.closeLoading();
   }
 
   initList() {

@@ -96,6 +96,8 @@ export class JiahuauserManageComponent implements OnInit {
       post: [null, []],
       status: [null, [Validators.required]]
     });
+    this.messageService.closeLoading();
+
   }
 
   trans(status) {

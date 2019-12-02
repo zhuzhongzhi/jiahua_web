@@ -10,7 +10,6 @@ import {CommonComponentModule} from '../component/common-component.module';
 import {MainLayoutComponent} from './main-layout/main-layout.component';
 import {LoginComponent} from './entrance/login-page/login.component';
 import {DefaultComponent} from './default/default.component';
-import {RegisterComponent} from './entrance/register/register.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 
 @NgModule({
@@ -29,9 +28,7 @@ import {NgxEchartsModule} from 'ngx-echarts';
     MainLayoutComponent,
     LoginComponent,
     DefaultComponent,
-    RegisterComponent,
   ],
-
   exports: [ViewsRoutingModule]
 })
 export class ViewsModule {

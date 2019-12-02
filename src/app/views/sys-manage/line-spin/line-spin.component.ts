@@ -62,6 +62,7 @@ export class LineSpinComponent implements OnInit {
       lineType: [null, [Validators.required]],
       spinPos: [null, [Validators.required]]
     });
+    this.messageService.closeLoading();
   }
 
   initList() {

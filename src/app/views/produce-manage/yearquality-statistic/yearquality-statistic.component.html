@@ -58,12 +58,12 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">起止日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <!--            <nz-date-picker nzShowTime [(ngModel)]="filters.startTime"-->
+                <!--            <nz-date-picker  [(ngModel)]="filters.startTime"-->
                 <!--                            nzFormat="yyyy-MM-dd"></nz-date-picker>-->
                 <!--            <nz-range-picker [(ngModel)]=""></nz-range-picker>-->
                 <nz-range-picker
                   [(ngModel)]="dateRange"
-                  nzShowTime
+
                   nzFormat="yyyy-MM-dd HH:mm:ss"
                   ngModel
                 ></nz-range-picker>
@@ -123,10 +123,10 @@
         <td>{{data.qrYear}}</td>
         <td>{{data.qrMonth}}</td>
         <td>{{data.weight}}</td>
-        <td *appAuthBtu="2030402"><span class="blue-txt transparen-btn" (click)="see(1, data)">查看</span></td>
-        <td *appAuthBtu="2030403"><span class="blue-txt transparen-btn" (click)="see(2, data)">查看</span></td>
+        <td *appAuthBtu="2030402"><span class="blue-txt transparen-btn see-detail" (click)="see(1, data)">查看</span></td>
+        <td *appAuthBtu="2030403"><span class="blue-txt transparen-btn see-detail" (click)="see(2, data)">查看</span></td>
         <td *appAuthBtu="2030404">
-          <span class="blue-txt transparen-btn" (click)="see(3, data)">查看</span>
+          <span class="blue-txt transparen-btn see-detail" (click)="see(3, data)">查看</span>
         </td>
       </tr>
       </tbody>

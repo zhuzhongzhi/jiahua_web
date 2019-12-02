@@ -27,6 +27,7 @@
             ],
             "styles": [
               "src/global-styles/theme.less",
+              "node_modules/loaders.css/loaders.css",
               "src/styles.scss"
             ],
             "scripts": [

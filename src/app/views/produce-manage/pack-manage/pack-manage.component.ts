@@ -122,6 +122,7 @@ export class PackManageComponent implements OnInit {
       spinPos: [null, [Validators.required]]
     });
     this.getProduce();
+    this.messageService.closeLoading();
   }
 
   resetDataList() {
@@ -191,10 +192,12 @@ export class PackManageComponent implements OnInit {
     this.detailModal.show = true;
   }
   edit() {
+    this.messageService.showLoading('');
+
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
-
+      this.messageService.closeLoading();
       return;
     }
     let data;
@@ -212,6 +215,7 @@ export class PackManageComponent implements OnInit {
     }
     if (i > 1) {
       if (this.listOfAllData.length !== 1) {
+        this.messageService.closeLoading();
         this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
         return;
       }
@@ -219,7 +223,8 @@ export class PackManageComponent implements OnInit {
     }
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
-      this.doffList.forEach(item => {
+      for (let idx = 0; idx < this.doffList.length; idx ++) {
+        const item = this.doffList[idx];
         if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
           item.doffingTime = new Date(item.doffingTime);
         }
@@ -227,55 +232,72 @@ export class PackManageComponent implements OnInit {
         this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
+          if (idx === this.doffList.length - 1) {
+            this.isAdd = false;
+            this.detailModal.title = `操作包装记录`;
+            this.detailModal.showContinue = true;
+            this.detailModal.showSaveBtn = true;
+            this.detailModal.show = true;
+            this.submitModel = data;
+            this.messageService.closeLoading();
+          }
         });
-      });
-      if (this.doffList !== null && this.doffList.length > 0) {
-        this.submitModel.ingotNum = this.doffList[0].ingotNum;
       }
     });
 
-    this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
-      this.exceptions = res.value;
-      this.isAdd = false;
-      this.detailModal.title = `操作包装记录`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.submitModel = data;
-    });
-    //
-    console.log(this.dataList);
+  }
+
+  transReelType (val) {
+    if (val === 0) {
+      return '满卷';
+    } else if (val === 1) {
+      return '小卷';
+    }
+    return '';
   }
 
   // 保存
   savePack() {
+    this.messageService.showLoading('');
+    const craftData = {
+      pmId: this.submitModel.pmId,
+      packageEmid: this.submitModel.packageEmid === null ? '' : this.submitModel.packageEmid,
+    };
     const exceptions = [];
     this.doffList.map(item => exceptions.push(...item.exception));
-    this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-      this.modalService.confirm({
-        nzTitle: '<i>保存成功是否要回到列表页</i>',
-        nzContent: '<b>保存成功</b>',
-        nzOnOk: () => {
-          this.detailModal.show = false;
-          this.initList();
-        }
+    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+        this.messageService.closeLoading();
+        this.modalService.confirm({
+          nzTitle: '<i>保存成功是否要回到列表页</i>',
+          nzContent: '<b>保存成功</b>',
+          nzOnOk: () => {
+            this.detailModal.show = false;
+            this.initList();
+          },
+          nzOnCancel: () => {
+            this.messageService.closeLoading();
+          }
+        });
       });
     });
   }
 
   // 结束
   endPack () {
+    this.messageService.showLoading('');
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
     };
     this.ingotAlarmService.endPackage(data).subscribe((res) => {
       if (res.code !== 0) {
+        this.messageService.closeLoading();
         return;
       }
+      this.initList();
       this.messageService.showToastMessage('包装完成提交成功', 'success');
       this.detailModal.show = false;
-      this.initList();
     });
   }
 

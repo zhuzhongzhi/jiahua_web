@@ -34,7 +34,6 @@ export class AuthBtuDirective {
       this.show(true);
     } else {
       let isShow = false;
-      console.log('start compare right');
       rights.forEach(right => {
         if (right.authId == authId && right.status === 1) {
           // this.show(true);

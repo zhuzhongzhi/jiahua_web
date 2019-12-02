@@ -122,6 +122,7 @@ export class HistoryManageComponent implements OnInit {
 
   ngOnInit() {
     this.initList();
+    this.messageService.closeLoading();
   }
   submitForm() {}
 

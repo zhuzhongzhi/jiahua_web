@@ -35,6 +35,8 @@ export class QualityBillboardComponent implements OnInit {
   ngOnInit() {
     this.initData();
     this.initWarns();
+    this.messageService.closeLoading();
+
   }
 
   private initData() {

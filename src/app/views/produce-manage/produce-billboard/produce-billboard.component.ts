@@ -47,6 +47,8 @@ export class ProduceBillboardComponent implements OnInit {
   ngOnInit() {
     this.initBoard();
     this.initCharts();
+    this.messageService.closeLoading();
+
   }
 
   initBoard() {

@@ -58,6 +58,8 @@ export class JiahuaauthManageComponent implements OnInit {
       desc: [null, []],
       jaId: [null, []]
     });
+    this.messageService.closeLoading();
+
   }
 
   initList() {

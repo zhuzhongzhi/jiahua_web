@@ -214,6 +214,13 @@ export namespace IngotAlarmServiceNs {
       return this.http.Post('/produce/newCraft/add', data, this.defaultConfig);
     }
 
+    // 主记录更新
+    public newCraftUpdate(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/modify', data, this.defaultConfig);
+    }
+
     public endDoff(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
