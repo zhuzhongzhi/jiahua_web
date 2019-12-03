@@ -170,6 +170,7 @@ export class PackManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = false;
+    this.doffList =null;
   }
 
   toggleCollapse(): void {
@@ -266,6 +267,11 @@ export class PackManageComponent implements OnInit {
     const exceptions = [];
     this.doffList.map(item => exceptions.push(...item.exception));
     this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+      if (resData.code !== 0) {
+        this.messageService.showToastMessage(resData.message, 'error');
+        this.messageService.closeLoading();
+        return;
+      }
       this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
         this.messageService.closeLoading();
         this.modalService.confirm({
@@ -296,6 +302,7 @@ export class PackManageComponent implements OnInit {
         return;
       }
       this.initList();
+      this.messageService.closeLoading();
       this.messageService.showToastMessage('包装完成提交成功', 'success');
       this.detailModal.show = false;
     });

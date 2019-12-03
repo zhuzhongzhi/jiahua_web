@@ -175,7 +175,7 @@ export class HotreelManageComponent implements OnInit {
     this.showiFrame = 1;
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
-    this.detailModal.title = `纺车位置查看`;
+    this.detailModal.title = '纺车位置查看';
 
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
       if (res.code !== 0) {
@@ -230,6 +230,7 @@ export class HotreelManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = 0;
+    this.doffList =null;
   }
   /**
    * 取消弹框
@@ -278,7 +279,7 @@ export class HotreelManageComponent implements OnInit {
         this.messageService.closeLoading();
         return;
       }
-      this.lineItems = res.value;
+      this.lineItems = res.value.sort();
       this.ingotAlarmService.getAllBatchList().subscribe((res) => {
         if (res.code !== 0) {
           this.messageService.closeLoading();
@@ -397,6 +398,7 @@ export class HotreelManageComponent implements OnInit {
           item.ingotNum = 6;
           const doffingTimeTemp = item.doffingTime;
           item.doffingTime = this.parseTime(item.doffingTime);
+          item.pmId = this.submitModel.pmId;
           this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
             item.pdId = res.value;
             item.doffingTime = doffingTimeTemp;
@@ -413,6 +415,7 @@ export class HotreelManageComponent implements OnInit {
             item.ingotNum = 6;
             const doffingTimeTemp = item.doffingTime;
             item.doffingTime = this.parseTime(item.doffingTime);
+            item.pmId = this.submitModel.pmId;
             this.ingotAlarmService.addDoffing(item).subscribe(res => {
               item.pdId = res.value;
               item.doffingTime = doffingTimeTemp;
@@ -443,7 +446,7 @@ export class HotreelManageComponent implements OnInit {
     // 获取线别下所有纺位
     const data = {lineType: this.submitModel.lineType};
       this.ingotAlarmService.getSpinPosByLineType(data).subscribe((res) => {
-      this.spinPosList = res.value;
+      this.spinPosList = res.value.sort();
     });
     const craftData = {
       pmId: this.submitModel.pmId,
@@ -456,6 +459,7 @@ export class HotreelManageComponent implements OnInit {
           item.ingotNum = 6;
           const doffingTimeTemp = item.doffingTime;
           item.doffingTime = this.parseTime(item.doffingTime);
+          item.pmId = this.submitModel.pmId;
           this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
             item.pdId = res.value;
             item.doffingTime = doffingTimeTemp;
@@ -472,6 +476,7 @@ export class HotreelManageComponent implements OnInit {
             item.ingotNum = 6;
             const doffingTimeTemp = item.doffingTime;
             item.doffingTime = this.parseTime(item.doffingTime);
+            item.pmId = this.submitModel.pmId;
             this.ingotAlarmService.addDoffing(item).subscribe(res => {
               item.pdId = res.value;
               item.doffingTime = doffingTimeTemp;
@@ -507,26 +512,73 @@ export class HotreelManageComponent implements OnInit {
       this.messageService.closeLoading();
       return;
     }
+    for (let idx = 0; idx < this.doffList.length; idx ++) {
+      const item = this.doffList[idx];
+      if (item.pdId !== undefined) {
+        // item.ingotNum = this.submitModel.ingotNum;
+        item.ingotNum = 6;
+        const doffingTimeTemp = item.doffingTime;
+        item.doffingTime = this.parseTime(item.doffingTime);
+        item.pmId = this.submitModel.pmId;
+        this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
+          item.pdId = res.value;
+          item.doffingTime = doffingTimeTemp;
+          if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+            this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+            });
+          }
+        });
+      } else {
+        if (item.doffingTime !== undefined && item.doffingTime !== null && item.doffingTime !== '' &&
+          item.spinPos !== undefined && item.spinPos !== null && item.weight !== undefined && item.weight !== null &&
+          item.spinPos !== '' && item.weight !== '') {
+          // item.ingotNum = this.submitModel.ingotNum;
+          item.ingotNum = 6;
+          const doffingTimeTemp = item.doffingTime;
+          item.doffingTime = this.parseTime(item.doffingTime);
+          item.pmId = this.submitModel.pmId;
+          this.ingotAlarmService.addDoffing(item).subscribe(res => {
+            item.pdId = res.value;
+            item.doffingTime = doffingTimeTemp;
+            if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+              this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+              });
+            } else {
+              // 进行表格创建
+              this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((resData) => {
+              });
+            }
+          });
+        }
+      }
+      if (idx === this.doffList.length - 1) {
+        this.enddoff();
+      }
+    }
+  }
+  enddoff() {
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
     };
     this.ingotAlarmService.endDoff(data).subscribe((res) => {
       if (res.code !== 0) {
+        this.messageService.showToastMessage(res.message, 'error');
         this.messageService.closeLoading();
         return;
       }
       this.initList();
+      this.checkedId = {};
       this.messageService.closeLoading();
+      this.detailModal.show = false;
       this.modalService.confirm({
         nzTitle: '<i>落丝完成提交成功，是否跳转到下个流程页面？</i>',
         nzContent: '<b>落丝完成提交成功</b>',
         nzOnOk: () => {
-          this.detailModal.show = false;
+          this.messageService.showLoading('页面跳转中');
           this.router.navigateByUrl('/main/produceManage/danniManage');
         },
         nzOnCancel: () => {
-          this.detailModal.show = false;
         }
       });
     });
@@ -565,7 +617,7 @@ export class HotreelManageComponent implements OnInit {
 
     const temp1 = {lineType: data.lineType};
     this.ingotAlarmService.getSpinPosByLineType(temp1).subscribe((res) => {
-      this.spinPosList = res.value;
+      this.spinPosList = res.value.sort();
       this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
         this.doffList = res.value;
         if (this.doffList !== null && this.doffList.length === 0) {
@@ -598,15 +650,7 @@ export class HotreelManageComponent implements OnInit {
               }
             });
           }
-
-          this.doffList.forEach(item => {
-
-          });
-          if (this.doffList !== null && this.doffList.length > 0) {
-            this.submitModel.ingotNum = this.doffList[0].ingotNum;
-          }
         }
-
       });
     });
   }
@@ -849,7 +893,7 @@ export class HotreelManageComponent implements OnInit {
         item.创建人 = wagon.creator;
         item.落丝结束时间 = wagon.doffingEndTime;
         item.落丝操作员 = wagon.doffingOperator;
-        item.落丝开始时间 = wagon.doffingStartTime;
+        item.落丝时间 = wagon.doffingStartTime;
         item.包装操作员 = wagon.packageOperator;
         item.包装时间 = wagon.packageTime;
         item.卷别 = wagon.reelType;

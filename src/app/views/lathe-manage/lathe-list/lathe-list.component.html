@@ -34,6 +34,7 @@
               <label class="inline-span" nz-col nzSpan="8">工艺状态</label>
               <div nz-col nzSpan="16" class="form-control">
                 <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.craftState">
+                  <nz-option nzValue="" nzLabel="全部"></nz-option>
                   <nz-option nzValue="0" nzLabel="空闲"></nz-option>
                   <nz-option nzValue="1" nzLabel="落丝"></nz-option>
                   <nz-option nzValue="2" nzLabel="测丹尼"></nz-option>

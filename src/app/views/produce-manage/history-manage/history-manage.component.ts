@@ -35,6 +35,8 @@ export class HistoryManageComponent implements OnInit {
   showiFrame = false;
   src: SafeResourceUrl = '';
   submitModel: any = {};
+  // 落丝列表
+  doffList: any = [];
 
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
@@ -99,6 +101,7 @@ export class HistoryManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = false;
+    this.doffList =null;
   }
 
   showPos(data) {
@@ -146,15 +149,30 @@ export class HistoryManageComponent implements OnInit {
 
   showDetail (data) {
     this.submitModel = data;
-    this.ingotAlarmService.getExceptions(data.pmId).subscribe((res) => {
-      this.exceptions = res.value;
-      this.detailModal.title = `查看详情`;
-      this.detailModal.showContinue = true;
-      this.detailModal.showSaveBtn = true;
-      this.detailModal.show = true;
-      this.showiFrame = false;
-      this.submitModel = data;
+    this.messageService.showLoading('');
+    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+      this.doffList = res.value;
+      for (let idx = 0; idx < this.doffList.length; idx ++) {
+        const item = this.doffList[idx];
+        if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
+          item.doffingTime = new Date(item.doffingTime);
+        }
+        // 设置 exception
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+          item.showtable = true;
+          item.exception = res1.value;
+          if (idx === this.doffList.length - 1) {
+            this.detailModal.title = `查看详情`;
+            this.detailModal.showContinue = true;
+            this.detailModal.showSaveBtn = true;
+            this.detailModal.show = true;
+            this.submitModel = data;
+            this.messageService.closeLoading();
+          }
+        });
+      }
     });
+
   }
 
   pageChange() {

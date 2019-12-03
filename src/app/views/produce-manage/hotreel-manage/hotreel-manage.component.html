@@ -72,7 +72,7 @@
                 <label class="inline-span" nz-col nzSpan="8">创建日期</label>
                 <div nz-col nzSpan="16" class="form-control">
                   <nz-date-picker  [(ngModel)]="filters.createTime"
-                                  nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+                                  nzFormat="yyyy-MM-dd"></nz-date-picker>
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@
                 <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
                 <div nz-col nzSpan="16" class="form-control">
                   <nz-date-picker  [(ngModel)]="filters.doffingTime"
-                                  nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+                                  nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
                 </div>
               </div>
             </div>
@@ -452,7 +452,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              <nz-date-picker  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
             </div>
           </div>
         </div>

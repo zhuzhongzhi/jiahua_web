@@ -378,6 +378,27 @@ export namespace IngotAlarmServiceNs {
       return this.http.Get('/warn/stat/listRangePage', data, this.defaultConfig);
     }
 
+    /**
+     * 丝车分布页面获取tagid
+     * @param data
+     */
+    public getTagType(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getTagType', data, this.defaultConfig);
+    }
+
+    public getTagsList(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/wagon/allWagonPageCondtion', data, this.defaultConfig);
+    }
+
+    public getTagTypes() {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/getTagType', {}, this.defaultConfig);
+    }
   }
 
 }

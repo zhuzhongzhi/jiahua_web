@@ -129,16 +129,16 @@ export class AdjustcolorManageComponent implements OnInit {
       }
       this.initList();
       this.messageService.closeLoading();
-
+      this.checkedId = {};
+      this.detailModal.show = false;
       this.modalService.confirm({
         nzTitle: '<i>判色完成提交成功，是否跳转到下个流程页面？</i>',
         nzContent: '<b>判色完成提交成功</b>',
         nzOnOk: () => {
-          this.detailModal.show = false;
+          this.messageService.showLoading('页面跳转中');
           this.router.navigateByUrl('/main/produceManage/checkManage');
         },
         nzOnCancel: () => {
-          this.detailModal.show = false;
         }
       });
     });
@@ -240,6 +240,7 @@ export class AdjustcolorManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = false;
+    this.doffList =null;
   }
 
   toggleCollapse(): void {

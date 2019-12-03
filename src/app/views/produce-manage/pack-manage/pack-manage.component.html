@@ -59,7 +59,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">生产日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">包装时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.packageTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.packageTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">落丝开始时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -277,7 +277,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
             </div>
           </div>
         </div>

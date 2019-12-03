@@ -59,7 +59,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">创建日期</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.createTime" nzFormat="yyyy-MM-dd" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">检验时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.checkTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.checkTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.doffingStartTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -276,7 +276,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">检验时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker  [(ngModel)]="checkInfo.checkTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              <nz-date-picker  [(ngModel)]="checkInfo.checkTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
             </div>
           </div>
         </div>
@@ -284,7 +284,6 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan=12>检验只数</label>
             <div nz-col nzSpan="12" class="form-control">
-              <!--<nz-date-picker [(ngModel)]="submitModel.craftTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>-->
               <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.checkNum"/>
             </div>
           </div>
@@ -293,7 +292,6 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="12">AA级</label>
             <div nz-col nzSpan="12" class="form-control">
-              <!--<nz-date-picker [(ngModel)]="submitModel.craftTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>-->
               <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight"/>
             </div>
           </div>
@@ -302,7 +300,6 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="12">A1级</label>
             <div nz-col nzSpan="12" class="form-control">
-              <!--<nz-date-picker [(ngModel)]="submitModel.craftTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>-->
               <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight"/>
             </div>
           </div>
@@ -312,8 +309,6 @@
             <label class="inline-span" nz-col nzSpan="12">A级</label>
             <div nz-col nzSpan="12" class="form-control">
               <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.aweight"/>
-              <!--<nz-date-picker [(ngModel)]="submitModel.craftTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>-->
-
             </div>
           </div>
         </div>
@@ -322,7 +317,6 @@
             <label class="inline-span" nz-col nzSpan="12">B级</label>
             <div nz-col nzSpan="12" class="form-control">
               <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.bweight"/>
-              <!--<nz-date-picker [(ngModel)]="submitModel.craftTime" nzFormat="yyyy-MM-dd HH:mm:ss" ></nz-date-picker>-->
 
             </div>
           </div>
@@ -336,7 +330,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
             </div>
           </div>
         </div>

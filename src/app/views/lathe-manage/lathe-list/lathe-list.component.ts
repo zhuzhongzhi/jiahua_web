@@ -48,6 +48,7 @@ export class LatheListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filters.craftState='';
     this.initList();
     this.messageService.closeLoading();
   }
@@ -147,6 +148,7 @@ export class LatheListComponent implements OnInit {
       'pageNum': this.tableConfig.pageNum,
       'pageSize': this.tableConfig.pageSize
     };
+    this.listOfAllData =null;
     this.tableConfig.loading = true;
     this.latheManageService.getWagonListWithPageCondition(filter).subscribe((res) => {
       if (res.code !== 0) {
