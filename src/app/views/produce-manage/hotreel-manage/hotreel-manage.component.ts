@@ -397,6 +397,7 @@ export class HotreelManageComponent implements OnInit {
           item.ingotNum = 6;
           const doffingTimeTemp = item.doffingTime;
           item.doffingTime = this.parseTime(item.doffingTime);
+          item.pmId = this.submitModel.pmId;
           this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
             item.pdId = res.value;
             item.doffingTime = doffingTimeTemp;
@@ -413,6 +414,7 @@ export class HotreelManageComponent implements OnInit {
             item.ingotNum = 6;
             const doffingTimeTemp = item.doffingTime;
             item.doffingTime = this.parseTime(item.doffingTime);
+            item.pmId = this.submitModel.pmId;
             this.ingotAlarmService.addDoffing(item).subscribe(res => {
               item.pdId = res.value;
               item.doffingTime = doffingTimeTemp;
@@ -456,6 +458,7 @@ export class HotreelManageComponent implements OnInit {
           item.ingotNum = 6;
           const doffingTimeTemp = item.doffingTime;
           item.doffingTime = this.parseTime(item.doffingTime);
+          item.pmId = this.submitModel.pmId;
           this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
             item.pdId = res.value;
             item.doffingTime = doffingTimeTemp;
@@ -472,6 +475,7 @@ export class HotreelManageComponent implements OnInit {
             item.ingotNum = 6;
             const doffingTimeTemp = item.doffingTime;
             item.doffingTime = this.parseTime(item.doffingTime);
+            item.pmId = this.submitModel.pmId;
             this.ingotAlarmService.addDoffing(item).subscribe(res => {
               item.pdId = res.value;
               item.doffingTime = doffingTimeTemp;
@@ -507,26 +511,73 @@ export class HotreelManageComponent implements OnInit {
       this.messageService.closeLoading();
       return;
     }
+    for (let idx = 0; idx < this.doffList.length; idx ++) {
+      const item = this.doffList[idx];
+      if (item.pdId !== undefined) {
+        // item.ingotNum = this.submitModel.ingotNum;
+        item.ingotNum = 6;
+        const doffingTimeTemp = item.doffingTime;
+        item.doffingTime = this.parseTime(item.doffingTime);
+        item.pmId = this.submitModel.pmId;
+        this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
+          item.pdId = res.value;
+          item.doffingTime = doffingTimeTemp;
+          if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+            this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+            });
+          }
+        });
+      } else {
+        if (item.doffingTime !== undefined && item.doffingTime !== null && item.doffingTime !== '' &&
+          item.spinPos !== undefined && item.spinPos !== null && item.weight !== undefined && item.weight !== null &&
+          item.spinPos !== '' && item.weight !== '') {
+          // item.ingotNum = this.submitModel.ingotNum;
+          item.ingotNum = 6;
+          const doffingTimeTemp = item.doffingTime;
+          item.doffingTime = this.parseTime(item.doffingTime);
+          item.pmId = this.submitModel.pmId;
+          this.ingotAlarmService.addDoffing(item).subscribe(res => {
+            item.pdId = res.value;
+            item.doffingTime = doffingTimeTemp;
+            if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+              this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+              });
+            } else {
+              // 进行表格创建
+              this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((resData) => {
+              });
+            }
+          });
+        }
+      }
+      if (idx === this.doffList.length - 1) {
+        this.enddoff();
+      }
+    }
+  }
+  enddoff() {
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
     };
     this.ingotAlarmService.endDoff(data).subscribe((res) => {
       if (res.code !== 0) {
+        this.messageService.showToastMessage(res.message, 'error');
         this.messageService.closeLoading();
         return;
       }
       this.initList();
+      this.checkedId = {};
       this.messageService.closeLoading();
+      this.detailModal.show = false;
       this.modalService.confirm({
         nzTitle: '<i>落丝完成提交成功，是否跳转到下个流程页面？</i>',
         nzContent: '<b>落丝完成提交成功</b>',
         nzOnOk: () => {
-          this.detailModal.show = false;
+          this.messageService.showLoading('页面跳转中');
           this.router.navigateByUrl('/main/produceManage/danniManage');
         },
         nzOnCancel: () => {
-          this.detailModal.show = false;
         }
       });
     });
@@ -598,15 +649,7 @@ export class HotreelManageComponent implements OnInit {
               }
             });
           }
-
-          this.doffList.forEach(item => {
-
-          });
-          if (this.doffList !== null && this.doffList.length > 0) {
-            this.submitModel.ingotNum = this.doffList[0].ingotNum;
-          }
         }
-
       });
     });
   }

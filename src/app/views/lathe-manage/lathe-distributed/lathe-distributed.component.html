@@ -47,17 +47,8 @@
             </div>
           </div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="4">
-          <div class="form-item" nz-row style="padding-top: 15px;">
-            <label class="inline-span" nz-col nzSpan="8">日期</label>
-            <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker  [(ngModel)]="filters.createTime"
-                              nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
-            </div>
-          </div>
-        </div>
         <div nz-col class="gutter-row" style="float:right;padding-top: 15px" *appAuthBtu="1010001">
-          <button nz-button nzType="primary" style="margin-right:20px" (click)="initList()">查询</button>
+          <button nz-button nzType="primary" style="margin-right:20px" (click)="searchTagsInit()">查询</button>
         </div>
       </div>
 
