@@ -16,15 +16,7 @@ export class LatheDistributedComponent implements OnInit {
   tags = ''; // tags
   types = ''; // types
   typeMap = {};
-  checked0 = false;
-  checked1 = false;
-  checked2 = false;
-  checked3 = false;
-  checked4 = false;
-  checked5 = false;
-  checked6 = false;
-  checked9 = false;
-
+ 
   filters = {
     batchNum: '',
     lineType: '',
@@ -212,57 +204,34 @@ export class LatheDistributedComponent implements OnInit {
 
   changeSelect(status) {
     this.messageService.showLoading('地图加载中');
+    let types = '';
     switch (status) {
       case 9:
-        this.checked9 = !this.checked9;
+        
         break;
       case 0:
-        this.checked0 = !this.checked0;
+        types =  "15,22,29";
         break;
       case 1:
-        this.checked1 = !this.checked1;
+        types =  "16,23,30";
         break;
       case 2:
-        this.checked2 = !this.checked2;
+        types =  "17,24,31";
         break;
       case 3:
-        this.checked3 = !this.checked3;
+        types = "18,25,32";
         break;
       case 4:
-        this.checked4 = !this.checked4;
+        types =  "19,26,33";
         break;
       case 5:
-        this.checked5 = !this.checked5;
+        types =  "20,27,34";
         break;
       case 6:
-        this.checked6 = !this.checked6;
+        types = "21,28,35";
         break;
-    }
-    let types = '';
-    if (this.checked0) {
-      types =  "15,22,29";
-    }
-    if (this.checked1) {
-      types =  "16,23,30";
-    }
-    if (this.checked2) {
-      types =  "17,24,31";
-    }
-    if (this.checked3) {
-      types = "18,25,32";
-    }
-    if (this.checked4) {
-      types =  "19,26,33";
-    }
-    if (this.checked5) {
-      types =  "20,27,34";
-    }
-    if (this.checked6) {
-      types = "21,28,35";
-    }
-    if (this.checked9) {
-      types = "";
-    }
+    }    
+  
     this.types = types;
     this.tags ='';
     this.createIframe();
