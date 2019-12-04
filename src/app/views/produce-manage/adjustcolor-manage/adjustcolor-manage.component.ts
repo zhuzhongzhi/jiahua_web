@@ -120,7 +120,7 @@ export class AdjustcolorManageComponent implements OnInit {
 
     const data = {
       pmId: this.submitModel.pmId,
-      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
     };
     this.ingotAlarmService.endColour(data).subscribe((res) => {
       if (res.code !== 0) {
@@ -131,7 +131,6 @@ export class AdjustcolorManageComponent implements OnInit {
       this.messageService.closeLoading();
       this.checkedId = {};
       this.detailModal.show = false;
-<<<<<<< HEAD
       this.modalService.success({
         nzTitle: '<b>保存成功</b>',
         nzContent: '<i>判色完成提交成功</i>',
@@ -139,16 +138,6 @@ export class AdjustcolorManageComponent implements OnInit {
           this.messageService.closeLoading();
           this.detailModal.show = false;
           this.initList();
-=======
-      this.modalService.confirm({
-        nzTitle: '<i>判色完成提交成功，是否跳转到下个流程页面？</i>',
-        nzContent: '<b>判色完成提交成功</b>',
-        nzOnOk: () => {
-          this.messageService.showLoading('页面跳转中');
-          this.router.navigateByUrl('/main/produceManage/checkManage');
-        },
-        nzOnCancel: () => {
->>>>>>> 66ff75abdea029a9bd54bfe8df70509d78a825b6
         }
       });
     });
@@ -383,7 +372,7 @@ export class AdjustcolorManageComponent implements OnInit {
   parseTime(time) {
     if (time) {
       if (time.indexOf('GMT') >= 0) {
-        return format(time, 'yyyy-MM-dd HH:mm:ss');
+        return format(time, 'yyyy-MM-dd HH:mm');
       } else {
         return '';
       }

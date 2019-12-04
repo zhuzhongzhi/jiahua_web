@@ -86,9 +86,9 @@ export class LatheDistributedComponent implements OnInit {
     // const doc = i.contentWindow.document;
     // doc.open().write('<body onload="location.href=\'' + this.safeUrl + '\'">');
     // doc.close();
-    i.onload = function() {
+    //i.onload = function() {
       that.messageService.closeLoading();
-    };
+    //};
   }
 
   /**

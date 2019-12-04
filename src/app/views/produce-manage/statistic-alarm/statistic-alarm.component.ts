@@ -59,8 +59,8 @@ export class StatisticAlarmComponent implements OnInit {
         'pageNum': this.tableConfig.pageNum,
         'pageSize': this.tableConfig.pageSize
       };
-      filter.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
-      filter.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
+      filter.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm');
+      filter.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm');
       this.tableConfig.loading = true;
       this.ingotAlarmService.pageRangeAlarm(filter).subscribe((res) => {
         if (res.code !== 0) {

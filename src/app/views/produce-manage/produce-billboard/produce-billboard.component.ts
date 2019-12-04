@@ -55,7 +55,7 @@ export class ProduceBillboardComponent implements OnInit {
     this.ingotAlarmService.boardOutputToday().subscribe((res) => {
       // 获取看板数据
       this.boardData = res.value;
-      this.updatetime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+      this.updatetime = format(new Date(), 'yyyy-MM-dd HH:mm');
       res.value.forEach(item => {
         this.output += item.totalWeight ? item.totalWeight : 0;
         this.detail.doffingWeight += item.doffingWeight ? item.doffingWeight : 0;

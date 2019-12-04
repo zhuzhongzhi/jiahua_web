@@ -139,7 +139,7 @@
           <th class="align-center">创建日期</th>
           <th class="align-center">工艺状态</th>
           <th class="align-center">落丝操作员</th>
-          <th class="align-center">落丝开始时间</th>
+          <th class="align-center">落丝时间</th>
           <th class="align-center" *appAuthBtu="2010102">位置信息</th>
         </tr>
         </thead>
@@ -154,10 +154,10 @@
           <td>{{data.standard}}</td>
           <td>{{data.classType}}</td>
           <td>{{data.weight}}</td>
-          <td>{{data.createTime}}</td>
+          <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td>{{trans(data.craftState)}}</td>
           <td>{{data.doffingOperator}}</td>
-          <td>{{data.doffingStartTime}}</td>
+          <td>{{data.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td *appAuthBtu="2010102"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
         </tr>
         </tbody>
@@ -316,7 +316,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker [(ngModel)]="submitModel.createTime"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd"></nz-date-picker>
           </div>
         </div>
       </div>
@@ -401,7 +401,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd"/>
           </div>
         </div>
       </div>
@@ -454,7 +454,7 @@
           <div class="form-item" nz-row >
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+              <nz-date-picker  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm" [disabled]="item.showtable"></nz-date-picker>
             </div>
           </div>
         </div>
@@ -463,7 +463,7 @@
             <label class="inline-span" nz-col nzSpan="8">净重</label>
             <div nz-col nzSpan="16" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight"/>
+              <input type="text" nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight" [disabled]="item.showtable"/>
             </div>
           </div>
         </div>
@@ -472,7 +472,7 @@
             <label class="inline-span" nz-col nzSpan="8">落丝纺位</label>
             <div nz-col nzSpan="16" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="item.spinPos" nzPlaceHolder="请选择">
+              <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="item.spinPos" nzPlaceHolder="请选择" [disabled]="item.showtable">
                 <nz-option *ngFor="let node of spinPosList" [nzValue]="node" [nzLabel]="node"></nz-option>
               </nz-select>
             </div>

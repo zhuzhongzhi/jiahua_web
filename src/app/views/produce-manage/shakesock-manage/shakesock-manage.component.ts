@@ -175,7 +175,7 @@ export class ShakesockManageComponent implements OnInit {
     this.messageService.showLoading('');
     const data = {
       pmId: this.submitModel.pmId,
-      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
     };
     this.ingotAlarmService.endSock(data).subscribe((res) => {
       if (res.code !== 0) {
@@ -383,7 +383,7 @@ export class ShakesockManageComponent implements OnInit {
   parseTime(time) {
     if (time) {
       if (time.indexOf('GMT') >= 0) {
-        return format(time, 'yyyy-MM-dd HH:mm:ss');
+        return format(time, 'yyyy-MM-dd HH:mm');
       } else {
         return '';
       }

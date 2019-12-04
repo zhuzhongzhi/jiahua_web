@@ -272,10 +272,12 @@
       </div>
     </div>
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
-      <div nz-row style="margin-bottom: 20px;">
-        <h4 style="margin: 10px 0px -24px 10px;" ><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次落丝</h4>
+      <div nz-row style="padding: 20px;">        
+        <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="1">
+          <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次落丝</B>
+        </div>
         <div nz-col class="gutter-row" nzSpan="6">
-          <div class="form-item" nz-row style="padding-top: 20px;">
+          <div class="form-item" nz-row>
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
               <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
@@ -283,7 +285,7 @@
           </div>
         </div>
         <div nz-col class="gutter-row" nzSpan="6">
-          <div class="form-item" nz-row style="padding-top: 20px;">
+          <div class="form-item" nz-row >
             <label class="inline-span" nz-col nzSpan="8">净重</label>
             <div nz-col nzSpan="16" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
@@ -292,7 +294,7 @@
           </div>
         </div>
         <div nz-col class="gutter-row" nzSpan="6">
-          <div class="form-item" nz-row style="padding-top: 20px;">
+          <div class="form-item" nz-row>
             <label class="inline-span" nz-col nzSpan="8">落丝纺位</label>
             <div nz-col nzSpan="16" class="form-control">
               <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.spinPos"/>

@@ -182,7 +182,7 @@ export class CheckManageComponent implements OnInit {
     }
     const data = {
       pmId: this.submitModel.pmId,
-      endTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
     };
     this.ingotAlarmService.endCheck(data).subscribe((res) => {
       if (res.code !== 0) {
@@ -433,7 +433,7 @@ export class CheckManageComponent implements OnInit {
   parseTime(time) {
     if (time) {
       if (time instanceof Date) {
-        return format(time, 'yyyy-MM-dd HH:mm:ss');
+        return format(time, 'yyyy-MM-dd HH:mm');
       } else {
         return '';
       }

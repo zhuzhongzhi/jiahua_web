@@ -200,7 +200,7 @@ export class HistoryManageComponent implements OnInit {
   parseTime(time) {
     if (time) {
       if (time.indexOf('GMT') >= 0) {
-        return format(time, 'yyyy-MM-dd HH:mm:ss');
+        return format(time, 'yyyy-MM-dd HH:mm');
       } else {
         return '';
       }

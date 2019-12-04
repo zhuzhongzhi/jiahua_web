@@ -73,8 +73,8 @@ export class DaliyqualityStatisticComponent implements OnInit {
     // 初始化丝车列表
     // clear filters
     if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
-      this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
-      this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
+      this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm');
+      this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm');
     }
     const filter = {
       'filters': this.filters,
