@@ -1,6 +1,20 @@
 {
-
+  "/track/*": {
+    "target": "http://jiahuaweb.ihaniel.cn/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {  
+      "^/track": ""
+    }
+  },
   "/site": {
+    "target": "http://jiahuaweb.ihaniel.cn/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/iot": {
     "target": "http://120.77.253.177:80/",
     "secure": false,
     "changeOrigin": true,
@@ -8,12 +22,6 @@
     "pathRewrite": {
       "^/site": "/"
     }
-  },
-  "/iot": {
-    "target": "http://120.77.253.177:80/",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
   },
   "/iot-server": {
     "target": "http://120.77.253.177:80/",

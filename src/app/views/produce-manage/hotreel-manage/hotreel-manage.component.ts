@@ -570,6 +570,7 @@ export class HotreelManageComponent implements OnInit {
       this.initList();
       this.checkedId = {};
       this.messageService.closeLoading();
+<<<<<<< HEAD
 
       this.modalService.success({
         nzTitle: '<b>保存成功</b>',
@@ -578,6 +579,17 @@ export class HotreelManageComponent implements OnInit {
           this.messageService.closeLoading();
           this.detailModal.show = false;
           this.initList();
+=======
+      this.detailModal.show = false;
+      this.modalService.confirm({
+        nzTitle: '<i>落丝完成提交成功，是否跳转到下个流程页面？</i>',
+        nzContent: '<b>落丝完成提交成功</b>',
+        nzOnOk: () => {
+          this.messageService.showLoading('页面跳转中');
+          this.router.navigateByUrl('/main/produceManage/danniManage');
+        },
+        nzOnCancel: () => {
+>>>>>>> 66ff75abdea029a9bd54bfe8df70509d78a825b6
         }
       });     
     });
