@@ -63,6 +63,8 @@ export class NewTableComponent implements OnInit {
     {key: '1', value: 'GR绕丝'},
     {key: '2', value: 'GR交叉'},
     {key: '3', value: 'GR少绕'},
+    {key: '4', value: 'GR并丝'},
+    {key: '5', value: 'GR多绕'},
   ];
   items6 = [
     {key: '1', value: '染色深(D)'},
@@ -79,6 +81,8 @@ export class NewTableComponent implements OnInit {
     {key: '6', value: '网络少'},
     {key: '7', value: '无网络'},
     {key: '8', value: '网络不均'},
+    {key: '9', value: '细丝1根'},
+    {key: '10', value: '细丝2根'},
   ];
   items8 = [
     {key: '1', value: 'OPU低'},
@@ -134,10 +138,10 @@ export class NewTableComponent implements OnInit {
     {key: 'B', value: 'B级'},
   ];
 
-  widthConfig = ['150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px',
-    '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px',
-    '150px', '150px', '150px', '150px', '150px', '150px', '150px', '1px'];
-  scrollConfig = { x: '4001px' };
+  widthConfig = ['60px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
+    '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
+    '80px', '80px', '80px', '80px', '80px', '80px', '80px', '1px'];
+  scrollConfig = { x: '2605px' };
 
   // 修改的列
   editColumn = '';
@@ -160,6 +164,17 @@ export class NewTableComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
   }
+
+  ngAfterViewInit() { 
+    //获取到nz-option组件中的li标签的DOM元素
+      var deviceName = document.getElementsByClassName('ant-select-dropdown-menu-item ng-star-inserted');
+      setTimeout(function () { 
+        for (var i = 0; i < deviceName.length; i++) { 
+        //拿到每个li元素之后添加title属性，将值展示
+          deviceName[i].setAttribute('title',deviceName[i].textContent)
+        }
+      },3000)
+   }
 
   submit() {
     switch(this.editColumn) {

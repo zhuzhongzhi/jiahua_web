@@ -124,8 +124,8 @@ export class CheckManageComponent implements OnInit {
         this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
           this.messageService.closeLoading();
           this.modalService.confirm({
-            nzTitle: '<i>保存成功是否要回到列表页</i>',
-            nzContent: '<b>保存成功</b>',
+            nzContent: '<i>保存成功是否要回到列表页</i>',
+            nzTitle: '<b>保存成功</b>',
             nzOnOk: () => {
               this.detailModal.show = false;
               this.initList();
@@ -193,14 +193,13 @@ export class CheckManageComponent implements OnInit {
       this.messageService.closeLoading();
       this.checkedId = {};
       this.detailModal.show = false;
-      this.modalService.confirm({
-        nzTitle: '<i>检查完成提交成功，是否跳转到下个流程页面？</i>',
-        nzContent: '<b>检查完成提交成功</b>',
+      this.modalService.success({
+        nzTitle: '<b>保存成功</b>',
+        nzContent: '<i>检验完成提交成功</i>',
         nzOnOk: () => {
-          this.messageService.showLoading('页面跳转中');
-          this.router.navigateByUrl('/main/produceManage/packManage');
-        },
-        nzOnCancel: () => {
+          this.messageService.closeLoading();
+          this.detailModal.show = false;
+          this.initList();
         }
       });
     });
@@ -227,7 +226,7 @@ export class CheckManageComponent implements OnInit {
         return;
       }
       if (res.value === undefined || res.value === '' || res.value === null) {
-        this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
+        this.messageService.showToastMessage('没有检索到丝车信息！', 'error');
         return;
       }
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);

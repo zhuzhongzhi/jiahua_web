@@ -275,8 +275,8 @@ export class PackManageComponent implements OnInit {
       this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
         this.messageService.closeLoading();
         this.modalService.confirm({
-          nzTitle: '<i>保存成功是否要回到列表页</i>',
-          nzContent: '<b>保存成功</b>',
+          nzContent: '<i>保存成功是否要回到列表页</i>',
+          nzTitle: '<b>保存成功</b>',
           nzOnOk: () => {
             this.detailModal.show = false;
             this.initList();

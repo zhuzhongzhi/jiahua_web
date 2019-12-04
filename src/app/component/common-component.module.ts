@@ -38,6 +38,10 @@ import {LookImgComponent} from './look-img/look-img.component';
 import {LousTableComponent} from './lous-table/lous-table.component';
 import {OtherTableComponent} from './other-table/other-table.component';
 import { NewTableComponent } from './new-table/new-table.component';
+import { HotreelTableComponent } from './hotreel-table/hotreel-table.component';
+import { DanniTableComponent } from './danni-table/danni-table.component';
+import { AdjustTableComponent } from './adjust-table/adjust-table.component';
+import { SocksTableComponent } from './socks-table/socks-table.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
@@ -83,6 +87,10 @@ import { LoaderComponent } from './shared/loader/loader.component';
     LousTableComponent,
     OtherTableComponent,
     NewTableComponent,
+    HotreelTableComponent,
+    DanniTableComponent,
+    AdjustTableComponent,
+    SocksTableComponent,
     LoaderComponent,
   ],
   entryComponents: [
@@ -91,6 +99,10 @@ import { LoaderComponent } from './shared/loader/loader.component';
     LousTableComponent,
     OtherTableComponent,
     NewTableComponent,
+    HotreelTableComponent,
+    DanniTableComponent,
+    AdjustTableComponent,
+    SocksTableComponent,
     LoaderComponent,
   ],
   exports: [
@@ -126,6 +138,10 @@ import { LoaderComponent } from './shared/loader/loader.component';
     LousTableComponent,
     OtherTableComponent,
     NewTableComponent,
+    HotreelTableComponent,
+    DanniTableComponent,
+    AdjustTableComponent,
+    SocksTableComponent,
     LoaderComponent,
   ],
 })
