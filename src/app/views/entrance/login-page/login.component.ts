@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('saved', pwd);
           localStorage.setItem('userId', res.value.jiahuaUser.userId);
           this.messageService.showLoading('加载中');
-          this.router.navigate(['../main/latheManage'], {
+          this.router.navigate(['../main/latheManage/latheList'], {
             relativeTo: this.activeRouter
           });
 

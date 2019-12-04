@@ -73,7 +73,7 @@ export class LatheDistributedComponent implements OnInit {
       url = this.safeUrl + '&types=' + this.types;
     }
     console.log(url);
-    i.src = url;
+    i.src = url;//"http://www.baidu1.com";
     i.scrolling = 'no';
     i.name = 'map';
     i.id = 'jiahua';
@@ -82,13 +82,22 @@ export class LatheDistributedComponent implements OnInit {
     i.height = '100%';
     i.style.backgroundColor = 'transparent';
     document.getElementById('jiahua-map').appendChild(i);
+
+    var kill = setTimeout(function(){      
+      i.src = 'about:blank';
+      that.messageService.closeLoading();
+      document.getElementById('jiahua-map').appendChild(i);
+      clearTimeout(kill);
+    }, 6000);
+   
     console.log('createIframe');
     // const doc = i.contentWindow.document;
     // doc.open().write('<body onload="location.href=\'' + this.safeUrl + '\'">');
     // doc.close();
-    //i.onload = function() {
+    i.onload = function() {
       that.messageService.closeLoading();
-    //};
+      clearTimeout(kill);
+    };
   }
 
   /**

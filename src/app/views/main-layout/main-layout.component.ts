@@ -43,8 +43,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         show: this.show(10),
         url: '',
         subMenu: [
-          {name: '丝车分布', url: '/main/latheManage/latheDistributed', show: this.show(101)},
-          {name: '丝车列表', url: '/main/latheManage/latheList', show: this.show(102)}
+          {name: '丝车列表', url: '/main/latheManage/latheList', show: this.show(102)},
+          {name: '丝车分布', url: '/main/latheManage/latheDistributed', show: this.show(101)}
         ]
       },
       {

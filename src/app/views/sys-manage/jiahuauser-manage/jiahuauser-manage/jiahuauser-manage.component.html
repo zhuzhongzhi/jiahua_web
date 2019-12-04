@@ -188,7 +188,7 @@
 </nz-modal>
 
 <nz-modal [(nzVisible)]="authModal2.show" [nzTitle]="authModal2.title"
-          (nzOnCancel)="handleAuthModalCancel()" nzWidth="850px" (nzOnOk)="saveAuths()">
+          (nzOnCancel)="handleAuthModalCancel()" nzWidth="80%" (nzOnOk)="saveAuths()">
   <nz-table class="table-list" #thisTable2 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
             style="text-align:center"
             [nzTotal]="authTableConfig.pageTotal" [(nzPageIndex)]="authTableConfig.pageNum" [(nzPageSize)]="authTableConfig.pageSize"
