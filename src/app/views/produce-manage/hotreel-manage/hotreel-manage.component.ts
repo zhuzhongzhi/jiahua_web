@@ -580,7 +580,7 @@ export class HotreelManageComponent implements OnInit {
           this.initList();
 
         }
-      });     
+      });
     });
   }
 
@@ -789,6 +789,7 @@ export class HotreelManageComponent implements OnInit {
 
       this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
       this.submitModel.craftState = 1;
+      this.submitModel.isCopy = 0;
       this.submitModel.creator = localStorage.getItem('userId');
       this.ingotAlarmService.newCraftAdd(this.submitModel).subscribe((res) => {
         if (res.code !== 0) {

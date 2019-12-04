@@ -72,7 +72,7 @@
                 <label class="inline-span" nz-col nzSpan="8">创建日期</label>
                 <div nz-col nzSpan="16" class="form-control">
                   <nz-date-picker  [(ngModel)]="filters.createTime"
-                                  nzFormat="yyyy-MM-dd"></nz-date-picker>
+                                  nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
                 </div>
               </div>
             </div>
@@ -316,7 +316,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
           </div>
         </div>
       </div>
@@ -401,7 +401,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime" nzFormat="yyyy-MM-dd HH:mm"/>
           </div>
         </div>
       </div>
@@ -446,7 +446,7 @@
       </div>
     </div>
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
-      <div nz-row style="padding: 20px;">        
+      <div nz-row style="padding: 20px;">
         <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="1">
           <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次落丝</B>
         </div>

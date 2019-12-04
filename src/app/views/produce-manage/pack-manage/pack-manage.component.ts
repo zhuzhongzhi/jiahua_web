@@ -43,6 +43,7 @@ export class PackManageComponent implements OnInit {
   doffingWeight = 0;
   src: SafeResourceUrl = '';
 
+  checkInfo: any ={};
   showiFrame = false;
 
   exceptions: any[] = [];
@@ -222,6 +223,11 @@ export class PackManageComponent implements OnInit {
       }
 
     }
+    this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
+      if (res.value.length > 0) {
+        this.checkInfo = res.value[0];
+      }
+    });
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
       for (let idx = 0; idx < this.doffList.length; idx ++) {
@@ -286,6 +292,66 @@ export class PackManageComponent implements OnInit {
           }
         });
       });
+    });
+  }
+
+  // 已抄录
+  saveCopy() {
+    if (this.submitModel.isCopy !== 1) {
+      this.ingotAlarmService.newCraftUpdate({pmId: this.submitModel.pmId, isCopy: 1}).subscribe((res) => {
+        if (res.code !== 0) {
+          return;
+        }
+        this.messageService.showToastMessage('确认抄录成功', 'success');
+        this.submitModel.isCopy = 1;
+      });
+    }
+  }
+
+  // 列表页的包装完成
+  endPack2() {
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
+    if (!hasChecked) {
+      this.messageService.showToastMessage('请选择一条主记录', 'warning');
+      return;
+    }
+    let data;
+    let i = 0;
+    for (const key in this.checkedId) {
+      if (this.checkedId[key]) {
+        console.log(key);
+        this.listOfAllData.forEach(item => {
+          if (item.pmId == key) {
+            data = item;
+          }
+        });
+        i++;
+      }
+    }
+    if (i > 1) {
+      if (this.listOfAllData.length !== 1) {
+        this.messageService.showToastMessage('一次仅能操作一条记录', 'warning');
+        return;
+      }
+
+    }
+    if (data.isCopy !== 1) {
+      this.messageService.showToastMessage('该包装记录未抄录，请确认抄录后再完成提交！', 'warning');
+      return;
+    }
+    this.messageService.showLoading('');
+    const cond = {
+      pmId: data.pmId,
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
+    };
+    this.ingotAlarmService.endPackage(cond).subscribe((res) => {
+      if (res.code !== 0) {
+        this.messageService.closeLoading();
+        return;
+      }
+      this.initList();
+      this.messageService.closeLoading();
+      this.messageService.showToastMessage('包装完成提交成功', 'success');
     });
   }
 

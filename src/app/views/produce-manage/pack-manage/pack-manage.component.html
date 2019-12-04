@@ -102,6 +102,7 @@
 
     <div nz-row nzGutter="16">
       <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" *appAuthBtu="2010603" (click)="edit()"><i nz-icon type="form" theme="outline"></i>操作</button>
+      <button *appAuthBtu="2010606"  nz-button nzType="danger" style="margin-left:20px;margin-right:20px;margin-bottom:20px;" (click)="endPack2()">包装完成</button>
 
       <div nz-col class="gutter-row" style="float:right">
         <span style="margin-right:20px;">今日产量：{{doffingWeight}}kg</span>
@@ -125,10 +126,12 @@
         <th class="align-center">规格</th>
         <th class="align-center">班别</th>
         <th class="align-center">净重（kg）</th>
+        <th class="align-center">锭数</th>
         <th class="align-center">生产日期</th>
         <th class="align-center">工艺状态</th>
         <th class="align-center">包装操作员</th>
         <th class="align-center">包装时间</th>
+        <th class="align-center">是否抄录</th>
         <th *appAuthBtu="2010602" class="align-center">位置信息</th>
       </tr>
       </thead>
@@ -143,10 +146,12 @@
         <td>{{data.standard}}</td>
         <td>{{data.classType}}</td>
         <td>{{data.weight}}</td>
+        <td>{{data.ingotNum}}</td>
         <td>{{data.createTime}}</td>
         <td>{{trans(data.craftState)}}</td>
         <td>{{data.packageOperator}}</td>
         <td>{{data.packageTime}}</td>
+        <td><nz-tag *ngIf="data.isCopy !== 1" [nzColor]="'volcano'">未抄录</nz-tag><nz-tag *ngIf="data.isCopy === 1"  [nzColor]="'cyan'">已抄录</nz-tag></td>
         <td *appAuthBtu="2010602"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
       </tr>
       </tbody>
@@ -265,11 +270,76 @@
     </div>
     <div nz-row nzGutter="16">
       <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
-
         <button *appAuthBtu="2010605"  nz-button nzType="primary" style="margin-right:20px;margin-bottom:20px;" (click)="savePack()">保存</button>
-        <button *appAuthBtu="2010606"  nz-button nzType="danger" style="margin-right:20px;margin-bottom:20px;" (click)="endPack()">包装完成</button>
+        <button *ngIf="submitModel.isCopy !== 1" nz-button nzType="danger" style="margin-right:20px;margin-bottom:20px;" (click)="saveCopy()">确认抄录</button>
       </div>
     </div>
+    <div nz-row style="margin-top: -10px;  background: #f3f3f3;padding-bottom: 10px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <div class="form-item" nz-row style="padding-top: 20px;">
+          <label class="inline-span" nz-col nzSpan="8">检验时间</label>
+          <div nz-col nzSpan="16" class="form-control">
+            <nz-date-picker disabled [(ngModel)]="checkInfo.checkTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+          </div>
+        </div>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="18" style="margin-top: -10px;  background: #f3f3f3;padding-bottom: 10px;">
+        <div nz-row>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan=12>检验只数</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.checkNum"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">AA级</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">AA纬</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawWeight"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">A1级</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">A级</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aweight"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">B级</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bweight"/>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
       <div nz-row style="margin-bottom: 20px;">
         <h4 style="margin: 10px 0px -24px 10px;" ><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次落丝</h4>

@@ -335,7 +335,7 @@ export class CheckManageComponent implements OnInit {
 
     }
     this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
-      if(res.value.length > 0) {
+      if (res.value.length > 0) {
         this.checkInfo = res.value[0];
       }
     });
