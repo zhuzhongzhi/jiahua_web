@@ -39,6 +39,8 @@ export class HistoryManageComponent implements OnInit {
   // 落丝列表
   doffList: any = [];
 
+  historyTotal: any = {};
+
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
@@ -148,6 +150,12 @@ export class HistoryManageComponent implements OnInit {
       this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
+    this.ingotAlarmService.getHistory().subscribe((res) => {
+      if(res.code !== 0) {
+        return;
+      }
+      this.historyTotal = res.value;
+    })
   }
 
   showDetail (data) {
