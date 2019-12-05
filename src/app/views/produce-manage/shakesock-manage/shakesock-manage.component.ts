@@ -134,8 +134,14 @@ export class ShakesockManageComponent implements OnInit {
     this.messageService.closeLoading();
   }
 
-  saveSock() {
+  saveProcess()
+  {
     this.messageService.showLoading('');
+    if (this.submitModel.rockEmid === undefined || this.submitModel.rockEmid === null || this.submitModel.rockEmid === '') {
+      this.messageService.showToastMessage('请输入记录摇袜员工工号', 'warning');
+      this.messageService.closeLoading();
+      return false;
+    }
     const craftData = {
       pmId: this.submitModel.pmId,
       rockEmid: this.submitModel.rockEmid === null ? '' : this.submitModel.rockEmid,
@@ -144,7 +150,14 @@ export class ShakesockManageComponent implements OnInit {
     this.doffList.map(item => exceptions.push(...item.exception));
     this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
       this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-        this.messageService.closeLoading();
+        this.messageService.closeLoading(); 
+        });        
+      });
+      return true;
+  }
+
+  saveSock() {
+    if(!this.saveProcess()) return;
         this.modalService.confirm({
           nzContent: '<i>保存成功是否要回到列表页</i>',
           nzTitle: '<b>保存成功</b>',
@@ -155,9 +168,7 @@ export class ShakesockManageComponent implements OnInit {
           nzOnCancel: () => {
             this.messageService.closeLoading();
           }
-        });
-      });
-    });
+        });     
   }
 
   transReelType (val) {
@@ -172,6 +183,7 @@ export class ShakesockManageComponent implements OnInit {
   addSock() {}
 
   endSock() {
+    if(!this.saveProcess()) return;
     this.messageService.showLoading('');
     const data = {
       pmId: this.submitModel.pmId,

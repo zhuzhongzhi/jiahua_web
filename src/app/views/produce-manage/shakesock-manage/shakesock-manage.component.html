@@ -145,7 +145,7 @@
         <td>{{data.weight}}</td>
         <td>{{data.createTime}}</td>
         <td>{{trans(data.craftState)}}</td>
-        <td>{{data.rockOperator}}</td>
+        <td>{{data.rockEmid}}</td>
         <td>{{data.rockTime}}</td>
         <td *appAuthBtu="2010302"><span class="blue-txt transparen-btn see-detail"   (click)="showPos(data)">查看</span></td>
       </tr>
@@ -256,7 +256,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">工号</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>工号</label>
           <div nz-col nzSpan="16" class="form-control">
             <input type="text" nz-input placeholder="请输入记录摇袜员工工号" [(ngModel)]="submitModel.rockEmid"/>
           </div>

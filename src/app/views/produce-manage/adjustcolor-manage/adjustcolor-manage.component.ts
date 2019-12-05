@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ShowMessageService} from '../../../widget/show-message/show-message';
-import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
-import {NzModalService} from 'ng-zorro-antd';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ShowMessageService } from '../../../widget/show-message/show-message';
+import { IngotAlarmService } from '../../../core/biz-services/produceManage/IngotAlarmService';
+import { NzModalService } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {format} from "date-fns";
-import {Router} from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { format } from "date-fns";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -51,12 +51,12 @@ export class AdjustcolorManageComponent implements OnInit {
   submitModel: any = {};
 
   constructor(private fb: FormBuilder,
-              private sanitizer: DomSanitizer,
-              private modal: NzModalService,
-              public router: Router,
-              private modalService: NzModalService,
-              private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+    private sanitizer: DomSanitizer,
+    private modal: NzModalService,
+    public router: Router,
+    private modalService: NzModalService,
+    private messageService: ShowMessageService,
+    private ingotAlarmService: IngotAlarmService) {
     this.filters = {
       code: '',
       lineType: '',
@@ -78,7 +78,7 @@ export class AdjustcolorManageComponent implements OnInit {
     };
   }
 
-  transReelType (val) {
+  transReelType(val) {
     if (val === 0) {
       return '满卷';
     } else if (val === 1) {
@@ -87,8 +87,13 @@ export class AdjustcolorManageComponent implements OnInit {
     return '';
   }
 
-  saveSock() {
+  saveProcess() {
     this.messageService.showLoading('');
+    if (this.submitModel.colourEmid === undefined || this.submitModel.colourEmid === null || this.submitModel.colourEmid === '') {
+      this.messageService.showToastMessage('请输入记录判色员工工号', 'warning');
+      this.messageService.closeLoading();
+      return false;
+    }
     const craftData = {
       pmId: this.submitModel.pmId,
       colourEmid: this.submitModel.colourEmid === null ? '' : this.submitModel.colourEmid,
@@ -98,24 +103,31 @@ export class AdjustcolorManageComponent implements OnInit {
     this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
       this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
         this.messageService.closeLoading();
-        this.modalService.confirm({
-          nzContent: '<i>保存成功是否要回到列表页</i>',
-          nzTitle: '<b>保存成功</b>',
-          nzOnOk: () => {
-            this.detailModal.show = false;
-            this.initList();
-          },
-          nzOnCancel: () => {
-            this.messageService.closeLoading();
-          }
-        });
       });
     });
+    return true;
   }
 
-  addSock() {}
+  saveSock() {
+    if(!this.saveProcess()) return;
+    this.modalService.confirm({
+      nzContent: '<i>保存成功是否要回到列表页</i>',
+      nzTitle: '<b>保存成功</b>',
+      nzOnOk: () => {
+        this.detailModal.show = false;
+        this.initList();
+      },
+      nzOnCancel: () => {
+        this.messageService.closeLoading();
+      }
+    });
+
+  }
+
+  addSock() { }
 
   endSock() {
+    if(!this.saveProcess()) return;
     this.messageService.showLoading('');
 
     const data = {
@@ -149,7 +161,7 @@ export class AdjustcolorManageComponent implements OnInit {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
     this.detailModal.title = `纺车位置查看`;
-    this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+    this.ingotAlarmService.getWagonByCode({ code: data.code }).subscribe((res) => {
       if (res.code !== 0) {
         this.messageService.showToastMessage('接口请求异常！', 'error');
         return;
@@ -216,7 +228,7 @@ export class AdjustcolorManageComponent implements OnInit {
     });
   }
 
-  getProduce()  {
+  getProduce() {
     this.ingotAlarmService.boardOutputToday().subscribe((res) => {
       // 获取看板数据
 
@@ -239,7 +251,7 @@ export class AdjustcolorManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = false;
-    this.doffList =null;
+    this.doffList = null;
   }
 
   toggleCollapse(): void {
@@ -291,15 +303,15 @@ export class AdjustcolorManageComponent implements OnInit {
 
     }
 
-    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+    this.ingotAlarmService.getDoffings({ pmId: data.pmId }).subscribe((res) => {
       this.doffList = res.value;
-      for (let idx = 0; idx < this.doffList.length; idx ++) {
+      for (let idx = 0; idx < this.doffList.length; idx++) {
         const item = this.doffList[idx];
         if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
           item.doffingTime = new Date(item.doffingTime);
         }
         // 设置 exception
-        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+        this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
@@ -416,7 +428,7 @@ export class AdjustcolorManageComponent implements OnInit {
       this.submitModel.produceTime = this.parseTime(this.submitModel.produceTime);
       this.submitModel.craftTime = this.parseTime(this.submitModel.craftTime);
       this.submitModel.craftState = 4;
-      const dataInfo = {wagonOperate: {}, wagonExceptions: []};
+      const dataInfo = { wagonOperate: {}, wagonExceptions: [] };
       dataInfo.wagonOperate = this.submitModel;
       let idx = 1;
       this.dataList.forEach(item => {
@@ -463,7 +475,7 @@ export class AdjustcolorManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.newCraftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '4'}}).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage({ 'pageNum': 1, 'pageSize': 10000, 'filters': { craftState: '4' } }).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -506,8 +518,8 @@ export class AdjustcolorManageComponent implements OnInit {
 
   exportList(json) {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
-    const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, '判色管理列表');
   }
 

@@ -268,6 +268,7 @@ export class HotreelManageComponent implements OnInit {
     this.detailModal.showSaveBtn = true;
     this.detailModal.show = true;
     this.submitModel = {
+      createTime: new Date,
       reelType: '0',
       jointNum: '0'
     };
@@ -385,7 +386,17 @@ export class HotreelManageComponent implements OnInit {
     });
   }
 
-  saveDoff() {
+  saveProcess()
+  {
+    if (this.showiFrame === 0) {     
+      this.messageService.showLoading('');
+      if (this.submitModel.doffingEmid === undefined || this.submitModel.doffingEmid === null || this.submitModel.doffingEmid === '') {
+        this.messageService.showToastMessage('请输入记录落丝员工工号', 'warning');
+        this.messageService.closeLoading();
+        return false;
+      }
+    }
+    this.submitForm();
     this.messageService.showLoading('');
     const craftData = {
       pmId: this.submitModel.pmId,
@@ -427,20 +438,28 @@ export class HotreelManageComponent implements OnInit {
           }
         }
       });
-      this.messageService.closeLoading();
-      this.modalService.confirm({
-        nzContent: '<i>保存成功是否要回到列表页</i>',
-        nzTitle: '<b>保存成功</b>',
-        nzOnOk: () => {
-          this.detailModal.show = false;
-          this.initList();
-        },
-        nzOnCancel: () => {
-          this.messageService.closeLoading();
-        }
-      });
+      this.messageService.closeLoading(); 
     });
+    return true;
   }
+
+  saveDoff() {
+    if(!this.saveProcess()) return;
+    this.messageService.closeLoading();
+    this.modalService.confirm({
+      nzContent: '<i>保存成功是否要回到列表页</i>',
+      nzTitle: '<b>保存成功</b>',
+      nzOnOk: () => {
+        this.detailModal.show = false;
+        this.initList();
+      },
+      nzOnCancel: () => {
+        this.messageService.closeLoading();
+      }
+    });
+  }  
+     
+
 
   addDoff() {
     // 获取线别下所有纺位
@@ -493,6 +512,7 @@ export class HotreelManageComponent implements OnInit {
   }
 
   endDoff() {
+    if(!this.saveProcess()) return;
     this.messageService.showLoading('');
     if (this.doffList.length === 0) {
       this.messageService.showToastMessage('还没有落丝记录，请添加！', 'error');
@@ -556,7 +576,7 @@ export class HotreelManageComponent implements OnInit {
       }
     }
   }
-  enddoff() {
+  enddoff() { 
     const data = {
       pmId: this.submitModel.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
@@ -802,7 +822,7 @@ export class HotreelManageComponent implements OnInit {
         this.initList();
         this.messageService.closeLoading();
       });
-    } else if (this.showiFrame === 0) {
+    } else if (this.showiFrame === 0) { 
       const wagonExceptions = [];
       let idx = 1;
       this.dataList1.forEach(el => {

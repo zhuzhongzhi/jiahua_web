@@ -163,20 +163,21 @@
       <!-- Unnamed (图片 ) -->
     </div>
 
-    <div nz-row nzGutter="16">
+    <!-- <div nz-row nzGutter="16"> -->
 <!--      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()"><i nz-icon type="form" theme="outline"></i>操作</button>-->
 
-      <div nz-col class="gutter-row" style="float:right">
-        <button *appAuthBtu="2010703" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
-      </div>
-    </div>
+      
+    <!-- </div> -->
 
-    <div nz-row nzGutter="16" style="margin-bottom: 15px;">
+    <div nz-row nzGutter="16" style="margin-top: 15px;">
       <div nz-col nzSpan="3" class="gutter-row">
         <span style="margin-right:20px;">总净重：{{historyTotal.totalWeight}}kg</span>
       </div>
       <div nz-col nzSpan="3" class="gutter-row">
-        <span style="margin-right:20px;">总锭数：{{historyTotal.totalIngotNum}}kg</span>
+        <span style="margin-right:20px;">总锭数：{{historyTotal.totalIngotNum}}</span>
+      </div>
+      <div nz-col class="gutter-row" style="float:right">
+        <button *appAuthBtu="2010703" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
       </div>
     </div>
 
@@ -195,7 +196,13 @@
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
         <th class="align-center">班别</th>
-        <th class="align-center">净重（kg）</th>
+        <th class="align-center">净重(kg)</th>
+        <th class="align-center">总锭数</th>
+        <th class="align-center">AA级</th>
+        <th class="align-center">AA纬</th>
+        <th class="align-center">A1级</th>
+        <th class="align-center">A级</th>
+        <th class="align-center">B级</th>
         <th class="align-center">生产日期</th>
         <th class="align-center">工艺状态</th>
 <!--        <th class="align-center">包装操作员</th>-->
@@ -208,19 +215,25 @@
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
 <!--        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>-->
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.code}}</td>
-        <td>{{data.doffingStartTime}}</td>
-        <td>{{data.lineType}}</td>
-        <td>{{data.batchNum}}</td>
-        <td>{{data.standard}}</td>
-        <td>{{data.classType}}</td>
-        <td>{{data.weight}}</td>
-        <td>{{data.createTime}}</td>
-        <td>{{trans(data.craftState)}}</td>
+        <td>{{data.main.code}}</td>
+        <td>{{data.main.doffingStartTime}}</td>
+        <td>{{data.main.lineType}}</td>
+        <td>{{data.main.batchNum}}</td>
+        <td>{{data.main.standard}}</td>
+        <td>{{data.main.classType}}</td>
+        <td>{{data.main.weight}}</td>
+        <td>{{data.main.ingotNum}}</td>
+        <td>{{data.check.aaWeight}}</td>
+        <td>{{data.check.aawWeight}}</td>
+        <td>{{data.check.a1Weight}}</td>
+        <td>{{data.check.aWeight}}</td>
+        <td>{{data.check.bWeight}}</td>
+        <td>{{data.main.createTime}}</td>
+        <td>{{trans(data.main.craftState)}}</td>        
 <!--        <td>{{data.packageOperator}}</td>-->
 <!--        <td>{{data.packageTime}}</td>-->
-        <td><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
-        <td><span class="blue-txt transparen-btn see-detail" (click)="showDetail(data)">查看</span></td>
+        <td><span class="blue-txt transparen-btn see-detail" (click)="showPos(data.main)">查看</span></td>
+        <td><span class="blue-txt transparen-btn see-detail" (click)="showDetail(data.main)">查看</span></td>
       </tr>
       </tbody>
     </nz-table>
@@ -471,7 +484,7 @@
           </div>
         </div>
       </div>
-      <app-new-table *ngIf="item.showtable" [dataList]="item.exception"></app-new-table>
+      <app-new-table *ngIf="item.showtable" [dataList]="item.exception" [readonly]=true></app-new-table>
     </div>
   </div>
 

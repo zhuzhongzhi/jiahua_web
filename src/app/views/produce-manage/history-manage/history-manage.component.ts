@@ -142,7 +142,7 @@ export class HistoryManageComponent implements OnInit {
       'pageSize': this.tableConfig.pageSize
     };
     this.tableConfig.loading = true;
-    this.ingotAlarmService.newCraftPage(filter).subscribe((res) => {
+    this.ingotAlarmService.historyPage(filter).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -150,6 +150,7 @@ export class HistoryManageComponent implements OnInit {
       this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
+
     this.ingotAlarmService.getHistory().subscribe((res) => {
       if(res.code !== 0) {
         return;

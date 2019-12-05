@@ -257,17 +257,31 @@ export class DanniManageComponent implements OnInit {
     return '';
   }
 
-  saveDanni() {
-    this.messageService.showLoading('');
-    const craftData = {
-      pmId: this.submitModel.pmId,
-      testDannyEmid: this.submitModel.testDannyEmid === null ? '' : this.submitModel.testDannyEmid,
-    };
-    const exceptions = [];
-    this.doffList.map(item => exceptions.push(...item.exception));
-    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
-      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+  saveProcess()
+  {    
+      this.messageService.showLoading('');
+      if (this.submitModel.testDannyEmid === undefined || this.submitModel.testDannyEmid === null || this.submitModel.testDannyEmid === '') {
+        this.messageService.showToastMessage('请输入测丹尼操作员工号', 'warning');
         this.messageService.closeLoading();
+        return false;
+      }
+      const craftData = {
+        pmId: this.submitModel.pmId,
+        testDannyEmid: this.submitModel.testDannyEmid === null ? '' : this.submitModel.testDannyEmid,
+      };
+      const exceptions = [];
+      this.doffList.map(item => exceptions.push(...item.exception));
+      this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+        this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+          this.messageService.closeLoading(); 
+        });        
+      });
+      return true;
+  }
+
+  saveDanni() {
+    if(!this.saveProcess()) return;
+    this.messageService.closeLoading();
         this.modalService.confirm({
           nzContent: '<i>保存成功是否要回到列表页</i>',
           nzTitle: '<b>保存成功</b>',
@@ -278,12 +292,12 @@ export class DanniManageComponent implements OnInit {
           nzOnCancel: () => {
             this.messageService.closeLoading();
           }
-        });
-      });
+       
     });
   }
 
   endDanni() {
+    if(!this.saveProcess()) return;
     this.messageService.showLoading('');
     const data = {
       pmId: this.submitModel.pmId,

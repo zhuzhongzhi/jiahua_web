@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ShowMessageService} from '../../../widget/show-message/show-message';
-import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
-import {NzModalService} from 'ng-zorro-antd';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ShowMessageService } from '../../../widget/show-message/show-message';
+import { IngotAlarmService } from '../../../core/biz-services/produceManage/IngotAlarmService';
+import { NzModalService } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {format} from "date-fns";
-import {Router} from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { format } from "date-fns";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-check-manage',
@@ -51,12 +51,12 @@ export class CheckManageComponent implements OnInit {
   checkInfo: any = {};
 
   constructor(private fb: FormBuilder,
-              private modal: NzModalService,
-              private modalService: NzModalService,
-              private sanitizer: DomSanitizer,
-              public router: Router,
-              private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+    private modal: NzModalService,
+    private modalService: NzModalService,
+    private sanitizer: DomSanitizer,
+    public router: Router,
+    private messageService: ShowMessageService,
+    private ingotAlarmService: IngotAlarmService) {
     this.filters = {
       code: '',
       lineType: '',
@@ -97,7 +97,7 @@ export class CheckManageComponent implements OnInit {
     }
   }
 
-  transReelType (val) {
+  transReelType(val) {
     if (val === 0) {
       return '满卷';
     } else if (val === 1) {
@@ -106,8 +106,13 @@ export class CheckManageComponent implements OnInit {
     return '';
   }
 
-  saveCheck() {
+  saveProcess() {
     this.messageService.showLoading('');
+    if (this.submitModel.checkEmid === undefined || this.submitModel.checkEmid === null || this.submitModel.checkEmid === '') {
+      this.messageService.showToastMessage('请输入记录检查员工工号', 'warning');
+      this.messageService.closeLoading();
+      return false;
+    }
     const craftData = {
       pmId: this.submitModel.pmId,
       checkEmid: this.submitModel.checkEmid === null ? '' : this.submitModel.checkEmid,
@@ -123,23 +128,31 @@ export class CheckManageComponent implements OnInit {
         this.doffList.map(item => exceptions.push(...item.exception));
         this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
           this.messageService.closeLoading();
-          this.modalService.confirm({
-            nzContent: '<i>保存成功是否要回到列表页</i>',
-            nzTitle: '<b>保存成功</b>',
-            nzOnOk: () => {
-              this.detailModal.show = false;
-              this.initList();
-            },
-            nzOnCancel: () => {
-              this.messageService.closeLoading();
-            }
-          });
         });
       });
     });
+    return true;
+  }
+
+
+  saveCheck() {
+    if (!this.saveProcess()) return;
+    this.modalService.confirm({
+      nzContent: '<i>保存成功是否要回到列表页</i>',
+      nzTitle: '<b>保存成功</b>',
+      nzOnOk: () => {
+        this.detailModal.show = false;
+        this.initList();
+      },
+      nzOnCancel: () => {
+        this.messageService.closeLoading();
+      }
+    });
+
   }
 
   endCheck() {
+    if (!this.saveProcess()) return;
     this.messageService.showLoading('');
 
     if (this.checkInfo.checkTime === '' || this.checkInfo.checkTime === undefined || this.checkInfo.checkTime === null) {
@@ -154,6 +167,11 @@ export class CheckManageComponent implements OnInit {
     }
     if (this.checkInfo.aaWeight === '' || this.checkInfo.aaWeight === undefined || this.checkInfo.aaWeight === null) {
       this.messageService.showToastMessage('请配置AA级重量', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.checkInfo.aawWeight === '' || this.checkInfo.aawWeight === undefined || this.checkInfo.aawWeight === null) {
+      this.messageService.showToastMessage('请配置AA纬重量', 'warning');
       this.messageService.closeLoading();
       return;
     }
@@ -216,17 +234,19 @@ export class CheckManageComponent implements OnInit {
     this.getProduce();
     this.messageService.closeLoading();
   }
+
   showPos(data) {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
+    this.showiFrame = true;
     this.detailModal.title = `纺车位置查看`;
-    this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
+    this.ingotAlarmService.getWagonByCode({ code: data.code }).subscribe((res) => {
       if (res.code !== 0) {
         this.messageService.showToastMessage('接口请求异常！', 'error');
         return;
       }
       if (res.value === undefined || res.value === '' || res.value === null) {
-        this.messageService.showToastMessage('没有检索到丝车信息！', 'error');
+        this.messageService.showToastMessage('没有检查到丝车信息！', 'error');
         return;
       }
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
@@ -257,7 +277,7 @@ export class CheckManageComponent implements OnInit {
     });
   }
 
-  getProduce()  {
+  getProduce() {
     this.ingotAlarmService.boardOutputToday().subscribe((res) => {
       // 获取看板数据
 
@@ -280,7 +300,7 @@ export class CheckManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = false;
-    this.doffList =null;
+    this.doffList = null;
   }
 
   toggleCollapse(): void {
@@ -338,16 +358,20 @@ export class CheckManageComponent implements OnInit {
       if (res.value.length > 0) {
         this.checkInfo = res.value[0];
       }
+      else
+      {
+       this.checkInfo.checkTime = new Date();
+      }
     });
-    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+    this.ingotAlarmService.getDoffings({ pmId: data.pmId }).subscribe((res) => {
       this.doffList = res.value;
-      for (let idx = 0; idx < this.doffList.length; idx ++) {
+      for (let idx = 0; idx < this.doffList.length; idx++) {
         const item = this.doffList[idx];
         if (item.doffingTime !== undefined && item.doffingTime !== '' && item.doffingTime !== null) {
           item.doffingTime = new Date(item.doffingTime);
         }
         // 设置 exception
-        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+        this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
@@ -452,7 +476,7 @@ export class CheckManageComponent implements OnInit {
       this.submitModel.produceTime = this.parseTime(this.submitModel.produceTime);
       this.submitModel.craftTime = this.parseTime(this.submitModel.craftTime);
       this.submitModel.craftState = 5;
-      const dataInfo = {wagonOperate: {}, wagonExceptions: []};
+      const dataInfo = { wagonOperate: {}, wagonExceptions: [] };
       dataInfo.wagonOperate = this.submitModel;
       let idx = 1;
       this.dataList.forEach(item => {
@@ -500,7 +524,7 @@ export class CheckManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.newCraftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '5'}}).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage({ 'pageNum': 1, 'pageSize': 10000, 'filters': { craftState: '5' } }).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -543,8 +567,8 @@ export class CheckManageComponent implements OnInit {
 
   exportList(json) {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
-    const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, '测丹尼管理');
   }
 

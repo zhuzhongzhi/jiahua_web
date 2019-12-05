@@ -119,7 +119,7 @@
         <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">落丝开始时间</th>
+        <th class="align-center">落丝时间</th>
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
@@ -145,7 +145,7 @@
         <td>{{data.weight}}</td>
         <td>{{data.createTime}}</td>
         <td>{{trans(data.craftState)}}</td>
-        <td>{{data.testDannyOperator}}</td>
+        <td>{{data.testDannyEmid}}</td>
         <td>{{data.testDannyTime}}</td>
         <td *appAuthBtu="2010202"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
       </tr>
@@ -255,7 +255,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">工号</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>工号</label>
           <div nz-col nzSpan="16" class="form-control">
             <input type="text" nz-input placeholder="请输入记录测丹尼员工工号" [(ngModel)]="submitModel.testDannyEmid"/>
           </div>

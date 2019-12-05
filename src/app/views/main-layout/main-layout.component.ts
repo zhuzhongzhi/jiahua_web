@@ -33,6 +33,11 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
               private menuService: MenuService, public router: Router,
               public userService: UserService, private storage: StorageProvider,
   ) {
+    let rights = JSON.parse(localStorage.getItem('rights') || null);
+    if (rights === null) {
+      this.router.navigateByUrl('/login');
+    }
+
     this.sideLoading = false;
     this.selectedNavIndex = null;
     this.selectedIndex = null;

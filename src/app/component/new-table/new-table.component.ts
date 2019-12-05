@@ -8,7 +8,7 @@ import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
 export class NewTableComponent implements OnInit {
 
   @Input() dataList = [];
-
+  @Input() readonly = false;
   checkedAll: {
     lousiness: '',
     lousinessLevel: '',
@@ -138,6 +138,8 @@ export class NewTableComponent implements OnInit {
     {key: 'B', value: 'B级'},
   ];
 
+
+
   widthConfig = ['60px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
     '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
     '80px', '80px', '80px', '80px', '80px', '80px', '80px', '1px'];
@@ -166,7 +168,7 @@ export class NewTableComponent implements OnInit {
   }
 
   ngAfterViewInit() { 
-    //获取到nz-option组件中的li标签的DOM元素
+ //获取到nz-option组件中的li标签的DOM元素
       var deviceName = document.getElementsByClassName('ant-select-dropdown-menu-item ng-star-inserted');
       setTimeout(function () { 
         for (var i = 0; i < deviceName.length; i++) { 

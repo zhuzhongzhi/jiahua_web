@@ -95,10 +95,10 @@ export class PackManageComponent implements OnInit {
         return '包装';
     }
   }
-
   showPos(data) {
     this.detailModal.showContinue = false;
     this.detailModal.showSaveBtn = false;
+    this.showiFrame = true;
     this.detailModal.title = `纺车位置查看`;
     this.ingotAlarmService.getWagonByCode({code: data.code}).subscribe((res) => {
       if (res.code !== 0) {
@@ -112,7 +112,7 @@ export class PackManageComponent implements OnInit {
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl('/track/map/map2d/svg/follow/?tag=' + res.value.tagId);
       this.detailModal.show = true;
     });
-  }
+  }  
 
   ngOnInit() {
     this.initList();
@@ -263,23 +263,37 @@ export class PackManageComponent implements OnInit {
     return '';
   }
 
+  saveProcess()
+  {    
+      this.messageService.showLoading('');
+      if (this.submitModel.packageEmid === undefined || this.submitModel.packageEmid === null || this.submitModel.packageEmid === '') {
+        this.messageService.showToastMessage('请输入记录包装员工工号', 'warning');
+        this.messageService.closeLoading();
+        return false;
+      }
+      const craftData = {
+        pmId: this.submitModel.pmId,
+        packageEmid: this.submitModel.packageEmid === null ? '' : this.submitModel.packageEmid,
+      };
+      const exceptions = [];
+      this.doffList.map(item => exceptions.push(...item.exception));
+      this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+        if (resData.code !== 0) {
+          this.messageService.showToastMessage(resData.message, 'error');
+          this.messageService.closeLoading();
+          return false;
+        }
+        this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+          this.messageService.closeLoading();
+        });
+      });
+      return true;
+  }
+
+
   // 保存
   savePack() {
-    this.messageService.showLoading('');
-    const craftData = {
-      pmId: this.submitModel.pmId,
-      packageEmid: this.submitModel.packageEmid === null ? '' : this.submitModel.packageEmid,
-    };
-    const exceptions = [];
-    this.doffList.map(item => exceptions.push(...item.exception));
-    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
-      if (resData.code !== 0) {
-        this.messageService.showToastMessage(resData.message, 'error');
-        this.messageService.closeLoading();
-        return;
-      }
-      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-        this.messageService.closeLoading();
+    if(!this.saveProcess()) return;
         this.modalService.confirm({
           nzContent: '<i>保存成功是否要回到列表页</i>',
           nzTitle: '<b>保存成功</b>',
@@ -291,19 +305,30 @@ export class PackManageComponent implements OnInit {
             this.messageService.closeLoading();
           }
         });
-      });
-    });
+     
   }
 
   // 已抄录
   saveCopy() {
+    if(!this.saveProcess()) return;
     if (this.submitModel.isCopy !== 1) {
       this.ingotAlarmService.newCraftUpdate({pmId: this.submitModel.pmId, isCopy: 1}).subscribe((res) => {
         if (res.code !== 0) {
           return;
         }
-        this.messageService.showToastMessage('确认抄录成功', 'success');
         this.submitModel.isCopy = 1;
+        this.messageService.closeLoading();       
+        this.detailModal.show = false;
+        this.modalService.success({
+          nzTitle: '<b>保存成功</b>',
+          nzContent: '<i>确认抄录成功</i>',
+          nzOnOk: () => {
+            this.messageService.closeLoading();
+            this.detailModal.show = false;
+            this.initList();
+          }
+        });
+
       });
     }
   }

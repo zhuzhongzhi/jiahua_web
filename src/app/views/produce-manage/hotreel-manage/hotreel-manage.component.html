@@ -156,7 +156,7 @@
           <td>{{data.weight}}</td>
           <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td>{{trans(data.craftState)}}</td>
-          <td>{{data.doffingOperator}}</td>
+          <td>{{data.doffingEmid}}</td>
           <td>{{data.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td *appAuthBtu="2010102"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
         </tr>
@@ -431,7 +431,7 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="8">工号</label>
+          <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>工号</label>
           <div nz-col nzSpan="16" class="form-control">
             <input type="text" nz-input placeholder="请输入记录落丝员工工号" [(ngModel)]="submitModel.doffingEmid"/>
           </div>
