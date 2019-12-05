@@ -19,6 +19,7 @@ export class HistoryManageComponent implements OnInit {
   // table控件配置
   tableConfig: any;
   filters: any;
+  ranges: any;
   listOfAllData = [];
   // 表格类
   isAllChecked = false;
@@ -50,6 +51,8 @@ export class HistoryManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
+      classType: '',
+      classShift: '',
       packageOperator: '',
       packageTime: '',
       doffingOperator: '',
