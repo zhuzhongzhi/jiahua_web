@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class AlarmManageComponent implements OnInit {
 
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;
@@ -85,6 +85,7 @@ export class AlarmManageComponent implements OnInit {
       });
       this.tableConfig.loading = false;
     });
+    this.messageService.closeLoading();
   }
 
   pageChange() {

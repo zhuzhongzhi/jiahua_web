@@ -141,7 +141,7 @@ export class QualityBillboardComponent implements OnInit {
         ],
         series: [
           {
-            name: '直接访问',
+            name: '毛丝不良率',
             type: 'bar',
             barWidth: '60%',
             data: lousinessYData
@@ -181,7 +181,7 @@ export class QualityBillboardComponent implements OnInit {
         ],
         series: [
           {
-            name: '直接访问',
+            name: '染色不良率',
             type: 'bar',
             barWidth: '60%',
             data: dyeYData
@@ -221,7 +221,7 @@ export class QualityBillboardComponent implements OnInit {
         ],
         series: [
           {
-            name: '直接访问',
+            name: 'GR绕丝不良率',
             type: 'bar',
             barWidth: '60%',
             data: windYData
@@ -261,7 +261,7 @@ export class QualityBillboardComponent implements OnInit {
         ],
         series: [
           {
-            name: '直接访问',
+            name: '飘丝不良率',
             type: 'bar',
             barWidth: '60%',
             data: floatYData

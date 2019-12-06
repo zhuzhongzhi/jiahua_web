@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./adjustcolor-manage.component.scss']
 })
 export class AdjustcolorManageComponent implements OnInit {
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

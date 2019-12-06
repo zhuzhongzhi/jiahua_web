@@ -66,18 +66,24 @@
         <div nz-row class="qtitle">
           实时报警
         </div>
-        <div nz-row *ngFor="let data of spinAlarms">
-          <div style="line-height: 34px;text-align: left;margin-left: 20px;"><span>{{data.spinPos}}纺位{{data.alarmType}}异常过多 </span><button style="float:right;" nz-button nzType="primary" (click)="go(1)">查看</button></div>
-        </div>
-        <div nz-row *ngFor="let data of residentAlarmS">
-          <div style="line-height: 34px;text-align: left;margin-left: 20px;"><span>{{data.code}}丝车{{data.craftState}}异常驻留时间过长 </span><button style="float:right;" nz-button nzType="primary" (click)="go(2)">查看</button></div>
+        <div nz-row  style="overflow-y: scroll; height: 200px;" >
+          <div nz-row *ngFor="let data of spinAlarms">
+            <div style="line-height: 33px;text-align: left;margin-left: 20px;">
+              <span>{{data.spinPos}}纺位{{data.alarmType}}异常过多 </span><button style="float: right;height: 25px;line-height: 23px;margin-top: 5px;margin-right: 15px;" nz-button
+                nzType="primary" (click)="go(1)">查看</button></div>
+          </div>
+          <div nz-row *ngFor="let data of residentAlarmS">
+            <div style="line-height: 33px;text-align: left;margin-left: 20px;">
+              <span>{{data.code}}丝车{{data.craftState}}异常驻留时间过长 </span><button style="float: right;height: 25px;line-height: 23px;margin-top: 5px;margin-right: 15px;" nz-button
+                nzType="primary" (click)="go(2)">查看</button></div>
+          </div>
         </div>
       </nz-card>
     </div>
 
   </div>
-  <div nz-row [nzGutter]="8" style="margin-top:10px;">
-    <nz-card style="height: auto;">
+  <div nz-row [nzGutter]="8" style="margin-top:20px;">
+    <nz-card style="height: 500px;">
       <div nz-row class="qtitle">
         近三日线别不良排名 {{time}}
       </div>

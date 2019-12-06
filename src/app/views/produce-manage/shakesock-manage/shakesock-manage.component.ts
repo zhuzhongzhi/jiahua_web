@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./shakesock-manage.component.scss']
 })
 export class ShakesockManageComponent implements OnInit {
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

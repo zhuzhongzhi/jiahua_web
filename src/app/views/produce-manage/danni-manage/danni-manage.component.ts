@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./danni-manage.component.scss']
 })
 export class DanniManageComponent implements OnInit {
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

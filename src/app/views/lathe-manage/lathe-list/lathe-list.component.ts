@@ -13,7 +13,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./lathe-list.component.scss']
 })
 export class LatheListComponent implements OnInit {
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

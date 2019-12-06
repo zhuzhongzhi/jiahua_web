@@ -15,7 +15,7 @@ import {LatheManageService} from '../../../../core/biz-services/latheManage/lath
 export class JiahuauserManageComponent implements OnInit {
 
 
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

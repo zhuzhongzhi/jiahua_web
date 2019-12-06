@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./check-manage.component.scss']
 })
 export class CheckManageComponent implements OnInit {
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

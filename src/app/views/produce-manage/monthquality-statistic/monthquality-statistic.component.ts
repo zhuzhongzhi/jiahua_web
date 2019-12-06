@@ -14,7 +14,7 @@ import {format} from "date-fns";
 })
 export class MonthqualityStatisticComponent implements OnInit {
 
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

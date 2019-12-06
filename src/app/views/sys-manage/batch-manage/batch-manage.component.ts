@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class BatchManageComponent implements OnInit {
 
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;

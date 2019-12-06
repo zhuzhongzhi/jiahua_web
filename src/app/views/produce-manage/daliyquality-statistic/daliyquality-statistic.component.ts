@@ -14,7 +14,7 @@ import {format} from "date-fns";
 })
 export class DaliyqualityStatisticComponent implements OnInit {
 
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;
@@ -109,6 +109,7 @@ export class DaliyqualityStatisticComponent implements OnInit {
         this.detailModal.title = `等级重量及比例`;
         this.ingotAlarmService.getLevelList({'qrId': data.qrId, 'qType': 1}).subscribe(res => {
           this.listModelOfAllData = res.value;
+          
         });
         break;
       case 2:
@@ -124,7 +125,6 @@ export class DaliyqualityStatisticComponent implements OnInit {
         });
         break;
     }
-
     this.detailModal.show = true;
   }
 

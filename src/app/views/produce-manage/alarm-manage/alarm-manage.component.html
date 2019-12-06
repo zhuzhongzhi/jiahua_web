@@ -7,12 +7,13 @@
       <div id="u625" class="ax_default box_1">
         <div id="u625_text" class="text ">
           <!--<p>-->
-          <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png"/>
+          <img id="u626_img" class="img " src="../../../../assets/image/jiahua/search.png" />
           <span style="text-decoration:none;">筛选查询</span>
           <!--</p>-->
           <div id="u627" class="ax_default">
             <div id="u627_text" class="text ">
-              <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer" (click)="toggleCollapse()"></i>
+              <i nz-icon [type]="isCollapse ? 'down' : 'up'" style="font-size: 15px;cursor:pointer"
+                (click)="toggleCollapse()"></i>
             </div>
           </div>
         </div>
@@ -55,46 +56,45 @@
 
     <div nz-row nzGutter="16">
       <div nz-col class="gutter-row" style="float:right">
-        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()" *appAuthBtu="2020402">导出Excel</button>
+        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()"
+          *appAuthBtu="2020402">导出Excel</button>
       </div>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-              style="text-align:center"
-              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
-              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
-              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
-      <thead >
-      <tr>
-        <!--<th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>-->
-        <th nzWidth="70px">序号</th>
-        <th class="align-center">批号</th>
-        <th class="align-center">规格</th>
-        <th class="align-center">线别</th>
-        <th class="align-center">处理时间</th>
-        <th class="align-center">处理人</th>
-        <th class="align-center">处理备注</th>
-      </tr>
+      style="text-align:center" [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+      [(nzPageSize)]="tableConfig.pageSize" [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading"
+      [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
+      <thead>
+        <tr>
+          <!--<th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>-->
+          <th nzWidth="70px">序号</th>
+          <th class="align-center">批号</th>
+          <th class="align-center">规格</th>
+          <th class="align-center">线别</th>
+          <th class="align-center">处理时间</th>
+          <th class="align-center">处理人</th>
+          <th class="align-center">处理备注</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <!--<td nzShowCheckbox [(nzChecked)]="checkedId[data.alarmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.alarmId === '-1'"></td>-->
-        <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.batchNum}}</td>
-        <td>{{data.standard}}</td>
-        <td>{{data.lineType}}</td>
-        <td>{{data.handleTime}}</td>
-        <td>{{data.operator}}</td>
-        <td>{{data.remark}}</td>
-      </tr>
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+          <!--<td nzShowCheckbox [(nzChecked)]="checkedId[data.alarmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.alarmId === '-1'"></td>-->
+          <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
+          <td>{{data.batchNum}}</td>
+          <td>{{data.standard}}</td>
+          <td>{{data.lineType}}</td>
+          <td>{{data.handleTime}}</td>
+          <td>{{data.operator}}</td>
+          <td>{{data.remark}}</td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
   <ng-template #totalTemplate let-total>
     <span class="m-r-sm">
-    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+      当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
       条记录，共计{{tableConfig.pageTotal}}条记录
-  </span>
+    </span>
   </ng-template>
 </div>
-

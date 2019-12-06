@@ -14,7 +14,7 @@ import * as XLSX from 'xlsx';
 export class SysLogComponent implements OnInit {
 
 
-  isCollapse = false;
+  isCollapse = true;
   // table控件配置
   tableConfig: any;
   filters: any;
