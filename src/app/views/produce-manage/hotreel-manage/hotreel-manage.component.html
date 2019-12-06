@@ -72,7 +72,7 @@
                 <label class="inline-span" nz-col nzSpan="8">创建日期</label>
                 <div nz-col nzSpan="16" class="form-control">
                   <nz-date-picker  [(ngModel)]="filters.createTime"
-                                  nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+                                  nzFormat="yyyy-MM-dd"></nz-date-picker>
                 </div>
               </div>
             </div>
@@ -81,7 +81,7 @@
                 <label class="inline-span" nz-col nzSpan="8">落丝操作员</label>
                 <div nz-col nzSpan="16" class="form-control">
                   <!--                <input nzSize="default" nz-input type="text">-->
-                  <input type="text" nz-input placeholder="请输入落丝操作员" [(ngModel)]="filters.doffingOperator"/>
+                  <input type="text" nz-input placeholder="请输入落丝操作员" [(ngModel)]="filters.doffingEmid"/>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
                 <div nz-col nzSpan="16" class="form-control">
-                  <nz-date-picker  [(ngModel)]="filters.doffingTime"
+                  <nz-date-picker  [(ngModel)]="filters.doffingStartTime"
                                   nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
                 </div>
               </div>
@@ -131,15 +131,15 @@
           <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
           <th nzWidth="70px">序号</th>
           <th class="align-center">丝车编号</th>
+          <th class="align-center">工艺状态</th>
           <th class="align-center">线别</th>
           <th class="align-center">批号</th>
           <th class="align-center">规格</th>
           <th class="align-center">班别</th>
-          <th class="align-center">净重（kg）</th>
-          <th class="align-center">创建日期</th>
-          <th class="align-center">工艺状态</th>
-          <th class="align-center">落丝操作员</th>
+          <th class="align-center">净重(kg)</th>
+          <th class="align-center">创建时间</th> 
           <th class="align-center">落丝时间</th>
+          <th class="align-center">落丝操作员</th>
           <th class="align-center" *appAuthBtu="2010102">位置信息</th>
         </tr>
         </thead>
@@ -149,15 +149,15 @@
               [nzDisabled]="data.pmId === '-1'"></td>
           <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
           <td>{{data.code}}</td>
+          <td>{{trans(data.craftState)}}</td>
           <td>{{data.lineType}}</td>
           <td>{{data.batchNum}}</td>
           <td>{{data.standard}}</td>
           <td>{{data.classType}}</td>
           <td>{{data.weight}}</td>
-          <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
-          <td>{{trans(data.craftState)}}</td>
-          <td>{{data.doffingEmid}}</td>
+          <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>          
           <td>{{data.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
+          <td>{{data.doffingEmid}}</td>
           <td *appAuthBtu="2010102"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
         </tr>
         </tbody>

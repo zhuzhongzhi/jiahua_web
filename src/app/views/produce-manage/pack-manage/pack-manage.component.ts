@@ -138,7 +138,7 @@ export class PackManageComponent implements OnInit {
       'pageSize': this.tableConfig.pageSize
     };
     this.tableConfig.loading = true;
-    this.ingotAlarmService.newCraftPage(filter).subscribe((res) => {
+    this.ingotAlarmService.historyPage(filter).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -196,7 +196,7 @@ export class PackManageComponent implements OnInit {
   edit() {
     this.messageService.showLoading('');
 
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.main.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
       this.messageService.closeLoading();
@@ -208,7 +208,7 @@ export class PackManageComponent implements OnInit {
       if (this.checkedId[key]) {
         console.log(key);
         this.listOfAllData.forEach(item => {
-          if (item.pmId == key) {
+          if (item.main.pmId == key) {
             data = item;
           }
         });
@@ -223,10 +223,10 @@ export class PackManageComponent implements OnInit {
       }
 
     }
-    this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
+    this.ingotAlarmService.getCheckInfo(data.main.pmId).subscribe((res) => {
         this.checkInfo = res.value;
     });
-    this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
+    this.ingotAlarmService.getDoffings({pmId: data.main.pmId}).subscribe((res) => {
       this.doffList = res.value;
       for (let idx = 0; idx < this.doffList.length; idx ++) {
         const item = this.doffList[idx];
@@ -234,7 +234,7 @@ export class PackManageComponent implements OnInit {
           item.doffingTime = new Date(item.doffingTime);
         }
         // 设置 exception
-        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.main.pdId}).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
@@ -243,7 +243,7 @@ export class PackManageComponent implements OnInit {
             this.detailModal.showContinue = true;
             this.detailModal.showSaveBtn = true;
             this.detailModal.show = true;
-            this.submitModel = data;
+            this.submitModel = data.main;
             this.messageService.closeLoading();
           }
         });
@@ -333,7 +333,7 @@ export class PackManageComponent implements OnInit {
 
   // 列表页的包装完成
   endPack2() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.main.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
       return;
@@ -344,7 +344,7 @@ export class PackManageComponent implements OnInit {
       if (this.checkedId[key]) {
         console.log(key);
         this.listOfAllData.forEach(item => {
-          if (item.pmId == key) {
+          if (item.main.pmId == key) {
             data = item;
           }
         });
@@ -358,13 +358,13 @@ export class PackManageComponent implements OnInit {
       }
 
     }
-    if (data.isCopy !== 1) {
+    if (data.main.isCopy !== 1) {
       this.messageService.showToastMessage('该包装记录未抄录，请确认抄录后再完成提交！', 'warning');
       return;
     }
     this.messageService.showLoading('');
     const cond = {
-      pmId: data.pmId,
+      pmId: data.main.pmId,
       endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
     };
     this.ingotAlarmService.endPackage(cond).subscribe((res) => {
@@ -442,14 +442,14 @@ export class PackManageComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.listOfAllData.forEach(item => {
-      if (item.pmId !== '-1') {
-        this.checkedId[item.pmId] = value;
+      if (item.main.pmId !== '-1') {
+        this.checkedId[item.main.pmId] = value;
       }
     });
   }
 
   refreshStatus(): void {
-    this.isAllChecked = this.listOfAllData.filter(item => item.pmId !== '-1').every(item => this.checkedId[item.pmId]);
+    this.isAllChecked = this.listOfAllData.filter(item => item.main.pmId !== '-1').every(item => this.checkedId[item.main.pmId]);
   }
   parseTime(time) {
     if (time) {

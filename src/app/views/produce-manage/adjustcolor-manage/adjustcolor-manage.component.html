@@ -119,16 +119,15 @@
         <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">落丝时间</th>
+        <th class="align-center">工艺状态</th>     
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
         <th class="align-center">班别</th>
-        <th class="align-center">净重（kg）</th>
-        <th class="align-center">生产日期</th>
-        <th class="align-center">工艺状态</th>
-        <th class="align-center">判色操作员</th>
-        <th class="align-center">判色时间</th>
+        <th class="align-center">净重(kg)</th>
+        <th class="align-center">创建时间</th>
+        <th class="align-center">摇袜时间</th>
+        <th class="align-center">判色操作员</th>        
         <th class="align-center" *appAuthBtu="2010402">位置信息</th>
       </tr>
       </thead>
@@ -137,16 +136,15 @@
         <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.code}}</td>
-        <td>{{data.doffingStartTime}}</td>
+        <td>{{trans(data.craftState)}}</td>        
         <td>{{data.lineType}}</td>
         <td>{{data.batchNum}}</td>
         <td>{{data.standard}}</td>
         <td>{{data.classType}}</td>
         <td>{{data.weight}}</td>
-        <td>{{data.createTime}}</td>
-        <td>{{trans(data.craftState)}}</td>
-        <td>{{data.colourEmid}}</td>
-        <td>{{data.colourTime}}</td>
+        <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
+        <td>{{data.rockTime| date:"yyyy-MM-dd HH:mm"}}</td>
+        <td>{{data.colourEmid}}</td>  
         <td *appAuthBtu="2010402"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
       </tr>
       </tbody>

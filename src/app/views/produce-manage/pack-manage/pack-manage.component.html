@@ -120,39 +120,47 @@
         <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">落丝时间</th>
+        <th class="align-center">工艺状态</th>
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
         <th class="align-center">班别</th>
-        <th class="align-center">净重（kg）</th>
-        <th class="align-center">锭数</th>
-        <th class="align-center">生产日期</th>
-        <th class="align-center">工艺状态</th>
+        <th class="align-center">净重(kg)</th>
+        <th class="align-center">总锭数</th>
+        <th class="align-center">AA级</th>
+        <th class="align-center">AA纬</th>
+        <th class="align-center">A1级</th>
+        <th class="align-center">A级</th>
+        <th class="align-center">B级</th>
+        <th class="align-center">创建日期</th>
+        <th class="align-center">检验时间</th>
         <th class="align-center">包装操作员</th>
-        <th class="align-center">包装时间</th>
         <th class="align-center">是否抄录</th>
         <th *appAuthBtu="2010602" class="align-center">位置信息</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.main.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.main.pmId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
-        <td>{{data.code}}</td>
-        <td>{{data.doffingStartTime}}</td>
-        <td>{{data.lineType}}</td>
-        <td>{{data.batchNum}}</td>
-        <td>{{data.standard}}</td>
-        <td>{{data.classType}}</td>
-        <td>{{data.weight}}</td>
-        <td>{{data.ingotNum}}</td>
-        <td>{{data.createTime}}</td>
-        <td>{{trans(data.craftState)}}</td>
-        <td>{{data.packageEmid}}</td>
-        <td>{{data.packageTime}}</td>
-        <td><nz-tag *ngIf="data.isCopy !== 1" [nzColor]="'volcano'">未抄录</nz-tag><nz-tag *ngIf="data.isCopy === 1"  [nzColor]="'cyan'">已抄录</nz-tag></td>
-        <td *appAuthBtu="2010602"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
+        <td>{{data.main.code}}</td>
+        <td>{{trans(data.main.craftState)}}</td>
+        <td>{{data.main.lineType}}</td>
+        <td>{{data.main.batchNum}}</td>
+        <td>{{data.main.standard}}</td>
+        <td>{{data.main.classType}}</td>
+        <td>{{data.main.weight}}</td>
+        <td>{{data.main.ingotNum}}</td>
+        <td>{{data.check.aaWeight}}</td>
+        <td>{{data.check.aawWeight}}</td>
+        <td>{{data.check.a1Weight}}</td>
+        <td>{{data.check.aweight}}</td>
+        <td>{{data.check.bweight}}</td>
+        <td>{{data.main.createTime| date:"yyyy-MM-dd HH:mm"}}</td>        
+        <td>{{data.main.checkTime| date:"yyyy-MM-dd HH:mm"}}</td>
+        <td>{{data.main.packageEmid}}</td>
+        <td><nz-tag *ngIf="data.main.isCopy !== 1" [nzColor]="'volcano'">未抄录</nz-tag><nz-tag *ngIf="data.main.isCopy === 1"  [nzColor]="'cyan'">已抄录</nz-tag></td>
+        <td *appAuthBtu="2010602"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data.main)">查看</span></td>
       </tr>
       </tbody>
     </nz-table>

@@ -140,6 +140,7 @@ export class LatheDistributedComponent implements OnInit {
           tags = tags + ',' + item.tagId;
         }
       });
+      if (tags === '') {tags ='00000000';}
       this.tags = tags;
       this.types ='';
       this.createIframe();

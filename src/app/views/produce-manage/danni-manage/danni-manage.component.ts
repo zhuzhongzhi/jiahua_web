@@ -131,6 +131,7 @@ export class DanniManageComponent implements OnInit {
   getProduce() {
     this.ingotAlarmService.boardOutputToday().subscribe((res) => {
       // 获取看板数据
+      this.doffingWeight = 0;
       res.value.forEach(item => {
         this.doffingWeight += item.testDannyWeight ? item.testDannyWeight : 0;
       });

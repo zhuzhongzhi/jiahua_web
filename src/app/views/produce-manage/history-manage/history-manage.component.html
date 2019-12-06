@@ -191,7 +191,7 @@
 <!--        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>-->
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">落丝时间</th>
+        <th class="align-center">工艺状态</th>        
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
@@ -203,10 +203,9 @@
         <th class="align-center">A1级</th>
         <th class="align-center">A级</th>
         <th class="align-center">B级</th>
-        <th class="align-center">生产日期</th>
-        <th class="align-center">工艺状态</th>
-<!--        <th class="align-center">包装操作员</th>-->
-<!--        <th class="align-center">包装时间</th>-->
+        <th class="align-center">创建日期</th>
+        <th class="align-center">落丝时间</th>
+        <th class="align-center">包装时间</th>
         <th class="align-center">位置信息</th>
         <th class="align-center">查看详情</th>
       </tr>
@@ -216,7 +215,7 @@
 <!--        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>-->
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.main.code}}</td>
-        <td>{{data.main.doffingStartTime}}</td>
+        <td>{{trans(data.main.craftState)}}</td>     
         <td>{{data.main.lineType}}</td>
         <td>{{data.main.batchNum}}</td>
         <td>{{data.main.standard}}</td>
@@ -226,12 +225,11 @@
         <td>{{data.check.aaWeight}}</td>
         <td>{{data.check.aawWeight}}</td>
         <td>{{data.check.a1Weight}}</td>
-        <td>{{data.check.aWeight}}</td>
-        <td>{{data.check.bWeight}}</td>
-        <td>{{data.main.createTime}}</td>
-        <td>{{trans(data.main.craftState)}}</td>        
-<!--        <td>{{data.packageOperator}}</td>-->
-<!--        <td>{{data.packageTime}}</td>-->
+        <td>{{data.check.aweight}}</td>
+        <td>{{data.check.bweight}}</td>
+        <td>{{data.main.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
+        <td>{{data.main.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
+        <td>{{data.main.packageTime| date:"yyyy-MM-dd HH:mm"}}</td>
         <td><span class="blue-txt transparen-btn see-detail" (click)="showPos(data.main)">查看</span></td>
         <td><span class="blue-txt transparen-btn see-detail" (click)="showDetail(data.main)">查看</span></td>
       </tr>
