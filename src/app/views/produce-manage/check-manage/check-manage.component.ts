@@ -113,24 +113,20 @@ export class CheckManageComponent implements OnInit {
       this.messageService.closeLoading();
       return false;
     }
+
+    //保存主表
     const craftData = {
       pmId: this.submitModel.pmId,
       checkEmid: this.submitModel.checkEmid === null ? '' : this.submitModel.checkEmid,
     };
-    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
-      const tempTime = this.checkInfo.checkTime;
-      this.checkInfo.pmId = this.submitModel.pmId;
-      this.checkInfo.checkTime = this.parseTime(this.checkInfo.checkTime);
-      this.ingotAlarmService.addCheck(this.checkInfo).subscribe((res) => {
-        this.checkInfo.pcId = res.value;
-        this.checkInfo.checkTime = tempTime;
-        const exceptions = [];
-        this.doffList.map(item => exceptions.push(...item.exception));
-        this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-          this.messageService.closeLoading();
-        });
-      });
+    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {//保存  
+      const exceptions = [];
+      this.doffList.map(item => exceptions.push(...item.exception));
+      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+        this.messageService.closeLoading();
+      });         
     });
+
     return true;
   }
 
@@ -146,6 +142,9 @@ export class CheckManageComponent implements OnInit {
       },
       nzOnCancel: () => {
         this.messageService.closeLoading();
+        this.ingotAlarmService.getCheckInfo(this.submitModel.pmId).subscribe((res) => {//获取 
+          this.checkInfo = res.value;
+        });
       }
     });
 
@@ -352,16 +351,10 @@ export class CheckManageComponent implements OnInit {
         this.messageService.showToastMessage('一次仅能修改一条记录', 'warning');
         return;
       }
-
     }
+
     this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
-      if (res.value.length > 0) {
-        this.checkInfo = res.value[0];
-      }
-      else
-      {
-       this.checkInfo.checkTime = new Date();
-      }
+        this.checkInfo = res.value;
     });
     this.ingotAlarmService.getDoffings({ pmId: data.pmId }).subscribe((res) => {
       this.doffList = res.value;

@@ -224,9 +224,7 @@ export class PackManageComponent implements OnInit {
 
     }
     this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
-      if (res.value.length > 0) {
-        this.checkInfo = res.value[0];
-      }
+        this.checkInfo = res.value;
     });
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;

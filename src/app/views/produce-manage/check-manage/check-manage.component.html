@@ -276,7 +276,7 @@
           <div class="form-item" nz-row style="padding-top: 20px;">
             <label class="inline-span" nz-col nzSpan="8">检验时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker  [(ngModel)]="checkInfo.checkTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+              <nz-date-picker disabled [(ngModel)]="checkInfo.checkTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
             </div>
           </div>
         </div>
@@ -286,7 +286,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan=12>检验只数</label>
                 <div nz-col nzSpan="12" class="form-control">
-                  <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.checkNum"/>
+                  <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.checkNum"/>
                 </div>
               </div>
             </div>
@@ -294,7 +294,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan="12">AA级</label>
                 <div nz-col nzSpan="12" class="form-control">
-                  <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight"/>
+                  <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight"/>
                 </div>
               </div>
             </div>
@@ -302,7 +302,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan="12">AA纬</label>
                 <div nz-col nzSpan="12" class="form-control">
-                  <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.aawWeight"/>
+                  <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawWeight"/>
                 </div>
               </div>
             </div>
@@ -310,7 +310,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan="12">A1级</label>
                 <div nz-col nzSpan="12" class="form-control">
-                  <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight"/>
+                  <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight"/>
                 </div>
               </div>
             </div>
@@ -318,7 +318,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan="12">A级</label>
                 <div nz-col nzSpan="12" class="form-control">
-                  <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.aweight"/>
+                  <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aweight"/>
                 </div>
               </div>
             </div>
@@ -326,7 +326,7 @@
               <div class="form-item" nz-row style="padding-top: 20px;">
                 <label class="inline-span" nz-col nzSpan="12">B级</label>
                 <div nz-col nzSpan="12" class="form-control">
-                  <input type="text" nz-input placeholder="" [(ngModel)]="checkInfo.bweight"/>
+                  <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bweight"/>
 
                 </div>
               </div>
