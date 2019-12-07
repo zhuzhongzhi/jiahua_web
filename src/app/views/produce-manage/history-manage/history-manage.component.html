@@ -166,7 +166,7 @@
     <!-- <div nz-row nzGutter="16"> -->
 <!--      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()"><i nz-icon type="form" theme="outline"></i>操作</button>-->
 
-      
+
     <!-- </div> -->
 
     <div nz-row nzGutter="16" style="margin-top: 15px;">
@@ -177,7 +177,7 @@
         <span style="margin-right:20px;">总锭数：{{historyTotal.totalIngotNum}}</span>
       </div>
       <div nz-col class="gutter-row" style="float:right">
-        <button *appAuthBtu="2010703" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
+        <button *appAuthBtu="2010703" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" (click)="export()">导出Excel</button>
       </div>
     </div>
 
@@ -191,7 +191,7 @@
 <!--        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>-->
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">工艺状态</th>        
+        <th class="align-center">工艺状态</th>
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
@@ -215,7 +215,7 @@
 <!--        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>-->
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.main.code}}</td>
-        <td>{{trans(data.main.craftState)}}</td>     
+        <td>{{trans(data.main.craftState)}}</td>
         <td>{{data.main.lineType}}</td>
         <td>{{data.main.batchNum}}</td>
         <td>{{data.main.standard}}</td>
@@ -299,7 +299,6 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">班别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
             <input type="text" disabled nz-input placeholder="请输入班别" [(ngModel)]="submitModel.classType"/>
           </div>
         </div>
@@ -308,8 +307,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">日期</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-date-picker disabled  [(ngModel)]="submitModel.createTime"
-                            nzFormat="yyyy-MM-dd"></nz-date-picker>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.createTime"/>
           </div>
         </div>
       </div>
@@ -317,7 +315,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">卷类别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <input type="text" disabled nz-input placeholder="卷类别" [(ngModel)]="submitModel.reelType"/>
+            <input type="text" disabled nz-input placeholder="" [value]="transReelType(submitModel.reelType)"/>
           </div>
         </div>
       </div>
@@ -325,7 +323,6 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">合股次数</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
             <input type="text" disabled nz-input placeholder="合股次数" [(ngModel)]="submitModel.jointNum"/>
           </div>
         </div>
@@ -335,8 +332,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">落丝操作员</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.doffingOperator"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.doffingEmid"/>
           </div>
         </div>
       </div>
@@ -344,8 +340,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.doffingTime"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.doffingStartTime"/>
           </div>
         </div>
       </div>
@@ -353,8 +348,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">测丹尼操作员</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="测丹尼操作员" [(ngModel)]="submitModel.testDannyOperator"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.testDannyEmid"/>
           </div>
         </div>
       </div>
@@ -362,8 +356,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">测丹尼时间</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="测丹尼时间" [(ngModel)]="submitModel.testDannyTime"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.testDannyTime"/>
           </div>
         </div>
       </div>
@@ -371,8 +364,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">摇袜操作员</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="摇袜操作员" [(ngModel)]="submitModel.rockOperator"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.rockEmid"/>
           </div>
         </div>
       </div>
@@ -380,8 +372,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">摇袜时间</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="摇袜时间" [(ngModel)]="submitModel.rockTime"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.rockTime"/>
           </div>
         </div>
       </div>
@@ -389,8 +380,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">判色操作员</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="判色操作员" [(ngModel)]="submitModel.colourOperator"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.colourEmid"/>
           </div>
         </div>
       </div>
@@ -398,8 +388,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">判色时间</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="判色时间" [(ngModel)]="submitModel.colourTime"/>
+            <input type="text" disabled nz-input placeholder="" [(ngModel)]="submitModel.colourTime"/>
           </div>
         </div>
       </div>
@@ -408,8 +397,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">检验操作员</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="检验操作员" [(ngModel)]="submitModel.checkOperator"/>
+            <input type="text" disabled nz-input placeholder="检验操作员" [(ngModel)]="submitModel.checkEmid"/>
           </div>
         </div>
       </div>
@@ -417,7 +405,6 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">检验时间</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
             <input type="text" disabled nz-input placeholder="检验时间" [(ngModel)]="submitModel.checkTime"/>
           </div>
         </div>
@@ -426,8 +413,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">包装操作员</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
-            <input type="text" disabled nz-input placeholder="包装操作员" [(ngModel)]="submitModel.packageOperator"/>
+            <input type="text" disabled nz-input placeholder="包装操作员" [(ngModel)]="submitModel.packageEmid"/>
           </div>
         </div>
       </div>
@@ -435,7 +421,6 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">包装时间</label>
           <div nz-col nzSpan="16" class="form-control">
-            <!--                <input nzSize="default" nz-input type="text">-->
             <input type="text" disabled nz-input placeholder="包装时间" [(ngModel)]="submitModel.packageTime"/>
           </div>
         </div>

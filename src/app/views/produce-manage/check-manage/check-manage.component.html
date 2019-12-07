@@ -65,18 +65,18 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">检验操作员</label>
+              <label class="inline-span" nz-col nzSpan="8">判色员工号</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入检验操作员" [(ngModel)]="filters.checkOperator"/>
+                <input type="text" nz-input placeholder="请输入判色员工号" [(ngModel)]="filters.colourEmid"/>
               </div>
             </div>
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">检验时间</label>
+              <label class="inline-span" nz-col nzSpan="8">判色时间</label>
               <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker [(ngModel)]="filters.checkTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
+                <nz-date-picker [(ngModel)]="filters.colourTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@
 
       <div nz-col class="gutter-row" style="float:right">
         <span style="margin-right:20px;">今日产量：{{doffingWeight}}kg</span>
-        <button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" *appAuthBtu="2010504">导出Excel</button>
+        <button (click)="export()" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;" *appAuthBtu="2010504">导出Excel</button>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
         <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
         <th nzWidth="70px">序号</th>
         <th class="align-center">丝车编号</th>
-        <th class="align-center">工艺状态</th>        
+        <th class="align-center">工艺状态</th>
         <th class="align-center">线别</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
@@ -127,7 +127,7 @@
         <th class="align-center">净重(kg)</th>
         <th class="align-center">创建日期</th>
         <th class="align-center">判色时间</th>
-        <th class="align-center">检验操作员</th>     
+        <th class="align-center">判色员工号</th>
         <th *appAuthBtu="2010502" class="align-center">位置信息</th>
       </tr>
       </thead>
@@ -144,7 +144,7 @@
         <td>{{data.weight}}</td>
         <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
         <td>{{data.colourTime| date:"yyyy-MM-dd HH:mm"}}</td>
-        <td>{{data.checkEmid}}</td>
+        <td>{{data.colourEmid}}</td>
         <td *appAuthBtu="2010502"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)">查看</span></td>
       </tr>
       </tbody>

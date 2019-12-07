@@ -91,7 +91,7 @@
       <button nz-button nzType="primary" *appAuthBtu="2020302" style="margin-left:8px; margin-bottom:15px"><i nz-icon type="file-done" theme="outline"></i>处理</button>
 
       <div nz-col class="gutter-row" style="float:right">
-        <button *appAuthBtu="2020304" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
+        <button *appAuthBtu="2020304" (click)="export()" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px;">导出Excel</button>
       </div>
     </div>
 

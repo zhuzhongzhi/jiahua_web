@@ -64,8 +64,7 @@ export class DanniManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      testDannyOperator: '',
-      testDannyTime: '',
+      doffingEmid: '',
       doffingStartTime: '',
       craftState: '2'
     };
@@ -259,7 +258,7 @@ export class DanniManageComponent implements OnInit {
   }
 
   saveProcess()
-  {    
+  {
       this.messageService.showLoading('');
       if (this.submitModel.testDannyEmid === undefined || this.submitModel.testDannyEmid === null || this.submitModel.testDannyEmid === '') {
         this.messageService.showToastMessage('请输入测丹尼操作员工号', 'warning');
@@ -274,8 +273,8 @@ export class DanniManageComponent implements OnInit {
       this.doffList.map(item => exceptions.push(...item.exception));
       this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
         this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
-          this.messageService.closeLoading(); 
-        });        
+          this.messageService.closeLoading();
+        });
       });
       return true;
   }
@@ -293,7 +292,7 @@ export class DanniManageComponent implements OnInit {
           nzOnCancel: () => {
             this.messageService.closeLoading();
           }
-       
+
     });
   }
 
@@ -463,8 +462,7 @@ export class DanniManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      testDannyOperator: '',
-      testDannyTime: '',
+      doffingEmid: '',
       doffingStartTime: '',
       craftState: '2'
     };
@@ -475,42 +473,63 @@ export class DanniManageComponent implements OnInit {
     return this.validateForm.controls[name];
   }
 
+  transClassShift(classShift) {
+    switch (classShift) {
+      case 0 :
+        return '早';
+      case 3:
+        return '早+4';
+      case 1:
+        return '中';
+      case 2:
+        return '晚';
+      case 4:
+        return '晚+4';
+    }
+  }
+
   export() {
-    this.ingotAlarmService.newCraftPage({'pageNum': 1, 'pageSize': 10000, 'filters': {craftState: '2'}}).subscribe((res) => {
+    this.ingotAlarmService.newCraftPage({ 'pageNum': 1, 'pageSize': 10000, 'filters': { craftState: '2' } }).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
       const arr = [];
       for (const wagon of res.value.list) {
-        console.log(wagon);
         const item: any = [];
         item.记录id = wagon.pmId;
         item.批号 = wagon.batchNum;
         item.要因记录 = wagon.cause;
         item.班别 = wagon.classType;
+        item.班次 = this.transClassShift(wagon.classShift);
         item.丝车编码 = wagon.code;
-        item.工艺状态 = wagon.craftState;
+        item.工艺状态 = this.trans(wagon.craftState);
+        item.卷别 = this.transReelType(wagon.reelType);
         item.规格 = wagon.standard;
         item.锭数合股次数 = wagon.jointNum;
         item.线别 = wagon.lineType;
         item.净重 = wagon.weight;
-        item.检验操作员 = wagon.checkOperator;
-        item.检验时间 = wagon.checkTime;
-        item.判色操作员 = wagon.colourOperator;
-        item.判色时间 = wagon.colourTime;
+        item.锭数 = wagon.ingotNum;
         item.创建时间 = wagon.createTime;
         item.创建人 = wagon.creator;
         item.落丝结束时间 = wagon.doffingEndTime;
         item.落丝操作员 = wagon.doffingOperator;
+        item.落丝员工id = wagon.doffingEmid;
         item.落丝开始时间 = wagon.doffingStartTime;
-        item.包装操作员 = wagon.packageOperator;
-        item.包装时间 = wagon.packageTime;
-        item.卷别 = wagon.reelType;
+        item.测丹尼操作员 = wagon.testDannyOperator;
+        item.测丹尼员工id = wagon.testDannyEmid;
+        item.测丹尼时间 = wagon.testDannyTime;
         item.摇袜操作员 = wagon.rockOperator;
         item.摇袜时间 = wagon.rockTime;
-        item.测丹尼操作员 = wagon.testDannyOperator;
-        item.测丹尼时间 = wagon.testDannyTime;
-
+        item.摇袜员工id = wagon.rockEmid;
+        item.判色员工id = wagon.colourEmid;
+        item.判色操作员 = wagon.colourOperator;
+        item.判色时间 = wagon.colourTime;
+        item.检验操作员 = wagon.checkOperator;
+        item.检验员工id = wagon.checkEmid;
+        item.检验时间 = wagon.checkTime;
+        item.包装操作员 = wagon.packageOperator;
+        item.包装员工id = wagon.packageEmid;
+        item.包装时间 = wagon.packageTime;
         arr.push(item);
       }
       this.exportList(arr);
