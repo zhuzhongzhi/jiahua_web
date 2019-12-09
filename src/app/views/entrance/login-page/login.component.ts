@@ -58,9 +58,90 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('saved', pwd);
           localStorage.setItem('userId', res.value.jiahuaUser.userId);
           this.messageService.showLoading('加载中');
-          this.router.navigate(['../main/latheManage/latheList'], {
-            relativeTo: this.activeRouter
-          });
+          let router = '/main/latheManage/latheList';
+          for (const right of res.value.jiahuaUserAuthList) {
+            if (right.status === 1) {
+              if (right.authId.startsWith(102)) {
+                router = '/main/latheManage/latheList';
+                break;
+              } else if (right.authId.startsWith(101)) {
+                router = '/main/latheManage/latheDistributed';
+                continue;
+              } else if (right.authId.startsWith(20101)) {
+                router = '/main/produceManage/hotreelManage';
+                break;
+              } else if (right.authId.startsWith(20102)) {
+                router = '/main/produceManage/danniManage';
+                break;
+              } else if (right.authId.startsWith(20103)) {
+                router = '/main/produceManage/socksManage';
+                break;
+              } else if (right.authId.startsWith(20104)) {
+                router = '/main/produceManage/adjustManage';
+                break;
+              } else if (right.authId.startsWith(20105)) {
+                router = '/main/produceManage/checkManage';
+                break;
+              } else if (right.authId.startsWith(20106)) {
+                router = '/main/produceManage/packManage';
+                break;
+              } else if (right.authId.startsWith(20107)) {
+                router = '/main/produceManage/historyManage';
+                break;
+              } else if (right.authId.startsWith(20201)) {
+                router = '/main/produceManage/ingotAlarm';
+                break;
+              } else if (right.authId.startsWith(20202)) {
+                router = '/main/produceManage/wiringAlarm';
+                break;
+              } else if (right.authId.startsWith(20203)) {
+                router = '/main/produceManage/stayAlarm';
+                break;
+              } else if (right.authId.startsWith(20205)) {
+                router = '/main/produceManage/statisticAlarm';
+                break;
+              } else if (right.authId.startsWith(20204)) {
+                router = '/main/produceManage/alarmLog';
+                break;
+              } else if (right.authId.startsWith(20301)) {
+                router = '/main/produceManage/outputStatistic';
+                break;
+              } else if (right.authId.startsWith(20302)) {
+                router = '/main/produceManage/dailyQuality';
+                break;
+              } else if (right.authId.startsWith(20303)) {
+                router = '/main/produceManage/monthQuality';
+                break;
+              } else if (right.authId.startsWith(20304)) {
+                router = '/main/produceManage/yearQuality';
+                break;
+              } else if (right.authId.startsWith(20401)) {
+                router = '/main/produceManage/produceBillboard';
+                break;
+              } else if (right.authId.startsWith(20402)) {
+                router = '/main/produceManage/qualityBillboard';
+                break;
+              } else if (right.authId.startsWith(301)) {
+                router = '/main/sysManage/lineSpin';
+                break;
+              } else if (right.authId.startsWith(305)) {
+                router = '/main/sysManage/batchManage';
+                break;
+              } else if (right.authId.startsWith(302)) {
+                router = '/main/sysManage/jiahuaUser';
+                break;
+              } else if (right.authId.startsWith(303)) {
+                router = '/main/sysManage/jiahuaAuth';
+                break;
+              } else if (right.authId.startsWith(304)) {
+                router = '/main/sysManage/sysLog';
+                break;
+              }
+            }
+          }
+
+
+          this.router.navigateByUrl(router);
 
         });
       }, (error: UserServiceNs.HttpError) => {

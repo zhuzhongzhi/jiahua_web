@@ -141,9 +141,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
           bool = true;
         } else {
           rights.forEach(right => {
-            console.log(right);
-            console.log(right.authId.startsWith(code));
-            console.log(code);
             if (right.authId.startsWith(code) && right.status === 1) {
               bool = true;
             }
