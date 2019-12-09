@@ -427,25 +427,27 @@ export class HotreelManageComponent implements OnInit {
               });
             }
           });
-        } else {
-          if (item.doffingTime !== undefined && item.doffingTime !== null && item.doffingTime !== '' &&
-            item.spinPos !== undefined && item.spinPos !== null && item.weight !== undefined && item.weight !== null &&
-            item.spinPos !== '' && item.weight !== '') {
-            // item.ingotNum = this.submitModel.ingotNum;
-            item.ingotNum = 6;
-            const doffingTimeTemp = item.doffingTime;
-            item.doffingTime = this.parseTime(item.doffingTime);
-            item.pmId = this.submitModel.pmId;
-            this.ingotAlarmService.addDoffing(item).subscribe(res => {
-              item.pdId = res.value;
-              item.doffingTime = doffingTimeTemp;
-              if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
-                this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
-                });
-              }
-            });
-          }
-        }
+        } 
+        //未创建表格的不保存
+        // else {
+        //   if (item.doffingTime !== undefined && item.doffingTime !== null && item.doffingTime !== '' &&
+        //     item.spinPos !== undefined && item.spinPos !== null && item.weight !== undefined && item.weight !== null &&
+        //     item.spinPos !== '' && item.weight !== '') {
+        //     // item.ingotNum = this.submitModel.ingotNum;
+        //     item.ingotNum = 6;
+        //     const doffingTimeTemp = item.doffingTime;
+        //     item.doffingTime = this.parseTime(item.doffingTime);
+        //     item.pmId = this.submitModel.pmId;
+        //     this.ingotAlarmService.addDoffing(item).subscribe(res => {
+        //       item.pdId = res.value;
+        //       item.doffingTime = doffingTimeTemp;
+        //       if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+        //         this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+        //         });
+        //       }
+        //     });
+        //   }
+        // }
       });
       this.messageService.closeLoading();
     });
