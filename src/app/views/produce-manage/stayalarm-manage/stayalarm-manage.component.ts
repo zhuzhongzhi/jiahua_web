@@ -57,6 +57,26 @@ export class StayalarmManageComponent implements OnInit {
     };
   }
 
+  trans(state) {
+    switch (state) {
+      case 0:
+        return '空闲';
+      case 1:
+        return '落丝';
+      case 2:
+        return '测丹尼';
+      case 3:
+        return '摇袜';
+      case 4:
+        return '判色';
+      case 5:
+        return '检验';
+      case 6:
+        return '包装';
+    }
+  }
+
+
   ngOnInit() {
     this.initList();
     this.messageService.closeLoading();

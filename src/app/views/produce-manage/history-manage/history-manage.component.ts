@@ -51,22 +51,18 @@ export class HistoryManageComponent implements OnInit {
       code: '',
       lineType: '',
       batchNum: '',
-      standard: '',
-      createTime: '',
+      standard: '',     
       classType: '',
-      classShift: '',
-      packageOperator: '',
-      packageTime: '',
-      doffingOperator: '',
+      classShift: '',      
+      createTime: '',
       doffingStartTime: '',
-      testDannyOperator: '',
       testDannyTime: '',
-      colourOperator: '',
       colourTime: '',
-      checkOperator: '',
-      rockOperator: '',
       rockTime: '',
       checkTime: '',
+      packageStartTime: '',
+      packagEndTime: '',
+      empid:'',
       craftState: '7'
     };
     this.tableConfig = {
@@ -218,6 +214,14 @@ export class HistoryManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
+    this.filters.createTime = this.parseTime(this.filters.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
+    this.filters.testDannyTime = this.parseTime(this.filters.testDannyTime);
+    this.filters.colourTime = this.parseTime(this.filters.colourTime); 
+    this.filters.rockTime = this.parseTime(this.filters.rockTime);
+    this.filters.checkTime = this.parseTime(this.filters.checkTime); 
+    this.filters.packageStartTime = this.parseTime(this.filters.packageStartTime);
+    this.filters.packagEndTime = this.parseTime(this.filters.packagEndTime);     
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -293,7 +297,7 @@ export class HistoryManageComponent implements OnInit {
 
   parseTime(time) {
     if (time) {
-      if (time.indexOf('GMT') >= 0) {
+      if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
         return '';
@@ -302,6 +306,7 @@ export class HistoryManageComponent implements OnInit {
       return '';
     }
   }
+
 
   resetCond() {
     this.filters = {

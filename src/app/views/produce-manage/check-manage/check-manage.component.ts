@@ -77,6 +77,27 @@ export class CheckManageComponent implements OnInit {
       loading: false
     };
   }
+  
+  reloadStat()
+  {
+    
+    const craftData = {
+      pmId: this.submitModel.pmId,
+      checkEmid: this.submitModel.checkEmid === null ? '' : this.submitModel.checkEmid,
+    };
+    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {//保存
+      const exceptions = [];
+      this.doffList.map(item => exceptions.push(...item.exception));
+      this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+        this.ingotAlarmService.getCheckInfo(this.submitModel.pmId).subscribe((res) => {//获取
+          this.checkInfo = res.value;
+        });
+        this.messageService.closeLoading();
+      });
+    });
+
+    
+  }
 
   trans(state) {
     switch (state) {
@@ -123,6 +144,9 @@ export class CheckManageComponent implements OnInit {
       const exceptions = [];
       this.doffList.map(item => exceptions.push(...item.exception));
       this.ingotAlarmService.modifyExceptions(exceptions).subscribe((res1) => {
+        this.ingotAlarmService.getCheckInfo(this.submitModel.pmId).subscribe((res) => {//获取
+          this.checkInfo = res.value;
+        });
         this.messageService.closeLoading();
       });
     });
@@ -142,9 +166,6 @@ export class CheckManageComponent implements OnInit {
       },
       nzOnCancel: () => {
         this.messageService.closeLoading();
-        this.ingotAlarmService.getCheckInfo(this.submitModel.pmId).subscribe((res) => {//获取
-          this.checkInfo = res.value;
-        });
       }
     });
 
@@ -260,6 +281,9 @@ export class CheckManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
+    this.filters.createTime = this.parseTime(this.filters.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
+    this.filters.colourTime = this.parseTime(this.filters.colourTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,

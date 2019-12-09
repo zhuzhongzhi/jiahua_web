@@ -65,7 +65,7 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">检索员工号</label>
+              <label class="inline-span" nz-col nzSpan="8">检验员工号</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
                 <input type="text" nz-input placeholder="请输入检索员工号" [(ngModel)]="filters.checkEmid"/>
@@ -74,7 +74,7 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">检索时间</label>
+              <label class="inline-span" nz-col nzSpan="8">检验时间</label>
               <div nz-col nzSpan="16" class="form-control">
                 <nz-date-picker [(ngModel)]="filters.checkTime" nzFormat="yyyy-MM-dd HH:mm" ></nz-date-picker>
               </div>
@@ -134,7 +134,7 @@
         <th class="align-center">B级</th>
         <th class="align-center">创建日期</th>
         <th class="align-center">检验时间</th>
-        <th class="align-center">检索员工号</th>
+        <th class="align-center">检验员工号</th>
         <th class="align-center">是否抄录</th>
         <th *appAuthBtu="2010602" class="align-center">位置信息</th>
       </tr>
@@ -176,7 +176,7 @@
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" (nzOnOk)="submitForm()"
           (nzOnCancel)="handleDetailCancel()" nzWidth="95%" [nzStyle]="{'top': '40px'}" [nzFooter]="null">
-  <div style="min-height: 600px;height: calc(100vh - 320px)" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 160px)" *ngIf="showiFrame">
     <iframe
       scrolling="no"
       id="onet"

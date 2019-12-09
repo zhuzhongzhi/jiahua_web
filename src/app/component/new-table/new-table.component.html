@@ -169,102 +169,102 @@
   <tr *ngFor="let data of groupingTable.data; let i = index">
     <td nzLeft="0px" style="text-align: center;" >{{ i+1 }}</td>
     <td>
-      <nz-select [(ngModel)]="data.lousiness" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.lousiness" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items1" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'lousiness')" [ngStyle]="{'background-color': ((data.lousinessRemark === '' || data.lousinessRemark === null || data.lousinessRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.lousinessRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.lousinessRemark !== '' && data.lousinessRemark !== null && data.lousinessRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.lousinessLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.lousinessLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.dye" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.dye" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items6" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'dye')"  [ngStyle]="{'background-color': ((data.dyeRemark === '' || data.dyeRemark === null || data.dyeRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.dyeRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.dyeRemark !== '' && data.dyeRemark !== null && data.dyeRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.dyeLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.dyeLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
 
     <td>
-      <nz-select [(ngModel)]="data.bruise" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.bruise" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items2" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'bruise')"  [ngStyle]="{'background-color': ((data.bruiseRemark === '' || data.bruiseRemark === null || data.bruiseRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.bruiseRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.bruiseRemark !== '' && data.bruiseRemark !== null && data.bruiseRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.bruiseLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.bruiseLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.badShape" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.badShape" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items3" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'badShape')"  [ngStyle]="{'background-color': ((data.badShapeRemark === '' || data.badShapeRemark === null || data.badShapeRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.badShapeRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.badShapeRemark !== '' && data.badShapeRemark !== null && data.badShapeRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.badShapeLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.badShapeLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.soiled" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.soiled" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'soiled')"  [ngStyle]="{'background-color': ((data.soiledRemark === '' || data.soiledRemark === null || data.soiledRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.soiledRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.soiledRemark !== '' && data.soiledRemark !== null && data.soiledRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.soiledLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.soiledLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.floatSilk" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.floatSilk" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items11" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'floatSilk')"  [ngStyle]="{'background-color': ((data.floatSilkRemark === '' || data.floatSilkRemark === null || data.floatSilkRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.floatSilkRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.floatSilkRemark !== '' && data.floatSilkRemark !== null && data.floatSilkRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.floatSilkLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.floatSilkLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.yellow" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.yellow" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items4" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'yellow')"  [ngStyle]="{'background-color': ((data.yellowRemark === '' || data.yellowRemark === null || data.yellowRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.yellowRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.yellowRemark !== '' && data.yellowRemark !== null && data.yellowRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.yellowLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.yellowLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.outside" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.outside" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'outside')"  [ngStyle]="{'background-color': ((data.outsideRemark === '' || data.outsideRemark === null || data.outsideRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.outsideRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.outsideRemark !== '' && data.outsideRemark !== null && data.outsideRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.outsideLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.outsideLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.crimp" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.crimp" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items10" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'crimp')"  [ngStyle]="{'background-color': ((data.crimpRemark === '' || data.crimpRemark === null || data.crimpRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.crimpRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.crimpRemark !== '' && data.crimpRemark !== null && data.crimpRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.crimpLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.crimpLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
@@ -272,47 +272,47 @@
     
     
     <td>
-      <nz-select [(ngModel)]="data.wind" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.wind" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items5" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'wind')"  [ngStyle]="{'background-color': ((data.windRemark === '' || data.windRemark === null || data.windRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.windRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.windRemark !== '' && data.windRemark !== null && data.windRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.windLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.windLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
    
     <td>
-      <nz-select [(ngModel)]="data.property" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.property" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items7" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'property')"  [ngStyle]="{'background-color': ((data.propertyRemark === '' || data.propertyRemark === null || data.propertyRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.propertyRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.propertyRemark !== '' && data.propertyRemark !== null && data.propertyRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.propertyLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.propertyLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.opu" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.opu" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items8" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'opu')"  [ngStyle]="{'background-color': ((data.opuRemark === '' || data.opuRemark === null || data.opuRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.opuRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.opuRemark !== '' && data.opuRemark !== null && data.opuRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.opuLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.opuLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td>
-      <nz-select [(ngModel)]="data.other" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.other" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items9" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>
     <td (dblclick)="doRemark(data, 'other')"  [ngStyle]="{'background-color': ((data.otherRemark === '' || data.otherRemark === null || data.otherRemark === undefined) ?'': 'rgb(152, 181, 156)')}">
       <i class="tips" nz-tooltip="{{data.otherRemark}}" nz-icon type="setting" theme="outline" *ngIf="data.otherRemark !== '' && data.otherRemark !== null && data.otherRemark !== undefined"></i>
-      <nz-select [(ngModel)]="data.otherLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;">
+      <nz-select [(ngModel)]="data.otherLevel" nzPlaceHolder="" [disabled]="readonly" style="width: 80px;" (ngModelChange)="selectchange()">
         <nz-option *ngFor="let item of items12" [nzValue]="item.key" [nzLabel]="item.value" [title]="item.value"></nz-option>
       </nz-select>
     </td>

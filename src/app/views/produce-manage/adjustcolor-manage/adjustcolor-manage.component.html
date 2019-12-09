@@ -162,7 +162,7 @@
 
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" (nzOnOk)="submitForm()"
           (nzOnCancel)="handleDetailCancel()" nzWidth="95%" [nzStyle]="{'top': '40px'}" [nzFooter]="null" >
-  <div style="min-height: 600px;height: calc(100vh - 320px)" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 160px)" *ngIf="showiFrame">
     <iframe
       scrolling="no"
       id="onet"

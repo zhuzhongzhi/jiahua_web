@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectorRef, EventEmitter,Output} from '@angular/core';
 
 @Component({
   selector: 'app-new-table',
@@ -6,9 +6,10 @@ import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
   styleUrls: ['./new-table.component.scss']
 })
 export class NewTableComponent implements OnInit {
-
+ 
   @Input() dataList = [];
   @Input() readonly = false;
+  @Output() reloadStat = new EventEmitter();
   checkedAll: {
     lousiness: '',
     lousinessLevel: '',
@@ -177,6 +178,11 @@ export class NewTableComponent implements OnInit {
         }
       },3000)
    }
+
+  selectchange()
+  {
+    this.reloadStat.emit();
+  }
 
   submit() {
     switch(this.editColumn) {

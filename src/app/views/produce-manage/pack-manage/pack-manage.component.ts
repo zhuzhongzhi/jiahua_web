@@ -132,6 +132,9 @@ export class PackManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
+    this.filters.createTime = this.parseTime(this.filters.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
+    this.filters.checkTime = this.parseTime(this.filters.checkTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -234,7 +237,7 @@ export class PackManageComponent implements OnInit {
           item.doffingTime = new Date(item.doffingTime);
         }
         // 设置 exception
-        this.ingotAlarmService.getDoffingExceptions({pdId: item.main.pdId}).subscribe((res1) => {
+        this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
           item.showtable = true;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
@@ -450,9 +453,10 @@ export class PackManageComponent implements OnInit {
   refreshStatus(): void {
     this.isAllChecked = this.listOfAllData.filter(item => item.main.pmId !== '-1').every(item => this.checkedId[item.main.pmId]);
   }
+  
   parseTime(time) {
     if (time) {
-      if (time.indexOf('GMT') >= 0) {
+      if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
         return '';
@@ -461,7 +465,6 @@ export class PackManageComponent implements OnInit {
       return '';
     }
   }
-
   submitForm() {
     // const controls = this.validateForm.controls;
     // for (const key in controls) {

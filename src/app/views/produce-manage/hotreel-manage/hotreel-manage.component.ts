@@ -89,7 +89,7 @@ export class HotreelManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      doffingOperator: '',
+      doffingEmid: '',
       doffingStartTime: '',
       craftState: '1'
     };
@@ -217,6 +217,8 @@ export class HotreelManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
+    this.filters.createTime = this.parseTime(this.filters.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
