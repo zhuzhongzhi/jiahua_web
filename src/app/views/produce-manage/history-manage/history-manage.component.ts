@@ -62,7 +62,7 @@ export class HistoryManageComponent implements OnInit {
       checkTime: '',
       packageStartTime: '',
       packagEndTime: '',
-      empid:'',
+      empId:'',
       craftState: '7'
     };
     this.tableConfig = {

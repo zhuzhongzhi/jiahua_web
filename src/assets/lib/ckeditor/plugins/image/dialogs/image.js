@@ -24,7 +24,7 @@
                   onClick: function () {
                       var dialog = this.getDialog();
                       showUploadImageModal(function (data) {
-                        debugger;
+                        //debugger;
                           var target = editor.config.filebrowserImageUrl + data.objectStorageId;
                           dialog.setValueOf("SimpleImage", "edp-src", target);
                       });

@@ -64,7 +64,7 @@ export class DanniManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      doffingEmid: '',
+      testDannyEmid: '',
       doffingStartTime: '',
       craftState: '2'
     };

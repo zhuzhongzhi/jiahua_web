@@ -60,7 +60,7 @@ export class ShakesockManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      testDannyEmid: '',
+      rockEmid: '',
       testDannyTime: '',
       doffingStartTime: '',
       craftState: '3'

@@ -156,7 +156,7 @@ export class LineSpinComponent implements OnInit {
             ids.push(key);
           }
         }
-        debugger;
+        //debugger;
         this.lineSpinService.removeLineSpin(ids).subscribe((resData) => {
           console.log(resData);
           localStorage.setItem('log', JSON.stringify(resData));

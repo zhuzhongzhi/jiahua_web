@@ -65,10 +65,10 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">检验员工号</label>
+              <label class="inline-span" nz-col nzSpan="8">包装员工号</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入检索员工号" [(ngModel)]="filters.checkEmid"/>
+                <input type="text" nz-input placeholder="请输入包装员工号" [(ngModel)]="filters.packageEmid"/>
               </div>
             </div>
           </div>
@@ -134,7 +134,7 @@
         <th class="align-center">B级</th>
         <th class="align-center">创建日期</th>
         <th class="align-center">检验时间</th>
-        <th class="align-center">检验员工号</th>
+        <th class="align-center">包装员工号</th>
         <th class="align-center">是否抄录</th>
         <th *appAuthBtu="2010602" class="align-center">位置信息</th>
       </tr>
@@ -158,7 +158,7 @@
         <td>{{data.check.bweight}}</td>
         <td>{{data.main.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
         <td>{{data.main.checkTime| date:"yyyy-MM-dd HH:mm"}}</td>
-        <td>{{data.main.checkEmid}}</td>
+        <td>{{data.main.packageEmid}}</td>
         <td><nz-tag *ngIf="data.main.isCopy !== 1" [nzColor]="'volcano'">未抄录</nz-tag><nz-tag *ngIf="data.main.isCopy === 1"  [nzColor]="'cyan'">已抄录</nz-tag></td>
         <td *appAuthBtu="2010602"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data.main)">查看</span></td>
       </tr>
@@ -176,7 +176,7 @@
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" (nzOnOk)="submitForm()"
           (nzOnCancel)="handleDetailCancel()" nzWidth="95%" [nzStyle]="{'top': '40px'}" [nzFooter]="null">
-  <div style="min-height: 600px;height: calc(100vh - 160px)" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 200px)" *ngIf="showiFrame">
     <iframe
       scrolling="no"
       id="onet"

@@ -63,7 +63,7 @@ export class AdjustcolorManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      rockEmid: '',
+      colourEmid: '',
       rockTime: '',
       doffingStartTime: '',
       craftState: '4'

@@ -152,7 +152,7 @@
               <label class="inline-span" nz-col nzSpan="8">工号查询</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入工号" [(ngModel)]="filters.empid" />
+                <input type="text" nz-input placeholder="请输入工号" [(ngModel)]="filters.empId" />
               </div>
             </div>
           </div>
@@ -254,7 +254,7 @@
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" (nzOnOk)="submitForm()"
   (nzOnCancel)="handleDetailCancel()" nzWidth="95%" [nzStyle]="{'top': '40px'}" [nzFooter]="null">
-  <div style="min-height: 600px;height: calc(100vh - 160px)" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 200px)" *ngIf="showiFrame">
     <iframe scrolling="no" id="onet" [src]="src" name="onet" frameborder="0"
       style="background-color:transparent; width: 100%; height: 100%;">
     </iframe>

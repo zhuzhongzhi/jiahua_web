@@ -62,7 +62,7 @@ export class PackManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      checkEmid: '',
+      packageEmid: '',
       checkTime: '',
       doffingStartTime: '',
       craftState: '6'

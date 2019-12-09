@@ -63,7 +63,7 @@ export class CheckManageComponent implements OnInit {
       batchNum: '',
       standard: '',
       createTime: '',
-      colourEmid: '',
+      checkEmid: '',
       colourTime: '',
       doffingStartTime: '',
       craftState: '5'

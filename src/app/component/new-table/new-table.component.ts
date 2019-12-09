@@ -144,7 +144,7 @@ export class NewTableComponent implements OnInit {
   widthConfig = ['60px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
     '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
     '80px', '80px', '80px', '80px', '80px', '80px', '80px', '1px'];
-  scrollConfig = { x: '2605px' };
+  scrollConfig = { x: '2220px' };
 
   // 修改的列
   editColumn = '';

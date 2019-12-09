@@ -65,10 +65,10 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">落丝员工号</label>
+              <label class="inline-span" nz-col nzSpan="8">测丹尼员工号</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入落丝员工号" [(ngModel)]="filters.doffingEmid"/>
+                <input type="text" nz-input placeholder="请输入测丹尼员工号" [(ngModel)]="filters.testDannyEmid"/>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@
         <th class="align-center">净重(kg)</th>
         <th class="align-center">创建时间</th>
         <th class="align-center">落丝时间</th>
-        <th class="align-center">落丝员工号</th>
+        <th class="align-center">测丹尼员工号</th>
         <th class="align-center" *appAuthBtu="2010202">位置信息</th>
       </tr>
       </thead>
@@ -136,7 +136,7 @@
         <td>{{data.weight}}</td>
         <td>{{data.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
         <td>{{data.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
-        <td>{{data.doffingEmid}}</td>
+        <td>{{data.testDannyEmid}}</td>
         <td *appAuthBtu="2010202"><span class="blue-txt transparen-btn see-detail" (click)="showPos(data)" >查看</span></td>
       </tr>
       </tbody>
@@ -152,7 +152,7 @@
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" (nzOnOk)="submitForm()"
           (nzOnCancel)="handleDetailCancel()" nzWidth="95%" [nzStyle]="{'top': '40px'}"  [nzFooter]="null">
-  <div style="min-height: 600px;height: calc(100vh - 160px)" *ngIf="showiFrame">
+  <div style="min-height: 600px;height: calc(100vh - 200px)" *ngIf="showiFrame">
     <iframe
       scrolling="no"
       id="onet"

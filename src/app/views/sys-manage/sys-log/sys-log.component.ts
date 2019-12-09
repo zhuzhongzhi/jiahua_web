@@ -177,7 +177,7 @@ export class SysLogComponent implements OnInit {
             ids.push(key);
           }
         }
-        debugger;
+        //debugger;
         this.sysLogService.removeSysLog(ids).subscribe((resData) => {
           console.log(resData);
           localStorage.setItem('log', JSON.stringify(resData));

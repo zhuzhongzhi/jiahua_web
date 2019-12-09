@@ -393,7 +393,7 @@ export class JiahuauserManageComponent implements OnInit {
             ids.push(key);
           }
         }
-        debugger;
+        //debugger;
         this.userService.deleteUsers(ids).subscribe((res) => {
           localStorage.setItem('res', JSON.stringify(res));
           this.messageService.showToastMessage('用户删除成功', 'success');
