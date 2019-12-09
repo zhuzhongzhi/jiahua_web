@@ -156,10 +156,9 @@ export class LineSpinComponent implements OnInit {
             ids.push(key);
           }
         }
-        //debugger;
+        localStorage.setItem('ids', JSON.stringify(ids));
         this.lineSpinService.removeLineSpin(ids).subscribe((resData) => {
-          console.log(resData);
-          localStorage.setItem('log', JSON.stringify(resData));
+          localStorage.setItem('logs', JSON.stringify(resData));
           this.messageService.showToastMessage('删除成功', 'success');
           this.tableConfig.loading = false;
           this.checkedId = {};
