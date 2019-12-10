@@ -20,7 +20,7 @@ export class StatisticAlarmComponent implements OnInit {
   // 表格类
   isAllChecked = false;
   widthConfig = ['150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '1px'];
-  scrollConfig = { x: '1501px' };
+  scrollConfig = { };
   dateRange = [];
   // ranges1 = { Today: [new Date(), new Date()], 'This Month': [new Date(), endOfMonth(new Date())] };
 

@@ -86,18 +86,8 @@ export class JiahuauserManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initList();
-    this.validateForm = this.fb.group({
-      juId: [null],
-      userId: [null, [Validators.required]],
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      institution: [null, []],
-      post: [null, []],
-      status: [null, [Validators.required]]
-    });
+    this.initList();    
     this.messageService.closeLoading();
-
   }
 
   trans(status) {
@@ -193,6 +183,15 @@ export class JiahuauserManageComponent implements OnInit {
   }
 
   add() {
+    this.validateForm = this.fb.group({
+      juId: [null],
+      userId: [null, [Validators.required]],
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      institution: [null, []],
+      post: [null, []],
+      status: [null, [Validators.required]]
+    });
     this.isAdd = true;
     this.detailModal.title = `新增用户信息`;
     this.detailModal.showContinue = true;
@@ -251,29 +250,29 @@ export class JiahuauserManageComponent implements OnInit {
     });
   }
 
-  editInfo(data) {
-    this.isAdd = false;
-    this.detailModal.title = `修改用户信息`;
-    this.detailModal.showContinue = true;
-    this.detailModal.showSaveBtn = true;
-    const controls = this.validateForm.controls;
-    for (const key in controls) {
-      if (controls.hasOwnProperty(key)) {
-        controls[key].markAsPristine();
-        controls[key].updateValueAndValidity();
-      }
-    }
-    this.updateData = data;
+  // editInfo(data) {
+  //   this.isAdd = false;
+  //   this.detailModal.title = `修改用户信息`;
+  //   this.detailModal.showContinue = true;
+  //   this.detailModal.showSaveBtn = true;
+  //   const controls = this.validateForm.controls;
+  //   for (const key in controls) {
+  //     if (controls.hasOwnProperty(key)) {
+  //       controls[key].markAsPristine();
+  //       controls[key].updateValueAndValidity();
+  //     }
+  //   }
+  //   this.updateData = data;
 
-    this.validateForm.controls['juId'].setValue(data.juId);
-    this.validateForm.controls['userId'].setValue(data.userId);
-    this.validateForm.controls['userName'].setValue(data.userName);
-    this.validateForm.controls['password'].setValue(data.password);
-    this.validateForm.controls['post'].setValue(data.post);
-    this.validateForm.controls['status'].setValue(data.status);
-    this.validateForm.controls['institution'].setValue(data.institution);
-    this.detailModal.show = true;
-  }
+  //   this.validateForm.controls['juId'].setValue(data.juId);
+  //   this.validateForm.controls['userId'].setValue(data.userId);
+  //   this.validateForm.controls['userName'].setValue(data.userName);
+  //   this.validateForm.controls['password'].setValue(data.password);
+  //   this.validateForm.controls['post'].setValue(data.post);
+  //   this.validateForm.controls['status'].setValue(data.status);
+  //   this.validateForm.controls['institution'].setValue(data.institution);
+  //   this.detailModal.show = true;
+  // }
 
   update() {
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.userId]);
@@ -301,6 +300,16 @@ export class JiahuauserManageComponent implements OnInit {
       return;
     }
 
+    this.validateForm = this.fb.group({
+      juId: [null],
+      userId: [null, [Validators.required]],
+      userName: [null, [Validators.required]],
+      password: [null, []],
+      institution: [null, []],
+      post: [null, []],
+      status: [null, [Validators.required]]
+    });
+
     this.isAdd = false;
     this.detailModal.title = `修改用户信息`;
     this.detailModal.showContinue = true;
@@ -316,7 +325,7 @@ export class JiahuauserManageComponent implements OnInit {
 
     this.validateForm.controls['userId'].setValue(data.userId);
     this.validateForm.controls['userName'].setValue(data.userName);
-    this.validateForm.controls['password'].setValue(data.password);
+    this.validateForm.controls['password'].setValue('');//data.password默认不修改，重新填写了表示要修改
     this.validateForm.controls['post'].setValue(data.post);
     this.validateForm.controls['status'].setValue(data.status);
     this.validateForm.controls['institution'].setValue(data.institution);
@@ -391,11 +400,16 @@ export class JiahuauserManageComponent implements OnInit {
         const ids = [];
         this.tableConfig.loading = true;
 
-        for (const key in this.checkedId) {
+        for (const key in this.checkedId) {//将userid装换成Juid
           if (this.checkedId[key]) {
-            ids.push(key);
+            this.listOfAllData.forEach(item => {
+              if (item.userId == key) {
+                ids.push(item.juId);
+              }
+            });
           }
         }
+       
         //debugger;
         this.userService.deleteUsers(ids).subscribe((res) => {
           localStorage.setItem('res', JSON.stringify(res));
@@ -443,10 +457,10 @@ export class JiahuauserManageComponent implements OnInit {
         controls[key].updateValueAndValidity();
       }
     }
-    // if (this.validateForm.invalid) {
-    //   return;
-    console.log(this.radioValue);
-    // }
+     if (this.validateForm.invalid) {
+       return;
+       console.log(this.radioValue);
+     }
     this.detailModal.loading = true;
     if (this.isAdd) {
       const data = this.validateForm.value;

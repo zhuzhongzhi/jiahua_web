@@ -50,6 +50,10 @@ export class CheckManageComponent implements OnInit {
   // 检验详情
   checkInfo: any = {};
 
+  createTime: '';
+  colourTime: '';
+  doffingStartTime: '';
+
   constructor(private fb: FormBuilder,
     private modal: NzModalService,
     private modalService: NzModalService,
@@ -281,9 +285,9 @@ export class CheckManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
-    this.filters.colourTime = this.parseTime(this.filters.colourTime); 
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.colourTime = this.parseTime(this.colourTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -465,10 +469,10 @@ export class CheckManageComponent implements OnInit {
       if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
-        return '';
+        return null;
       }
     } else {
-      return '';
+      return null;
     }
   }
 
@@ -533,6 +537,9 @@ export class CheckManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '5'
     };
+    this.createTime='';
+    this.colourTime='';
+    this.doffingStartTime='';
     this.initList();
   }
 

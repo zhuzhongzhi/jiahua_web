@@ -464,12 +464,13 @@ export class PackManageComponent implements OnInit {
       if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
-        return '';
+        return null;
       }
     } else {
-      return '';
+      return null;
     }
   }
+  
   submitForm() {
     // const controls = this.validateForm.controls;
     // for (const key in controls) {

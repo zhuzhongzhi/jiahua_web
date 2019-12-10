@@ -387,18 +387,18 @@ export class ShakesockManageComponent implements OnInit {
   refreshStatus(): void {
     this.isAllChecked = this.listOfAllData.filter(item => item.pmId !== '-1').every(item => this.checkedId[item.pmId]);
   }
+  
   parseTime(time) {
     if (time) {
       if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
-        return '';
+        return null;
       }
     } else {
-      return '';
+      return null;
     }
   }
-
 
   submitForm() {
     // const controls = this.validateForm.controls;

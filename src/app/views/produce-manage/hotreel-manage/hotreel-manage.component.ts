@@ -529,16 +529,10 @@ export class HotreelManageComponent implements OnInit {
   endDoff() {
     if (!this.saveProcess()) return;
     this.messageService.showLoading('');
-    if (this.doffList.length === 0) {
-      this.messageService.showToastMessage('还没有落丝记录，请添加！', 'error');
-      this.messageService.closeLoading();
-      return;
-    }
+
     let canEnd = false;
     this.doffList.forEach(doff => {
-      if (doff.doffingTime !== undefined && doff.doffingTime !== null && doff.doffingTime !== '' &&
-        doff.spinPos !== undefined && doff.spinPos !== null && doff.weight !== undefined && doff.weight !== null &&
-        doff.spinPos !== '' && doff.weight !== '') {
+      if (doff.pmId !== undefined ) {
         canEnd = true;
       }
     })
@@ -759,10 +753,10 @@ export class HotreelManageComponent implements OnInit {
       if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
-        return '';
+        return null;
       }
     } else {
-      return '';
+      return null;
     }
   }
 

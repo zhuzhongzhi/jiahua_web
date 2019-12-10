@@ -132,10 +132,10 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item nzFlex>
-          <nz-form-label nz-col [nzSpan]="4" nzFor="password">密码 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="password">密码 <span class="red-txt" *ngIf="isAdd&&(detailModal.showContinue||detailModal.showSaveBtn)">*</span></nz-form-label>
           <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
             <input nz-input formControlName="password" placeholder="请输入密码">
-            <nz-form-explain
+            <nz-form-explain 
               *ngIf="getFormControl('password')?.dirty&&getFormControl('password')?.hasError('required')">
               这是必填字段
             </nz-form-explain>

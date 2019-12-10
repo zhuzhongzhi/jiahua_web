@@ -392,10 +392,10 @@ export class AdjustcolorManageComponent implements OnInit {
       if (time instanceof Date) {
         return format(time, 'yyyy-MM-dd HH:mm');
       } else {
-        return '';
+        return null;
       }
     } else {
-      return '';
+      return null;
     }
   }
 
