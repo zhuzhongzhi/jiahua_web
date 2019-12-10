@@ -41,6 +41,15 @@ export class HistoryManageComponent implements OnInit {
 
   historyTotal: any = {};
 
+  createTime: '';
+      doffingStartTime: '';
+      testDannyTime: '';
+      colourTime: '';
+      rockTime: '';
+      checkTime: '';
+      packageStartTime: '';
+      packagEndTime: '';
+
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
@@ -214,14 +223,14 @@ export class HistoryManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
-    this.filters.testDannyTime = this.parseTime(this.filters.testDannyTime);
-    this.filters.colourTime = this.parseTime(this.filters.colourTime); 
-    this.filters.rockTime = this.parseTime(this.filters.rockTime);
-    this.filters.checkTime = this.parseTime(this.filters.checkTime); 
-    this.filters.packageStartTime = this.parseTime(this.filters.packageStartTime);
-    this.filters.packagEndTime = this.parseTime(this.filters.packagEndTime);     
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.testDannyTime = this.parseTime(this.testDannyTime);
+    this.filters.colourTime = this.parseTime(this.colourTime); 
+    this.filters.rockTime = this.parseTime(this.rockTime);
+    this.filters.checkTime = this.parseTime(this.checkTime); 
+    this.filters.packageStartTime = this.parseTime(this.packageStartTime);
+    this.filters.packagEndTime = this.parseTime(this.packagEndTime);     
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -327,6 +336,14 @@ export class HistoryManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '7'
     };
+    this.createTime= '';
+    this.doffingStartTime= '';
+    this.testDannyTime= '';
+    this.colourTime= '';
+    this.rockTime='';
+    this.checkTime='';
+    this.packageStartTime= '';
+    this.packagEndTime='';
     this.initList();
   }
 

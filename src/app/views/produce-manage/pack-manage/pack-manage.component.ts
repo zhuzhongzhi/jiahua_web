@@ -50,6 +50,11 @@ export class PackManageComponent implements OnInit {
 
   submitModel: any = {};
 
+
+  createTime: '';
+  checkTime: '';
+  doffingStartTime: '';
+
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
@@ -132,9 +137,9 @@ export class PackManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
-    this.filters.checkTime = this.parseTime(this.filters.checkTime); 
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.checkTime = this.parseTime(this.checkTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -540,6 +545,9 @@ export class PackManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '6'
     };
+    this.createTime= '';
+    this.checkTime= '';
+    this.doffingStartTime= '';
     this.initList();
   }
 

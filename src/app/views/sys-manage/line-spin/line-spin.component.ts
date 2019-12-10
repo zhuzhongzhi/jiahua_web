@@ -78,9 +78,11 @@ export class LineSpinComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
-      this.lineSpinService.listLineSpin({'pageNum': 1, 'pageSize': 10000}).subscribe((res) => {
-        this.tableConfig.pageTotal = res.value.length;
-      });
+      this.tableConfig.pageNum =res.value.pageNum;
+      this.tableConfig.pageTotal = res.value.total;
+      // this.lineSpinService.listLineSpin({'filters': this.filters,'pageNum': 1, 'pageSize': 10000}).subscribe((res) => {
+      //   this.tableConfig.pageTotal = res.value.length;
+      // });
       this.tableConfig.loading = false;
     });
   }
@@ -156,6 +158,7 @@ export class LineSpinComponent implements OnInit {
             ids.push(key);
           }
         }
+        //debugger;
         localStorage.setItem('ids', JSON.stringify(ids));
         this.lineSpinService.removeLineSpin(ids).subscribe((resData) => {
           localStorage.setItem('logs', JSON.stringify(resData));

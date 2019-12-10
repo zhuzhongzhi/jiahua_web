@@ -50,7 +50,8 @@ export class DanniManageComponent implements OnInit {
   submitModel: any = {};
   // 异常数组
   exceptions: any[] = [];
-
+  createTime: '';  
+  doffingStartTime: '';
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
@@ -111,8 +112,8 @@ export class DanniManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -469,6 +470,8 @@ export class DanniManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '2'
     };
+    this.createTime='';
+    this.doffingStartTime='';
     this.initList();
   }
 

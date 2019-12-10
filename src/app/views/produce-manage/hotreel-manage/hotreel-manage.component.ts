@@ -75,6 +75,9 @@ export class HotreelManageComponent implements OnInit {
   // spinPos列表
   spinPosList: any = [];
 
+  createTime: '';  
+  doffingStartTime: '';
+
   constructor(private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private modal: NzModalService,
@@ -83,6 +86,7 @@ export class HotreelManageComponent implements OnInit {
     private modalService: NzModalService,
     private lineSpinService: LineSpinService,
     private ingotAlarmService: IngotAlarmService) {
+
     this.filters = {
       code: '',
       lineType: '',
@@ -217,8 +221,8 @@ export class HotreelManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -890,6 +894,8 @@ export class HotreelManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '1'
     };
+    this.createTime='';
+    this.doffingStartTime='';
     this.initList();
   }
 

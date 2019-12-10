@@ -155,9 +155,10 @@ export class LatheListComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
-      this.latheManageService.getWagonList({'pageNum': 1, 'pageSize': 10000}).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.length;
-      });
+      this.tableConfig.pageTotal = res.value.total;
+      // this.latheManageService.getWagonList(filter).subscribe((result) => {
+      //   this.tableConfig.pageTotal = result.value.length;
+      // });
       this.tableConfig.loading = false;
     });
   }

@@ -49,6 +49,9 @@ export class AdjustcolorManageComponent implements OnInit {
   exceptions: any[] = [];
 
   submitModel: any = {};
+  createTime: '';
+  rockTime: '';
+  doffingStartTime: '';
 
   constructor(private fb: FormBuilder,
     private sanitizer: DomSanitizer,
@@ -212,9 +215,9 @@ export class AdjustcolorManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
-    this.filters.rockTime = this.parseTime(this.filters.rockTime); 
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.rockTime = this.parseTime(this.rockTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -470,6 +473,9 @@ export class AdjustcolorManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '4'
     };
+    this.createTime= '';
+    this.rockTime='';
+    this.doffingStartTime= '';
     this.initList();
   }
 

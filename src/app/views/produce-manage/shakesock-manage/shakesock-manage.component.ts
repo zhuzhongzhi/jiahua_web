@@ -46,6 +46,9 @@ export class ShakesockManageComponent implements OnInit {
   exceptions: any[] = [];
 
   submitModel: any = {};
+  createTime: '';
+      testDannyTime: '';
+      doffingStartTime: '';
 
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
@@ -212,9 +215,9 @@ export class ShakesockManageComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
-    this.filters.createTime = this.parseTime(this.filters.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.filters.doffingStartTime); 
-    this.filters.testDannyTime = this.parseTime(this.filters.testDannyTime); 
+    this.filters.createTime = this.parseTime(this.createTime);
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.testDannyTime = this.parseTime(this.testDannyTime); 
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -462,6 +465,9 @@ export class ShakesockManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '3'
     };
+    this.createTime= '';
+    this.testDannyTime='';
+    this.doffingStartTime= '';
     this.initList();
   }
 

@@ -78,6 +78,7 @@ export class BatchManageComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
+      this.tableConfig.pageNum = res.value.pageNum;
       this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });

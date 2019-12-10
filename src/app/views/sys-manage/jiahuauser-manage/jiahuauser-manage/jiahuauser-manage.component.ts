@@ -121,11 +121,14 @@ export class JiahuauserManageComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
-      filter.pageNum = 0;
-      filter.pageSize = 100000;
-      this.userService.pageUser(filter).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.total;
-      });
+      this.tableConfig.pageNum =res.value.pageNum;
+      this.tableConfig.pageTotal = res.value.total;
+
+      // filter.pageNum = 0;
+      // filter.pageSize = 100000;
+      // this.userService.pageUser(filter).subscribe((result) => {
+      //   this.tableConfig.pageTotal = result.value.total;
+      // });
       this.tableConfig.loading = false;
     });
   }
@@ -273,7 +276,7 @@ export class JiahuauserManageComponent implements OnInit {
   }
 
   update() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.juId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.userId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要修改的用户', 'warning');
       return;
@@ -284,8 +287,8 @@ export class JiahuauserManageComponent implements OnInit {
       if (this.checkedId[key]) {
         console.log(key);
         this.listOfAllData.forEach(item => {
-          console.log(item.juId);
-          if (item.juId == key) {
+          console.log(item.userId);
+          if (item.userId == key) {
             data = item;
           }
         });
@@ -311,7 +314,7 @@ export class JiahuauserManageComponent implements OnInit {
     }
     this.updateData = data;
 
-    this.validateForm.controls['juId'].setValue(data.juId);
+    this.validateForm.controls['userId'].setValue(data.userId);
     this.validateForm.controls['userName'].setValue(data.userName);
     this.validateForm.controls['password'].setValue(data.password);
     this.validateForm.controls['post'].setValue(data.post);
@@ -322,7 +325,7 @@ export class JiahuauserManageComponent implements OnInit {
   }
 
   open() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.juId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.userId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要启用的账户', 'warning');
       return;
@@ -334,7 +337,7 @@ export class JiahuauserManageComponent implements OnInit {
 
         for (const key in this.checkedId) {
           if (this.checkedId[key]) {
-            this.userService.updateJiahuaUser({'juId': key, 'status': '0'}).subscribe(res => {
+            this.userService.updateJiahuaUser({'userId': key, 'status': '0'}).subscribe(res => {
               this.messageService.showToastMessage('启用成功', 'success');
               this.tableConfig.loading = false;
               this.checkedId = {};
@@ -349,7 +352,7 @@ export class JiahuauserManageComponent implements OnInit {
   }
 
   stop() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.juId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.userId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要禁用的账户', 'warning');
       return;
@@ -361,7 +364,7 @@ export class JiahuauserManageComponent implements OnInit {
 
         for (const key in this.checkedId) {
           if (this.checkedId[key]) {
-            this.userService.updateJiahuaUser({'juId': key, 'status': '1'}).subscribe(res => {
+            this.userService.updateJiahuaUser({'userId': key, 'status': '1'}).subscribe(res => {
               this.messageService.showToastMessage('禁用成功', 'success');
               this.tableConfig.loading = false;
               this.checkedId = {};
@@ -377,7 +380,7 @@ export class JiahuauserManageComponent implements OnInit {
 
 
   delete() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.juId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.userId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');
       return;
@@ -408,14 +411,14 @@ export class JiahuauserManageComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.listOfAllData.forEach(item => {
-      if (item.juId !== '-1') {
-        this.checkedId[item.juId] = value;
+      if (item.userId !== '-1') {
+        this.checkedId[item.userId] = value;
       }
     });
   }
 
   refreshStatus(): void {
-    this.isAllChecked = this.listOfAllData.filter(item => item.juId !== '-1').every(item => this.checkedId[item.juId]);
+    this.isAllChecked = this.listOfAllData.filter(item => item.userId !== '-1').every(item => this.checkedId[item.userId]);
   }
 
   checkAllAuth(value: boolean): void {
@@ -512,7 +515,7 @@ export class JiahuauserManageComponent implements OnInit {
       const arr = [];
       for (const wagon of res.value) {
         const item: any = [];
-        item.用户ID = wagon.juId;
+        item.用户ID = wagon.userId;
         item.用户名 = wagon.userName;
         item.单位 = wagon.institution;
         item.岗位 = wagon.post;

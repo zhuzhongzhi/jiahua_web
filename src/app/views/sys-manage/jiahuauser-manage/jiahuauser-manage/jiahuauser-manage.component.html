@@ -52,7 +52,7 @@
       <button *appAuthBtu="3020003" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="update()"><i nz-icon type="edit" theme="outline"></i>修改</button>
       <button *appAuthBtu="3020004" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="delete()"><i nz-icon type="delete" theme="outline"></i>删除</button>
       <button *appAuthBtu="3020005" nz-button nzType="primary" style="margin-bottom:15px;margin-right: 20px" (click)="open()"><i nz-icon type="check-circle" theme="outline"></i>启用</button>
-<!--      <button *appAuthBtu="3020006" nz-button nzType="danger" style=" margin-bottom:15px" (click)="stop()"><i nz-icon type="stop" theme="outline"></i>禁用</button>-->
+      <button *appAuthBtu="3020006" nz-button nzType="danger" style=" margin-bottom:15px" (click)="stop()"><i nz-icon type="stop" theme="outline"></i>禁用</button>
 
 
       <button *appAuthBtu="3020007" nz-button nzType="default" style="float:right" (click)="export()"><i nz-icon type="export" theme="outline"></i>导出Excel</button>
@@ -77,7 +77,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.juId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.juId === '-1'"></td>
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.userId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.userId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data?.userName}}</td>
         <td>{{data?.institution}}</td>
