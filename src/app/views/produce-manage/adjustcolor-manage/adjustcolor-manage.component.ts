@@ -549,7 +549,7 @@ export class AdjustcolorManageComponent implements OnInit {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    this.saveAsExcelFile(excelBuffer, '判色管理列表');
+    this.saveAsExcelFile(excelBuffer, '判色管理');
   }
 
   private saveAsExcelFile(buffer: any, fileName: string) {

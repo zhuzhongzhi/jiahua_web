@@ -208,10 +208,10 @@ export class HistoryManageComponent implements OnInit {
         item.检验时间 = wagon.main.checkTime;
         item.包装操作员 = wagon.main.packageOperator;
         item.包装员工id = wagon.main.packageEmid;
-        item.包装时间 = wagon.main.packageTime;
-        item.a1级 = wagon.check.a1Weight;
-        item.aa级 = wagon.check.aaweight;
+        item.包装时间 = wagon.main.packageTime;       
+        item.aa级 = wagon.check.aaWeight;
         item.aa纬 = wagon.check.aawWeight;
+        item.a1级 = wagon.check.a1Weight;
         item.a级 = wagon.check.aweight;
         item.b级 = wagon.check.bweight;
         item.检查数量 = wagon.check.checkNum;
@@ -393,7 +393,7 @@ export class HistoryManageComponent implements OnInit {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
     const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
-    this.saveAsExcelFile(excelBuffer, '打包管理');
+    this.saveAsExcelFile(excelBuffer, '历史数据');
   }
 
   private saveAsExcelFile(buffer: any, fileName: string) {

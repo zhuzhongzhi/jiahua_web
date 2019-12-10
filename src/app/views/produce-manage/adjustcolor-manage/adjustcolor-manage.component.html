@@ -112,7 +112,7 @@
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
               style="text-align:center"
               [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
-              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
+              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate" [nzScroll]="{ x: '980px' }"
               (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead >
       <tr>

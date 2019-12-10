@@ -470,7 +470,7 @@ export class PackManageComponent implements OnInit {
       return null;
     }
   }
-  
+
   submitForm() {
     // const controls = this.validateForm.controls;
     // for (const key in controls) {
@@ -622,7 +622,7 @@ export class PackManageComponent implements OnInit {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
     const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
-    this.saveAsExcelFile(excelBuffer, '打包管理');
+    this.saveAsExcelFile(excelBuffer, '包装管理');
   }
 
   private saveAsExcelFile(buffer: any, fileName: string) {

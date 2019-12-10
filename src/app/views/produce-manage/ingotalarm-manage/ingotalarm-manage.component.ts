@@ -5,6 +5,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { format } from "date-fns";
 
 @Component({
   selector: 'app-ingotalarm-manage',
@@ -146,7 +147,7 @@ export class IngotalarmManageComponent implements OnInit {
             // ids.push(key);
 
             this.ingotAlarmService.dealIngotAlarm({
-              'handleTime': new Date(),
+              'handleTime': format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
               'operator': 1,
               'lineAlarm': {
                 'alarmId': key
@@ -191,7 +192,15 @@ export class IngotalarmManageComponent implements OnInit {
     if (this.isAdd) {
     } else {
     }
+  }
 
+  trans(state) {
+    switch (state) {
+      case 0:
+        return '未处理';
+      case 1:
+        return '已处理';
+    }
   }
 
   resetCond() {
