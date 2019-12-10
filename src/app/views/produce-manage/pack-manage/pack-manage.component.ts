@@ -138,8 +138,8 @@ export class PackManageComponent implements OnInit {
   initList() {
     // 初始化丝车列表
     this.filters.createTime = this.parseTime(this.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
-    this.filters.checkTime = this.parseTime(this.checkTime); 
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime);
+    this.filters.checkTime = this.parseTime(this.checkTime);
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -380,6 +380,7 @@ export class PackManageComponent implements OnInit {
         return;
       }
       this.initList();
+      this.checkedId = {};
       this.messageService.closeLoading();
       this.messageService.showToastMessage('包装完成提交成功', 'success');
     });
@@ -458,7 +459,7 @@ export class PackManageComponent implements OnInit {
   refreshStatus(): void {
     this.isAllChecked = this.listOfAllData.filter(item => item.main.pmId !== '-1').every(item => this.checkedId[item.main.pmId]);
   }
-  
+
   parseTime(time) {
     if (time) {
       if (time instanceof Date) {
