@@ -26,7 +26,8 @@ export class ProduceBillboardComponent implements OnInit {
     a1Weight: 0,
     aaweight: 0,
     aweight: 0,
-    bweight: 0
+    bweight: 0,
+    aawWeight : 0
   };
   dateList = [];
   doffList = [];
@@ -68,6 +69,7 @@ export class ProduceBillboardComponent implements OnInit {
         this.detail.aaweight += item.aaweight ? item.aaweight : 0;
         this.detail.aweight += item.aweight ? item.aweight : 0;
         this.detail.bweight += item.bweight ? item.bweight : 0;
+        this.detail.aawWeight += item.aawWeight ? item.aawWeight : 0;
       });
 
       if (this.output === undefined || this.output === null || this.output === '') {

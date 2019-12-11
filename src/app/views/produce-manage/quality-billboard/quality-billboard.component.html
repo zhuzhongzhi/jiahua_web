@@ -82,23 +82,23 @@
     </div>
 
   </div>
-  <div nz-row [nzGutter]="8" style="margin-top:20px;">
-    <nz-card style="height: 500px;">
+  <div nz-row [nzGutter]="8" style="margin-top:10px;height: calc(100vh - 370px);">
+    <nz-card style="height: calc(100vh - 370px);">
       <div nz-row class="qtitle">
         近三日线别不良排名 {{time}}
       </div>
       <div nz-row [nzGutter]="8">
         <div nz-col [nzSpan]="6">
-          <div echarts [options]="chart1"></div>
+          <div echarts [options]="chart1" style="height: calc(100vh - 450px);"></div>
         </div>
         <div nz-col [nzSpan]="6">
-          <div echarts [options]="chart2"></div>
+          <div echarts [options]="chart2" style="height: calc(100vh - 450px);"></div>
         </div>
         <div nz-col [nzSpan]="6">
-          <div echarts [options]="chart3"></div>
+          <div echarts [options]="chart3" style="height: calc(100vh - 450px);"></div>
         </div>
         <div nz-col [nzSpan]="6">
-          <div echarts [options]="chart4"></div>
+          <div echarts [options]="chart4" style="height: calc(100vh - 450px);"></div>
         </div>
       </div>
     </nz-card>

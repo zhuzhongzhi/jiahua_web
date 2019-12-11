@@ -100,6 +100,34 @@
   </ng-template>
 </div>
 
+<nz-modal [(nzVisible)]="authModal2.show" [nzTitle]="authModal2.title"
+          (nzOnCancel)="handleAuthModalCancel()" nzWidth="80%" (nzOnOk)="saveAuths()">
+  <nz-table class="table-list" #thisTable2 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+            style="text-align:center"
+            [nzTotal]="authTableConfig.pageTotal" [(nzPageIndex)]="authTableConfig.pageNum" [(nzPageSize)]="authTableConfig.pageSize"
+            [nzData]="listOfAllAuths" [nzLoading]="authTableConfig.infoLoading"
+            (nzPageIndexChange)="pageChange2()" (nzPageSizeChange)="pageChange2()">
+    <thead >
+    <tr>
+      <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="authModalAllChecked" (nzCheckedChange)="checkAllAuth($event)"></th>
+      <th nzWidth="70px">序号</th>
+      <th class="align-center">权限id</th>
+      <th class="align-center">权限名</th>
+      <th class="align-center">描述</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of thisTable2.data; let i = index;" class="align-center">
+      <td nzShowCheckbox [(nzChecked)]="authModalCheckId[data.authId]" (nzCheckedChange)="refreshStatus2()" [nzDisabled]="data.authId === '-1'"></td>
+      <td>{{(authTableConfig.pageNum - 1) * authTableConfig.pageSize + i + 1}}</td>
+      <td>{{data?.authId}}</td>
+      <td>{{data?.authName}}</td>
+      <td>{{data?.desc}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title"
           (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submitForm()">
   <form nz-form [formGroup]="validateForm">
@@ -185,33 +213,4 @@
 
   </form>
 
-</nz-modal>
-
-<nz-modal [(nzVisible)]="authModal2.show" [nzTitle]="authModal2.title"
-          (nzOnCancel)="handleAuthModalCancel()" nzWidth="80%" (nzOnOk)="saveAuths()">
-  <nz-table class="table-list" #thisTable2 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-            style="text-align:center"
-            [nzTotal]="authTableConfig.pageTotal" [(nzPageIndex)]="authTableConfig.pageNum" [(nzPageSize)]="authTableConfig.pageSize"
-            [nzData]="listOfAllAuths" [nzLoading]="authTableConfig.infoLoading"
-            (nzPageIndexChange)="pageChange2()" (nzPageSizeChange)="pageChange2()">
-    <thead >
-    <tr>
-      <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="authModalAllChecked" (nzCheckedChange)="checkAllAuth($event)"></th>
-      <th nzWidth="70px">序号</th>
-      <th class="align-center">权限id</th>
-      <th class="align-center">权限名</th>
-      <th class="align-center">描述</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let data of thisTable2.data; let i = index;" class="align-center">
-      <td nzShowCheckbox [(nzChecked)]="authModalCheckId[data.authId]" (nzCheckedChange)="refreshStatus2()" [nzDisabled]="data.authId === '-1'"></td>
-      <td>{{(authTableConfig.pageNum - 1) * authTableConfig.pageSize + i + 1}}</td>
-      <td>{{data?.authId}}</td>
-      <td>{{data?.authName}}</td>
-      <td>{{data?.desc}}</td>
-    </tr>
-    </tbody>
-  </nz-table>
 </nz-modal>

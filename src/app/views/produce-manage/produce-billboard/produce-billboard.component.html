@@ -1,4 +1,4 @@
-<div style="background: #F0F2F5">
+<div style="background: #F0F2F5" style="height: calc(100vh - 100px);">
   <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="6">
       <nz-card style="height: 150px;">
@@ -40,30 +40,34 @@
     </div>
   </div>
 
-  <div nz-row [nzGutter]="8" style="margin-top: 10px;">
-    <div nz-col [nzSpan]="6">
-      <nz-card style="height: 568px;text-align:center;">
-        <div nz-row style="height: 142px;">
-          <p class="span1" style="margin-top:28px;">AA</p>
+  <div nz-row [nzGutter]="8" style="margin-top: 10px;height: calc(100vh - 300px);">
+    <div nz-col [nzSpan]="6" >
+      <nz-card style="text-align:center; height: calc(100vh - 300px);">
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">AA级</p>
           <p class="span2">{{detail.aaweight}}</p>
         </div>
-        <div nz-row style="height: 142px;">
-          <p class="span1" style="margin-top:28px;">A</p>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">AA纬</p>
+          <p class="span2">{{detail.aawWeight}}</p>
+        </div>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">A级</p>
           <p class="span2">{{detail.aweight}}</p>
         </div>
-        <div nz-row style="height: 142px;">
-          <p class="span1" style="margin-top:28px;">A1</p>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">A1级</p>
           <p class="span2">{{detail.a1Weight}}</p>
         </div>
-        <div nz-row style="height: 142px;">
-          <p class="span1" style="margin-top:28px;">B</p>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">B级</p>
           <p class="span2">{{detail.bweight}}</p>
         </div>
       </nz-card>
     </div>
-    <div nz-col [nzSpan]="18">
-      <nz-card style="height: 568px;">
-        <div echarts [options]="produceOption" style="margin-top:60px;"></div>
+    <div nz-col [nzSpan]="18" style="height: calc(100vh - 300px);">
+      <nz-card >
+        <div echarts [options]="produceOption" style="height: calc(100vh - 350px);"></div>
       </nz-card>
     </div>
   </div>
