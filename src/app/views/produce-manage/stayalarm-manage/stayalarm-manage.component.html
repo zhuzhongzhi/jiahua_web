@@ -118,7 +118,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.alarmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.alarmId === '-1'"></td>
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.alarmId]" (nzCheckedChange)="refreshStatus()"  *ngIf="data.isHandled === 0"></td>
+        <td *ngIf="data.isHandled === 1"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.code}}</td>
         <td>{{data.lineType}}</td>

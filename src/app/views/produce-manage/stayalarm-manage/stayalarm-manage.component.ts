@@ -185,8 +185,9 @@ export class StayalarmManageComponent implements OnInit {
   }
 
   checkAll(value: boolean): void {
+    debugger;
     this.listOfAllData.forEach(item => {
-      if (item.alarmId !== '-1') {
+      if (item.alarmId !== '-1' && item.isHandled !== 1) {
         this.checkedId[item.alarmId] = value;
       }
     });

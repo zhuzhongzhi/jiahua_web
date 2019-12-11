@@ -84,7 +84,7 @@
               (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead >
       <tr>
-        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)" ></th>
         <th nzWidth="70px">序号</th>
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
@@ -97,7 +97,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzShowCheckbox [(nzChecked)]="checkedId[data.alarmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.alarmId === '-1'"></td>
+        <td nzShowCheckbox [(nzChecked)]="checkedId[data.alarmId]" (nzCheckedChange)="refreshStatus()"  *ngIf="data.isHandled === 0"></td>
+        <td *ngIf="data.isHandled === 1"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data?.batchNum}}</td>
         <td>{{data?.standard}}</td>
