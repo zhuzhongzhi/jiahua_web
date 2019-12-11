@@ -142,3 +142,17 @@
   </ng-template>
 </div>
 
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" nzZIndex="100000"
+          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submit()">
+
+  <div nz-col class="gutter-row" nzSpan="24" style="margin-top: -14px;">
+    <div class="form-item" nz-row>
+      <label class="inline-span" nz-col nzSpan="4" style="line-height: 30px;">备注</label>
+      <div nz-col nzSpan="8" class="form-control">
+        <input type="text" nz-input placeholder="请输入备注" [(ngModel)]="remark"/>
+      </div>
+    </div>
+  </div>
+
+
+</nz-modal>

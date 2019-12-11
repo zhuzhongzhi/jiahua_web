@@ -118,24 +118,17 @@
 
 </div>
 
-<!--<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title"-->
-<!--          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submitForm()">-->
-<!--  <form nz-form [formGroup]="validateForm">-->
-<!--    <div nz-row>-->
-<!--      <div nz-col>-->
-<!--        <nz-form-item nzFlex>-->
-<!--          <nz-form-label nz-col [nzSpan]="4" nzFor="lineType">备注 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>-->
-<!--          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">-->
-<!--            <textarea nz-input formControlName="remark" [nzAutosize]="{minRows: 2, maxRows: 6}" type="text"></textarea>-->
-<!--            <nz-form-explain-->
-<!--              *ngIf="getFormControl('remark')?.dirty&&getFormControl('remark')?.hasError('required')">-->
-<!--              这是必填字段-->
-<!--            </nz-form-explain>-->
-<!--          </nz-form-control>-->
-<!--        </nz-form-item>-->
-<!--      </div>-->
-<!--    </div>-->
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" nzZIndex="100000"
+          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submit()">
 
-<!--  </form>-->
+  <div nz-col class="gutter-row" nzSpan="24" style="margin-top: -14px;">
+    <div class="form-item" nz-row>
+      <label class="inline-span" nz-col nzSpan="4" style="line-height: 30px;">备注</label>
+      <div nz-col nzSpan="8" class="form-control">
+        <input type="text" nz-input placeholder="请输入备注" [(ngModel)]="remark"/>
+      </div>
+    </div>
+  </div>
 
-<!--</nz-modal>-->
+
+</nz-modal>

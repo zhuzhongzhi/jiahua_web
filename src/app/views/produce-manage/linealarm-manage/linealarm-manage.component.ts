@@ -115,6 +115,27 @@ export class LinealarmManageComponent implements OnInit {
     this.detailModal.show = false;
   }
 
+  submit() {
+    for (const key in this.checkedId) {
+      if (this.checkedId[key]) {
+        // ids.push(key);
+
+        this.ingotAlarmService.dealLineAlarms({
+          'handleTime': new Date(),
+          'operator': 1,
+          'lineAlarm': {
+            'alarmId': key
+          },
+          'remark': '123'
+        }).subscribe((res) => {
+        });
+      }
+    }
+    this.messageService.showToastMessage('处理告警成功', 'success');
+    this.initList();
+    this.detailModal.show = false;
+  }
+
   submitForm() {
     console.log(this.remark);
   }
@@ -130,32 +151,16 @@ export class LinealarmManageComponent implements OnInit {
       this.messageService.showToastMessage('您还没有选择要处理的信息', 'warning');
       return;
     }
-    this.modal.confirm({
-      nzTitle: `您确定要标记选中的告警为已处理吗？`,
-      nzOnOk: () => {
-        const ids = [];
-        this.tableConfig.loading = true;
-
-        for (const key in this.checkedId) {
-          if (this.checkedId[key]) {
-            // ids.push(key);
-
-            this.ingotAlarmService.dealLineAlarms({
-              'handleTime': new Date(),
-              'operator': 1,
-              'lineAlarm': {
-                'alarmId': key
-              },
-              'remark': '123'
-            }).subscribe((res) => {
-
-            });
-          }
-        }
-        this.messageService.showToastMessage('处理告警成功', 'success');
-        this.initList();
-      }
-    });
+    this.detailModal.show = true;
+    // this.modal.confirm({
+    //   nzTitle: `您确定要标记选中的告警为已处理吗？`,
+    //   nzOnOk: () => {
+    //     const ids = [];
+    //     this.tableConfig.loading = true;
+    //
+    //
+    //   }
+    // });
 
   }
 

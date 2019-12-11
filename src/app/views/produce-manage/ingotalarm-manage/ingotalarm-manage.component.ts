@@ -18,6 +18,7 @@ export class IngotalarmManageComponent implements OnInit {
   // table控件配置
   tableConfig: any;
   filters: any;
+  remark: ''; // 备注
   listOfAllData = [];
   // 表格类
   isAllChecked = false;
@@ -126,6 +127,26 @@ export class IngotalarmManageComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
+  submit() {
+    for (const key in this.checkedId) {
+      if (this.checkedId[key]) {
+        // ids.push(key);
+
+        this.ingotAlarmService.dealIngotAlarm({
+          'handleTime': format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+          'operator': 1,
+          'lineAlarm': {
+            'alarmId': key
+          },
+          'remark': '123'
+        }).subscribe((res) => {
+        });
+      }
+    }
+    this.messageService.showToastMessage('处理告警成功', 'success');
+    this.initList();
+    this.detailModal.show = false;
+  }
   deal() {
     // TODO
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.alarmId]);
@@ -133,32 +154,34 @@ export class IngotalarmManageComponent implements OnInit {
       this.messageService.showToastMessage('您还没有选择要处理的信息', 'warning');
       return;
     }
-    this.modal.confirm({
-      nzTitle: `您确定要标记选中的告警为已处理吗？`,
-      nzOnOk: () => {
-        const ids = [];
-        this.tableConfig.loading = true;
+    this.detailModal.show = true;
 
-        for (const key in this.checkedId) {
-          if (this.checkedId[key]) {
-            // ids.push(key);
-
-            this.ingotAlarmService.dealIngotAlarm({
-              'handleTime': format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-              'operator': 1,
-              'lineAlarm': {
-                'alarmId': key
-              },
-              'remark': '123'
-            }).subscribe((res) => {
-
-            });
-          }
-        }
-        this.messageService.showToastMessage('处理告警成功', 'success');
-        this.initList();
-      }
-    });
+    // this.modal.confirm({
+    //   nzTitle: `您确定要标记选中的告警为已处理吗？`,
+    //   nzOnOk: () => {
+    //     const ids = [];
+    //     this.tableConfig.loading = true;
+    //
+    //     for (const key in this.checkedId) {
+    //       if (this.checkedId[key]) {
+    //         // ids.push(key);
+    //
+    //         this.ingotAlarmService.dealIngotAlarm({
+    //           'handleTime': format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+    //           'operator': 1,
+    //           'lineAlarm': {
+    //             'alarmId': key
+    //           },
+    //           'remark': '123'
+    //         }).subscribe((res) => {
+    //
+    //         });
+    //       }
+    //     }
+    //     this.messageService.showToastMessage('处理告警成功', 'success');
+    //     this.initList();
+    //   }
+    // });
 
   }
 
