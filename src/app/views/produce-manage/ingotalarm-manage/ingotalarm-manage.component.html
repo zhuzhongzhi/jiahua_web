@@ -69,8 +69,8 @@
               <label class="inline-span" nz-col nzSpan="8">处理状态</label>
               <div nz-col nzSpan="16" class="form-control">
                 <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.isHandled">
-                  <nz-option nzValue="0" nzLabel="未处理"></nz-option>
-                  <nz-option nzValue="1" nzLabel="已经处理"></nz-option>
+                   <nz-option nzValue="0" nzLabel="未处理"></nz-option>
+                  <nz-option nzValue="1" nzLabel="已处理"></nz-option>                  
                   <nz-option nzValue="" nzLabel="全部"></nz-option>
                 </nz-select>
               </div>
@@ -148,7 +148,7 @@
   <div nz-col class="gutter-row" nzSpan="24" style="margin-top: -14px;">
     <div class="form-item" nz-row>
       <label class="inline-span" nz-col nzSpan="4" style="line-height: 30px;">备注</label>
-      <div nz-col nzSpan="8" class="form-control">
+      <div nz-col nzSpan="20" class="form-control">
         <input type="text" nz-input placeholder="请输入备注" [(ngModel)]="remark"/>
       </div>
     </div>

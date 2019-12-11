@@ -5,6 +5,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { format } from "date-fns";
 
 @Component({
   selector: 'app-linealarm-manage',
@@ -19,6 +20,7 @@ export class LinealarmManageComponent implements OnInit {
   filters: any;
   listOfAllData = [];
   remark: ''; // 备注
+  handle: any;
   // 表格类
   isAllChecked = false;
   checkedId: { [key: string]: boolean } = {};
@@ -56,11 +58,26 @@ export class LinealarmManageComponent implements OnInit {
       total: 10,
       loading: false
     };
+    this.handle = {
+      handleTime: "",
+      operator: localStorage.getItem('userId'),
+      alarmId: 1 ,     
+      remark: ''
+    }
   }
 
   ngOnInit() {
     this.initList();
     this.messageService.closeLoading();
+  }
+
+  transpro(state) {
+    switch (state) {
+      case 0:
+        return '未处理';
+      case 1:
+        return '已处理';
+    }
   }
 
   initList() {
@@ -119,15 +136,10 @@ export class LinealarmManageComponent implements OnInit {
     for (const key in this.checkedId) {
       if (this.checkedId[key]) {
         // ids.push(key);
-
-        this.ingotAlarmService.dealLineAlarms({
-          'handleTime': new Date(),
-          'operator': 1,
-          'lineAlarm': {
-            'alarmId': key
-          },
-          'remark': '123'
-        }).subscribe((res) => {
+        this.handle.handleTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        this.handle.alarmId = Number(key);
+        this.handle.remark = this.remark;
+        this.ingotAlarmService.dealLineAlarms(this.handle).subscribe((res) => {
         });
       }
     }
@@ -151,16 +163,8 @@ export class LinealarmManageComponent implements OnInit {
       this.messageService.showToastMessage('您还没有选择要处理的信息', 'warning');
       return;
     }
-    this.detailModal.show = true;
-    // this.modal.confirm({
-    //   nzTitle: `您确定要标记选中的告警为已处理吗？`,
-    //   nzOnOk: () => {
-    //     const ids = [];
-    //     this.tableConfig.loading = true;
-    //
-    //
-    //   }
-    // });
+    this.detailModal.title = `处理备忘`;
+    this.detailModal.show = true;   
 
   }
 

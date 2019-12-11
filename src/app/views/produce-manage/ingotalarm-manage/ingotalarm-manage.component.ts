@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ShowMessageService} from '../../../widget/show-message/show-message';
-import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
-import {NzModalService} from 'ng-zorro-antd';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ShowMessageService } from '../../../widget/show-message/show-message';
+import { IngotAlarmService } from '../../../core/biz-services/produceManage/IngotAlarmService';
+import { NzModalService } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { format } from "date-fns";
@@ -18,6 +18,7 @@ export class IngotalarmManageComponent implements OnInit {
   // table控件配置
   tableConfig: any;
   filters: any;
+  handle: any;
   remark: ''; // 备注
   listOfAllData = [];
   // 表格类
@@ -38,9 +39,9 @@ export class IngotalarmManageComponent implements OnInit {
   isAdd = false;
 
   constructor(private fb: FormBuilder,
-              private modal: NzModalService,
-              private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+    private modal: NzModalService,
+    private messageService: ShowMessageService,
+    private ingotAlarmService: IngotAlarmService) {
     this.filters = {
       batchNum: '', // 锭数
       standard: '', // 线别
@@ -57,6 +58,12 @@ export class IngotalarmManageComponent implements OnInit {
       total: 10,
       loading: false
     };
+    this.handle = {
+      handleTime: "",
+      operator: localStorage.getItem('userId'),
+      alarmId: 1 ,     
+      remark: ''
+    }
   }
 
   ngOnInit() {
@@ -93,6 +100,7 @@ export class IngotalarmManageComponent implements OnInit {
     if (this.filters.isHandled !== '') {
       cond.isHandled = this.filters.isHandled;
     }
+    this.remark = '';
     const filter = {
       'filters': cond,
       'pageNum': this.tableConfig.pageNum,
@@ -131,15 +139,10 @@ export class IngotalarmManageComponent implements OnInit {
     for (const key in this.checkedId) {
       if (this.checkedId[key]) {
         // ids.push(key);
-
-        this.ingotAlarmService.dealIngotAlarm({
-          'handleTime': format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-          'operator': 1,
-          'lineAlarm': {
-            'alarmId': key
-          },
-          'remark': '123'
-        }).subscribe((res) => {
+        this.handle.handleTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        this.handle.alarmId = Number(key);
+        this.handle.remark = this.remark;
+        this.ingotAlarmService.dealIngotAlarm(this.handle).subscribe((res) => {
         });
       }
     }
@@ -154,35 +157,8 @@ export class IngotalarmManageComponent implements OnInit {
       this.messageService.showToastMessage('您还没有选择要处理的信息', 'warning');
       return;
     }
+    this.detailModal.title = `处理备忘`;
     this.detailModal.show = true;
-
-    // this.modal.confirm({
-    //   nzTitle: `您确定要标记选中的告警为已处理吗？`,
-    //   nzOnOk: () => {
-    //     const ids = [];
-    //     this.tableConfig.loading = true;
-    //
-    //     for (const key in this.checkedId) {
-    //       if (this.checkedId[key]) {
-    //         // ids.push(key);
-    //
-    //         this.ingotAlarmService.dealIngotAlarm({
-    //           'handleTime': format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-    //           'operator': 1,
-    //           'lineAlarm': {
-    //             'alarmId': key
-    //           },
-    //           'remark': '123'
-    //         }).subscribe((res) => {
-    //
-    //         });
-    //       }
-    //     }
-    //     this.messageService.showToastMessage('处理告警成功', 'success');
-    //     this.initList();
-    //   }
-    // });
-
   }
 
   checkAll(value: boolean): void {
@@ -240,7 +216,7 @@ export class IngotalarmManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.pageIngotAlarms({'pageNum': 1, 'pageSize': 10000}).subscribe((res) => {
+    this.ingotAlarmService.pageIngotAlarms({ 'pageNum': 1, 'pageSize': 10000 }).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -269,8 +245,8 @@ export class IngotalarmManageComponent implements OnInit {
 
   exportList(json) {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
-    const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, '锭位质量告警列表');
   }
 

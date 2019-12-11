@@ -38,6 +38,9 @@ export class DaliyqualityStatisticComponent implements OnInit {
   isAdd = false;
   type = 1;
   dateRange = [];
+
+  nzwidth ='60%';
+
   constructor(private fb: FormBuilder,
               private modal: NzModalService,
               private messageService: ShowMessageService,
@@ -107,6 +110,7 @@ export class DaliyqualityStatisticComponent implements OnInit {
     switch (type) {
       case 1:
         this.detailModal.title = `等级重量及比例`;
+        this.nzwidth = "40%";
         this.ingotAlarmService.getLevelList({'qrId': data.qrId, 'qType': 1}).subscribe(res => {
           this.listModelOfAllData = res.value;
           
@@ -114,12 +118,14 @@ export class DaliyqualityStatisticComponent implements OnInit {
         break;
       case 2:
         this.detailModal.title = `不良要因重量及比例`;
+        this.nzwidth = "80%";
         this.ingotAlarmService.getBadCauseList({'qrId': data.qrId, 'qType': 1}).subscribe(res => {
           this.listModelOfAllData = res.value;
         });
         break;
       case 3:
         this.detailModal.title = `重量不足的小卷重量及比例`;
+        this.nzwidth = "20%";
         this.ingotAlarmService.getNotEnoughList({'qrId': data.qrId, 'qType': 1}).subscribe(res => {
           this.listModelOfAllData = res.value;
         });

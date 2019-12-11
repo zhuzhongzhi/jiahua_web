@@ -527,6 +527,7 @@ export class NewTableComponent implements OnInit {
       default:
         break;
     }
+    this.reloadStat.emit();//提交数据
     console.log(this.dataList);
   }
 

@@ -142,7 +142,7 @@
 
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null
-          (nzOnCancel)="handleDetailCancel()" nzWidth="600px">
+          (nzOnCancel)="handleDetailCancel()"  nzWidth="{{nzwidth}}">
 
   <nz-table *ngIf="type === 1" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
             style="text-align:center"

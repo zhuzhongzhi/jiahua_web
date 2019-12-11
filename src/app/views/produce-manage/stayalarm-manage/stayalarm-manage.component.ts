@@ -5,6 +5,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { format } from "date-fns";
 
 @Component({
   selector: 'app-stayalarm-manage',
@@ -18,6 +19,8 @@ export class StayalarmManageComponent implements OnInit {
   tableConfig: any;
   filters: any;
   listOfAllData = [];
+  remark: ''; // 备注
+  handle: any;
   // 表格类
   isAllChecked = false;
   checkedId: { [key: string]: boolean } = {};
@@ -55,6 +58,12 @@ export class StayalarmManageComponent implements OnInit {
       total: 10,
       loading: false
     };
+    this.handle = {
+      handleTime: "",
+      operator: localStorage.getItem('userId'),
+      alarmId: 1 ,     
+      remark: ''
+    }
   }
 
   trans(state) {
@@ -73,6 +82,15 @@ export class StayalarmManageComponent implements OnInit {
         return '检验';
       case 6:
         return '包装';
+    }
+  }
+
+  transpro(state) {
+    switch (state) {
+      case 0:
+        return '未处理';
+      case 1:
+        return '已处理';
     }
   }
 
@@ -138,6 +156,22 @@ export class StayalarmManageComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
+  submit() {
+    for (const key in this.checkedId) {
+      if (this.checkedId[key]) {
+        // ids.push(key);
+        this.handle.handleTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        this.handle.alarmId = Number(key);
+        this.handle.remark = this.remark;
+        this.ingotAlarmService.dealResident(this.handle).subscribe((res) => {
+        });
+      }
+    }
+    this.messageService.showToastMessage('处理告警成功', 'success');
+    this.initList();
+    this.detailModal.show = false;
+  }
+
   deal() {
     //TODO
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.alarmId]);
@@ -145,28 +179,8 @@ export class StayalarmManageComponent implements OnInit {
       this.messageService.showToastMessage('您还没有选择要处理的信息', 'warning');
       return;
     }
-    this.modal.confirm({
-      nzTitle: `您确定要标记选中的告警为已处理吗？`,
-      nzOnOk: () => {
-        const ids = [];
-        this.tableConfig.loading = true;
-
-        for (const key in this.checkedId) {
-          if (this.checkedId[key]) {
-            // ids.push(key);
-
-            this.ingotAlarmService.dealLineAlarms({
-              'alarmId': key,
-              'isHandled': 1
-            }).subscribe((res) => {
-
-            });
-          }
-        }
-        this.messageService.showToastMessage('处理告警成功', 'success');
-        this.initList();
-      }
-    });
+    this.detailModal.title = `处理备忘`;
+    this.detailModal.show = true;  
 
   }
 
