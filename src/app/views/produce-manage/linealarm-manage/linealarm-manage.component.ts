@@ -66,18 +66,24 @@ export class LinealarmManageComponent implements OnInit {
   initList() {
     // 初始化丝车列表
     // clear filters
-    const cond = {};
+    const cond: any = {};
     if (this.filters.batchNum !== '') {
-      // @ts-ignore
       cond.batchNum = this.filters.batchNum;
     }
-    if (this.filters.ingotPos !== '') {
-      // @ts-ignore
-      cond.ingotPos = this.filters.ingotPos;
+    if (this.filters.standard !== '') {
+      cond.standard = this.filters.standard;
     }
     if (this.filters.lineType !== '') {
-      // @ts-ignore
       cond.lineType = this.filters.lineType;
+    }
+    if (this.filters.spinPos !== '') {
+      cond.spinPos = this.filters.spinPos;
+    }
+    if (this.filters.ingotPos !== '') {
+      cond.ingotPos = this.filters.ingotPos;
+    }
+    if (this.filters.isHandled !== '') {
+      cond.isHandled = this.filters.isHandled;
     }
     const filter = {
       'filters': cond,
@@ -90,9 +96,8 @@ export class LinealarmManageComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
-      this.ingotAlarmService.pageLineAlarms({'pageNum': 1, 'pageSize': 10000}).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.list.length;
-      });
+      this.tableConfig.pageTotal = res.value.total;
+      this.checkedId = {};
       this.tableConfig.loading = false;
     });
   }

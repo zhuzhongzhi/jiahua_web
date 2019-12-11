@@ -53,6 +53,7 @@
                 <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.isHandled">
                   <nz-option nzValue="0" nzLabel="未处理"></nz-option>
                   <nz-option nzValue="1" nzLabel="已经处理"></nz-option>
+                  <nz-option nzValue="" nzLabel="全部"></nz-option>
                 </nz-select>
               </div>
             </div>
@@ -117,24 +118,24 @@
 
 </div>
 
-<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title"
-          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submitForm()">
-  <form nz-form [formGroup]="validateForm">
-    <div nz-row>
-      <div nz-col>
-        <nz-form-item nzFlex>
-          <nz-form-label nz-col [nzSpan]="4" nzFor="lineType">备注 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
-          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
-            <textarea nz-input formControlName="remark" [nzAutosize]="{minRows: 2, maxRows: 6}" type="text"></textarea>
-            <nz-form-explain
-              *ngIf="getFormControl('remark')?.dirty&&getFormControl('remark')?.hasError('required')">
-              这是必填字段
-            </nz-form-explain>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
+<!--<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title"-->
+<!--          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submitForm()">-->
+<!--  <form nz-form [formGroup]="validateForm">-->
+<!--    <div nz-row>-->
+<!--      <div nz-col>-->
+<!--        <nz-form-item nzFlex>-->
+<!--          <nz-form-label nz-col [nzSpan]="4" nzFor="lineType">备注 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>-->
+<!--          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">-->
+<!--            <textarea nz-input formControlName="remark" [nzAutosize]="{minRows: 2, maxRows: 6}" type="text"></textarea>-->
+<!--            <nz-form-explain-->
+<!--              *ngIf="getFormControl('remark')?.dirty&&getFormControl('remark')?.hasError('required')">-->
+<!--              这是必填字段-->
+<!--            </nz-form-explain>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+<!--      </div>-->
+<!--    </div>-->
 
-  </form>
+<!--  </form>-->
 
-</nz-modal>
+<!--</nz-modal>-->
