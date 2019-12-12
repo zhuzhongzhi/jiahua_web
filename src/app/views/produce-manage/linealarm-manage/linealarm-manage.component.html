@@ -19,6 +19,15 @@
       </div>
       <div class="search-conds" *ngIf="!isCollapse">
         <div nz-row nzGutter="32">
+            <div nz-col class="gutter-row" nzSpan="6">
+                <div class="form-item" nz-row style="padding-top: 20px;">
+                  <label class="inline-span" nz-col nzSpan="8">线别</label>
+                  <div nz-col nzSpan="16" class="form-control">
+                    <!--                <input nzSize="default" nz-input type="text">-->
+                    <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType" />
+                  </div>
+                </div>
+              </div>
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">批号</label>
@@ -37,15 +46,7 @@
               </div>
             </div>
           </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">线别</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType" />
-              </div>
-            </div>
-          </div>
+
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">处理状态</label>
@@ -89,7 +90,7 @@
         <th class="align-center">批号</th>
         <th class="align-center">规格</th>
         <th class="align-center">线别</th>
-        <th class="align-center">告警日期</th>
+        <th class="align-center">报警时间</th>
         <th class="align-center">报警类型</th>
         <th class="align-center">异常比例</th>
         <th class="align-center">状态</th>
@@ -103,7 +104,7 @@
         <td>{{data?.batchNum}}</td>
         <td>{{data?.standard}}</td>
         <td>{{data?.lineType}}</td>
-        <td>{{data?.alarmTime}}</td>
+        <td>{{data?.alarmTime | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{data?.alarmType}}</td>
         <td>{{data?.exceptionRatio}}</td>
         <td>{{trans(data?.isHandled)}}</td>

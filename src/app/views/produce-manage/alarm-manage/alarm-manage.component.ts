@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ShowMessageService} from '../../../widget/show-message/show-message';
-import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
-import {NzModalService} from 'ng-zorro-antd';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ShowMessageService } from '../../../widget/show-message/show-message';
+import { IngotAlarmService } from '../../../core/biz-services/produceManage/IngotAlarmService';
+import { NzModalService } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { format } from "date-fns";
 
 @Component({
   selector: 'app-alarm-manage',
@@ -34,14 +35,20 @@ export class AlarmManageComponent implements OnInit {
   updateData: any;
   // 是否新增
   isAdd = false;
-
+  cardTime: '';
+  alarmType: '';
   constructor(private fb: FormBuilder,
-              private modal: NzModalService,
-              private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+    private modal: NzModalService,
+    private messageService: ShowMessageService,
+    private ingotAlarmService: IngotAlarmService) {
     this.filters = {
-      alarmType: '', // 锭数
-      cardTime: '', // 线别
+      alarmType: '',
+      batchNum: '', // 锭数
+      standard: '', // 线别
+      lineType: '', // 纺位
+      code: '',
+      cardTime: ''
+
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -60,17 +67,10 @@ export class AlarmManageComponent implements OnInit {
   initList() {
     // 初始化丝车列表
     // clear filters
-    const cond = {};
-    if (this.filters.alarmType !== '') {
-      // @ts-ignore
-      cond.batchNum = this.filters.batchNum;
-    }
-    if (this.filters.cardTime !== '') {
-      // @ts-ignore
-      cond.ingotPos = this.filters.ingotPos;
-    }
+    this.filters.cardTime = this.parseTime(this.cardTime);
+    if (this.alarmType === '') this.filters.alarmType = null;
     const filter = {
-      'filters': cond,
+      'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
       'pageSize': this.tableConfig.pageSize
     };
@@ -80,9 +80,7 @@ export class AlarmManageComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
-      this.ingotAlarmService.pageHandleLog({'pageNum': 1, 'pageSize': 10000}).subscribe((result) => {
-        this.tableConfig.pageTotal = result.value.list.length;
-      });
+      this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
     this.messageService.closeLoading();
@@ -92,6 +90,18 @@ export class AlarmManageComponent implements OnInit {
     this.checkedId = {};
     this.isAllChecked = false;
     this.initList();
+  }
+
+  parseTime(time) {
+    if (time) {
+      if (time instanceof Date) {
+        return format(time, 'yyyy-MM-dd HH:mm:ss');
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -151,9 +161,15 @@ export class AlarmManageComponent implements OnInit {
 
   resetCond() {
     this.filters = {
-      alarmType: '', // 锭数
-      cardTime: '', // 线别
+      alarmType: '',
+      batchNum: '', // 锭数
+      standard: '', // 线别
+      lineType: '', // 纺位
+      code: '',
+      cardTime: ''
     };
+    this.cardTime = '';
+    this.alarmType = '';
     this.initList();
   }
 
@@ -162,7 +178,7 @@ export class AlarmManageComponent implements OnInit {
   }
 
   export() {
-    this.ingotAlarmService.pageHandleLog({'pageNum': 1, 'pageSize': 10000}).subscribe((res) => {
+    this.ingotAlarmService.pageHandleLog({ 'pageNum': 1, 'pageSize': 10000 }).subscribe((res) => {
       if (res.code !== 0) {
         return;
       }
@@ -189,8 +205,8 @@ export class AlarmManageComponent implements OnInit {
 
   exportList(json) {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
-    const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, '报警处理日志列表');
   }
 

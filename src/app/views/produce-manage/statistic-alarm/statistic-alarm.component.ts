@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {DomSanitizer} from '@angular/platform-browser';
-import {NzModalService} from 'ng-zorro-antd';
-import {ShowMessageService} from '../../../widget/show-message/show-message';
-import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
-import {format} from "date-fns";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NzModalService } from 'ng-zorro-antd';
+import { ShowMessageService } from '../../../widget/show-message/show-message';
+import { IngotAlarmService } from '../../../core/biz-services/produceManage/IngotAlarmService';
+import { format } from "date-fns";
 
 
 @Component({
@@ -20,19 +20,19 @@ export class StatisticAlarmComponent implements OnInit {
   // 表格类
   isAllChecked = false;
   widthConfig = ['150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '150px', '1px'];
-  scrollConfig = { };
+  scrollConfig = {};
   dateRange = [];
   // ranges1 = { Today: [new Date(), new Date()], 'This Month': [new Date(), endOfMonth(new Date())] };
 
   constructor(private fb: FormBuilder,
-              private sanitizer: DomSanitizer,
-              private modal: NzModalService,
-              private modalService: NzModalService,
-              private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+    private sanitizer: DomSanitizer,
+    private modal: NzModalService,
+    private modalService: NzModalService,
+    private messageService: ShowMessageService,
+    private ingotAlarmService: IngotAlarmService) {
     this.filters = {
-      startTime: '',
-      endTime: '',
+      startTime: null,
+      endTime: null,
       statType: '0',
     };
     this.tableConfig = {
@@ -53,41 +53,28 @@ export class StatisticAlarmComponent implements OnInit {
 
   search() {
     console.log(this.dateRange);
+    this.filters.startTime = null;
+    this.filters.endTime = null;
     if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
-      const filter: any = {
-        'statType': this.filters.statType,
-        'pageNum': this.tableConfig.pageNum,
-        'pageSize': this.tableConfig.pageSize
-      };
-      filter.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm');
-      filter.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm');
-      this.tableConfig.loading = true;
-      this.ingotAlarmService.pageRangeAlarm(filter).subscribe((res) => {
-        if (res.code !== 0) {
-          return;
-        }
-        this.listOfAllData = res.value.list;
-        this.tableConfig.pageTotal = res.value.total;
-        this.tableConfig.loading = false;
-      });
-    } else {
-      const cond: any ={};
-      cond.statType = this.filters.statType;
-      const filter: any = {
-        'filters': cond,
-        'pageNum': this.tableConfig.pageNum,
-        'pageSize': this.tableConfig.pageSize
-      };
-      this.tableConfig.loading = true;
-      this.ingotAlarmService.pageAlarm(filter).subscribe((res) => {
-        if (res.code !== 0) {
-          return;
-        }
-        this.listOfAllData = res.value.list;
-        this.tableConfig.pageTotal = res.value.total;
-        this.tableConfig.loading = false;
-      });
+      this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
+      this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
     }
+    const filter: any = {
+      filters: this.filters,
+      'pageNum': this.tableConfig.pageNum,
+      'pageSize': this.tableConfig.pageSize
+    };
+
+    this.tableConfig.loading = true;
+    this.ingotAlarmService.pageRangeAlarm(filter).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.listOfAllData = res.value.list;
+      this.tableConfig.pageTotal = res.value.total;
+      this.tableConfig.loading = false;
+    });
+
   }
 
   pageChange() {

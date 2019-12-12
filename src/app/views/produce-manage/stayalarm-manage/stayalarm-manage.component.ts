@@ -21,6 +21,7 @@ export class StayalarmManageComponent implements OnInit {
   listOfAllData = [];
   remark: ''; // 备注
   handle: any;
+  alarmTime:'';
   // 表格类
   isAllChecked = false;
   checkedId: { [key: string]: boolean } = {};
@@ -116,8 +117,8 @@ export class StayalarmManageComponent implements OnInit {
     if (this.filters.code !== '') {
       cond.code = this.filters.code;
     }
-    if (this.filters.alarmTime !== '') {
-      cond.alarmTime = this.filters.alarmTime;
+    if (this.alarmTime !== '') {
+      cond.alarmTime = this.parseTime(this.alarmTime);
     }
     if (this.filters.isHandled !== '') {
       cond.isHandled = this.filters.isHandled;
@@ -145,6 +146,18 @@ export class StayalarmManageComponent implements OnInit {
     this.initList();
   }
 
+  parseTime(time) {
+    if (time) {
+      if (time instanceof Date) {
+        return format(time, 'yyyy-MM-dd HH:mm:ss');
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
   /**
    * 取消弹框
    */
@@ -156,7 +169,7 @@ export class StayalarmManageComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
-  submit() {
+  submit() {    
     for (const key in this.checkedId) {
       if (this.checkedId[key]) {
         // ids.push(key);
@@ -167,9 +180,9 @@ export class StayalarmManageComponent implements OnInit {
         });
       }
     }
-    this.messageService.showToastMessage('处理告警成功', 'success');
-    this.initList();
     this.detailModal.show = false;
+    this.messageService.showToastMessage('处理报警成功', 'success');
+    this.initList();
   }
 
   deal() {

@@ -381,7 +381,7 @@ export namespace IngotAlarmServiceNs {
     public pageRangeAlarm(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
-      return this.http.Get('/warn/stat/listRangePage', data, this.defaultConfig);
+      return this.http.Post('/warn/stat/listRangePage', data, this.defaultConfig);
     }
 
     /**

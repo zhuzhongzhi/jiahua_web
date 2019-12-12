@@ -19,27 +19,67 @@
         </div>
       </div>
       <div class="search-conds" *ngIf="!isCollapse">
-        <div nz-row nzGutter="16">
+          <div nz-row nzGutter="32">
+              <div nz-col class="gutter-row" nzSpan="6">
+                <div class="form-item" nz-row style="padding-top: 20px;">
+                  <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
+                  <div nz-col nzSpan="16" class="form-control">
+                    <!--                <input nzSize="default" nz-input type="text">-->
+                    <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code" />
+                  </div>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" nzSpan="6">
+                <div class="form-item" nz-row style="padding-top: 20px;">
+                  <label class="inline-span" nz-col nzSpan="8">线别</label>
+                  <div nz-col nzSpan="16" class="form-control">
+                    <!--                <input nzSize="default" nz-input type="text">-->
+                    <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType" />
+                  </div>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" nzSpan="6">
+                <div class="form-item" nz-row style="padding-top: 20px;">
+                  <label class="inline-span" nz-col nzSpan="8">批号</label>
+                  <div nz-col nzSpan="16" class="form-control">
+                    <!--                <input nzSize="default" nz-input type="text">-->
+                    <input type="text" nz-input placeholder="请输入批号" [(ngModel)]="filters.batchNum" />
+                  </div>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" nzSpan="6">
+                <div class="form-item" nz-row style="padding-top: 20px;">
+                  <label class="inline-span" nz-col nzSpan="8">规格</label>
+                  <div nz-col nzSpan="16" class="form-control">
+                    <!--                <input nzSize="default" nz-input type="text">-->
+                    <input type="text" nz-input placeholder="请输入规格" [(ngModel)]="filters.standard" />
+                  </div>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" nzSpan="6">
+                <div class="form-item" nz-row style="padding-top: 20px;">
+                  <label class="inline-span" nz-col nzSpan="8">报警日期</label>
+                  <div nz-col nzSpan="16" class="form-control">
+                    <!--                <input nzSize="default" nz-input type="text">-->
+                    <nz-date-picker style="width:100%;" [(ngModel)]="cardTime" nzFormat="yyyy-MM-dd">
+                    </nz-date-picker>
+                  </div>
+                </div>
+              </div>        
+          
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">报警类型</label>
               <div nz-col nzSpan="16" class="form-control">
                 <!--                <input nzSize="default" nz-input type="text">-->
                 <nz-input-group>
-                  <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.alarmType">
+                  <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="alarmType">
+                    <nz-option nzValue="" nzLabel="所有"></nz-option>
                     <nz-option nzValue="0" nzLabel="纺位质量报警"></nz-option>
                     <nz-option nzValue="1" nzLabel="批次质量报警"></nz-option>
                     <nz-option nzValue="2" nzLabel="驻留报警"></nz-option>
                   </nz-select>
                 </nz-input-group>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">建卡时间</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <nz-date-picker style="width:100%;" [(ngModel)]="filters.cardTime"></nz-date-picker>
               </div>
             </div>
           </div>
@@ -84,7 +124,7 @@
           <td>{{data.batchNum}}</td>
           <td>{{data.standard}}</td>
           <td>{{data.lineType}}</td>
-          <td>{{data.handleTime}}</td>
+          <td>{{data.handleTime | date:'yyyy-MM-dd HH:mm'}}</td>
           <td>{{data.operator}}</td>
           <td>{{data.remark}}</td>
         </tr>
