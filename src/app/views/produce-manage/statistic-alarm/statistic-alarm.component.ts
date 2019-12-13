@@ -53,14 +53,16 @@ export class StatisticAlarmComponent implements OnInit {
 
   search() {
     console.log(this.dateRange);
-    this.filters.startTime = null;
-    this.filters.endTime = null;
+    this.filters.startTime = '';
+    this.filters.endTime = '';
     if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
       this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
       this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
     }
     const filter: any = {
-      filters: this.filters,
+      'startTime': this.filters.startTime,
+      'endTime': this.filters.endTime,
+      'statType': this.filters.statType,
       'pageNum': this.tableConfig.pageNum,
       'pageSize': this.tableConfig.pageSize
     };
