@@ -20,7 +20,7 @@ export class QualityBillboardComponent implements OnInit {
   floatSilkList: any;
   windList: any;
   // 实时预警
-  spinAlarms = [];
+  spinAlarmS = [];
   residentAlarmS = [];
 
   chart1;
@@ -274,17 +274,12 @@ export class QualityBillboardComponent implements OnInit {
 
   private initWarns() {
     this.ingotAlarmService.warnRealTimeList().subscribe((res) => {
-      this.spinAlarms = res.value.spinAlarmS;
+      this.spinAlarmS = res.value.spinAlarmS;
       this.residentAlarmS = res.value.residentAlarmS;
     });
   }
 
-  private go(type) {
-    switch (type) {
-      case 1:
-        this.router.navigateByUrl('/main/produceManage/wiringAlarm');
-      case 2:
-        this.router.navigateByUrl('/main/produceManage/stayAlarm');
-    }
+  private go(url) {
+    this.router.navigateByUrl('/main/produceManage/' + url);   
   }
 }

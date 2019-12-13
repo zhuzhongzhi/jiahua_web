@@ -68,6 +68,7 @@ export class AlarmManageComponent implements OnInit {
     // 初始化丝车列表
     // clear filters
     this.filters.cardTime = this.parseTime(this.cardTime);
+    this.filters.alarmType = this.alarmType
     if (this.alarmType === '') this.filters.alarmType = null;
     const filter = {
       'filters': this.filters,
