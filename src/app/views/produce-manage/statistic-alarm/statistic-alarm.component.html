@@ -6,14 +6,10 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">起止日期</label>
           <div nz-col nzSpan="16" class="form-control">
-<!--            <nz-date-picker  [(ngModel)]="filters.startTime"-->
-<!--                            nzFormat="yyyy-MM-dd"></nz-date-picker>-->
-<!--            <nz-range-picker [(ngModel)]=""></nz-range-picker>-->
-            <nz-range-picker
-              [(ngModel)]="dateRange"
-              nzFormat="yyyy-MM-dd"
-              ngModel
-            ></nz-range-picker>
+            <!--            <nz-date-picker  [(ngModel)]="filters.startTime"-->
+            <!--                            nzFormat="yyyy-MM-dd"></nz-date-picker>-->
+            <!--            <nz-range-picker [(ngModel)]=""></nz-range-picker>-->
+            <nz-range-picker [(ngModel)]="dateRange" nzFormat="yyyy-MM-dd" ngModel></nz-range-picker>
           </div>
         </div>
       </div>
@@ -33,61 +29,57 @@
         </div>
       </div>
       <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
-        <button *appAuthBtu="2020501" nz-button nzType="primary" style="margin-right:20px" (click)="search()">统计查询</button>
+        <button *appAuthBtu="2020501" nz-button nzType="primary" style="margin-right:20px"
+          (click)="search()">统计查询</button>
       </div>
     </div>
 
     <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-              style="text-align:center"
-              [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
-              [(nzPageSize)]="tableConfig.pageSize"
-              [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
-              (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()" [nzWidthConfig]="widthConfig"
-              [nzScroll]="scrollConfig">
+      style="text-align:center" [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
+      [(nzPageSize)]="tableConfig.pageSize" [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading"
+      [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()"
+      [nzWidthConfig]="widthConfig" [nzScroll]="scrollConfig">
       <thead>
-      <tr>
-        <th nzLeft="0px">统计报警</th>
-        <th colspan="3">0-8</th>
-        <th colspan="3">8-16</th>
-        <th colspan="3">16-24</th>
-        <th nzRight="0px"></th>
-      </tr>
-      <tr>
-        <th nzLeft="0px">日期</th>
-        <th>产生</th>
-        <th>处理</th>
-        <th>未处理</th>
-        <th>产生</th>
-        <th>处理</th>
-        <th>未处理</th>
-        <th>产生</th>
-        <th>处理</th>
-        <th>未处理</th>
-        <th nzRight="0px"></th>
-      </tr>
+        <tr class="align-center">
+          <th nzLeft="0px">统计报警</th>
+          <th colspan="3">0-8</th>
+          <th colspan="3">8-16</th>
+          <th colspan="3">16-24</th>
+        </tr>
+        <tr class="align-center">
+          <th nzLeft="0px">日期</th>
+          <th>产生</th>
+          <th>处理</th>
+          <th>未处理</th>
+          <th>产生</th>
+          <th>处理</th>
+          <th>未处理</th>
+          <th>产生</th>
+          <th>处理</th>
+          <th>未处理</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
-        <td nzLeft="0px">{{data.statYear}}年{{data.statMonth}}月{{data.statDay}}日</td>
-        <td>{{data.genNum1}}</td>
-        <td>{{data.handleNum1}}</td>
-        <td>{{data.stillNum1}}</td>
-        <td>{{data.genNum2}}</td>
-        <td>{{data.handleNum2}}</td>
-        <td>{{data.stillNum2}}</td>
-        <td>{{data.genNum3}}</td>
-        <td>{{data.handleNum3}}</td>
-        <td>{{data.stillNum3}}</td>
-        <th nzRight="0px"></th>
-      </tr>
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+          <td nzLeft="0px">{{data.statYear}}年{{data.statMonth}}月{{data.statDay}}日</td>
+          <td>{{data.genNum1}}</td>
+          <td>{{data.handleNum1}}</td>
+          <td>{{data.stillNum1}}</td>
+          <td>{{data.genNum2}}</td>
+          <td>{{data.handleNum2}}</td>
+          <td>{{data.stillNum2}}</td>
+          <td>{{data.genNum3}}</td>
+          <td>{{data.handleNum3}}</td>
+          <td>{{data.stillNum3}}</td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
   <ng-template #totalTemplate let-total>
     <span class="m-r-sm">
-    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}
+      当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}
       至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
       条记录，共计{{tableConfig.pageTotal}}条记录
-  </span>
+    </span>
   </ng-template>
 </div>

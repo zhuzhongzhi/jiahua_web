@@ -112,7 +112,7 @@
         <th class="align-center">年份</th>
         <th class="align-center">月份</th>
         <th class="align-center">检验重量（kg）</th>
-        <th *appAuthBtu="2030402" class="align-center">登记重量及比例</th>
+        <th *appAuthBtu="2030402" class="align-center">等级重量及比例</th>
         <th *appAuthBtu="2030403" class="align-center">不良要因重量及比例</th>
         <th *appAuthBtu="2030404" class="align-center">重量不足的小卷重量及比例</th>
       </tr>
@@ -142,143 +142,145 @@
 
 </div>
 <nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]=null
-          (nzOnCancel)="handleDetailCancel()"  nzWidth="{{nzwidth}}">
+  (nzOnCancel)="handleDetailCancel()" nzWidth="{{nzwidth}}">
 
-  <nz-table *ngIf="type === 1" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-            style="text-align:center"
-            [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
-            [(nzPageSize)]="tableConfig.pageSize"  [nzShowPagination]="false"
-            [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
+  <nz-table *ngIf="type === 1" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger
+    [nzFrontPagination]="false" style="text-align:center" [nzTotal]="tableConfig.pageTotal"
+    [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize" [nzShowPagination]="false"
+    [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
     <thead>
-    <tr>
-      <th colspan="2" class="align-center">AA</th>
-      <th colspan="2" class="align-center">A</th>
-      <th colspan="2" class="align-center">A1</th>
-      <th colspan="2" class="align-center">B</th>
-    </tr>
-    <tr>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-    </tr>
+      <tr>
+        <th colspan="2" class="align-center">AA级</th>
+        <th colspan="2" class="align-center">AA纬</th>
+        <th colspan="2" class="align-center">A级</th>
+        <th colspan="2" class="align-center">A1级</th>
+        <th colspan="2" class="align-center">B级</th>
+      </tr>
+      <tr>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
-      <td>{{data1.weightAA}}</td>
-      <td>{{data1.ratioAA}}</td>
-      <td>{{data1.weightA}}</td>
-      <td>{{data1.ratioA}}</td>
-      <td>{{data1.weightA1}}</td>
-      <td>{{data1.ratioA1}}</td>
-      <td>{{data1.weightB}}</td>
-      <td>{{data1.ratioB}}</td>
-    </tr>
+      <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
+        <td>{{data1.weightAA}}</td>
+        <td>{{data1.ratioAA*100}}</td>
+        <td>{{data1.weightAAW}}</td>
+        <td>{{data1.ratioAAW*100}}</td>
+        <td>{{data1.weightA}}</td>
+        <td>{{data1.ratioA*100}}</td>
+        <td>{{data1.weightA1}}</td>
+        <td>{{data1.ratioA1*100}}</td>
+        <td>{{data1.weightB}}</td>
+        <td>{{data1.ratioB*100}}</td>
+      </tr>
     </tbody>
   </nz-table>
 
-  <nz-table *ngIf="type === 2" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-            style="text-align:center"
-            [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
-            [(nzPageSize)]="tableConfig.pageSize"  [nzShowPagination]="false"
-            [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
+  <nz-table *ngIf="type === 2" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger
+    [nzFrontPagination]="false" style="text-align:center" [nzTotal]="tableConfig.pageTotal"
+    [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize" [nzShowPagination]="false"
+    [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
     <thead>
-    <tr>
-      <th nzWidth="150px" colspan="2" class="align-center">毛丝</th>
-      <th colspan="2" class="align-center">碰伤</th>
-      <th colspan="2" class="align-center">绕外</th>
-      <th colspan="2" class="align-center">成型不良</th>
-      <th colspan="2" class="align-center">夹丝</th>
-      <th colspan="2" class="align-center">污丝</th>
-      <th colspan="2" class="align-center">黄化</th>
-      <th colspan="2" class="align-center">飘丝</th>
-      <th colspan="2" class="align-center">绕丝</th>
-      <th colspan="2" class="align-center">染色</th>
-      <th colspan="2" class="align-center">物性</th>
-      <th colspan="2" class="align-center">OPU</th>
-      <th colspan="2" class="align-center">其他</th>
-    </tr>
-    <tr>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-    </tr>
+      <tr>
+        <th colspan="2" class="align-center">毛丝</th>
+        <th colspan="2" class="align-center">碰伤</th>
+        <th colspan="2" class="align-center">绕外</th>
+        <th colspan="2" class="align-center">成型不良</th>
+        <th colspan="2" class="align-center">夹丝</th>
+        <th colspan="2" class="align-center">污丝</th>
+        <th colspan="2" class="align-center">黄化</th>
+        <th colspan="2" class="align-center">飘丝</th>
+        <th colspan="2" class="align-center">绕丝</th>
+        <th colspan="2" class="align-center">染色</th>
+        <th colspan="2" class="align-center">物性</th>
+        <th colspan="2" class="align-center">OPU</th>
+        <th colspan="2" class="align-center">其他</th>
+      </tr>
+      <tr>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
-      <td>{{data1.weightLousiness}}</td>
-      <td>{{data1.ratioLousiness}}</td>
-      <td>{{data1.weightBruise}}</td>
-      <td>{{data1.ratioBruise}}</td>
-      <td>{{data1.weightOutside}}</td>
-      <td>{{data1.ratioOutside}}</td>
-      <td>{{data1.weightBadShape}}</td>
-      <td>{{data1.ratioBadShape}}</td>
-      <td>{{data1.weightCrimp}}</td>
-      <td>{{data1.ratioCrimp}}</td>
-      <td>{{data1.weightSoiled}}</td>
-      <td>{{data1.ratioSoiled}}</td>
-      <td>{{data1.weightYellow}}</td>
-      <td>{{data1.ratioYellow}}</td>
-      <td>{{data1.weightFloat}}</td>
-      <td>{{data1.ratioFloat}}</td>
-      <td>{{data1.weightWind}}</td>
-      <td>{{data1.ratioWind}}</td>
-      <td>{{data1.weightDye}}</td>
-      <td>{{data1.ratioDye}}</td>
-      <td>{{data1.weightProperty}}</td>
-      <td>{{data1.ratioProperty}}</td>
-      <td>{{data1.weightOPU}}</td>
-      <td>{{data1.ratioOPU}}</td>
-      <td>{{data1.weightOther}}</td>
-      <td>{{data1.ratioOther}}</td>
-    </tr>
+      <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
+        <td>{{data1.weightLousiness}}</td>
+        <td>{{data1.ratioLousiness*100}}</td>
+        <td>{{data1.weightBruise}}</td>
+        <td>{{data1.ratioBruise*100}}</td>
+        <td>{{data1.weightOutside}}</td>
+        <td>{{data1.ratioOutside*100}}</td>
+        <td>{{data1.weightBadShape}}</td>
+        <td>{{data1.ratioBadShape*100}}</td>
+        <td>{{data1.weightCrimp}}</td>
+        <td>{{data1.ratioCrimp*100}}</td>
+        <td>{{data1.weightSoiled}}</td>
+        <td>{{data1.ratioSoiled*100}}</td>
+        <td>{{data1.weightYellow}}</td>
+        <td>{{data1.ratioYellow*100}}</td>
+        <td>{{data1.weightFloat}}</td>
+        <td>{{data1.ratioFloat*100}}</td>
+        <td>{{data1.weightWind}}</td>
+        <td>{{data1.ratioWind*100}}</td>
+        <td>{{data1.weightDye}}</td>
+        <td>{{data1.ratioDye*100}}</td>
+        <td>{{data1.weightProperty}}</td>
+        <td>{{data1.ratioProperty*100}}</td>
+        <td>{{data1.weightOPU}}</td>
+        <td>{{data1.ratioOPU*100}}</td>
+        <td>{{data1.weightOther}}</td>
+        <td>{{data1.ratioOther*100}}</td>
+      </tr>
     </tbody>
   </nz-table>
 
-  <nz-table *ngIf="type === 3" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
-            style="text-align:center"
-            [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum"
-            [(nzPageSize)]="tableConfig.pageSize"  [nzShowPagination]="false"
-            [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
+  <nz-table *ngIf="type === 3" class="table-list" #thisTable1 nzShowPagination nzBordered nzShowSizeChanger
+    [nzFrontPagination]="false" style="text-align:center" [nzTotal]="tableConfig.pageTotal"
+    [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize" [nzShowPagination]="false"
+    [nzData]="listModelOfAllData" [nzLoading]="tableConfig.infoLoading">
     <thead>
-    <tr>
-      <th class="align-center">重量</th>
-      <th class="align-center">%</th>
-    </tr>
+      <tr>
+        <th class="align-center">重量</th>
+        <th class="align-center">%</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
-      <td>{{data1.weight}}</td>
-      <td>{{data1.ratio}}</td>
-    </tr>
+      <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
+        <td>{{data1.weight}}</td>
+        <td>{{data1.ratio*100}}</td>
+      </tr>
     </tbody>
   </nz-table>
 

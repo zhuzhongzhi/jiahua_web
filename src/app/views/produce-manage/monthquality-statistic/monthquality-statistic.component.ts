@@ -89,9 +89,7 @@ export class MonthqualityStatisticComponent implements OnInit {
         return;
       }
       this.listOfAllData = res.value.list;
-      this.ingotAlarmService.pageStatMonthOutput({'pageNum': 1, 'pageSize': 10000}).subscribe((res) => {
-        this.tableConfig.pageTotal = res.value.list.length;
-      });
+      this.tableConfig.pageTotal = res.value.total;
       this.tableConfig.loading = false;
     });
   }
