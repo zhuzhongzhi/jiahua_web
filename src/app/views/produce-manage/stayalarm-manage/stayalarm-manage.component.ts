@@ -61,7 +61,7 @@ export class StayalarmManageComponent implements OnInit {
     };
     this.handle = {
       handleTime: "",
-      operator: localStorage.getItem('userId'),
+      operator: localStorage.getItem('userName'),
       alarmId: 1 ,     
       remark: ''
     }
