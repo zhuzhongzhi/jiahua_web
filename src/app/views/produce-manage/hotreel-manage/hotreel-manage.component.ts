@@ -937,7 +937,7 @@ export class HotreelManageComponent implements OnInit {
         item.线别 = wagon.lineType;
         item.净重 = wagon.weight;
         item.锭数 = wagon.ingotNum;
-        item.创建时间 = wagon.createTime;
+        item.生产时间 = wagon.createTime;
         item.创建人 = wagon.creator;
         item.落丝结束时间 = wagon.doffingEndTime;
         item.落丝操作员 = wagon.doffingOperator;

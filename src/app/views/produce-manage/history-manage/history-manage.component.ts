@@ -188,7 +188,7 @@ export class HistoryManageComponent implements OnInit {
         item.线别 = wagon.main.lineType;
         item.净重 = wagon.main.weight;
         item.锭数 = wagon.main.ingotNum;
-        item.创建时间 = wagon.main.createTime;
+        item.生产时间 = wagon.main.createTime;
         item.创建人 = wagon.main.creator;
         item.落丝结束时间 = wagon.main.doffingEndTime;
         item.落丝操作员 = wagon.main.doffingOperator;
@@ -370,7 +370,7 @@ export class HistoryManageComponent implements OnInit {
   //       item.检验时间 = wagon.checkTime;
   //       item.判色操作员 = wagon.colourOperator;
   //       item.判色时间 = wagon.colourTime;
-  //       item.创建时间 = wagon.createTime;
+  //       item.生产时间 = wagon.createTime;
   //       item.创建人 = wagon.creator;
   //       item.落丝结束时间 = wagon.doffingEndTime;
   //       item.落丝操作员 = wagon.doffingOperator;
