@@ -195,7 +195,7 @@ export class JiahuauserManageComponent implements OnInit {
     this.isAdd = true;
     this.detailModal.title = `新增用户信息`;
     this.detailModal.showContinue = true;
-    this.detailModal.showSaveBtn = true;
+    this.detailModal.showSaveBtn = true;    
     const controls = this.validateForm.controls;
     for (const key in controls) {
       if (controls.hasOwnProperty(key)) {
@@ -204,6 +204,7 @@ export class JiahuauserManageComponent implements OnInit {
       }
     }
     this.validateForm.reset();
+    this.validateForm.controls['userId'].setValue(this.guid());
     this.detailModal.show = true;
   }
 
@@ -458,7 +459,7 @@ export class JiahuauserManageComponent implements OnInit {
       }
     }
      if (this.validateForm.invalid) {
-       return;
+      // return;
        console.log(this.radioValue);
      }
     this.detailModal.loading = true;
@@ -466,6 +467,11 @@ export class JiahuauserManageComponent implements OnInit {
       const data = this.validateForm.value;
       data.status = this.radioValue;
       this.userService.addJiahuaUser(data).subscribe((res) => {
+        if(res.code === 1)
+        {
+          this.messageService.showToastMessage(res.value, 'error');
+          return;
+        }
         this.detailModal.show = false;
         this.detailModal.loading = false;
         // 插入的auth中
@@ -503,6 +509,12 @@ export class JiahuauserManageComponent implements OnInit {
 
   }
 
+  guid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+}
 
   resetCond() {
     this.filters = {

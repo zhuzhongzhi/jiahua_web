@@ -641,9 +641,12 @@ export class HotreelManageComponent implements OnInit {
         this.messageService.closeLoading();
         return;
       }
-
     }
+    this.loadedit(data);
+  }
 
+  loadedit(data)
+  {this.messageService.showLoading('加载中');
     const temp1 = { lineType: data.lineType };
     this.ingotAlarmService.getSpinPosByLineType(temp1).subscribe((res) => {
       this.spinPosList = res.value.sort();
@@ -668,7 +671,7 @@ export class HotreelManageComponent implements OnInit {
             this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((res1) => {
               item.showtable = true;
               item.exception = res1.value;
-              if (idx === this.doffList.length - 1) {
+              if (idx === 0) {
                 this.isAdd = false;
                 this.detailModal.title = `操作落丝记录`;
                 this.detailModal.showContinue = true;
@@ -811,9 +814,10 @@ export class HotreelManageComponent implements OnInit {
         return;
       }
       if (this.submitModel.cause === undefined || this.submitModel.cause === null || this.submitModel.cause === '') {
-        this.messageService.showToastMessage('请输入要因记录', 'warning');
-        this.messageService.closeLoading();
-        return;
+        // this.messageService.showToastMessage('请输入要因记录', 'warning');
+        // this.messageService.closeLoading();
+        // return;
+        this.submitModel.cause =' ';
       }
 
       this.submitModel.createTime = this.parseTime(this.submitModel.createTime);

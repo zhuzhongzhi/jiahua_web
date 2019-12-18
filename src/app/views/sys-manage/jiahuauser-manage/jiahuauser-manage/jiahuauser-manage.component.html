@@ -136,7 +136,7 @@
         <nz-form-item nzFlex>
           <nz-form-label nz-col [nzSpan]="4" nzFor="userId">用户ID <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
           <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
-            <input nz-input formControlName="userId" placeholder="请输入用户ID">
+            <input nz-input readonly formControlName="userId" placeholder="请输入用户ID">
             <nz-form-explain
               *ngIf="getFormControl('userId')?.dirty&&getFormControl('userId')?.hasError('required')">
               这是必填字段

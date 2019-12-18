@@ -381,6 +381,12 @@ export class CheckManageComponent implements OnInit {
       }
     }
 
+    this.loadedit(data);
+  }
+
+  loadedit(data)
+  {
+    this.messageService.showLoading('加载中');
     this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
         this.checkInfo = res.value;
     });

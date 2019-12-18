@@ -140,7 +140,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="loadedit(data)">
         <td nzShowCheckbox [(nzChecked)]="checkedId[data.main.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.main.pmId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.main.code}}</td>
@@ -351,7 +351,7 @@
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
       <div nz-row style="padding: 20px;">
         <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="1">
-          <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次落丝</B>
+          <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次</B>
         </div>
         <div nz-col class="gutter-row" nzSpan="6">
           <div class="form-item" nz-row >

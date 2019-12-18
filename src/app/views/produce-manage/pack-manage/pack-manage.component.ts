@@ -231,6 +231,12 @@ export class PackManageComponent implements OnInit {
       }
 
     }
+    this.loadedit(data);
+  }
+
+  loadedit(data)
+  {
+    this.messageService.showLoading('加载中');
     this.ingotAlarmService.getCheckInfo(data.main.pmId).subscribe((res) => {
         this.checkInfo = res.value;
     });

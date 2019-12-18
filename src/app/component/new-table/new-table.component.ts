@@ -40,27 +40,32 @@ export class NewTableComponent implements OnInit {
   };
 
   items1 = [
+    {key: '', value: ''},
     {key: 'B', value: '断毛(B)'},
     {key: 'R', value: '圈毛(R)'},
     {key: 'Q', value: '严重毛羽(Q)'},
     {key: 'BR', value: '断圈共存(BR)'},
   ];
   items2 = [
+    {key: '', value: ''},
     {key: '1', value: '机械碰伤'},
     {key: '2', value: '人为碰伤'},
   ];
   items3 = [
+    {key: '', value: ''},
     {key: '1', value: '凸肚(F1)'},
     {key: '2', value: '带状(F2)'},
     {key: '3', value: '脱圈'},
     {key: '4', value: '直绕(O)'},
   ];
   items4 = [
+    {key: '', value: ''},
     {key: '1', value: '第一落纱'},
     {key: '2', value: '红标签'},
     {key: '3', value: '黄标签'},
   ];
   items5 = [
+    {key: '', value: ''},
     {key: '1', value: 'GR绕丝'},
     {key: '2', value: 'GR交叉'},
     {key: '3', value: 'GR少绕'},
@@ -68,12 +73,14 @@ export class NewTableComponent implements OnInit {
     {key: '5', value: 'GR多绕'},
   ];
   items6 = [
+    {key: '', value: ''},
     {key: '1', value: '染色深(D)'},
     {key: '2', value: '染色浅(L)'},
     {key: '3', value: '条斑(S)'},
     {key: '4', value: '条纹(S)'},
   ];
   items7 = [
+    {key: '', value: ''},
     {key: '1', value: '丹尼异常'},
     {key: '2', value: '强伸低'},
     {key: '3', value: '强伸高'},
@@ -86,12 +93,15 @@ export class NewTableComponent implements OnInit {
     {key: '10', value: '细丝2根'},
   ];
   items8 = [
+    {key: '', value: ''},
     {key: '1', value: 'OPU低'},
-    {key: '2', value: '单丝未进油咀'},
-    {key: '3', value: '半束未进油咀'},
-    {key: '4', value: '整束未进油咀'},
+    {key: '2', value: 'OPU高'},
+    {key: '3', value: '单丝未进油咀'},
+    {key: '4', value: '半束未进油咀'},
+    {key: '5', value: '整束未进油咀'},
   ];
   items9 = [
+    {key: '', value: ''},
     {key: '1', value: '破纸管'},
     {key: '2', value: '组件压力波动'},
     {key: '3', value: '侧吹风异常'},
@@ -99,10 +109,12 @@ export class NewTableComponent implements OnInit {
     {key: '5', value: '挤压机异常'},
   ];
   items10 = [
+    {key: '', value: ''},
     {key: '1', value: '是'},
     {key: '2', value: '否'},
   ];
   items11 = [
+    {key: '', value: ''},
     {key: '1', value: '1根'},
     {key: '2', value: '2根'},
     {key: '3', value: '3根'},
@@ -124,6 +136,7 @@ export class NewTableComponent implements OnInit {
     {key: '19', value: '分错丝少3根'},
   ];
   items12 = [
+    {key: '', value: ' '},
     {key: 'AA', value: 'AA级'},
     {key: 'AA纬', value: 'AA纬'},
     {key: 'A', value: 'A级'},
@@ -131,7 +144,7 @@ export class NewTableComponent implements OnInit {
     {key: 'B', value: 'B级'},
   ];
   items13 = [
-    {key: '', value: '未选择'},
+    {key: '', value: ' '},
     {key: 'AA', value: 'AA级'},
     {key: 'AA纬', value: 'AA纬'},
     {key: 'A', value: 'A级'},
@@ -141,10 +154,10 @@ export class NewTableComponent implements OnInit {
 
 
 
-  widthConfig = ['60px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
-    '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px', '80px',
-    '80px', '80px', '80px', '80px', '80px', '80px', '80px', '1px'];
-  scrollConfig = { x: '2220px' };
+  widthConfig = ['60px', '50px', '50px', '50px', '50px', '50px', '50px', '50px', '50px', '50px',
+    '50px', '50px', '50px', '50px', '50px', '50px', '50px', '50px', '50px', '50px',
+    '50px', '50px', '50px', '50px', '50px', '50px', '50px', '1px'];
+  scrollConfig = { x: '1280px' };
 
   // 修改的列
   editColumn = '';

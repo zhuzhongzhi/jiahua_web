@@ -308,6 +308,12 @@ export class ShakesockManageComponent implements OnInit {
       }
 
     }
+    this.loadedit(data);
+  }
+
+  loadedit(data)
+  {
+    this.messageService.showLoading('加载中');
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
       for (let idx = 0; idx < this.doffList.length; idx ++) {

@@ -161,7 +161,6 @@
       color: #022b43;
     }
   }
-
 }
 
 .logo {
@@ -235,7 +234,7 @@
 .content-container {
   position: relative;
   //height: 100%;
-  margin:16px;
+  margin: 16px;
   //background-color:#fff;
 }
 
@@ -260,7 +259,7 @@ a-color {
 .ant-menu-item {
   opacity: 0.5;
 }
-.ant-menu-submenu{
+.ant-menu-submenu {
   opacity: 0.5;
 }
 .ant-menu-item-selected {
@@ -275,10 +274,9 @@ a-color {
     opacity: 1;
   }
   .ant-menu-item-selected {
-    color:#000;
+    color: #000;
   }
   .ant-menu-item:hover {
-    color:#000;
+    color: #000;
   }
-
 }

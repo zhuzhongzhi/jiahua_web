@@ -144,7 +144,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="loadedit(data)">
           <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()"
               [nzDisabled]="data.pmId === '-1'"></td>
           <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
@@ -345,8 +345,8 @@
       </div>
       <div nz-col class="gutter-row" nzSpan="12">
         <div class="form-item" nz-row style="padding-top: 20px;">
-          <label class="inline-span" nz-col nzSpan="4"><span class="red-txt">*</span>要因记录</label>
-          <div nz-col nzSpan="20" class="form-control">
+          <label class="inline-span" nz-col nzSpan="4">要因记录</label>
+          <div nz-col nzSpan="20">
             <textarea rows="4" nz-input [(ngModel)]="submitModel.cause" placeholder="请输入要因"></textarea>
           </div>
         </div>
@@ -448,7 +448,7 @@
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
       <div nz-row style="padding: 20px;">
         <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="1">
-          <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次落丝</B>
+          <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次</B>
         </div>
         <div nz-col class="gutter-row" nzSpan="6">
           <div class="form-item" nz-row >

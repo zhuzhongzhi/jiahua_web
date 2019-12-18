@@ -132,6 +132,7 @@ export class LatheDistributedComponent implements OnInit {
       if (res.code !== 0) {
         return;
       }
+      debugger;
       let tags = '';
       res.value.list.forEach(item => {
         if (tags === '') {
