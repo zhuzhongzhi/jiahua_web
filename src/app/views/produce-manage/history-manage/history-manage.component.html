@@ -160,7 +160,11 @@
 
           <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
             <button *appAuthBtu="2010701" nz-button nzType="primary" style="margin-right:20px"
-              (click)="initList()">查询</button>
+              (click)="initListstat('7')">已完成</button>
+              <button *appAuthBtu="2010701" nz-button nzType="primary" style="margin-right:20px"
+              (click)="initListstat('8')">未完成</button>
+            <button *appAuthBtu="2010701" nz-button nzType="primary" style="margin-right:20px"
+              (click)="initListstat(null)">查询</button>
             <button *appAuthBtu="2010702" nz-button style="margin-right:20px;" (click)="resetCond()">重置</button>
           </div>
         </div>
@@ -170,13 +174,12 @@
       <!-- Unnamed (图片 ) -->
     </div>
 
-    <!-- <div nz-row nzGutter="16"> -->
-    <!--      <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="edit()"><i nz-icon type="form" theme="outline"></i>操作</button>-->
-
-
-    <!-- </div> -->
+    
 
     <div nz-row nzGutter="16" style="margin-top: 15px;">
+      <div nz-col nzSpan="4" class="gutter-row">
+        <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="delete()"><i nz-icon type="form" theme="outline"></i>删除</button>
+   </div>
       <div nz-col nzSpan="4" class="gutter-row">
         <span style="margin-right:20px;">总净重：{{historyTotal.totalWeight}}kg</span>
       </div>
@@ -195,7 +198,7 @@
       [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead>
         <tr>
-          <!--        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>-->
+                 <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
           <th nzWidth="70px">序号</th>
           <th class="align-center">丝车编号</th>
           <th class="align-center">工艺状态</th>
@@ -219,7 +222,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="showDetail(data.main)">
-          <!--        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>-->
+                 <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>
           <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
           <td>{{data.main.code}}</td>
           <td>{{trans(data.main.craftState)}}</td>
@@ -521,31 +524,32 @@
     </div>
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
       <div nz-row style="padding: 20px;">
-        <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="1">
-          <B><img src="../../../../assets/image/jiahua/table/u1534.svg" />第{{i + 1}}次</B>
+        <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="2">
+          <B><img src="../../../../assets/image/jiahua/table/u1534.svg"/>第{{i + 1}}次</B>
+          &nbsp;&nbsp;<span style="font-size: 15px;cursor:pointer" (click)="toggleTable(item)"> {{item.showtable == true ? '收起' : '展开'}} </span>
         </div>
         <div nz-col class="gutter-row" nzSpan="6">
           <div class="form-item" nz-row>
             <label class="inline-span" nz-col nzSpan="8">落丝时间</label>
             <div nz-col nzSpan="16" class="form-control">
-              <nz-date-picker disabled [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+              <nz-date-picker disabled  [(ngModel)]="item.doffingTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
             </div>
           </div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="6">
+        <div nz-col class="gutter-row" nzSpan="4">
           <div class="form-item" nz-row>
-            <label class="inline-span" nz-col nzSpan="8">净重</label>
-            <div nz-col nzSpan="16" class="form-control">
+            <label class="inline-span" nz-col nzSpan="12">净重</label>
+            <div nz-col nzSpan="12" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight" />
+              <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight"/>
             </div>
           </div>
         </div>
-        <div nz-col class="gutter-row" nzSpan="6">
+        <div nz-col class="gutter-row" nzSpan="4">
           <div class="form-item" nz-row>
-            <label class="inline-span" nz-col nzSpan="8">落丝纺位</label>
-            <div nz-col nzSpan="16" class="form-control">
-              <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.spinPos" />
+            <label class="inline-span" nz-col nzSpan="12">落丝纺位</label>
+            <div nz-col nzSpan="12" class="form-control">
+              <input type="text" disabled nz-input placeholder="请输入落丝纺位" [(ngModel)]="item.spinPos"/>
             </div>
           </div>
         </div>

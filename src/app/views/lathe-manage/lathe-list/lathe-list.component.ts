@@ -5,7 +5,8 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormBuilder} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import {DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { format } from "date-fns";
 
 @Component({
   selector: 'app-lathe-list',
@@ -24,8 +25,9 @@ export class LatheListComponent implements OnInit {
     showContinue: false,
     showSaveBtn: false
   };
-  src = '';
+  src:SafeResourceUrl;
   listOfAllData = [];
+  dateRange =[];
 
   constructor(private fb: FormBuilder,
               private modal: NzModalService,
@@ -33,9 +35,13 @@ export class LatheListComponent implements OnInit {
               private messageService: ShowMessageService,
               private latheManageService: LatheManageService) {
     this.filters = {
-      code: '',
-      batchNum: '',
-      craftState: null
+      code: null,
+      batchNum: null,
+      craftState:null,
+      lineType: null,
+      standard: null,
+      startTime: null,
+      endTime: null
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -47,8 +53,7 @@ export class LatheListComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
-    this.filters.craftState='';
+  ngOnInit() {   
     this.initList();
     this.messageService.closeLoading();
   }
@@ -143,6 +148,13 @@ export class LatheListComponent implements OnInit {
 
   initList() {
     // 初始化丝车列表
+    this.filters.startTime = null;
+    this.filters.endTime = null;
+    if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
+      this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
+      this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
+    }
+
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,

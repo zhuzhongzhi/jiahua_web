@@ -73,7 +73,7 @@ export class HistoryManageComponent implements OnInit {
       packageStartTime: '',
       packagEndTime: '',
       empId:'',
-      craftState: '7'
+      craftState: null
     };
     this.tableConfig = {
       showCheckBox: false,
@@ -221,7 +221,10 @@ export class HistoryManageComponent implements OnInit {
       this.exportList(arr);
     });
   }
-
+  initListstat(stat) {
+    this.filters.craftState = stat;
+    this.initList();
+  }
   initList() {
     // 初始化丝车列表
     this.filters.createTime = this.parseTime(this.createTime);

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { IngotAlarmService } from '../../../core/biz-services/produceManage/IngotAlarmService';
 import * as screenfull from 'screenfull';
-import {ShowMessageService} from '../../../widget/show-message/show-message';
+import { ShowMessageService } from '../../../widget/show-message/show-message';
+import { format } from "date-fns";
 
 @Component({
   selector: 'app-lathe-distributed',
@@ -16,15 +17,11 @@ export class LatheDistributedComponent implements OnInit {
   tags = ''; // tags
   types = ''; // types
   typeMap = {};
- 
-  filters = {
-    batchNum: '',
-    lineType: '',
-    code: ''
-  };
+
+  filters: any;
   data: any = {};
   safeUrl = '/track/map/map2d/svg/sim/?anony=super&map=test_4&isHideBtn=1';
-
+  mapurl : SafeResourceUrl ;
   detailModal = {
     show: false,
     loading: false,
@@ -32,10 +29,19 @@ export class LatheDistributedComponent implements OnInit {
     showContinue: false,
     showSaveBtn: false
   };
-
+  dateRange = [];
   constructor(private sanitizer: DomSanitizer,
-              private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+    private messageService: ShowMessageService,
+    private ingotAlarmService: IngotAlarmService) {
+    this.filters = {
+      code: '',
+      batchNum: '',
+      craftState: '',
+      lineType: '',
+      standard: '',
+      startTime: null,
+      endTime: null
+    };
   }
   ngOnInit() {
     this.initData();
@@ -46,8 +52,18 @@ export class LatheDistributedComponent implements OnInit {
     }
     this.createIframe();
   }
-
   createIframe() {
+    let url = this.safeUrl;
+    if (this.tags !== '') {
+      url = this.safeUrl + '&tags=' + this.tags;
+    }
+    if (this.types !== '') {
+      url = this.safeUrl + '&types=' + this.types;
+    }
+    this.mapurl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.messageService.closeLoading();
+  }
+  /*createIframe() {
     const list = document.getElementById('jiahua-map');
     if (list.childNodes.length > 0) {
       list.removeChild(list.childNodes[0]);
@@ -75,22 +91,22 @@ export class LatheDistributedComponent implements OnInit {
     i.style.backgroundColor = 'transparent';
     document.getElementById('jiahua-map').appendChild(i);
 
-    var kill = setTimeout(function(){      
+    var kill = setTimeout(function () {
       i.src = 'about:blank';
       that.messageService.closeLoading();
       document.getElementById('jiahua-map').appendChild(i);
       clearTimeout(kill);
     }, 6000);
-   
+
     console.log('createIframe');
-    // const doc = i.contentWindow.document;
-    // doc.open().write('<body onload="location.href=\'' + this.safeUrl + '\'">');
-    // doc.close();
-    i.onload = function() {
+    const doc = i.contentWindow.document;
+    doc.open().write('<body onload="location.href=\'' + this.safeUrl + '\'">');
+    doc.close();
+    i.onload = function () {
       that.messageService.closeLoading();
       clearTimeout(kill);
     };
-  }
+  }*/
 
   /**
    * 取消弹框
@@ -120,9 +136,14 @@ export class LatheDistributedComponent implements OnInit {
   // 查询丝车列表并重新构建iframe
   searchTagsInit() {
     this.initData();
+
+    this.filters.startTime = null;
+    this.filters.endTime = null;
+    if (this.dateRange !== [] && this.dateRange !== null && this.dateRange !== undefined && this.dateRange.length > 1) {
+      this.filters.startTime = format(this.dateRange[0], 'yyyy-MM-dd HH:mm:ss');
+      this.filters.endTime = format(this.dateRange[1], 'yyyy-MM-dd HH:mm:ss');
+    }
     this.messageService.showLoading('地图加载中');
-    if(this.filters.lineType==='请选择') this.filters.lineType='';
-    if(this.filters.batchNum==='请选择') this.filters.batchNum='';
     const filter = {
       'filters': this.filters,
       'pageNum': 1,
@@ -132,7 +153,7 @@ export class LatheDistributedComponent implements OnInit {
       if (res.code !== 0) {
         return;
       }
-      debugger;
+      //debugger;
       let tags = '';
       res.value.list.forEach(item => {
         if (tags === '') {
@@ -141,45 +162,19 @@ export class LatheDistributedComponent implements OnInit {
           tags = tags + ',' + item.tagId;
         }
       });
-      if (tags === '') {tags ='00000000';}
+      if (tags === '') { tags = '00000000'; }
       this.tags = tags;
-      this.types ='';
+      this.types = '';
       this.createIframe();
     });
   }
 
   public initData() {
-    // init types
-    this.ingotAlarmService.getTagTypes().subscribe((res) => {
-      if (res.code !== 0) {
-        return;
-      }
-      this.typeMap = res.value;
-    });
-    // init linetypes
-    this.ingotAlarmService.getAllLineTypes().subscribe((res) => {
-      if (res.code !== 0) {
-        return;
-      }
-      let lineItems = res.value.sort() ;
-      lineItems.splice(0,0,"请选择");
-      this.lineItems = lineItems;   
-      this.filters.lineType = "请选择";
-    });
-    this.ingotAlarmService.getAllBatchList().subscribe((res) => {
-      if (res.code !== 0) {
-        return;
-      }
-      let batchList = res.value.sort() ;
-      batchList.splice(0,0,"请选择");
-      this.batchList = batchList;   
-      this.filters.batchNum = "请选择";
-    });
-    this.data.total=0;
+    this.data.total = 0;
     this.ingotAlarmService.wagonSummary(this.filters).subscribe(res => {
       res.value.forEach(item => {
         this.data.total += item.total;
-        if (item.craftState === 0) {         
+        if (item.craftState === 0) {
           this.data.exit = item.total;
         }
         if (item.craftState === 1) {
@@ -209,33 +204,33 @@ export class LatheDistributedComponent implements OnInit {
     let types = '';
     switch (status) {
       case 9:
-        
+
         break;
       case 0:
-        types =  "15,22,29";
+        types = "15,22,29";
         break;
       case 1:
-        types =  "16,23,30";
+        types = "16,23,30";
         break;
       case 2:
-        types =  "17,24,31";
+        types = "17,24,31";
         break;
       case 3:
         types = "18,25,32";
         break;
       case 4:
-        types =  "19,26,33";
+        types = "19,26,33";
         break;
       case 5:
-        types =  "20,27,34";
+        types = "20,27,34";
         break;
       case 6:
         types = "21,28,35";
         break;
-    }    
-  
+    }
+
     this.types = types;
-    this.tags ='';
+    this.tags = '';
     this.createIframe();
   }
 

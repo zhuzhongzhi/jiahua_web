@@ -185,8 +185,15 @@ export namespace IngotAlarmServiceNs {
       config.gateway = HttpUtilNs.GatewayKey.Iot;
       return this.http.Post('/produce/newCraft/historyPage', data, this.defaultConfig);
     }
-    // 丝车概要信息
-    public wagonSummary(data) {
+    // 丝车是否使用
+    public wagonisUsed(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/wagon/isUsed', data, this.defaultConfig);
+    }
+
+     // 丝车概要信息
+     public wagonSummary(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
       return this.http.Get('/wagon/summary', data, this.defaultConfig);
@@ -225,6 +232,13 @@ export namespace IngotAlarmServiceNs {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
       return this.http.Post('/produce/newCraft/modify', data, this.defaultConfig);
+    }
+
+     // 获取主记录更新
+     public newCraftgetMain(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Post('/produce/newCraft/getMain', data, this.defaultConfig);
     }
 
     public endDoff(data) {

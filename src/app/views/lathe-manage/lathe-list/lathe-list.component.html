@@ -19,22 +19,13 @@
         </div>
       </div>
       <div class="search-conds" *ngIf="!isCollapse">
-        <div nz-row nzGutter="16">
-          <div nz-col class="gutter-row" nzSpan="6">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
-              <div nz-col nzSpan="16" class="form-control">
-                <!--                <input nzSize="default" nz-input type="text">-->
-                <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code" />
-              </div>
-            </div>
-          </div>
+        <div nz-row nzGutter="16">          
           <div nz-col class="gutter-row" nzSpan="6">
             <div class="form-item" nz-row style="padding-top: 20px;">
               <label class="inline-span" nz-col nzSpan="8">工艺状态</label>
               <div nz-col nzSpan="16" class="form-control">
                 <nz-select style="width: 100%;" nzPlaceHolder="请选择" [(ngModel)]="filters.craftState">
-                  <nz-option nzValue="" nzLabel="全部"></nz-option>
+                  <nz-option nzValue='' nzLabel="全部"></nz-option>
                   <nz-option nzValue="0" nzLabel="空闲"></nz-option>
                   <nz-option nzValue="1" nzLabel="落丝"></nz-option>
                   <nz-option nzValue="2" nzLabel="测丹尼"></nz-option>
@@ -43,6 +34,53 @@
                   <nz-option nzValue="5" nzLabel="检验"></nz-option>
                   <nz-option nzValue="6" nzLabel="包装"></nz-option>
                 </nz-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">线别</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入线别" [(ngModel)]="filters.lineType"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">批号</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入批号" [(ngModel)]="filters.batchNum"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">规格</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入规格" [(ngModel)]="filters.standard"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="12">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="4">落丝时间</label>
+              <div nz-col nzSpan="20" class="form-control">
+                <!--            <nz-date-picker  [(ngModel)]="filters.startTime"-->
+                <!--                            nzFormat="yyyy-MM-dd"></nz-date-picker>-->
+                <!--            <nz-range-picker [(ngModel)]=""></nz-range-picker>-->
+                <nz-range-picker nzShowTime [(ngModel)]="dateRange" nzFormat="yyyy-MM-dd HH:mm" ngModel></nz-range-picker>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="6">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">丝车编号</label>
+              <div nz-col nzSpan="16" class="form-control">
+                <!--                <input nzSize="default" nz-input type="text">-->
+                <input type="text" nz-input placeholder="请输入丝车编号" [(ngModel)]="filters.code" />
               </div>
             </div>
           </div>

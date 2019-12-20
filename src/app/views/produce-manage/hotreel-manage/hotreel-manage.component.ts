@@ -623,8 +623,7 @@ export class HotreelManageComponent implements OnInit {
   }
 
   edit() {
-    this.messageService.showLoading('');
-    this.showiFrame = 0;
+    this.messageService.showLoading('');   
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
@@ -655,7 +654,8 @@ export class HotreelManageComponent implements OnInit {
   }
 
   loadedit(data)
-  {this.messageService.showLoading('加载中');
+  { this.showiFrame = 0;
+    this.messageService.showLoading('加载中');
     const temp1 = { lineType: data.lineType };
     this.ingotAlarmService.getSpinPosByLineType(temp1).subscribe((res) => {
       this.spinPosList = res.value.sort();
@@ -788,6 +788,14 @@ export class HotreelManageComponent implements OnInit {
         this.messageService.closeLoading();
         return;
       }
+      this.ingotAlarmService.wagonisUsed({"code":this.submitModel.code}).subscribe((res) => {
+        if (res.code == 1) {
+          this.messageService.showToastMessage('丝车在使用中！', 'error');
+          this.messageService.closeLoading();
+          this.submitModel.code ='';
+          return;
+        }
+      });
       if (this.submitModel.batchNum === undefined || this.submitModel.batchNum === null || this.submitModel.batchNum === '') {
         this.messageService.showToastMessage('请选择批次', 'warning');
         this.messageService.closeLoading();
@@ -842,8 +850,13 @@ export class HotreelManageComponent implements OnInit {
         }
         this.messageService.showToastMessage('主记录新建成功', 'success');
         this.detailModal.show = false;
-        this.initList();
+        this.initList();        
         this.messageService.closeLoading();
+        //查找创建时间一样的记录
+         this.ingotAlarmService.newCraftgetMain({pmId: res.value}).subscribe((newres) => {       
+            this.loadedit(newres);
+            return;          
+        });
       });
     } else if (this.showiFrame === 0) {
       const wagonExceptions = [];

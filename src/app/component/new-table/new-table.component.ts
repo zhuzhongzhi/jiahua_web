@@ -574,7 +574,6 @@ export class NewTableComponent implements OnInit {
   }
 
   menuselect(key) {
-    debugger;
     switch(this.editColumn) {
       case 'lousiness':
         this.dataList.forEach(ele => {
