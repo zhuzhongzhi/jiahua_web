@@ -299,6 +299,11 @@
             </div>
           </div>
         </div>
+        <div id="u627" class="ax_default">
+          <div id="u627_text" class="text ">
+            <i nz-icon [type]="item.showtable ? 'up' : 'down'" style="font-size: 15px;cursor:pointer" (click)="toggleTable(item)"></i>
+          </div>
+        </div>
       </div>
       <app-adjust-table *ngIf="item.showtable" [dataList]="item.exception"></app-adjust-table>
     </div>

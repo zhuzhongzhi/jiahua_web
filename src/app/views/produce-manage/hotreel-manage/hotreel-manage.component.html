@@ -479,9 +479,15 @@
           </div>
         </div>
         <div *appAuthBtu="2010109">
-          <button *ngIf="!item.showtable" nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px;"
-                  (click)="addTable(item, i)">创建表格
-          </button>
+            <button *ngIf="!item.hastable" nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px;"
+                    (click)="addTable(item, i)">创建表格
+            </button>
+          </div>        
+        <div id="u627" class="ax_default">
+          
+          <div id="u627_text" class="text ">
+            <i *ngIf="item.hastable "nz-icon [type]="item.showtable ? 'up' : 'down'" style="font-size: 15px;cursor:pointer" (click)="toggleTable(item)"></i>
+          </div>
         </div>
       </div>
       <app-hotreel-table *ngIf="item.showtable" [dataList]="item.exception"></app-hotreel-table>

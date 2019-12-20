@@ -129,6 +129,7 @@ export class PackManageComponent implements OnInit {
     });
     this.getProduce();
     this.messageService.closeLoading();
+    setInterval(()=>{this.initList();},180000);
   }
 
   resetDataList() {
@@ -184,6 +185,11 @@ export class PackManageComponent implements OnInit {
 
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
+  }
+
+  toggleTable(item)
+  {
+    item.showtable = !item.showtable;
   }
 
   add() {
@@ -249,7 +255,7 @@ export class PackManageComponent implements OnInit {
         }
         // 设置 exception
         this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
-          item.showtable = true;
+          item.showtable = false;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
             this.isAdd = false;

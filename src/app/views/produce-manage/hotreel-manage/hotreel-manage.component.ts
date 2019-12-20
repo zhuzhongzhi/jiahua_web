@@ -9,6 +9,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { format } from 'date-fns';
 import { LineSpinService } from '../../../core/biz-services/lineSpinService/LineSpinService';
 import { Router } from '@angular/router';
+import { tr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-hotreel-manage',
@@ -173,6 +174,7 @@ export class HotreelManageComponent implements OnInit {
       threshold: [null, [Validators.required]]
     });
     this.messageService.closeLoading();
+    setInterval(()=>{this.initList();},180000);
   }
 
   initType() {
@@ -279,6 +281,11 @@ export class HotreelManageComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
+  toggleTable(item)
+  {
+    item.showtable = !item.showtable;
+  }
+
   toAddBatch() {
     this.detailModal2.title = `新增批次规格信息`;
     this.detailModal2.showContinue = true;
@@ -357,6 +364,7 @@ export class HotreelManageComponent implements OnInit {
         // 进行表格创建
         this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((resData) => {
           this.doffList[i].showtable = true;
+          this.doffList[i].hastable  = true;
           this.doffList[i].exception = resData.value;
           this.messageService.closeLoading();
         });
@@ -365,6 +373,7 @@ export class HotreelManageComponent implements OnInit {
       // 进行表格创建
       this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((res) => {
         this.doffList[i].showtable = true;
+        this.doffList[i].hastable  = true;
         this.doffList[i].exception = res.value;
       });
     }
@@ -669,7 +678,8 @@ export class HotreelManageComponent implements OnInit {
             }
             // 设置 exception
             this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((res1) => {
-              item.showtable = true;
+              item.showtable = false;
+              item.hastable = true;
               item.exception = res1.value;
               if (idx === 0) {
                 this.isAdd = false;

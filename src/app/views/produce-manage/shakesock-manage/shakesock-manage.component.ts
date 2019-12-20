@@ -135,6 +135,7 @@ export class ShakesockManageComponent implements OnInit {
     });
     this.getProduce();
     this.messageService.closeLoading();
+    setInterval(()=>{this.initList();},180000);
   }
 
   saveProcess()
@@ -264,6 +265,11 @@ export class ShakesockManageComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
+  toggleTable(item)
+  {
+    item.showtable = !item.showtable;
+  }
+
   add() {
     this.isAdd = true;
     this.detailModal.title = `新增线别纺位信息`;
@@ -323,7 +329,7 @@ export class ShakesockManageComponent implements OnInit {
         }
         // 设置 exception
         this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
-          item.showtable = true;
+          item.showtable = false;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
             this.isAdd = false;

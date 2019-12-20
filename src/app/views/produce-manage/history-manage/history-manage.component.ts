@@ -39,6 +39,7 @@ export class HistoryManageComponent implements OnInit {
   // 落丝列表
   doffList: any = [];
 
+  checkInfo: any ={};
   historyTotal: any = {};
 
   createTime: '';
@@ -257,6 +258,9 @@ export class HistoryManageComponent implements OnInit {
   showDetail (data) {
     this.submitModel = data;
     this.messageService.showLoading('');
+    this.ingotAlarmService.getCheckInfo(data.pmId).subscribe((res) => {
+      this.checkInfo = res.value;
+  });
     this.ingotAlarmService.getDoffings({pmId: data.pmId}).subscribe((res) => {
       this.doffList = res.value;
       for (let idx = 0; idx < this.doffList.length; idx ++) {
@@ -266,7 +270,7 @@ export class HistoryManageComponent implements OnInit {
         }
         // 设置 exception
         this.ingotAlarmService.getDoffingExceptions({pdId: item.pdId}).subscribe((res1) => {
-          item.showtable = true;
+          item.showtable = false;
           item.exception = res1.value;
           if (idx === this.doffList.length - 1) {
             this.detailModal.title = `查看详情`;
@@ -290,6 +294,11 @@ export class HistoryManageComponent implements OnInit {
 
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
+  }
+
+  toggleTable(item)
+  {
+    item.showtable = !item.showtable;
   }
 
   checkAll(value: boolean): void {

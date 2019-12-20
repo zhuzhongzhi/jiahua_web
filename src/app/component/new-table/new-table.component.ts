@@ -1,4 +1,6 @@
-import {Component, Input, OnInit, ChangeDetectorRef, EventEmitter,Output} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectorRef, EventEmitter,Output, TemplateRef} from '@angular/core';
+import { NzDropdownContextComponent, NzDropdownService } from 'ng-zorro-antd';
+import { e } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-new-table',
@@ -38,7 +40,7 @@ export class NewTableComponent implements OnInit {
     other: '',
     otherLevel: ''
   };
-
+  
   items1 = [
     {key: '', value: ''},
     {key: 'B', value: '断毛(B)'},
@@ -197,6 +199,67 @@ export class NewTableComponent implements OnInit {
     this.reloadStat.emit();
   }
 
+  constructor(public changeDetectorRef: ChangeDetectorRef, public dropdownService:NzDropdownService) {
+    this.checkedAll = {
+      lousiness: null,
+      lousinessLevel: null,
+      bruise: null,
+      bruiseLevel: null,
+      outside: null,
+      outsideLevel: null,
+      badShape: null,
+      badShapeLevel: null,
+      crimp: null,
+      crimpLevel: null,
+      soiled: null,
+      soiledLevel: null,
+      yellow: null,
+      yellowLevel: null,
+      floatSilk: null,
+      floatSilkLevel: null,
+      wind: null,
+      windLevel: null,
+      dye: null,
+      dyeLevel: null,
+      property: null,
+      propertyLevel: null,
+      opu: null,
+      opuLevel: null,
+      other: null,
+      otherLevel: null
+    };
+  }
+  menuitems:any;
+
+  dropdown:NzDropdownContextComponent;
+
+  contextMenu($event:MouseEvent,template:TemplateRef<void>,mitems,data,editColumn){   
+    if(this.readonly) return;
+    this.menuitems = mitems;
+    this.data = data;
+    this.editColumn = editColumn;
+    this.dropdown=this.dropdownService.create($event,template);
+    $event.preventDefault();
+    return false;
+  }
+
+  transkey(key,showitems) {
+      var name = '';
+      showitems.forEach(function (v,i) {
+          if (v.key==key) {
+              name = v.value;
+              console.log(i);
+              return;
+          }
+      });
+      return name;
+  } 
+
+
+  
+  ngOnInit() {
+  }
+
   submit() {
     switch(this.editColumn) {
       case 'lousiness':
@@ -294,40 +357,6 @@ export class NewTableComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
     this.changeDetectorRef.detectChanges();
     this.detailModal.show = false;
-  }
-
-  constructor(public changeDetectorRef: ChangeDetectorRef) {
-    this.checkedAll = {
-      lousiness: null,
-      lousinessLevel: null,
-      bruise: null,
-      bruiseLevel: null,
-      outside: null,
-      outsideLevel: null,
-      badShape: null,
-      badShapeLevel: null,
-      crimp: null,
-      crimpLevel: null,
-      soiled: null,
-      soiledLevel: null,
-      yellow: null,
-      yellowLevel: null,
-      floatSilk: null,
-      floatSilkLevel: null,
-      wind: null,
-      windLevel: null,
-      dye: null,
-      dyeLevel: null,
-      property: null,
-      propertyLevel: null,
-      opu: null,
-      opuLevel: null,
-      other: null,
-      otherLevel: null
-    };
-  }
-
-  ngOnInit() {
   }
 
   doRemark(data, type) {
@@ -544,4 +573,229 @@ export class NewTableComponent implements OnInit {
     console.log(this.dataList);
   }
 
+  menuselect(key) {
+    debugger;
+    switch(this.editColumn) {
+      case 'lousiness':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.lousiness =key;
+          }
+        });
+        break;
+        case 'lousinessLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.lousinessLevel =key;
+            }
+          });
+          break;
+      case 'bruise':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.bruise = key;
+          }
+        });
+        break;
+        case 'bruiseLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.bruiseLevel = key;
+            }
+          });
+          break;
+      case 'badShape':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.badShape = key;
+          }
+        });
+        break;
+        case 'badShapeLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.badShapeLevel = key;
+            }
+          });
+          break;
+      case 'yellow':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.yellow = key;
+          }
+        });
+        break;
+        case 'yellowLevel':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.yellowLevel = key;
+          }
+        });
+        break;
+      case 'outside':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.outside = key;
+          }
+        });
+        break;
+        case 'outsideLevel':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.outsideLevel = key;
+          }
+        });
+        break;
+      case 'crimp':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.crimp = key;
+          }
+        });
+        break;
+        case 'crimpLevel':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.crimpLevel = key;
+          }
+        });
+        break;
+      case 'soiled':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.soiled = key;
+          }
+        });
+        break;
+        case 'soiledLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.soiledLevel = key;
+            }
+          });
+          break;
+      case 'floatSilk':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.floatSilk = key;
+          }
+        });
+        break;
+        case 'floatSilkLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.floatSilkLevel = key;
+            }
+          });
+          break;
+      case 'wind':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.wind = key;
+          }
+        });
+        break;
+        case 'windLevel':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.windLevel = key;
+          }
+        });
+        break;
+      case 'dye':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.dye = key;
+          }
+        });
+        break;
+        case 'dyeLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.dyeLevel = key;
+            }
+          });
+          break;
+      case 'property':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.property = key;
+          }
+        });
+        break;
+        case 'propertyLevel':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.propertyLevel = key;
+          }
+        });
+        break;
+      case 'opu':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.opu = key;
+          }
+        });
+        break;
+        case 'opuLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.opuLevel = key;
+            }
+          });
+          break;
+      case 'other':
+        this.dataList.forEach(ele => {
+          if (this.data.pxId === ele.pxId) {
+            ele.other = key;
+          }
+        });
+        break;
+        case 'otherLevel':
+          this.dataList.forEach(ele => {
+            if (this.data.pxId === ele.pxId) {
+              ele.otherLevel = key;
+            }
+          });
+          break;
+    }
+    this.reloadStat.emit();//提交数据
+    this.dropdown.close();
+  }
+
+  getClass(data)
+  {
+    let levels = [];
+    levels.push(data.lousinessLevel);
+    levels.push(data.bruiseLevel);
+    levels.push(data.outsideLevel);
+    levels.push(data.badShapeLevel);
+    levels.push(data.crimpLevel);
+    levels.push(data.soiledLevel);
+    levels.push(data.yellowLevel);
+    levels.push(data.floatSilkLevel);
+    levels.push(data.windLevel);
+    levels.push(data.dyeLevel);
+    levels.push(data.propertyLevel);
+    levels.push(data.opuLevel);
+    levels.push(data.otherLevel);
+
+    let countaaw =0;
+    let counta1 =0;
+    let counta =0;
+    let countb =0;
+
+    levels.forEach(ele => {
+      if(ele == 'AA纬') countaaw++;
+      if(ele == 'A1') counta1++;
+      if(ele == 'A') counta++;
+      if(ele == 'B') countb++;
+    });
+
+    if(countb>0)      return "b";   
+    if(counta1>0)      return "a1";
+    if(counta>0)      return "a";
+    if(countaaw>0)      return "aaw";
+    return "aa";
+   }
 }

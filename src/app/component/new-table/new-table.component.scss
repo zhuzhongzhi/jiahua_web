@@ -34,13 +34,13 @@
   padding: 2px 2px;
 }
 
-::ng-deep .ant-select-arrow {
-  right: 2px;
-}
+// ::ng-deep .ant-select-arrow {
+//   right: 2px;
+// }
 
-::ng-deep .ant-select-selection-selected-value {
-  padding-right: 1px;
-}
+// ::ng-deep .ant-select-selection-selected-value {
+//   padding-right: 1px;
+// }
 
 ::ng-deep .ant-table-middle > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th,
 ::ng-deep .ant-table-middle > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th,
@@ -102,8 +102,7 @@
   > th,
 ::ng-deep .ant-table-middle > .ant-table-content > .ant-table-header > table > .ant-table-tbody > tr > td,
 ::ng-deep .ant-table-middle > .ant-table-content > .ant-table-body > table > .ant-table-tbody > tr > td,
-::ng-deep
-  .ant-table-middle
+::ng-deep  .ant-table-middle
   > .ant-table-content
   > .ant-table-scroll
   > .ant-table-header
@@ -111,8 +110,7 @@
   > .ant-table-tbody
   > tr
   > td,
-::ng-deep
-  .ant-table-middle
+::ng-deep  .ant-table-middle
   > .ant-table-content
   > .ant-table-scroll
   > .ant-table-body
@@ -120,8 +118,7 @@
   > .ant-table-tbody
   > tr
   > td,
-::ng-deep
-  .ant-table-middle
+::ng-deep  .ant-table-middle
   > .ant-table-content
   > .ant-table-fixed-left
   > .ant-table-header
@@ -129,8 +126,7 @@
   > .ant-table-tbody
   > tr
   > td,
-::ng-deep
-  .ant-table-middle
+::ng-deep  .ant-table-middle
   > .ant-table-content
   > .ant-table-fixed-right
   > .ant-table-header
@@ -138,8 +134,7 @@
   > .ant-table-tbody
   > tr
   > td,
-::ng-deep
-  .ant-table-middle
+::ng-deep  .ant-table-middle
   > .ant-table-content
   > .ant-table-fixed-left
   > .ant-table-body-outer
@@ -148,8 +143,7 @@
   > .ant-table-tbody
   > tr
   > td,
-::ng-deep
-  .ant-table-middle
+::ng-deep  .ant-table-middle
   > .ant-table-content
   > .ant-table-fixed-right
   > .ant-table-body-outer
@@ -159,4 +153,17 @@
   > tr
   > td {
   padding: 1px 1px;
+  white-space:nowrap;
 }
+::ng-deep .ant-table-thead > tr, ::ng-deep .ant-table-tbody > tr {
+  height: 30px;
+}
+
+::ng-deep .ant-dropdown-menu-item, ::ng-deep .ant-dropdown-menu-submenu-title {
+    height: 28px;
+}
+
+.aa{background-color: transparent;}
+.a1,.b{background-color: red;}
+.a{background-color: yellow;}
+.aaw{background-color: green;}

@@ -207,8 +207,8 @@
           <th class="align-center">总锭数</th>
           <th class="align-center">AA级</th>
           <th class="align-center">AA纬</th>
-          <th class="align-center">A1级</th>
           <th class="align-center">A级</th>
+          <th class="align-center">A1级</th>
           <th class="align-center">B级</th>
           <th class="align-center">生产日期</th>
           <th class="align-center">落丝时间</th>
@@ -218,7 +218,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="showDetail(data.main)">
           <!--        <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>-->
           <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
           <td>{{data.main.code}}</td>
@@ -229,11 +229,11 @@
           <td>{{data.main.classType}}</td>
           <td>{{data.main.weight}}</td>
           <td>{{data.main.ingotNum}}</td>
-          <td>{{data.check.aaWeight}}</td>
-          <td>{{data.check.aawWeight}}</td>
-          <td>{{data.check.a1Weight}}</td>
-          <td>{{data.check.aweight}}</td>
-          <td>{{data.check.bweight}}</td>
+          <td>{{data.check.aaWeight}} / {{data.check.aaNum}}</td>
+          <td>{{data.check.aawWeight}} / {{data.check.aawNum}}</td>        
+          <td>{{data.check.aweight}} / {{data.check.anum}}</td>
+          <td>{{data.check.a1Weight}} / {{data.check.a1Num}}</td>
+          <td>{{data.check.bweight}} / {{data.check.bnum}}</td>
           <td>{{data.main.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td>{{data.main.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td>{{data.main.packageTime| date:"yyyy-MM-dd HH:mm"}}</td>
@@ -428,13 +428,93 @@
           </div>
         </div>
       </div>
-
-
       <div nz-col class="gutter-row" nzSpan="12">
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="4">要因记录</label>
           <div nz-col nzSpan="20" class="form-control">
             <textarea disabled rows="4" nz-input [(ngModel)]="submitModel.cause" placeholder="请输入要因"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-row nzGutter="16">
+      <div nz-col class="gutter-row" style="float:right;padding-top: 20px">
+        
+      </div>
+    </div>
+    <div nz-row  style="background: #f3f3f3;padding-bottom: 10px;">
+      <div nz-col class="gutter-row" nzSpan="4">
+        <div class="form-item" nz-row style="padding-top: 20px;">
+          <label class="inline-span" nz-col nzSpan="8">检验时间</label>
+          <div nz-col nzSpan="16" class="form-control">
+            <nz-date-picker disabled [(ngModel)]="checkInfo.checkTime" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+          </div>
+        </div>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="18" style="background: #f3f3f3;padding-bottom: 10px;">
+        <div nz-row>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan=12>检验只数</label>
+              <div nz-col nzSpan="12" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.checkNum"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">AA级</label>
+              <div nz-col nzSpan="8" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight"/>
+              </div>
+              <div nz-col nzSpan="4" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaNum"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">AA纬</label>
+              <div nz-col nzSpan="8" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawWeight"/>
+              </div>
+              <div nz-col nzSpan="4" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawNum"/>
+              </div>
+            </div>
+          </div>           
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">A级</label>
+              <div nz-col nzSpan="8" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aweight"/>
+              </div>
+              <div nz-col nzSpan="4" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.anum"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">A1级</label>
+              <div nz-col nzSpan="8" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight"/>
+              </div>
+              <div nz-col nzSpan="4" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Num"/>
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="12">B级</label>
+              <div nz-col nzSpan="8" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bweight"/>
+              </div>
+              <div nz-col nzSpan="4" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bnum"/>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -467,6 +547,11 @@
             <div nz-col nzSpan="16" class="form-control">
               <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.spinPos" />
             </div>
+          </div>
+        </div>
+        <div id="u627" class="ax_default">
+          <div id="u627_text" class="text ">
+            <i nz-icon [type]="item.showtable ? 'up' : 'down'" style="font-size: 15px;cursor:pointer" (click)="toggleTable(item)"></i>
           </div>
         </div>
       </div>
