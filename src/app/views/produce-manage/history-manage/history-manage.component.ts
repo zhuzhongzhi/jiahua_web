@@ -61,9 +61,9 @@ export class HistoryManageComponent implements OnInit {
       code: '',
       lineType: '',
       batchNum: '',
-      standard: '',     
+      standard: '',
       classType: '',
-      classShift: '',      
+      classShift: '',
       createTime: '',
       doffingStartTime: '',
       testDannyTime: '',
@@ -209,7 +209,7 @@ export class HistoryManageComponent implements OnInit {
         item.检验时间 = wagon.main.checkTime;
         item.包装操作员 = wagon.main.packageOperator;
         item.包装员工id = wagon.main.packageEmid;
-        item.包装时间 = wagon.main.packageTime;       
+        item.包装时间 = wagon.main.packageTime;
         item.aa级 = wagon.check.aaWeight;
         item.aa纬 = wagon.check.aawWeight;
         item.a1级 = wagon.check.a1Weight;
@@ -228,13 +228,13 @@ export class HistoryManageComponent implements OnInit {
   initList() {
     // 初始化丝车列表
     this.filters.createTime = this.parseTime(this.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime);
     this.filters.testDannyTime = this.parseTime(this.testDannyTime);
-    this.filters.colourTime = this.parseTime(this.colourTime); 
+    this.filters.colourTime = this.parseTime(this.colourTime);
     this.filters.rockTime = this.parseTime(this.rockTime);
-    this.filters.checkTime = this.parseTime(this.checkTime); 
+    this.filters.checkTime = this.parseTime(this.checkTime);
     this.filters.packageStartTime = this.parseTime(this.packageStartTime);
-    this.filters.packagEndTime = this.parseTime(this.packagEndTime);     
+    this.filters.packagEndTime = this.parseTime(this.packagEndTime);
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -256,6 +256,37 @@ export class HistoryManageComponent implements OnInit {
       }
       this.historyTotal = res.value;
     })
+  }
+
+  delete() {
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
+    if (!hasChecked) {
+      this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');
+      return;
+    }
+    this.modal.confirm({
+      nzTitle: `您确定要删除选中的信息吗？`,
+      nzOnOk: () => {
+        const ids = [];
+        this.tableConfig.loading = true;
+
+        for (const key in this.checkedId) {
+          if (this.checkedId[key]) {
+            ids.push(key);
+          }
+        }
+        // 这边写批量删除的方法
+        // this.ingotAlarmService.removeBatch(ids).subscribe((resData) => {
+        //   this.messageService.showToastMessage('删除成功', 'success');
+        //   this.tableConfig.loading = false;
+        //   this.checkedId = {};
+        //   this.isAllChecked = false;
+        // }, (error: any) => {
+        //   this.tableConfig.loading = false;
+        //   this.messageService.showAlertMessage('', error.message, 'error');
+        // });
+      }
+    });
   }
 
   showDetail (data) {

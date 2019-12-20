@@ -76,7 +76,7 @@ export class HotreelManageComponent implements OnInit {
   // spinPos列表
   spinPosList: any = [];
 
-  createTime: '';  
+  createTime: '';
   doffingStartTime: '';
 
   constructor(private fb: FormBuilder,
@@ -224,7 +224,7 @@ export class HotreelManageComponent implements OnInit {
   initList() {
     // 初始化丝车列表
     this.filters.createTime = this.parseTime(this.createTime);
-    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime); 
+    this.filters.doffingStartTime = this.parseTime(this.doffingStartTime);
     const filter = {
       'filters': this.filters,
       'pageNum': this.tableConfig.pageNum,
@@ -440,7 +440,7 @@ export class HotreelManageComponent implements OnInit {
               });
             }
           });
-        } 
+        }
         //未创建表格的不保存
         // else {
         //   if (item.doffingTime !== undefined && item.doffingTime !== null && item.doffingTime !== '' &&
@@ -623,7 +623,7 @@ export class HotreelManageComponent implements OnInit {
   }
 
   edit() {
-    this.messageService.showLoading('');   
+    this.messageService.showLoading('');
     const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('请选择一条主记录', 'warning');
@@ -788,14 +788,6 @@ export class HotreelManageComponent implements OnInit {
         this.messageService.closeLoading();
         return;
       }
-      this.ingotAlarmService.wagonisUsed({"code":this.submitModel.code}).subscribe((res) => {
-        if (res.code == 1) {
-          this.messageService.showToastMessage('丝车在使用中！', 'error');
-          this.messageService.closeLoading();
-          this.submitModel.code ='';
-          return;
-        }
-      });
       if (this.submitModel.batchNum === undefined || this.submitModel.batchNum === null || this.submitModel.batchNum === '') {
         this.messageService.showToastMessage('请选择批次', 'warning');
         this.messageService.closeLoading();
@@ -835,9 +827,19 @@ export class HotreelManageComponent implements OnInit {
         // this.messageService.showToastMessage('请输入要因记录', 'warning');
         // this.messageService.closeLoading();
         // return;
-        this.submitModel.cause =' ';
+        this.submitModel.cause = ' ';
       }
 
+      this.ingotAlarmService.getWagonByCode({code: this.submitModel.code}).subscribe((res) => {
+        if (res.code === 0) {
+          if (res.value.craftState !== 0) {
+            this.messageService.showToastMessage('丝车在使用中！', 'error');
+            this.messageService.closeLoading();
+            this.submitModel.code = '';
+            return;
+          }
+        }
+      });
       this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
       this.submitModel.craftState = 1;
       this.submitModel.isCopy = 0;
@@ -850,12 +852,12 @@ export class HotreelManageComponent implements OnInit {
         }
         this.messageService.showToastMessage('主记录新建成功', 'success');
         this.detailModal.show = false;
-        this.initList();        
+        this.initList();
         this.messageService.closeLoading();
-        //查找创建时间一样的记录
-         this.ingotAlarmService.newCraftgetMain({pmId: res.value}).subscribe((newres) => {       
+        // 查找创建时间一样的记录
+         this.ingotAlarmService.newCraftgetMain({pmId: res.value}).subscribe((newres) => {
             this.loadedit(newres);
-            return;          
+            return;
         });
       });
     } else if (this.showiFrame === 0) {
