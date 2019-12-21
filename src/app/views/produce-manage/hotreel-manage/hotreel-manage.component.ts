@@ -55,6 +55,7 @@ export class HotreelManageComponent implements OnInit {
   updateData: any;
   // 是否新增
   isAdd = false;
+  hasDoff = false;//是否落丝
   doffingWeight = 0;
   src: SafeResourceUrl = '';
   showiFrame = 0;
@@ -174,7 +175,7 @@ export class HotreelManageComponent implements OnInit {
       threshold: [null, [Validators.required]]
     });
     this.messageService.closeLoading();
-    setInterval(()=>{this.initList();},180000);
+    setInterval(() => { this.initList(); }, 180000);
   }
 
   initType() {
@@ -281,8 +282,7 @@ export class HotreelManageComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
-  toggleTable(item)
-  {
+  toggleTable(item) {
     item.showtable = !item.showtable;
   }
 
@@ -314,7 +314,7 @@ export class HotreelManageComponent implements OnInit {
       jointNum: '0'
     };
 
-    this.showiFrame = 2;
+    this.showiFrame = 0;
 
     this.resetDataList();
     this.messageService.closeLoading();
@@ -364,20 +364,35 @@ export class HotreelManageComponent implements OnInit {
         // 进行表格创建
         this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((resData) => {
           this.doffList[i].showtable = true;
-          this.doffList[i].hastable  = true;
+          this.doffList[i].hastable = true;
           this.doffList[i].exception = resData.value;
           this.messageService.closeLoading();
         });
       });
-    } else {
-      // 进行表格创建
-      this.ingotAlarmService.getDoffingExceptions({ pdId: item.pdId }).subscribe((res) => {
-        this.doffList[i].showtable = true;
-        this.doffList[i].hastable  = true;
-        this.doffList[i].exception = res.value;
-      });
     }
+  }
 
+  deleteTable(pmId, pdId) {
+    this.modal.confirm({
+      nzTitle: `您确定要删除本次落丝吗？`,
+      nzOnOk: () => {
+        this.ingotAlarmService.delDoffing({ pmId: pmId, pdId: pdId }).subscribe((res) => {
+          if (res.code === 0) {
+            this.messageService.showToastMessage('记录已删除！', 'info');
+            //重新加载
+            this.ingotAlarmService.newCraftgetMain({ pmId: pmId }).subscribe((res) => {
+              if (res.code === 0) {
+                this.loadedit(res.value);
+              }
+              // this.listOfAllData.forEach(item => {
+              //   if (item.pmId == pmId) {
+              //     this.loadedit(item);
+              //   }
+            });
+          }
+        });
+      }
+    });
   }
 
   submitForm2() {
@@ -411,79 +426,123 @@ export class HotreelManageComponent implements OnInit {
   }
 
   saveProcess() {
-    if (this.showiFrame === 0) {
-      this.messageService.showLoading('');
+    this.messageService.showLoading('');
+    if (this.submitModel.lineType === undefined || this.submitModel.lineType === null || this.submitModel.lineType === '') {
+      this.messageService.showToastMessage('请选择线别', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.code === undefined || this.submitModel.code === null || this.submitModel.code === '') {
+      this.messageService.showToastMessage('请输入丝车编号', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.batchNum === undefined || this.submitModel.batchNum === null || this.submitModel.batchNum === '') {
+      this.messageService.showToastMessage('请选择批次', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.standard === undefined || this.submitModel.standard === null || this.submitModel.standard === '') {
+      this.messageService.showToastMessage('请输入规格', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.classType === undefined || this.submitModel.classType === null || this.submitModel.classType === '') {
+      this.messageService.showToastMessage('请选择班别', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.classShift === undefined || this.submitModel.classShift === null || this.submitModel.classShift === '') {
+      this.messageService.showToastMessage('请选择班次', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.createTime === undefined || this.submitModel.createTime === null || this.submitModel.createTime === '') {
+      this.messageService.showToastMessage('请选择日期', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.reelType === undefined || this.submitModel.reelType === null || this.submitModel.reelType === '') {
+      this.messageService.showToastMessage('请选择卷类别', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.jointNum === undefined || this.submitModel.jointNum === null || this.submitModel.jointNum === '') {
+      this.messageService.showToastMessage('请选择合股次数', 'warning');
+      this.messageService.closeLoading();
+      return;
+    }
+    if (this.submitModel.cause === undefined || this.submitModel.cause === null || this.submitModel.cause === '') {
+      // this.messageService.showToastMessage('请输入要因记录', 'warning');
+      // this.messageService.closeLoading();
+      // return;
+      this.submitModel.cause = ' ';
       if (this.submitModel.doffingEmid === undefined || this.submitModel.doffingEmid === null || this.submitModel.doffingEmid === '') {
         this.messageService.showToastMessage('请输入记录落丝员工工号', 'warning');
         this.messageService.closeLoading();
         return false;
       }
     }
-    this.messageService.showLoading('');
-    const craftData = {
-      pmId: this.submitModel.pmId,
-      doffingEmid: this.submitModel.doffingEmid === null ? '' : this.submitModel.doffingEmid,
-    };
-    this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
-      this.doffList.forEach(item => {
-        if (item.pdId !== undefined) {
-          // item.ingotNum = this.submitModel.ingotNum;
-          item.ingotNum = 6;
-          const doffingTimeTemp = item.doffingTime;
-          item.doffingTime = this.parseTime(item.doffingTime);
-          item.pmId = this.submitModel.pmId;
-          this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
-            item.pdId = res.value;
-            item.doffingTime = doffingTimeTemp;
-            if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
-              this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
-              });
+    if (this.isAdd) {
+      this.ingotAlarmService.wagonisUsed({ code: this.submitModel.code }).subscribe((res) => {
+        if (res.code === 1) {
+          this.messageService.showToastMessage('丝车在使用中！', 'error');
+          this.messageService.closeLoading();
+          return;
+        }
+        else {
+          this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
+          this.submitModel.craftState = 1;
+          this.submitModel.isCopy = 0;
+          this.submitModel.creator = localStorage.getItem('userId');
+          this.ingotAlarmService.newCraftAdd(this.submitModel).subscribe((res) => {
+            if (res.code !== 0) {
+              this.messageService.showToastMessage(res.message + ':' + res.value, 'warning');
+              this.messageService.closeLoading();
+              return;
             }
+            this.messageService.showToastMessage('主记录新建成功', 'success');
+            this.messageService.closeLoading();
+            this.submitModel.pmId = res.value;
+            this.isAdd = false;
           });
         }
-        //未创建表格的不保存
-        // else {
-        //   if (item.doffingTime !== undefined && item.doffingTime !== null && item.doffingTime !== '' &&
-        //     item.spinPos !== undefined && item.spinPos !== null && item.weight !== undefined && item.weight !== null &&
-        //     item.spinPos !== '' && item.weight !== '') {
-        //     // item.ingotNum = this.submitModel.ingotNum;
-        //     item.ingotNum = 6;
-        //     const doffingTimeTemp = item.doffingTime;
-        //     item.doffingTime = this.parseTime(item.doffingTime);
-        //     item.pmId = this.submitModel.pmId;
-        //     this.ingotAlarmService.addDoffing(item).subscribe(res => {
-        //       item.pdId = res.value;
-        //       item.doffingTime = doffingTimeTemp;
-        //       if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
-        //         this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
-        //         });
-        //       }
-        //     });
-        //   }
-        // }
       });
-      this.messageService.closeLoading();
-    });
-    return true;
+    }
+    else {
+      this.messageService.showLoading('');
+      const craftData = {
+        pmId: this.submitModel.pmId,
+        doffingEmid: this.submitModel.doffingEmid === null ? '' : this.submitModel.doffingEmid,
+      };
+      this.ingotAlarmService.newCraftUpdate(craftData).subscribe((resData) => {
+        this.doffList.forEach(item => {
+          if (item.pdId !== undefined) {
+            // item.ingotNum = this.submitModel.ingotNum;
+            item.ingotNum = 6;
+            const doffingTimeTemp = item.doffingTime;
+            item.doffingTime = this.parseTime(item.doffingTime);
+            item.pmId = this.submitModel.pmId;
+            this.ingotAlarmService.modifyDoffing(item).subscribe(res => {
+              item.pdId = res.value;
+              item.doffingTime = doffingTimeTemp;
+              if (item.exception !== undefined && item.exception != null && item.exception.length > 0) {
+                this.ingotAlarmService.modifyExceptions(item.exception).subscribe((res1) => {
+                });
+              }
+            });
+          }
+
+        });
+        this.messageService.showToastMessage('保存成功', 'success');
+        this.messageService.closeLoading();
+      });
+    }
   }
 
   saveDoff() {
-    if (!this.saveProcess()) return;
-    this.messageService.closeLoading();
-    this.modalService.confirm({
-      nzContent: '<i>保存成功是否要回到列表页</i>',
-      nzTitle: '<b>保存成功</b>',
-      nzOnOk: () => {
-        this.detailModal.show = false;
-        this.initList();
-      },
-      nzOnCancel: () => {
-        this.messageService.closeLoading();
-      }
-    });
+    this.saveProcess();
   }
-
-
 
   addDoff() {
     // 获取线别下所有纺位
@@ -541,7 +600,7 @@ export class HotreelManageComponent implements OnInit {
 
     let canEnd = false;
     this.doffList.forEach(doff => {
-      if (doff.pmId !== undefined ) {
+      if (doff.pmId !== undefined) {
         canEnd = true;
       }
     })
@@ -653,8 +712,9 @@ export class HotreelManageComponent implements OnInit {
     this.loadedit(data);
   }
 
-  loadedit(data)
-  { this.showiFrame = 0;
+  loadedit(data) {
+    this.showiFrame = 0;
+    this.hasDoff = false;
     this.messageService.showLoading('加载中');
     const temp1 = { lineType: data.lineType };
     this.ingotAlarmService.getSpinPosByLineType(temp1).subscribe((res) => {
@@ -662,6 +722,7 @@ export class HotreelManageComponent implements OnInit {
       this.ingotAlarmService.getDoffings({ pmId: data.pmId }).subscribe((res) => {
         this.doffList = res.value;
         if (this.doffList !== null && this.doffList.length === 0) {
+          this.hasDoff = true;
           this.doffList.push({ ingotNum: '', pmId: this.submitModel.pmId, doffingTime: new Date(), spinPos: '', weight: '' });
           this.isAdd = false;
           this.detailModal.title = `操作落丝记录`;
@@ -728,9 +789,10 @@ export class HotreelManageComponent implements OnInit {
 
   delete() {
     // TODO
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.opId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
     if (!hasChecked) {
       this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');
+      this.messageService.closeLoading();
       return;
     }
     this.modal.confirm({
@@ -738,15 +800,34 @@ export class HotreelManageComponent implements OnInit {
       nzOnOk: () => {
         const ids = [];
         this.tableConfig.loading = true;
-
         for (const key in this.checkedId) {
           if (this.checkedId[key]) {
-            ids.push(key);
+            this.ingotAlarmService.getDoffings({ pmId: key }).subscribe((res) => {
+              this.doffList = res.value;
+              if (this.doffList !== null && this.doffList.length === 0) {
+                this.messageService.showToastMessage('已有落丝记录不能删除！', 'error');
+                this.messageService.closeLoading();
+                return;
+              }
+              else {
+                this.ingotAlarmService.newCraftDel({ pmId: key }).subscribe((res) => {
+                  if (res.code === 0) {
+                    this.messageService.showToastMessage('记录已删除！', 'info');
+                    this.messageService.closeLoading();
+                    this.initList();
+                  }
+                  else {
+                    this.messageService.showToastMessage(res.value, 'error');
+                    this.messageService.closeLoading();
+                  }
+                });
+              }
+            });
           }
         }
+
       }
     });
-
   }
 
   checkAll(value: boolean): void {
@@ -776,7 +857,7 @@ export class HotreelManageComponent implements OnInit {
   submitForm() {
     if (this.showiFrame === 1) {
       this.detailModal.show = false;
-    } else if (this.showiFrame === 2) {
+    } else if (this.showiFrame === 0) {
       this.messageService.showLoading('');
       if (this.submitModel.lineType === undefined || this.submitModel.lineType === null || this.submitModel.lineType === '') {
         this.messageService.showToastMessage('请选择线别', 'warning');
@@ -829,80 +910,38 @@ export class HotreelManageComponent implements OnInit {
         // return;
         this.submitModel.cause = ' ';
       }
-
-      this.ingotAlarmService.getWagonByCode({code: this.submitModel.code}).subscribe((res) => {
-        if (res.code === 0) {
-          if (res.value.craftState !== 0) {
-            this.messageService.showToastMessage('丝车在使用中！', 'error');
+      if (this.isAdd) {
+        if (this.submitModel.doffingEmid === undefined || this.submitModel.doffingEmid === null || this.submitModel.doffingEmid === '') {
+          this.messageService.showToastMessage('请输入记录落丝员工工号', 'warning');
+          this.messageService.closeLoading();
+          return false;
+        }
+        this.ingotAlarmService.getWagonByCode({ code: this.submitModel.code }).subscribe((res) => {
+          if (res.code === 0) {
+            if (res.value.craftState !== 0) {
+              this.messageService.showToastMessage('丝车在使用中！', 'error');
+              this.messageService.closeLoading();
+              this.submitModel.code = '';
+              return;
+            }
+          }
+        });
+        this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
+        this.submitModel.craftState = 1;
+        this.submitModel.isCopy = 0;
+        this.submitModel.creator = localStorage.getItem('userId');
+        this.ingotAlarmService.newCraftAdd(this.submitModel).subscribe((res) => {
+          if (res.code !== 0) {
+            this.messageService.showToastMessage(res.message + ':' + res.value, 'warning');
             this.messageService.closeLoading();
-            this.submitModel.code = '';
             return;
           }
-        }
-      });
-      this.submitModel.createTime = this.parseTime(this.submitModel.createTime);
-      this.submitModel.craftState = 1;
-      this.submitModel.isCopy = 0;
-      this.submitModel.creator = localStorage.getItem('userId');
-      this.ingotAlarmService.newCraftAdd(this.submitModel).subscribe((res) => {
-        if (res.code !== 0) {
-          this.messageService.showToastMessage(res.message + ':' + res.value, 'warning');
-          this.messageService.closeLoading();
-          return;
-        }
-        this.messageService.showToastMessage('主记录新建成功', 'success');
-        this.detailModal.show = false;
-        this.initList();
-        this.messageService.closeLoading();
-        // 查找创建时间一样的记录
-         this.ingotAlarmService.newCraftgetMain({pmId: res.value}).subscribe((newres) => {
-            this.loadedit(newres);
-            return;
-        });
-      });
-    } else if (this.showiFrame === 0) {
-      const wagonExceptions = [];
-      let idx = 1;
-      this.dataList1.forEach(el => {
-        el.exSpinPos = String(idx);
-        idx++;
-        wagonExceptions.push(el);
-      });
-      this.dataList2.forEach(el => {
-        el.exSpinPos = String(idx);
-        idx++;
-        wagonExceptions.push(el);
-      });
-      this.dataList3.forEach(el => {
-        el.exSpinPos = String(idx);
-        idx++;
-        wagonExceptions.push(el);
-      });
-      this.submitModel.produceTime = this.parseTime(this.submitModel.produceTime);
-      this.submitModel.doffingTime1 = this.parseTime(this.submitModel.doffingTime1);
-      this.submitModel.doffingTime2 = this.parseTime(this.submitModel.doffingTime2);
-      this.submitModel.doffingTime3 = this.parseTime(this.submitModel.doffingTime3);
-      this.submitModel.craftTime = format(new Date(), 'yyyy-MM-dd HH:mm');
-      this.submitModel.craftState = 1;
-      const dataInfo = { wagonOperate: {}, wagonExceptions: [] };
-      dataInfo.wagonOperate = this.submitModel;
-      dataInfo.wagonExceptions = wagonExceptions;
-      // this.submitModel.wagonExceptions = wagonExceptions;
-
-      if (this.isAdd) {
-        this.ingotAlarmService.craftAdd(dataInfo).subscribe((res) => {
-          this.messageService.showToastMessage('落丝记录添加成功', 'success');
+          this.messageService.showToastMessage('主记录新建成功', 'success');
           this.detailModal.show = false;
-          this.initList();
-        });
-      } else {
-        this.ingotAlarmService.craftModify(dataInfo).subscribe((res) => {
-          this.messageService.showToastMessage('落丝记录修改成功', 'success');
-          this.detailModal.show = false;
-          this.initList();
+          this.submitModel.pmId = res.value;
+          this.isAdd = false;
         });
       }
-
     }
   }
 
@@ -917,8 +956,8 @@ export class HotreelManageComponent implements OnInit {
       doffingStartTime: '',
       craftState: '1'
     };
-    this.createTime='';
-    this.doffingStartTime='';
+    this.createTime = '';
+    this.doffingStartTime = '';
     this.initList();
   }
 
@@ -928,7 +967,7 @@ export class HotreelManageComponent implements OnInit {
 
   transClassShift(classShift) {
     switch (classShift) {
-      case 0 :
+      case 0:
         return '早';
       case 3:
         return '早+4';

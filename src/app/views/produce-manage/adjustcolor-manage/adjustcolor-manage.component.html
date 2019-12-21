@@ -285,21 +285,21 @@
         </div>
         <div nz-col class="gutter-row" nzSpan="4">
           <div class="form-item" nz-row>
-            <label class="inline-span" nz-col nzSpan="12">净重</label>
-            <div nz-col nzSpan="12" class="form-control">
-              <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight"/>
-            </div>
-          </div>
-        </div>
-        <div nz-col class="gutter-row" nzSpan="4">
-          <div class="form-item" nz-row>
             <label class="inline-span" nz-col nzSpan="12">落丝纺位</label>
             <div nz-col nzSpan="12" class="form-control">
               <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.spinPos"/>
             </div>
           </div>
         </div>
+        <div nz-col class="gutter-row" nzSpan="4">
+          <div class="form-item" nz-row>
+            <label class="inline-span" nz-col nzSpan="12">净重</label>
+            <div nz-col nzSpan="12" class="form-control">
+              <!--                <input nzSize="default" nz-input type="text">-->
+              <input type="text" disabled nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight"/>
+            </div>
+          </div>
+        </div>       
         <div id="u627" class="ax_default">
           <div id="u627_text" class="text ">
             <i nz-icon [type]="item.showtable ? 'up' : 'down'" style="font-size: 15px;cursor:pointer" (click)="toggleTable(item)"></i>

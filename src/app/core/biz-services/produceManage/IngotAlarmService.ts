@@ -234,6 +234,13 @@ export namespace IngotAlarmServiceNs {
       return this.http.Post('/produce/newCraft/modify', data, this.defaultConfig);
     }
 
+    // 主记录删除
+    public newCraftDel(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/delMain', data, this.defaultConfig);
+    }
+
      // 获取主记录更新
      public newCraftgetMain(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
@@ -292,7 +299,15 @@ export namespace IngotAlarmServiceNs {
       config.gateway = HttpUtilNs.GatewayKey.Iot;
       return this.http.Post('/produce/newCraft/addDoffing', data, this.defaultConfig);
     }
-
+ /**
+     * 删除一条落丝记录
+     * @param data
+     */
+    public delDoffing(data) {
+      const config: HttpUtilNs.UfastHttpConfig = {};
+      config.gateway = HttpUtilNs.GatewayKey.Iot;
+      return this.http.Get('/produce/newCraft/delDoffing', data, this.defaultConfig);
+    }
     /**
      * 创建检查
      * @param data
