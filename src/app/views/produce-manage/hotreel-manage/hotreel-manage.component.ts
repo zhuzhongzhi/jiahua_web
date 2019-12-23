@@ -268,7 +268,7 @@ export class HotreelManageComponent implements OnInit {
   handleDetailCancel() {
     this.detailModal.show = false;
     this.showiFrame = 0;
-    this.doffList = []];
+    this.doffList = [];
   }
   /**
    * 取消弹框

@@ -280,3 +280,8 @@ a-color {
     color: #000;
   }
 }
+
+::ng-deep .ant-input-disabled
+{
+  color: black;
+}

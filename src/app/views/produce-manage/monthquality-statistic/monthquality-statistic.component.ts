@@ -177,12 +177,56 @@ export class MonthqualityStatisticComponent implements OnInit {
       const arr = [];
       for (const wagon of res.value.list) {
         const item: any = [];
-        item.批号 = wagon.batchNum;
-        item.线别 = wagon.lineType;
-        item.月份 = wagon.monthTime;
         item.质量报告ID = wagon.qrId;
+        item.月份 = wagon.monthTime;  
+        item.批号 = wagon.batchNum;
+        item.线别 = wagon.lineType;              
         item.规格 = wagon.standard;
         item.检验重量 = wagon.weight;
+        this.ingotAlarmService.getLevelList({ 'qrId': wagon.qrId, 'qType': 2 }).subscribe(res => {         
+          item.AA级重量 = res.value.weightAA;
+          item.AA级比例 = res.value.ratioAA * 100;
+          item.AA纬重量 = res.value.weightAAW;
+          item.AA纬比例 = res.value.ratioAAW * 100;
+          item.A级重量 = res.value.weightA;
+          item.A级比例 = res.value.ratioA * 100;
+          item.A1级重量 = res.value.weightA1;
+          item.A1级比例 = res.value.ratioA1 * 100;
+          item.B级重量 = res.value.weightB;
+          item.B级比例 = res.value.ratioB * 100;
+        });
+        this.ingotAlarmService.getBadCauseList({ 'qrId': wagon.qrId, 'qType': 2 }).subscribe(res => {
+          item.毛丝重量 = res.value.weightLousiness;
+          item.毛丝比例 = res.value.ratioLousiness * 100;
+          item.染色重量 = res.value.weightDye ;
+          item.染色比例 = res.value.ratioDye * 100;
+          item.碰伤重量 = res.value.weightBruise;
+          item.碰伤比例 = res.value.ratioBruise * 100;
+          item.成型不良重量 = res.value.weightBadShape;
+          item.成型不良比例 = res.value.ratioBadShape * 100;
+          item.污丝重量 = res.value.weightSoiled;
+          item.污丝比例 = res.value.ratioSoiled * 100;
+          item.飘丝重量 = res.value.weightFloat;
+          item.飘丝比例 = res.value.ratioFloat * 100;
+          item.黄化重量 = res.value.weightYellow;
+          item.黄化比例 = res.value.ratioYellow * 100;
+          item.绕外重量 = res.value.weightOutside;
+          item.绕外比例 = res.value.ratioOutside * 100;
+          item.夹丝重量 = res.value.weightCrimp;
+          item.夹丝比例 = res.value.ratioCrimp * 100;
+          item.绕丝重量 = res.value.weightAA;
+          item.绕丝比例 = res.value.ratioAA * 100;
+          item.物性重量 = res.value.weightProperty;
+          item.物性比例 = res.value.ratioProperty * 100;
+          item.OPU重量 = res.value.weightOPU;
+          item.OPU比例 = res.value.ratioOPU * 100;
+          item.其他重量 = res.value.weightOther;
+          item.其他比例 = res.value.ratioOther * 100;
+        });     
+        this.ingotAlarmService.getNotEnoughList({ 'qrId': wagon.qrId, 'qType': 2 }).subscribe(res => {
+          item.小卷重量 = res.value.weight;
+          item.小卷比例 = res.value.ratio * 100;
+        });
         arr.push(item);
       }
       this.exportList(arr);
