@@ -117,8 +117,8 @@
               (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead >
       <tr>
-        <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
-        <th nzWidth="70px">序号</th>
+        <th nzWidth="1px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th nzWidth="50px">序号</th>
         <th class="align-center">丝车编号</th>
         <th class="align-center">工艺状态</th>
         <th class="align-center">线别</th>
@@ -151,11 +151,11 @@
         <td>{{data.main.classType}}</td>
         <td>{{data.main.weight}}</td>
         <td>{{data.main.ingotNum}}</td>
-        <td>{{data.check.aaWeight}} / {{data.check.aaNum}}</td>
-        <td>{{data.check.aawWeight}} / {{data.check.aawNum}}</td>        
-        <td>{{data.check.aweight}} / {{data.check.anum}}</td>
-        <td>{{data.check.a1Weight}} / {{data.check.a1Num}}</td>
-        <td>{{data.check.bweight}} / {{data.check.bnum}}</td>
+        <td>{{data.check.aaNum}}/{{data.check.aaWeight}}</td>
+        <td>{{data.check.aawNum}}/{{data.check.aawWeight}}</td>        
+        <td>{{data.check.anum}}/{{data.check.aweight}}</td>
+        <td>{{data.check.a1Num}}/{{data.check.a1Weight}}</td>
+        <td>{{data.check.bnum}}/{{data.check.bweight}}</td>
         <td>{{data.main.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
         <td>{{data.main.checkTime| date:"yyyy-MM-dd HH:mm"}}</td>
         <td>{{data.main.packageEmid}}</td>
@@ -283,8 +283,8 @@
       </div>
     </div>
     
-    <div nz-row style=" background: #f3f3f3;padding-bottom: 10px;">
-      <div nz-col class="gutter-row" nzSpan="4">
+    <div nz-row  style="background:#f3f3f3;padding-bottom: 10px;">
+      <div nz-col class="gutter-row" nzSpan="6">
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">检验时间</label>
           <div nz-col nzSpan="16" class="form-control">
@@ -292,7 +292,7 @@
           </div>
         </div>
       </div>
-      <div nz-col class="gutter-row" nzSpan="18" style=" background: #f3f3f3;padding-bottom: 10px;">
+      <div nz-col class="gutter-row" nzSpan="18" style="background: #f3f3f3;padding-bottom: 10px; padding-right: 20px;">
         <div nz-row>
           <div nz-col class="gutter-row" nzSpan="4">
             <div class="form-item" nz-row style="padding-top: 20px;">
@@ -304,65 +304,62 @@
           </div>
           <div nz-col class="gutter-row" nzSpan="4">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="12">AA级</label>
-              <div nz-col nzSpan="8" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight"/>
+              <label class="inline-span" nz-col nzSpan="8">AA级</label>
+              <div nz-col nzSpan="6" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaNum" />
               </div>
-              <div nz-col nzSpan="4" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaNum"/>
-              </div>
-            </div>
-          </div>
-          <div nz-col class="gutter-row" nzSpan="4">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="12">AA纬</label>
-              <div nz-col nzSpan="8" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawWeight"/>
-              </div>
-              <div nz-col nzSpan="4" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawNum"/>
-              </div>
-            </div>
-          </div>           
-          <div nz-col class="gutter-row" nzSpan="4">
-            <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="12">A级</label>
-              <div nz-col nzSpan="8" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aweight"/>
-              </div>
-              <div nz-col nzSpan="4" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.anum"/>
+              <div nz-col nzSpan="10" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aaWeight" />
               </div>
             </div>
           </div>
           <div nz-col class="gutter-row" nzSpan="4">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="12">A1级</label>
-              <div nz-col nzSpan="8" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight"/>
+              <label class="inline-span" nz-col nzSpan="8">AA纬</label>
+              <div nz-col nzSpan="6" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawNum" />
               </div>
-              <div nz-col nzSpan="4" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Num"/>
+              <div nz-col nzSpan="10" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aawWeight" />
               </div>
             </div>
           </div>
           <div nz-col class="gutter-row" nzSpan="4">
             <div class="form-item" nz-row style="padding-top: 20px;">
-              <label class="inline-span" nz-col nzSpan="12">B级</label>
-              <div nz-col nzSpan="8" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bweight"/>
+              <label class="inline-span" nz-col nzSpan="8">A级</label>
+              <div nz-col nzSpan="6" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.anum" />
               </div>
-              <div nz-col nzSpan="4" class="form-control">
-                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bnum"/>
+              <div nz-col nzSpan="10" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.aweight" />
+              </div>             
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">A1级</label>
+              <div nz-col nzSpan="6" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Num" />
               </div>
+              <div nz-col nzSpan="10" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.a1Weight" />
+              </div>
+            </div>
+          </div>
+          <div nz-col class="gutter-row" nzSpan="4">
+            <div class="form-item" nz-row style="padding-top: 20px;">
+              <label class="inline-span" nz-col nzSpan="8">B级</label>
+              <div nz-col nzSpan="6" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bnum" />
+              </div>
+              <div nz-col nzSpan="10" class="form-control">
+                <input type="text" disabled nz-input placeholder="" [(ngModel)]="checkInfo.bweight" />
+              </div>              
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-
     <div *ngFor="let item of doffList; let i = index" style="margin-top: 10px; background: #f3f3f3;">
       <div nz-row style="padding: 20px;">
         <div nz-col class="gutter-row" style="margin-top: 6px;" nzSpan="2">
