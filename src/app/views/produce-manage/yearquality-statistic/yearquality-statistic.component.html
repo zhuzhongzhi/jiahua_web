@@ -192,15 +192,15 @@
     <thead>
       <tr>
         <th colspan="2" class="align-center">毛丝</th>
-        <th colspan="2" class="align-center">碰伤</th>
-        <th colspan="2" class="align-center">绕外</th>
-        <th colspan="2" class="align-center">成型不良</th>
-        <th colspan="2" class="align-center">夹丝</th>
-        <th colspan="2" class="align-center">污丝</th>
-        <th colspan="2" class="align-center">黄化</th>
-        <th colspan="2" class="align-center">飘丝</th>
-        <th colspan="2" class="align-center">绕丝</th>
         <th colspan="2" class="align-center">染色</th>
+        <th colspan="2" class="align-center">碰伤</th>
+        <th colspan="2" class="align-center">成型不良</th>
+        <th colspan="2" class="align-center">污丝</th>
+        <th colspan="2" class="align-center">飘丝</th>
+        <th colspan="2" class="align-center">黄化</th>
+        <th colspan="2" class="align-center">绕外</th>
+        <th colspan="2" class="align-center">夹丝</th>
+        <th colspan="2" class="align-center">绕丝</th>
         <th colspan="2" class="align-center">物性</th>
         <th colspan="2" class="align-center">OPU</th>
         <th colspan="2" class="align-center">其他</th>
@@ -238,24 +238,24 @@
       <tr *ngFor="let data1 of thisTable1.data; let i = index;" class="align-center">
         <td>{{data1.weightLousiness}}</td>
         <td>{{data1.ratioLousiness*100}}</td>
-        <td>{{data1.weightBruise}}</td>
-        <td>{{data1.ratioBruise*100}}</td>
-        <td>{{data1.weightOutside}}</td>
-        <td>{{data1.ratioOutside*100}}</td>
-        <td>{{data1.weightBadShape}}</td>
-        <td>{{data1.ratioBadShape*100}}</td>
-        <td>{{data1.weightCrimp}}</td>
-        <td>{{data1.ratioCrimp*100}}</td>
-        <td>{{data1.weightSoiled}}</td>
-        <td>{{data1.ratioSoiled*100}}</td>
-        <td>{{data1.weightYellow}}</td>
-        <td>{{data1.ratioYellow*100}}</td>
-        <td>{{data1.weightFloat}}</td>
-        <td>{{data1.ratioFloat*100}}</td>
-        <td>{{data1.weightWind}}</td>
-        <td>{{data1.ratioWind*100}}</td>
         <td>{{data1.weightDye}}</td>
         <td>{{data1.ratioDye*100}}</td>
+        <td>{{data1.weightBruise}}</td>
+        <td>{{data1.ratioBruise*100}}</td>
+        <td>{{data1.weightBadShape}}</td>
+        <td>{{data1.ratioBadShape*100}}</td>
+        <td>{{data1.weightSoiled}}</td>
+        <td>{{data1.ratioSoiled*100}}</td>
+        <td>{{data1.weightFloat}}</td>
+        <td>{{data1.ratioFloat*100}}</td>
+        <td>{{data1.weightYellow}}</td>
+        <td>{{data1.ratioYellow*100}}</td>
+        <td>{{data1.weightOutside}}</td>
+        <td>{{data1.ratioOutside*100}}</td>
+        <td>{{data1.weightCrimp}}</td>
+        <td>{{data1.ratioCrimp*100}}</td>    
+        <td>{{data1.weightWind}}</td>
+        <td>{{data1.ratioWind*100}}</td>
         <td>{{data1.weightProperty}}</td>
         <td>{{data1.ratioProperty*100}}</td>
         <td>{{data1.weightOPU}}</td>

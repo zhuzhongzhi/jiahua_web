@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ShowMessageService} from '../../../widget/show-message/show-message';
 import {IngotAlarmService} from '../../../core/biz-services/produceManage/IngotAlarmService';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzModalService, NzDropdownService, NzDropdownContextComponent} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -54,13 +54,15 @@ export class PackManageComponent implements OnInit {
   createTime: '';
   checkTime: '';
   doffingStartTime: '';
-
+ 
+  
   constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private modal: NzModalService,
               private modalService: NzModalService,
               private messageService: ShowMessageService,
-              private ingotAlarmService: IngotAlarmService) {
+              private ingotAlarmService: IngotAlarmService , 
+              private dropdownService:NzDropdownService) {
     this.filters = {
       code: '',
       lineType: '',
@@ -80,6 +82,15 @@ export class PackManageComponent implements OnInit {
       total: 10,
       loading: false
     };
+  }
+  dropdown:NzDropdownContextComponent;
+  menudata:'';
+
+  contextMenu($event:MouseEvent,template:TemplateRef<void>,data){   
+    this.menudata = data;
+    this.dropdown=this.dropdownService.create($event,template);
+    $event.preventDefault();
+    return false;
   }
 
   trans(state) {
@@ -325,6 +336,79 @@ export class PackManageComponent implements OnInit {
 
   }
 
+//menu功能
+  selectline(lineType)
+  {
+    // 查咨丝车列表
+    this.filters.lineType = lineType;
+    const filter = {
+      'filters': this.filters,
+      'pageNum': this.tableConfig.pageNum,
+      'pageSize': this.tableConfig.pageSize
+    };
+    this.tableConfig.loading = true;
+    this.ingotAlarmService.historyPage(filter).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.listOfAllData = res.value.list;
+      this.tableConfig.pageTotal = res.value.total;
+      this.tableConfig.loading = false;
+    });
+    this.dropdown.close();
+  }
+  selectbatch(batchNum)
+  {
+    // 查咨丝车列表
+    this.filters.batchNum = batchNum;
+    const filter = {
+      'filters': this.filters,
+      'pageNum': this.tableConfig.pageNum,
+      'pageSize': this.tableConfig.pageSize
+    };
+    this.tableConfig.loading = true;
+    this.ingotAlarmService.historyPage(filter).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.listOfAllData = res.value.list;
+      this.tableConfig.pageTotal = res.value.total;
+      this.tableConfig.loading = false;
+    });
+    this.dropdown.close();
+  }
+
+  copy(pmId)
+  {
+    this.ingotAlarmService.newCraftUpdate({pmId: pmId, isCopy: 1}).subscribe((res) => {
+      if (res.code !== 0) {       
+        return;
+      }
+      this.messageService.showToastMessage('确认抄录成功', 'success');
+      this.messageService.closeLoading();
+      this.initList();
+      this.checkedId = {};
+    });
+    this.dropdown.close();
+  }
+
+  endPack1(pmId)
+  {
+    const cond = {
+      pmId: pmId,
+      endTime: format(new Date(), 'yyyy-MM-dd HH:mm')
+    };
+    this.ingotAlarmService.endPackage(cond).subscribe((res) => {
+      if (res.code !== 0) {
+        return;
+      }
+      this.initList();
+      this.checkedId = {};
+      this.messageService.closeLoading();
+      this.messageService.showToastMessage('包装完成提交成功', 'success');
+    });
+    this.dropdown.close();
+  }      
   // 已抄录
   saveCopy() {
     if(!this.saveProcess()) return;

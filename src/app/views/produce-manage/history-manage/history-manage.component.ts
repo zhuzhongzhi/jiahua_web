@@ -259,9 +259,9 @@ export class HistoryManageComponent implements OnInit {
   }
 
   delete() {
-    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.pmId]);
+    const hasChecked = this.listOfAllData.some(item => this.checkedId[item.main.pmId]);
     if (!hasChecked) {
-      this.messageService.showToastMessage('您还没有选择要删除的信息', 'warning');
+      this.messageService.showToastMessage('请选择一条主记录', 'warning');
       return;
     }
     this.modal.confirm({
@@ -272,7 +272,18 @@ export class HistoryManageComponent implements OnInit {
 
         for (const key in this.checkedId) {
           if (this.checkedId[key]) {
-            ids.push(key);
+            // ids.push(key);
+            this.ingotAlarmService.newCraftDel({ pmId: key }).subscribe((res) => {
+              if (res.code === 0) {
+                this.messageService.showToastMessage('记录已删除！', 'info');
+                this.messageService.closeLoading();
+                this.initList();
+              }
+              else {
+                this.messageService.showToastMessage(res.value, 'error');
+                this.messageService.closeLoading();
+              }
+            });
           }
         }
         // 这边写批量删除的方法
@@ -334,17 +345,16 @@ export class HistoryManageComponent implements OnInit {
   {
     item.showtable = !item.showtable;
   }
-
   checkAll(value: boolean): void {
     this.listOfAllData.forEach(item => {
-      if (item.pmId !== '-1') {
-        this.checkedId[item.pmId] = value;
+      if (item.main.pmId !== '-1') {
+        this.checkedId[item.main.pmId] = value;
       }
     });
   }
 
   refreshStatus(): void {
-    this.isAllChecked = this.listOfAllData.filter(item => item.pmId !== '-1').every(item => this.checkedId[item.pmId]);
+    this.isAllChecked = this.listOfAllData.filter(item => item.main.pmId !== '-1').every(item => this.checkedId[item.main.pmId]);
   }
 
   parseTime(time) {

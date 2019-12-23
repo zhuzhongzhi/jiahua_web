@@ -249,7 +249,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>线别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="submitModel.lineType" nzPlaceHolder="请选择" [disabled] ="hasDoff">
+            <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="submitModel.lineType" nzPlaceHolder="请选择" [disabled]="hasDoff">
               <nz-option *ngFor="let node of lineItems" [nzValue]="node" [nzLabel]="node"></nz-option>
             </nz-select>
           </div>
@@ -361,7 +361,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>线别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="submitModel.lineType" nzPlaceHolder="请选择">
+            <nz-select style="width: 100%" nz-col nzSpan="8" [(ngModel)]="submitModel.lineType" nzPlaceHolder="请选择" [disabled]="hasDoff" (ngModelChange)="changeWithSelect()">
               <nz-option *ngFor="let node of lineItems" [nzValue]="node" [nzLabel]="node"></nz-option>
             </nz-select>
           </div>
@@ -447,7 +447,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8"><span class="red-txt">*</span>合股次数</label>
           <div nz-col nzSpan="16" class="form-control">
-            <nz-select style="width: 100%;" nzPlaceHolder="请选择合股次数" [(ngModel)]="submitModel.jointNum">
+            <nz-select style="width: 100%;" nzPlaceHolder="请选择合股次数" [(ngModel)]="submitModel.jointNum" [disabled]="hasDoff" (ngModelChange)="changeWithSelect()">
               <nz-option nzValue="0" nzLabel="0"></nz-option>
               <nz-option nzValue="1" nzLabel="1（二合一）"></nz-option>
               <nz-option nzValue="2" nzLabel="2（四合一）"></nz-option>
@@ -516,7 +516,7 @@
             <label class="inline-span" nz-col nzSpan="12">净重</label>
             <div nz-col nzSpan="12" class="form-control">
               <!--                <input nzSize="default" nz-input type="text">-->
-              <input type="text" nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight"
+              <input type="text" nz-input placeholder="请输入净重(kg)" [(ngModel)]="item.weight" 
                 [disabled]="item.hastable" />
             </div>
           </div>

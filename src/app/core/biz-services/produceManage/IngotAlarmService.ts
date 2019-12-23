@@ -245,7 +245,7 @@ export namespace IngotAlarmServiceNs {
      public newCraftgetMain(data) {
       const config: HttpUtilNs.UfastHttpConfig = {};
       config.gateway = HttpUtilNs.GatewayKey.Iot;
-      return this.http.Post('/produce/newCraft/getMain', data, this.defaultConfig);
+      return this.http.Get('/produce/newCraft/getMain', data, this.defaultConfig);
     }
 
     public endDoff(data) {

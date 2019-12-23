@@ -178,7 +178,8 @@
 
     <div nz-row nzGutter="16" style="margin-top: 15px;">
       <div nz-col nzSpan="4" class="gutter-row">
-        <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="delete()"><i nz-icon type="form" theme="outline"></i>删除</button>
+        <button nz-button nzType="primary" style="margin-left:8px; margin-bottom:15px" (click)="delete()">
+          <i nz-icon type="delete" theme="outline"></i>删除</button>
    </div>
       <div nz-col nzSpan="4" class="gutter-row">
         <span style="margin-right:20px;">总净重：{{historyTotal.totalWeight}}kg</span>
@@ -198,7 +199,7 @@
       [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
       <thead>
         <tr>
-                 <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+          <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
           <th nzWidth="70px">序号</th>
           <th class="align-center">丝车编号</th>
           <th class="align-center">工艺状态</th>
@@ -222,7 +223,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="showDetail(data.main)">
-                 <td nzShowCheckbox [(nzChecked)]="checkedId[data.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.pmId === '-1'"></td>
+          <td *ngIf="data.main.craftState !== 7" nzShowCheckbox [(nzChecked)]="checkedId[data.main.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.main.pmId === '-1'"></td>
+          <td *ngIf="data.main.craftState === 7" ></td>
           <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
           <td>{{data.main.code}}</td>
           <td>{{trans(data.main.craftState)}}</td>
@@ -321,7 +323,7 @@
         <div class="form-item" nz-row style="padding-top: 20px;">
           <label class="inline-span" nz-col nzSpan="8">卷类别</label>
           <div nz-col nzSpan="16" class="form-control">
-            <input type="text" disabled nz-input placeholder="" [value]="transReelType(submitModel.reelType)" />
+            <input type="text" disabled nz-input placeholder="卷类别" [value]="transReelType(submitModel.reelType)" />
           </div>
         </div>
       </div>

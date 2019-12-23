@@ -140,7 +140,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="loadedit(data)">
+        <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center" (dblclick)="loadedit(data)" (contextmenu)="contextMenu($event, MenuTpl,data)"  >
         <td nzShowCheckbox [(nzChecked)]="checkedId[data.main.pmId]" (nzCheckedChange)="refreshStatus()" [nzDisabled]="data.main.pmId === '-1'"></td>
         <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
         <td>{{data.main.code}}</td>
@@ -403,5 +403,13 @@
       <app-new-table *ngIf="item.showtable" [dataList]="item.exception" [readonly]=true></app-new-table>
     </div>
   </div>
-
 </nz-modal>
+
+<ng-template #MenuTpl >
+  <ul nz-menu  nzInDropDown nzSelectable>
+      <li nz-menu-item  (click)='selectline(menudata.main.lineType)'><span>查询同线别</span></li>
+      <li nz-menu-item  (click)='selectbatch(menudata.main.batchNum)'><span>查询同批号</span></li>
+      <li *ngIf="menudata.main.isCopy !== 1" nz-menu-item  (click)='copy(menudata.main.pmId)'><span>抄录</span></li>
+      <li *ngIf="menudata.main.isCopy === 1" nz-menu-item  (click)='endPack1(menudata.main.pmId)'><span>确认</span></li>
+  </ul>
+</ng-template>
