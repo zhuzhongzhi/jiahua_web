@@ -234,11 +234,11 @@
           <td>{{data.main.classType}}</td>
           <td>{{data.main.weight}}</td>
           <td>{{data.main.ingotNum}}</td>
-          <td>{{data.check.aaNum}}/{{data.check.aaWeight}}</td>
-          <td>{{data.check.aawNum}}/{{data.check.aawWeight}}</td>            
-          <td>{{data.check.anum}}/{{data.check.aweight}}</td>
-          <td>{{data.check.a1Num}}/{{data.check.a1Weight}}</td>
-          <td>{{data.check.bnum}}/{{data.check.bweight}}</td>
+          <td *ngIf="data.check">{{data.check.aaNum}}/{{data.check.aaWeight}}</td><td *ngIf="!data.check"></td>
+          <td *ngIf="data.check">{{data.check.aawNum}}/{{data.check.aawWeight}}</td><td *ngIf="!data.check"></td>            
+          <td *ngIf="data.check">{{data.check.anum}}/{{data.check.aweight}}</td><td *ngIf="!data.check"></td>
+          <td *ngIf="data.check">{{data.check.a1Num}}/{{data.check.a1Weight}}</td><td *ngIf="!data.check"></td>
+          <td *ngIf="data.check">{{data.check.bnum}}/{{data.check.bweight}}</td><td *ngIf="!data.check"></td>
           <td>{{data.main.createTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td>{{data.main.doffingStartTime| date:"yyyy-MM-dd HH:mm"}}</td>
           <td>{{data.main.packageTime| date:"yyyy-MM-dd HH:mm"}}</td>
