@@ -1,0 +1,246 @@
+@import "./variable";
+
+.ant-layout-header{
+  padding-left: 18px;
+  padding-right: 18px;
+  height: 60px;
+  background-color: #fff;
+  //background-color: #022b43;
+}
+.ant-menu{
+  padding-top: 14px;
+  background-color: #144868;
+  color: #fff;
+  .ant-menu-submenu > .ant-menu{
+    background-color: #144868;
+  }
+  .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover{
+    color: #fff;
+  }
+  .ant-menu-item:focus{
+    outline: none;
+  }
+  .ant-menu-item-selected {
+    color: #fff;
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #dcc07f;
+  }
+  .ant-menu-vertical .ant-menu-item:after, .ant-menu-vertical-left .ant-menu-item:after, .ant-menu-vertical-right .ant-menu-item:after, .ant-menu-inline .ant-menu-item:after{
+    display: none;
+  }
+  .ant-menu-vertical .ant-menu-item, .ant-menu-vertical-left .ant-menu-item, .ant-menu-vertical-right .ant-menu-item, .ant-menu-inline .ant-menu-item, .ant-menu-vertical .ant-menu-submenu-title, .ant-menu-vertical-left .ant-menu-submenu-title, .ant-menu-vertical-right .ant-menu-submenu-title, .ant-menu-inline .ant-menu-submenu-title{
+    margin-top: 0;
+    margin-bottom: 0;
+    //padding-top: 4px;
+    //padding-bottom: 4px;
+  }
+}
+
+.layout{
+  .ant-menu-submenu-vertical > .ant-menu-submenu-title .ant-menu-submenu-arrow:before, .ant-menu-submenu-vertical-left > .ant-menu-submenu-title .ant-menu-submenu-arrow:before, .ant-menu-submenu-vertical-right > .ant-menu-submenu-title .ant-menu-submenu-arrow:before, .ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow:before, .ant-menu-submenu-vertical > .ant-menu-submenu-title .ant-menu-submenu-arrow:after, .ant-menu-submenu-vertical-left > .ant-menu-submenu-title .ant-menu-submenu-arrow:after, .ant-menu-submenu-vertical-right > .ant-menu-submenu-title .ant-menu-submenu-arrow:after, .ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow:after{
+    background-image: none;
+  }
+}
+.login-form {
+  .ant-input-affix-wrapper .ant-input-prefix {
+    left: 0;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    background-color: #dcc07f;
+    color: #fff;
+    font-size: 20px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  .ant-checkbox-inner{
+    border: 1px solid #dcc07f;
+    border-radius: 2px;
+  }
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner{
+    border-color: #dcc07f;
+    border-width: 1px;
+  }
+  .ant-checkbox-checked .ant-checkbox-inner{
+    background-color: #dcc07f;
+  }
+}
+
+.search-form .ant-input-search.ant-input-search-enter-button > .ant-input-suffix{
+  right: 12px;
+}
+
+.pagination .ant-pagination{
+  float: right;
+}
+.padding-0 .ant-modal-body{
+  padding: 0px;
+}
+.cehicle-model .ant-menu{
+  padding-top: 0;
+}
+.cehicle-model.ant-layout{
+  background-color: #fff;
+}
+
+//表格
+.ant-table{
+  font-size: 12px;
+}
+.ant-table-thead > tr > th{
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+  border-bottom: none;
+}
+.ant-table-tbody .ant-table-row:nth-child(even){
+  background-color: #fafafa;
+}
+.ant-form-inline .ant-form-item:last-child{
+  margin-right: 0;
+}
+.ant-table-footer {
+  padding: 12px 8px;
+  background: #f5f5f5;
+  border-radius: 0 0 4px 4px;
+  position: relative;
+  border-top: none;
+}
+//
+//.ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th{
+//  background-color: #f5f5f5;
+//  font-weight: bold;
+//  color: #4a4a4a;
+//}
+//.ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead{
+//  & > tr{
+//    & > th, & > td{
+//      border-bottom: none;
+//    }
+//  }
+//}
+//.ant-table-small > .ant-table-content > .ant-table-body{
+//  margin: 0;
+//}
+
+.vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+//修改form-item的间距
+.ant-form-inline .ant-form-item {
+  margin-right: 6px;
+}
+.ant-btn > .anticon + span, .ant-btn > span + .anticon {
+  margin-left: 4px;
+}
+
+.search-form{
+  .ant-input {
+    width: 150px;
+    font-size: 12px;
+  }
+  .ant-input.ant-calendar-picker-input {
+    width: 100%;
+    font-size: 12px;
+  }
+  .ant-btn{
+    padding: 0 12px;
+    font-size: 12px;
+  }
+  .ant-select{
+    font-size: 12px;
+  }
+}
+.ant-pagination{
+  font-size: 12px;
+}
+
+/*位置分布页的搜索按钮*/
+.mapfs .ant-input-group-addon {
+  padding: 0px;
+  .ant-btn{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+//表格样式
+.table-list .ant-table{
+  //height: calc(100vh - 284px);
+  overflow: auto;
+  .ant-table-thead th{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .ant-table-thead > tr > th.ant-table-column-has-actions{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+}
+// 车辆管理-终端列表表格样式
+.modal-table .ant-table{
+  max-height: calc(100vh - 442px);
+  overflow: auto;
+  .ant-table-thead th{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .ant-table-thead > tr > th.ant-table-column-has-actions{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+}
+.notice .table-list .ant-table {
+  height: calc(100vh - 328px);
+}
+
+.ant-form-item-label{
+  text-align: left;
+}
+//去掉label的 ：
+.ant-form-item-label label:after {
+  display: none;
+}
+
+//给多选框定高
+@mixin scrollbar(){
+  &::-webkit-scrollbar{
+    width: 8px;
+    height: 1px;
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    background-color: #d8d8d8;
+  }
+  &::-webkit-scrollbar-track{
+    border-radius: 8px;
+    background-color: #f5f5f5;
+  }
+}
+.ant-select-selection--multiple{
+  max-height: 72px;
+  overflow-y: auto;
+  @include scrollbar();
+}
+//修改按钮的focus样式
+//.ant-btn:focus {
+//  color: inherit;
+//  border-color: inherit;
+//}
+//.ant-btn:active {
+//  color: #e8d8ac;
+//  background-color: #fff;
+//  border-color: #e8d8ac;
+//}

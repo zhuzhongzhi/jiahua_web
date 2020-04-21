@@ -1,0 +1,46 @@
+.chart{
+  width: 100%;
+  height: calc(100vh - 56px);
+}
+.name1 {
+  font-size: 14px;
+  font-style: normal;
+  text-align: center;
+  line-height: normal;
+  font-family: 'PingFangSC-Regular', 'PingFang SC';
+  font-weight: 400;
+  text-decoration: none;
+  color: #7F7F7F;
+}
+.name2 {
+  font-family: 'PingFangSC-Semibold', 'PingFang SC Semibold', 'PingFang SC';
+  font-weight: 650;
+  font-size: 40px;
+  text-decoration: none;
+  color: #CF291E;
+  text-align: center;
+}
+.head-top {
+  width: 300px;
+  background: #D91F1A;
+  margin-top: -24px;
+  margin-left: -24px;
+  color:#fff;
+}
+.span1 {
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  font-family: 'PingFangSC-Regular', 'PingFang SC';
+  font-weight: 400;
+  text-decoration: none;
+  color: #7F7F7F;
+}
+.span2 {
+  font-family: 'PingFangSC-Semibold', 'PingFang SC Semibold', 'PingFang SC';
+  font-weight: 650;
+  text-decoration: none;
+  color: #252C5C;
+  text-transform: none;
+  font-size: 28px;
+}

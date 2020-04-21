@@ -1,0 +1,108 @@
+<div style="background: #F0F2F5;">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="16">
+      <nz-card style="height: 260px;">
+        <div nz-row class="qtitle">
+          质量问题排行榜 {{time}}
+        </div>
+        <div nz-row [nzGutter]="7" style="text-align: center;">
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">毛丝</p>
+            <p class="qname2">{{causeList.crimp ? causeList.crimp : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">碰伤</p>
+            <p class="qname2">{{causeList.bruise ? causeList.bruise : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">绕外</p>
+            <p class="qname2">{{causeList.outside ? causeList.outside : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">成型不良</p>
+            <p class="qname2">{{causeList.badShape ? causeList.badShape : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">夹丝</p>
+            <p class="qname2">{{causeList.soiled ? causeList.soiled : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">污丝</p>
+            <p class="qname2">{{causeList.lousiness ? causeList.lousiness : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">黄化</p>
+            <p class="qname2">{{causeList.yellow ? causeList.yellow : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">飘丝</p>
+            <p class="qname2">{{causeList.floatSilk ? causeList.floatSilk : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">绕丝</p>
+            <p class="qname2">{{causeList.wind ? causeList.wind : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">染色</p>
+            <p class="qname2">{{causeList.dye ? causeList.dye : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">物性</p>
+            <p class="qname2">{{causeList.property ? causeList.property : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">OPU</p>
+            <p class="qname2">{{causeList.opu ? causeList.opu : 0}}</p>
+          </div>
+          <div nz-col [nzSpan]="3" style="margin-top:20px;">
+            <p class="qname1">其他</p>
+            <p class="qname2">{{causeList.other ? causeList.other : 0}}</p>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-card style="height: 260px;text-align: center;">
+        <div nz-row class="qtitle">
+          实时报警
+        </div>
+        <div nz-row  style="overflow-y: scroll; height: 200px;" >
+          <div nz-row *ngFor="let data of spinAlarmS">
+            <div style="line-height: 33px;text-align: left;">
+              <span>[{{data.alarmTime}}]  纺位{{data.spinPos}}发生{{data.AlarmType}}</span>
+              <button style="float: right;height: 25px;line-height: 23px;margin-top: 5px;margin-right: 15px;" 
+              nz-button nzType="primary" (click)="go('wiringAlarm')">查看</button></div>
+          </div>
+          <div nz-row *ngFor="let data of residentAlarmS">
+            <div style="line-height: 33px;text-align: left;">
+              <span>[{{data.alarmTime}}]  丝车{{data.code}}发生{{data.craftState}}异常驻留时间过长</span>
+              <button style="float: right;height: 25px;line-height: 23px;margin-top: 5px;margin-right: 15px;" 
+              nz-button nzType="primary" (click)="go('stayAlarm')">查看</button></div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+
+  </div>  
+  <div nz-row [nzGutter]="1" style="margin:10px 0 0 0;height: calc(100vh - 370px);">
+    <nz-card style="height: calc(100vh - 370px);">
+      <div nz-row class="qtitle">
+        近三日线别不良排名 {{time}}
+      </div>
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart1" style="height: calc(100vh - 450px);"></div>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart2" style="height: calc(100vh - 450px);"></div>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart3" style="height: calc(100vh - 450px);"></div>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div echarts [options]="chart4" style="height: calc(100vh - 450px);"></div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

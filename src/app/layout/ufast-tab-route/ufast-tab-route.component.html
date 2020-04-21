@@ -1,0 +1,12 @@
+
+<ng-template>
+  <ng-template #titleTemplate>
+    <div>
+      {{ tabTitle }}
+      <span *ngIf="showClosable && tabsetService.tabNumber > 1">
+        <i style="font-size:12px;height:20px;width:20px;" class="anticon anticon-close" (click)="clickCloseTab($event)" *ngIf="tabsetService.cacheRouterNumber !== 1"></i>
+      </span>
+    </div>
+  </ng-template>
+  <ng-content></ng-content>
+</ng-template>

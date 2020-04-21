@@ -1,0 +1,63 @@
+<nz-layout class="layout full-screen">
+  <!--头部-->
+  <nz-header class="header">
+    <div class="logo"><img src="/assets/image/jiahua/jiahua.png"></div>
+    <h2 class="brand-name">浙江嘉华丝车监控&质量管理系统</h2>
+    <div class="right">
+      <div class="welcome">
+        你好，{{username}}
+      </div>
+      <nz-divider nzType="vertical" class="welcome"></nz-divider>
+      <div class="welcome" (click)="logOut()">
+        <i class="anticon anticon-poweroff margin-r-10 cursor-pointer" (click)="logOut()"></i>退出
+      </div>
+    </div>
+  </nz-header>
+  <!--下边-->
+  <nz-layout>
+    <nz-sider [nzWidth]="220" style="background-color: rgba(38, 44, 92, 1);overflow: scroll">
+      <ul nz-menu [nzMode]="'inline'" style="height:100%;">
+        <ng-container *ngFor="let menu of mainMenu">
+
+          <ng-container>
+            <li nz-submenu class="noselect" [(nzOpen)]="menu.open" (nzOpenChange)="openHandle(menu.id)" *ngIf="menu.show">
+              <span title><img [src]="menu.img" class="menu-icon" style="width: 18px;"/>{{menu.name}}
+              </span>
+              <ng-container *ngIf="menu.url === ''">
+                <ng-container *ngFor="let secMenus of menu.subMenu">
+
+                  <li *ngIf="secMenus.url === '' && secMenus.show" nz-submenu class="noselect" [(nzOpen)]="secMenus.open" (nzOpenChange)="openHandle(secMenus.id)">
+                    <span title>{{secMenus.name}}
+                    </span>
+                    <ul>
+                      <ng-container *ngFor="let thrMenus of secMenus.subMenu">
+                        <li nz-menu-item  (click)="goRoute(thrMenus)" *ngIf="thrMenus.show"
+                            [(nzSelected)]="thrMenus.open">
+                          <div>
+                            {{thrMenus.name}}
+                          </div>
+                        </li>
+                      </ng-container>
+
+                    </ul>
+                  </li>
+                  <li *ngIf="secMenus.url !== '' && secMenus.show" nz-menu-item (click)="goRoute(secMenus)"
+                      [(nzSelected)]="secMenus.open">
+                    {{secMenus.name}}
+                  </li>
+                </ng-container>
+              </ng-container>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </nz-sider>
+    <nz-layout style="height: 100%">
+      <nz-content style="height: 100%">
+        <div class="content-container">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

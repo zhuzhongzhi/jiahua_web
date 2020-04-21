@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, dd, dl, dt, li, ol, ul,input,select,button,textarea,tr,td{ padding:0; margin:0; border:none;}
+input,button,select,textarea,a,img{outline:none; }/*去掉超链接或按钮点击时出现的虚线框黄色边框*/
+::-moz-focus-inner{border:0px;}/*火狐的私有属性去掉点击时边框*/
+body,html{ width:100%; font-family:"Microsoft YaHei","Arial", "SimSun";}
+ul, ul li, ol li, li {	list-style:none;}
+a, img, input, textarea {border:none;}
+a {
+    text-decoration: none;
+}
+table {	border-collapse: collapse;border-spacing:0;}
+.clearfix:after {visibility: hidden;display: block;font-size: 0;content: ".";clear: both;height: 0;}
+* html .clearfix {zoom: 1;}
+*:first-child + html .clearfix {zoom: 1;}
+.fl {	float:left;}
+.fr {	float:right;}
+.none{	display:none;}
+
+.inrow{
+  font-size:0;
+/*[;font-size:12px;];*/
+  /**font-size:0;*/
+  font-family:Impact;
+/*[;letter-spacing:-3px;];*/
+  letter-spacing:normal;
+  word-spacing:-1px;
+}
+.inrow>li,.inrow span{font-size:14px;letter-spacing:normal;word-spacing:normal; }
+.dataNums{display: flex; width:100%; height:16px; text-align:center;}
+.dataNums .dataOne{ width:11px; height:16px; margin: 0px; text-align: center;}
+.dataNums .dataBoc {position: relative; width: 100%; height: 100%; overflow: hidden;}
+.dataNums .dataBoc .tt {position: absolute; top: 0;  left: 0; width: 11px; height: 16px}
+.dataNums .tt span{display: inline-block;width: 11px; height: 16px; font:bold 16px/1 "Impact";}
+
+#num1 .dataNums, #num3 .dataNums,#num2 .dataNums, #num4 .dataNums{
+  display: flex; width:100%; height:56px; text-align:center;}
+#num1 .dataNums .dataOne, #num3 .dataNums .dataOne,#num2 .dataNums .dataOne, #num4 .dataNums .dataOne{
+  width:40px; height:56px; margin: 0 4px 0 0; text-align: center;}
+#num1 .dataNums .dataOne:last-child, #num3 .dataNums .dataOne:last-child,
+#num2 .dataNums .dataOne:last-child, #num4 .dataNums .dataOne:last-child{
+  width:40px; height:56px; margin: 0 0 0 0; text-align: center;}
+#num1 .dataNums .dataBoc .tt, #num3 .dataNums .dataBoc .tt,
+#num2 .dataNums .dataBoc .tt, #num4 .dataNums .dataBoc .tt{
+  position: absolute; top: 0;  left: 0; width: 40px; height: 56px;}
+#num1 .dataNums .tt span, #num3 .dataNums .tt span,
+#num2 .dataNums .tt span, #num4 .dataNums .tt span{
+  display: block;width: 40px; height: 54px; font:bold 36px/54px "Impact";overflow: hidden;}
+#num1 .dataNums .dataOne .dataBoc, #num3 .dataNums .dataOne .dataBoc{
+  background-color: #051924;color: #07c992;border: 1px solid rgba(7,201,146,.5);
+}
+#num2 .dataNums .dataOne .dataBoc, #num4 .dataNums .dataOne .dataBoc{
+  background-color: #051924;color: #4a92ff;border: 1px solid rgba(74,146,255,.5);
+}
+
+.part-left .part .number .dataNums{
+  display: flex; width:100%; height:36px; text-align:center;}
+.part-left .part .number .dataNums .dataOne{
+  width:20px; height:36px; margin: 0 0 0 0; text-align: center;}
+.part-left .part .number .dataNums .dataBoc .tt{
+  position: absolute; top: 0;  left: 0; width: 20px; height: 36px;}
+.part-left .part .number .dataNums .tt span{
+  display: block;width: 20px; height: 36px; font:bold 36px/36px "Impact";overflow: hidden;}
+.part-left .part .number .dataNums .dataOne .dataBoc{
+  background-color: transparent;
+}
+.alarm-num .dataNums{
+  display: flex; width:100%; height:20px; text-align:center;}
+.alarm-num .dataNums .dataOne{
+  width:15px; height:20px; margin: 0 0 0 0; text-align: center;}
+.alarm-num .dataNums .dataBoc .tt{
+  position: absolute; top: 0;  left: 0; width: 15px; height: 36px;}
+.alarm-num .dataNums .tt span{
+  display: block;width: 15px; height: 20px; font:bold 20px/20px "Impact";overflow: hidden;}
+.alarm-num .dataNums .dataOne .dataBoc{
+  background-color: transparent;color: #eb6161;
+}
+.part-left .part .green-num .dataNums .dataOne .dataBoc{
+  color: #07c992;
+}
+.part-left .part .blue-num .dataNums .dataOne .dataBoc{
+  color: #4a92ff;
+}
+.part-left .part .yellow-num .dataNums .dataOne .dataBoc{
+  color: #f9b74c;
+}

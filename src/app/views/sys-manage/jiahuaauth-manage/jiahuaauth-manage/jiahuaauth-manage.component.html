@@ -1,0 +1,133 @@
+<div class="page">
+
+  <div class="bg-white padding-16">
+
+    <!--<nz-tabset (nzSelectChange)="changeTab([$event])">-->
+      <!--<nz-tab nzTitle="权限列表">-->
+        <div nz-row nzGutter="16">
+          <button *appAuthBtu="3030002" nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>新增</button>
+        </div>
+
+        <nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"
+                  style="text-align:center"
+                  [nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"
+                  [nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"
+                  (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">
+          <thead >
+          <tr>
+            <th nzWidth="70px">序号</th>
+            <th class="align-center">权限id</th>
+            <th class="align-center">权限名</th>
+            <th class="align-center">描述</th>
+            <th *appAuthBtu="3030003" class="align-center">操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">
+            <td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>
+            <td>{{data.authId}}</td>
+            <td>{{data.authName}}</td>
+            <td>{{data.desc}}</td>
+            <td *appAuthBtu="3030003">
+              <ng-container>
+                <span (click)="editInfo(data)" class="blue-txt transparen-btn see-detail">编辑</span>
+              </ng-container>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+
+      <!--</nz-tab>-->
+      <!--<nz-tab nzTitle="用户权限组列表">-->
+        <!--<div nz-row nzGutter="16">-->
+          <!--<button nz-button nzType="default" style="margin-left:8px; margin-bottom:15px" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>新增</button>-->
+        <!--</div>-->
+
+        <!--<nz-table class="table-list" #thisTable nzShowPagination nzBordered nzShowSizeChanger [nzFrontPagination]="false"-->
+                  <!--style="text-align:center"-->
+                  <!--[nzTotal]="tableConfig.pageTotal" [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize"-->
+                  <!--[nzData]="listOfAllData" [nzLoading]="tableConfig.infoLoading" [nzShowTotal]="totalTemplate"-->
+                  <!--(nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange()">-->
+          <!--<thead >-->
+          <!--<tr>-->
+            <!--<th nzWidth="70px">序号</th>-->
+            <!--<th class="align-center">权限id</th>-->
+            <!--<th class="align-center">权限名</th>-->
+            <!--<th class="align-center">描述</th>-->
+            <!--<th class="align-center">操作</th>-->
+          <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+          <!--<tr *ngFor="let data of thisTable.data; let i = index;" class="align-center">-->
+            <!--<td>{{(tableConfig.pageNum - 1) * tableConfig.pageSize + i + 1}}</td>-->
+            <!--<td>{{data.authId}}</td>-->
+            <!--<td>{{data.authName}}</td>-->
+            <!--<td>{{data.desc}}</td>-->
+            <!--<td>-->
+              <!--<ng-container>-->
+                <!--<span (click)="editInfo(data)" class="blue-txt transparen-btn">编辑</span>-->
+              <!--</ng-container>-->
+            <!--</td>-->
+          <!--</tr>-->
+          <!--</tbody>-->
+        <!--</nz-table>-->
+
+      <!--</nz-tab>-->
+    <!--</nz-tabset>-->
+
+
+  </div>
+  <ng-template #totalTemplate let-total>
+    <span class="m-r-sm">
+    当前显示第{{(tableConfig.pageNum - 1) * tableConfig.pageSize + 1}}至第{{tableConfig.pageNum * tableConfig.pageSize - tableConfig.pageTotal > 0 ? tableConfig.pageTotal : tableConfig.pageNum * tableConfig.pageSize}}
+      条记录，共计{{tableConfig.pageTotal}}条记录
+  </span>
+  </ng-template>
+
+</div>
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title"
+          (nzOnCancel)="handleDetailCancel()" nzWidth="600px" (nzOnOk)="submitForm()">
+  <form nz-form [formGroup]="validateForm">
+    <div nz-row>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="lineType">权限ID  <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <input nz-input formControlName="authId" placeholder="请输入权限ID">
+            <nz-form-explain
+              *ngIf="getFormControl('authId')?.dirty&&getFormControl('authId')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.authId}}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="spinPos">权限名称 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+              <input nz-input formControlName="authName" placeholder="请输入权限名称">
+            <nz-form-explain
+              *ngIf="getFormControl('authName')?.dirty&&getFormControl('authName')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.authName}}
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="ingotNum">描述 </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <textarea formControlName="desc" nz-input rows="2" placeholder="请输入描述"></textarea>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{updateData?.desc}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+  </form>
+
+</nz-modal>

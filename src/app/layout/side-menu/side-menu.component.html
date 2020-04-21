@@ -1,0 +1,48 @@
+
+<ul nz-menu [nzMode]="'inline'" nzTheme='dark' [nzInlineCollapsed]="isCollapsed" class="side-menu-list" >
+  <ng-container *ngFor="let item of sideMenu.children;">
+    <li nz-submenu *ngIf="item.children.length && item.children.length > 0; else noSubItem;">
+          <span title>
+             <span *ngIf="item.icon" nz-icon style="font-size: 15px;">
+               <i [class]="item.icon"></i>
+             </span>
+             <i *ngIf="!item.icon" nz-icon type="appstore"></i>
+            <span>{{item.name}}</span>
+          </span>
+      <ul>
+        <ng-container *ngFor="let subItem of item.children;">
+          <li nz-menu-item *ngIf="subItem.children && subItem.children.length === 0; else subGroupItem;" [nzDisabled]="tabsetService.disabledMenu"
+              (click)="navigate(subItem, selectedItem === subItem.url)"
+              [nzSelected]="selectedItem === subItem.url">
+            {{subItem.name}}
+          </li>
+          <ng-template #subGroupItem>
+            <li nz-submenu>
+              <span title>{{subItem.name}}</span>
+              <ul>
+                <li nz-menu-item *ngFor="let minItem of subItem.children;" [nzDisabled]="tabsetService.disabledMenu" (click)="navigate(minItem, selectedItem ===  minItem.url)"
+                    [nzSelected]="selectedItem ===  minItem.url">
+                  {{minItem.name}}
+                </li>
+              </ul>
+            </li>
+          </ng-template>
+        </ng-container>
+      </ul>
+    </li>
+    <ng-template #noSubItem>
+      <li nz-menu-item (click)="navigate(item, selectedItem === item.url)" [nzDisabled]="tabsetService.disabledMenu" [nzSelected]="selectedItem === item.url"
+          nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? item.name : ''">
+            <span title>
+              <span *ngIf="item.icon" nz-icon style="font-size: 15px;">
+               <i [class]="item.icon"></i>
+             </span>
+              <i *ngIf= "!item.icon" nz-icon type="appstore"></i>
+              <span>{{item.name}}</span>
+            </span>
+      </li>
+    </ng-template>
+  </ng-container>
+</ul>
+
+

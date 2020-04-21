@@ -1,0 +1,28 @@
+<div>
+  <form nz-form [formGroup]="paramForm">
+    <nz-form-item>
+      <nz-form-label nzSpan="4" nzRequired>参数</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="param" nzSize="default" spellcheck="false"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="4" nzRequired>值</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="value" nzSize="default" spellcheck="false"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="4">单位</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="unit" nzSize="default" spellcheck="false"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzSpan="20" nzOffset="4">
+        <button nz-button nzType="primary" class="submit-button" (click)="onModalOk()">{{paramData.okText}}</button>
+        <button nz-button nzType="primary" class="submit-button" nzGhost="true" (click)="onModalCancel()">{{paramData.cancelText}}</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

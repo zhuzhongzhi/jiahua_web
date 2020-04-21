@@ -1,0 +1,628 @@
+@import "./variable";
+
+.m-t-sm {
+  margin-top: $length-10;
+}
+
+.m-r-xs {
+  margin-right: $length-5;
+}
+
+.m-r-sm {
+  margin-right: $length-10;
+}
+.m-l-sm {
+  margin-left: $length-10;
+}
+
+.p-sm {
+  padding: $length-10
+}
+
+.p-t-sm {
+  padding-top: $length-10;
+}
+
+.p-t-md {
+  padding-top: $length-20;
+}
+
+.p-b-sm {
+  padding-bottom: $length-10;
+}
+
+.p-b-md {
+  padding-bottom: $length-20;
+}
+
+.p-l-xs {
+  padding-left: $length-5;
+}
+.no-h-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.no-v-padding {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.relative-position {
+  position: relative;
+}
+
+.clear-fix:before,
+.clear-fix:after {
+  clear: both;
+  display: table;
+  content: " ";
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.table-wrap {
+  width: 100%;
+}
+
+.operate-text {
+  cursor: pointer;
+  color: #409eff;
+  margin-right: 5px;
+  button {
+    margin-left: 5px;
+  }
+}
+.operate-text-disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  margin-right: 5px;
+}
+.operate-text-danger {
+  color: rgb(244, 116, 118);
+}
+.font-red-color {
+  color: #ff0000;
+}
+
+.base-color {
+  color: #4b4f73;
+}
+.primary-color {
+  color: #358ED7;
+}
+.danger-color {
+  color: #f00;
+}
+.warn-color {
+  color: #e27104
+}
+.success-color {
+  color: #19a103;
+}
+
+.fixed-footer-button-wrap {
+
+  position: fixed;
+  bottom: $tab-page-padding-bottom;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  height: $fix-footer-height;
+  line-height: $fix-footer-height;
+  text-align: center;
+
+  button {
+    height: 36px;
+    width: 70px;
+  }
+  button + button {
+    margin-left: 30px;
+  }
+}
+
+.submit-button {
+  height: 36px;
+  width: 70px;
+  font-size: 14px;
+}
+
+.submit-button + .submit-button {
+  margin-left: 20px;
+}
+
+//.scrollbar-style {
+//  overflow: auto;
+//}
+//
+//.scrollbar-style::-webkit-scrollbar {
+//  width: 9px;
+//  height: 9px;
+//}
+//
+//.scrollbar-style::-webkit-scrollbar-thumb {
+//  background: #b0b0b0;
+//  border-radius: 4px;
+//}
+
+.bannedClick {
+  color: #ccc;
+  cursor: not-allowed;
+  margin-right: 4px;
+}
+
+.ant-calendar-picker {
+  display: initial !important;
+}
+
+// 高级搜索
+.advanced-search {
+  /*text-align: right;*/
+  .ant-form-item {
+    margin-bottom: 0;
+    display: inline-block;
+    margin-left: $length-10;
+    .ant-form-item-control-wrapper {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .ant-btn-danger {
+    color: #fff;
+    background-color: #f56c6c;
+    border-color: #f56c6c;
+  }
+  .ant-btn-danger:hover {
+    background: #f78989;
+    border-color: #f78989;
+    color: #fff;
+  }
+}
+
+.see-detail {
+  font-size: 15px;
+  font-weight: bold;
+  color: #38067c;
+}
+
+.advanced-search.ant-form-inline {
+  .ant-form-item {
+    display: inline-block;
+    margin-left: $length-10;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+/* 新建和编辑单据表单 */
+.order-header-form {
+  width:100%;
+
+  nz-form-item {
+    display:inline-block;
+    width:33%;
+    //margin-bottom:10px;
+    font-size: 14px;
+    word-break: break-all;
+
+    nz-form-text {
+      line-height:30px;
+    }
+  }
+}
+/* 详情页头部信息 */
+.detail-header-info {
+  width:100%;
+
+  nz-form-item {
+    display:inline-block;
+    width:33%;
+    margin-bottom:0px;
+    font-size: 14px;
+    word-break: break-all;
+
+    nz-form-text {
+      line-height:30px;
+    }
+    .ant-form-item-label, .ant-form-item-control {
+      line-height:30px;
+    }
+  }
+}
+.advanceSearch-form {
+  width:100%;
+
+  nz-form-item {
+    display:inline-block;
+    width:22%;
+    font-size: 14px;
+    word-break: break-all;
+
+    nz-form-text {
+      line-height:30px;
+    }
+  }
+}
+
+.split-bar{
+  color:#333;
+  font-size:14px;
+  padding: 5px 0px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+
+  & > span:first-child{
+    border-left: 5px solid #f60;
+    padding-left:5px;
+  }
+}
+.detail-table-header {
+  margin-bottom: 10px;
+}
+.table-footer-bar {
+  text-align: center;
+  margin: 20px 0;
+  button {
+    margin: 0 10px;
+  }
+}
+.selectStyle {
+  width: 100%;
+}
+.errorInformation {
+  color: red;
+}
+
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+
+.table-header{
+  padding: 5px 0 10px 0;
+  clear: both;
+}
+
+.form-horizontal {
+  width: 100%;
+  max-width: 600px;
+}
+/*@media (max-width: 480px) {
+  .form-horizontal {
+    width: 100%;
+  }
+}*/
+
+/* 文本溢出显示省略号 */
+.overflow-dots {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  .table-wrap {
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    overflow: hidden;
+  }
+  .tree-wrap {
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    overflow: auto;
+  }
+
+}
+
+.tree-wrap .ant-tree {
+  overflow: inherit !important;
+  margin: 0 !important;
+}
+
+.table-fixed table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.cke_dialog_body {
+  border-radius: 4px;
+  overflow: hidden;
+  .cke_dialog_footer_buttons a.cke_dialog_ui_button {
+    padding: 0 16px;
+    line-height: 30px;
+    border-radius: 4px;
+    span {
+      padding: 0;
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+  a.cke_dialog_ui_button_ok {
+    color: #fff;
+    background: #409eff;
+    border: 1px solid #409eff;
+  }
+  a.cke_dialog_ui_button:focus, a.cke_dialog_ui_button:hover, a.cke_dialog_ui_button:active, a.cke_dialog_ui_button.active {
+    border: 1px solid #409eff;
+    color: #409eff;
+  }
+  a.cke_dialog_ui_button_ok:focus{
+    box-shadow: none;
+  }
+  a.cke_dialog_ui_button_ok:hover{
+    color: #fff;
+    background: #409eff;
+    border-color: #409eff;
+  }
+  a.cke_dialog_ui_button_ok:active, a.cke_dialog_ui_button_ok.active{
+    color: #fff;
+    background: #096dd9;
+    border: 1px solid #096dd9;
+  }
+}
+
+.report-table {
+  width: 100%;
+  table {
+    width: 100%;
+  }
+}
+
+.page{
+  width: 100%;
+  height: calc(100vh - 92px);
+  display: flex;
+  flex-direction: column;
+  .page-title{
+    flex: 16px 0;
+  }
+  .bg-white{
+    flex: 1;
+  }
+}
+.bg-white{
+  background-color: #fff;
+}
+.padding-16{
+  padding: 16px;
+}
+.page-title{
+  margin: 12px 0;
+  padding-left: 8px;
+  line-height: 1;
+  border-left: 2px solid #dcc07f;
+  font-size: 16px;
+  color: #4a4a4a;
+  font-weight: bold;
+}
+.red-txt{
+  color: #F05150;
+}
+.blue-txt{
+  color: rgb(38, 44, 92);
+}
+.green-txt{
+  color: #279F09;
+}
+.transparen-btn{
+  cursor: pointer;
+  &:hover{
+    color: #1D6FED;
+  }
+}
+
+//设置滚动条样式
+@mixin scrollbar(){
+  &::-webkit-scrollbar{
+    width: 8px;
+    height: 1px;
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    background-color: #d8d8d8;
+  }
+  &::-webkit-scrollbar-track{
+    border-radius: 8px;
+    background-color: #f5f5f5;
+  }
+}
+.scrollbar::-webkit-scrollbar{
+  width: 8px;
+  height: 1px;
+}
+.scrollbar::-webkit-scrollbar-thumb{
+  border-radius: 8px;
+  background-color: #d8d8d8;
+}
+.scrollbar::-webkit-scrollbar-track{
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+.ant-table{
+  @include scrollbar();
+}
+/*loc-distribut css start*/
+.amap-icon img{
+  width: 100%;
+}
+/*.info {
+  border: solid 1px silver;
+}*/
+div.info-top {
+  position: relative;
+  background: none repeat scroll 0 0 #F9F9F9;
+  border-bottom: 1px solid #CCC;
+  border-radius: 5px 5px 0 0;
+}
+div.info-top div {
+  display: inline-block;
+  color: #000;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 31px;
+  padding: 0 10px;
+}
+div.info-top img {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition-duration: 0.25s;
+}
+div.info-top img:hover {
+  box-shadow: 0px 0px 5px #000;
+}
+div.info-middle {
+  font-size: 12px;
+  padding: 6px 50px 0px 50px;
+  line-height: 20px;
+}
+div.info-middle hr {
+  padding: 0 !important;
+  margin: 0;
+}
+div.info-middle a {
+  line-height: 30px;
+}
+div.info-foot {
+  border-top: solid 1px silver;
+  font-size: 12px;
+  padding: 0;
+  line-height: 20px;
+}
+div.info-bottom {
+  height: 0;
+  width: 100%;
+  clear: both;
+  text-align: center;
+}
+div.info-bottom img {
+  position: relative;
+  z-index: 104;
+}
+.info-middle img {
+  float: left;
+  margin-right: 6px;
+}
+div.info-top{
+  text-align: center;
+  padding: 0 15px;
+  background-color: #DCC07F;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  font-family: "微软雅黑";
+}
+div.info-top div{
+  color: #fff;
+}
+div.info-top span{
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+div.info-top a{
+  color: #fff;
+}
+div.info-middle{
+  padding: 6px 10px;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 0 0 10px 10px;
+}
+.col-sm-4, .col-sm-8 {
+  position: relative;
+  padding-right: 5px;
+  padding-left: 5px;
+  min-height: 1px;
+}
+@media (min-width: 768px) {
+.col-sm-4, .col-sm-8 {
+    float: left;
+  }
+}
+// .col-sm-4 {
+//     width: 33.33333333%;
+//   }
+// .col-sm-8 {
+//   width: 66.66666667%;
+//   }
+  .ant-slider{
+    margin: 6px 10px 6px 10px;
+  }
+  .range-btn-i{
+    font-size: 25px;
+    color: white
+  }
+  .ant-input-group-addon {
+    background-color:inherit;
+    border: 0px;
+}
+.gm-style .gm-style-iw-c {
+  padding: 0px;
+}
+.goo-infwin-title{
+  border-bottom: dotted 1px #DCC07F;
+  margin: 0 0 2px;
+  padding: 10px 10px 10px 50px;
+  color: #DCC07F;
+  font-weight: bold;
+}
+/*loc-distribut css end*/
+
+//超过一定范围的文字，用省略号代替
+.text-ellipsis{
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+//多屏监控定义高德logo的位置
+//.amap-logo {
+//  bottom: 8px;
+//}
+.map-loc-icon{
+  font-size: 32px;
+  color:rgb(220,192,127);
+}
+//禁止选中文字
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currentlynot supported by any browser */
+}
+
+.ant-pagination-options .ant-select{
+  font-size: 12px;
+}
+.ant-select-dropdown{
+  font-size: 12px;
+}
+.ant-select-tree{
+  font-size: 12px;
+}
+//去掉地图的logo
+.gmnoprint{
+  display: none;
+}
+.daping .loc div>a>div>img{
+  display: none;
+}

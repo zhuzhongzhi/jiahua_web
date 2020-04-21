@@ -1,0 +1,21 @@
+<div>
+  <div nz-row style="height: 40px;" class="clear-fix">
+      <div nz-col [nzSpan]="20">
+        <nz-form-item class="no-margin">
+          <nz-form-label nzSpan="3">地址</nz-form-label>
+          <nz-form-control nzSpan="21" class="no-h-padding">
+            <input nz-input placeholder="输入关键字选取地点" [(ngModel)]="currentLocation.address">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4" class="search-btn-area">
+        <button nz-button nzType="primary" (click)="searchAddressLocation(currentLocation.address)">搜索</button>
+      </div>
+  </div>
+  <div #mapContainer style="width: 100%; height: 340px;"></div>
+  <div class="relative-position">
+    <div  class="position-info">
+      <label >经度：</label> <span>{{currentLocation.lng}}</span><label>纬度：</label><span>{{currentLocation.lat}}</span>
+    </div>
+  </div>
+</div>

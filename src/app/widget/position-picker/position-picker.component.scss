@@ -1,0 +1,20 @@
+
+.search-btn-area {
+  text-align: right;
+  padding: 2px 0;
+}
+
+.position-info {
+  width: 70%;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  left: 0;
+  top: 30px;
+  span {
+    display: inline-block;
+    width: 80px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}

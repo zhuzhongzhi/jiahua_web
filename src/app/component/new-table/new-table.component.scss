@@ -1,0 +1,170 @@
+//.ant-table-body {
+//  max-height: none !important;
+//}
+.ant-table > .ant-table-content > .ant-table-body {
+  max-height: none !important;
+}
+
+.none {
+  background-color: transparent;
+}
+.colored {
+  background-color: #1d75b3;
+}
+.tips {
+  float: right;
+  height: 2px;
+  margin-top: -2px;
+  margin-right: -3px;
+}
+
+* {
+  color: black !important;
+}
+
+::ng-deep .ant-select-dropdown-menu-item:first-child {
+  height: 28px;
+}
+
+::ng-deep .ant-select-selection__rendered {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+::ng-deep .ant-select-dropdown-menu-item {
+  padding: 2px 2px;
+}
+
+// ::ng-deep .ant-select-arrow {
+//   right: 2px;
+// }
+
+// ::ng-deep .ant-select-selection-selected-value {
+//   padding-right: 1px;
+// }
+
+::ng-deep .ant-table-middle > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th,
+::ng-deep .ant-table-middle > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th,
+::ng-deep
+  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-scroll
+  > .ant-table-header
+  > table
+  > .ant-table-thead
+  > tr
+  > th,
+::ng-deep
+  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-scroll
+  > .ant-table-body
+  > table
+  > .ant-table-thead
+  > tr
+  > th,
+::ng-deep
+  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-left
+  > .ant-table-header
+  > table
+  > .ant-table-thead
+  > tr
+  > th,
+::ng-deep
+  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-right
+  > .ant-table-header
+  > table
+  > .ant-table-thead
+  > tr
+  > th,
+::ng-deep
+  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-left
+  > .ant-table-body-outer
+  > .ant-table-body-inner
+  > table
+  > .ant-table-thead
+  > tr
+  > th,
+::ng-deep
+  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-right
+  > .ant-table-body-outer
+  > .ant-table-body-inner
+  > table
+  > .ant-table-thead
+  > tr
+  > th,
+::ng-deep .ant-table-middle > .ant-table-content > .ant-table-header > table > .ant-table-tbody > tr > td,
+::ng-deep .ant-table-middle > .ant-table-content > .ant-table-body > table > .ant-table-tbody > tr > td,
+::ng-deep  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-scroll
+  > .ant-table-header
+  > table
+  > .ant-table-tbody
+  > tr
+  > td,
+::ng-deep  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-scroll
+  > .ant-table-body
+  > table
+  > .ant-table-tbody
+  > tr
+  > td,
+::ng-deep  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-left
+  > .ant-table-header
+  > table
+  > .ant-table-tbody
+  > tr
+  > td,
+::ng-deep  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-right
+  > .ant-table-header
+  > table
+  > .ant-table-tbody
+  > tr
+  > td,
+::ng-deep  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-left
+  > .ant-table-body-outer
+  > .ant-table-body-inner
+  > table
+  > .ant-table-tbody
+  > tr
+  > td,
+::ng-deep  .ant-table-middle
+  > .ant-table-content
+  > .ant-table-fixed-right
+  > .ant-table-body-outer
+  > .ant-table-body-inner
+  > table
+  > .ant-table-tbody
+  > tr
+  > td {
+  padding: 2px 2px;
+  border: 1px solid rgb(41, 40, 40);
+  white-space:nowrap;
+}
+::ng-deep .ant-table-thead > tr, ::ng-deep .ant-table-tbody > tr {
+  height: 30px;
+}
+
+::ng-deep .ant-dropdown-menu-item, ::ng-deep .ant-dropdown-menu-submenu-title {
+    height: 28px;
+}
+
+.aa{background-color: transparent;}
+.a1,.b{background-color: red;}
+.a{background-color: yellow;}
+.aaw{background-color: green;}

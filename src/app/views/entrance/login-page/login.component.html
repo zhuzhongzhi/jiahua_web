@@ -1,0 +1,42 @@
+<div class="login-bg">
+  <div class="login-title">
+    <span style="font-size:40px;color:#fff">浙江嘉华丝车监控&质量管理系统</span>
+  </div>
+  <div class="wrap">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="loginSubmit()">
+      <nz-form-item class="form-item">
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixUser">
+            <input nz-input formControlName="userName" nzSize="default"
+                   spellcheck="false" placeholder="用户名"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixLock">
+            <input nz-input formControlName="password" nzSize="default"
+                   type="password" placeholder="密码"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="remark-row">
+        <div nz-col nzSpan="4">&nbsp;</div>
+        <div nz-col nzSpan>{{remark}}</div>
+      </div>
+      <nz-form-item class="margin-none">
+        <nz-form-control>
+          <button nz-button nzType="primary" type="submit" [nzLoading]="loading" [disabled]="!validateForm.valid"
+                  nzBlock>登录
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #prefixUser><i class="iconfont icon-zhanghu"></i></ng-template>
+    <ng-template #prefixLock><i class="iconfont icon-mima"></i></ng-template>
+  </div>
+  <div class="footer" >
+    <p></p>
+    <p><a style="color:#d0d0d0" target="_blank" href="">Copyright © 2019 jiahua all rights reserved 浙江嘉华特种尼龙有限公司</a></p>
+  </div>
+</div>

@@ -1,0 +1,245 @@
+.avatar{
+  margin: 16px auto;
+  width: 58px;
+  height: 58px;
+  line-height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  text-align: center;
+  img{
+    width: 80%;
+  }
+}
+.model-content{
+  padding: 16px;
+  height: 650px;
+}
+.display-flex{
+  display: flex;
+  flex-direction: column;
+  .model-title{
+    flex: 46px 0;
+    padding: 15px 16px;
+    margin-bottom: 0;
+    font-size: 16px;
+    background-color: rgba(242, 242, 242, 1);
+  }
+  .model-content{
+    flex: 650px 0;
+  }
+}
+.base-info{
+  display: flex;
+  p{
+    margin-bottom: 5px;
+    line-height: 18px;
+  }
+  .info-left{
+    flex: 250px 0;
+    padding: 0 16px 16px;
+    margin-right: 8px;
+    background-color: rgba(242, 242, 242, 1);
+    h5{
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  }
+  .info-right{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .map{
+      flex: 1;
+      background-color: pink;
+    }
+    .pos-info{
+      flex: 56px 0;
+      padding: 16px;
+      p:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+  .info-avatar{
+    margin: 10px auto 0;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    img{
+      width: 100%;
+    }
+  }
+}
+
+.search-form{
+  margin-bottom: 16px;
+}
+
+.active-line .content{
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 56px);
+  .chart{
+    flex: 100px 0;
+  }
+  .info{
+    flex: 1;
+  }
+}
+/*历史轨迹 start*/
+.show{
+  display: flex;
+  flex-direction:column;
+}
+.showRow{
+  display: flex;
+}
+.hide{
+  display: none;
+}
+.map-container{
+  flex: 1;
+  position:relative;
+  width: 100%;
+  height: 100%
+}
+.col-panel{
+  position:absolute;
+  width: 30%;
+  z-index: 200;
+  right: 0px;
+}
+.trail-option{
+  position: absolute;
+  right: 0px;
+  z-index: 1;
+  width: 28%;
+  //height: 100%;
+  background-color:  rgba(0,0,0,0.6);
+}
+.trail-option-nav {
+  position: absolute;
+  top: 170px;
+  right: 220px;
+  z-index: 1;
+  width: 23px;
+  height: 23px;
+  background: url('../../../assets/image/trail-option-collect.png') no-repeat;
+  cursor: pointer;
+}
+.trail-option-tit {
+  height: 38px;
+  border-bottom: 1px solid #66ACF2;
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  line-height: 38px;
+}
+// .range>span{
+//   display: inline-block;
+// }
+.range-btn>div{
+  display: inline-block;
+}
+.trail-option-con ul {
+  padding: 10px 20px;
+}
+ul>li{
+  margin: 15px 0;
+  list-style-type:none
+}
+li>button{
+  margin: 0 10px;
+}
+.status>p{
+  margin: 15px 0;
+}
+.searchForm .time {
+  display: inline-block;
+  width: 90%;
+}
+.slider-range{
+  color: #fff;
+}
+.caretr{
+  cursor: pointer;
+  float: left;
+  position: absolute;
+  top: 6px;
+}
+.caretl{
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 6px;
+  z-index: 100;
+}
+.pauseClass{
+  margin: 0 60px 0 60px;
+}
+.speedInput{
+  margin: 0 10px 0 10px;
+}
+.range{
+  display: inline-flex;
+}
+.speedRangeSty{
+  width: 180px;
+}
+.scrol-style-hid {
+  overflow: hidden;
+}
+/*历史轨迹 end*/
+
+.width-350{
+  display: inline-block;
+  width: 350px;
+}
+.ditu{
+  position: absolute;
+  right: 2%;
+  top: 12%;
+}
+.weixing{
+  position: absolute;
+  right: 2%;
+  bottom: 16%;
+  width: 45px;
+  height: 45px;
+img{
+  width: 100%;
+  height: 100%;
+}
+}
+.ditu-hisloc{
+  position: absolute;
+  left: 1%;
+  top: 2%;
+}
+.weixing-hisloc{
+  position: absolute;
+  left: 1%;
+  bottom: 6%;
+  width: 45px;
+  height: 45px;
+img{
+  width: 100%;
+  height: 100%;
+}
+}
+.hisloc-acc{
+  margin-right: 10px;
+  padding: 5px 0 5px 0;
+  // display: inline;
+}
+.display-flex-row{
+  display: flex;
+}
+.speed-line, .oil-line{
+  .chart{
+    width: 100%;
+    height: calc(100% - 56px);
+  }
+}

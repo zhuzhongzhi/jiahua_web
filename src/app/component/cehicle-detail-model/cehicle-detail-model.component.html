@@ -1,0 +1,39 @@
+<div class="model-content base-info">
+  <div class="info-left">
+    <h5>基本信息</h5>
+    <p>车牌号码：{{info.num}}</p>
+    <p>所属机构：{{info.section}}</p>
+    <p>车辆类型：{{vehicleInfo.vehicleTypeName}}</p>
+    <p>车辆型号：{{vehicleInfo.vehicleModelName}}</p>
+    <p>当前班组：{{info.team}}</p>
+    <p>当前司机：{{info.driver}}</p>
+    <h5>报警信息</h5>
+    <p>报警类型：{{info.alertStatus}}</p>
+    <p>报警时间：{{info.time}}</p>
+    <p>报警内容：{{info.content}}</p>
+  </div>
+  <div class="info-right">
+    <!--<div id="map" class="map"></div>-->
+    <div class="map">
+      <div style="width: 100%;height: 100%">
+        <app-map-gaode-show #gaodeShow [hidden]="showGaoDe!==1" [showStye]=1 [status]="radioMapValue" [screenItem]="screenItem" (gaodeZoomOutEvent)="zoomOutFromChild($event)"></app-map-gaode-show>
+        <app-map-google-show #googleShow [hidden]="showGaoDe!==2" [showStye]=1 [status]="radioMapValue" [screenItem]="screenItem"
+                             (googleZoomOutEvent)="zoomOutFromChild($event)"></app-map-google-show>
+      </div>
+      <!--地图切换-->
+      <div class="ditu">
+        <nz-radio-group [(ngModel)]="showGaoDe" [nzButtonStyle]="'solid'" nzSize="small">
+          <label nz-radio-button [nzValue]="1">高德地图</label>
+          <label nz-radio-button [nzValue]="2">谷歌地图</label>
+        </nz-radio-group>
+      </div>
+      <!--卫星与道路切换-->
+      <div class="weixing">
+        <img (click)="changeSelectedMap()" [src]="'/assets/image/'+(radioMapValue===0?'map_satellite':'map_standard')+'.jpg'" alt="">
+      </div>
+    </div>
+    <div class="pos-info">
+      <p>报警位置：{{posInfo.address}}</p>
+    </div>
+  </div>
+</div>

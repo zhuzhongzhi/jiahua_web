@@ -1,0 +1,75 @@
+<div style="background: #F0F2F5" style="height: calc(100vh - 100px);">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="6">
+      <nz-card style="height: 150px;">
+        <div class="name1">今日产量</div>
+        <div class="name2"><span>{{ output }}</span><span class="name1">(kg)</span></div>
+        <div class="name1">{{updatetime}}</div>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="18">
+      <nz-card style="height: 150px;">
+        <div class="head-top">实时产量数 时间：{{updatetime}}</div>
+        <div nz-row style="text-align: center;margin-top: 24px;">
+          <div nz-col [nzSpan]="4">
+            <p class="span1">落丝</p>
+            <p class="span2">{{detail.doffingWeight}}</p>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <p class="span1">测丹尼</p>
+            <p class="span2">{{detail.testDannyWeight}}</p>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <p class="span1">摇袜</p>
+            <p class="span2">{{detail.rockWeight}}</p>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <p class="span1">判色</p>
+            <p class="span2">{{detail.colourWeight}}</p>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <p class="span1">检验</p>
+            <p class="span2">{{detail.checkWeight}}</p>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <p class="span1">包装</p>
+            <p class="span2">{{detail.packageWeight}}</p>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="8" style="margin-top: 10px;height: calc(100vh - 260px);">
+    <div nz-col [nzSpan]="6" >
+      <nz-card style="text-align:center; height: calc(100vh - 260px);">
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">AA级</p>
+          <p class="span2">{{detail.aaweight}}</p>
+        </div>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">AA纬</p>
+          <p class="span2">{{detail.aawWeight}}</p>
+        </div>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">A级</p>
+          <p class="span2">{{detail.aweight}}</p>
+        </div>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">A1级</p>
+          <p class="span2">{{detail.a1Weight}}</p>
+        </div>
+        <div nz-row style="height: 130px;">
+          <p class="span1" style="margin-top:28px;">B级</p>
+          <p class="span2">{{detail.bweight}}</p>
+        </div>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="18" style="height: calc(100vh - 260px);">
+      <nz-card >
+        <div echarts [options]="produceOption" style="height: calc(100vh - 310px);"></div>
+      </nz-card>
+    </div>
+  </div>
+
+</div>

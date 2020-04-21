@@ -1,0 +1,263 @@
+<div class="page">
+  <h3 class="page-title">用户管理</h3>
+  <div class="bg-white padding-16">
+    <div class="search-form clearfix ant-form-inline">
+      <nz-form-item *appAuthBtu="ActionCode.userManageExport">
+        <nz-form-control>
+          <button nz-button nzType="primary"><i nz-icon type="export" theme="outline"></i>导出</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *appAuthBtu="ActionCode.userManageAdd">
+        <nz-form-control>
+          <button (click)="addInfo()" nz-button><i nz-icon type="file-add" theme="outline"></i>新增</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *appAuthBtu="ActionCode.userManageDel">
+        <nz-form-control>
+          <button (click)="delModal()" nz-button><i nz-icon type="delete" theme="outline"></i>删除</button>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="pull-right" *appAuthBtu="ActionCode.userManageSearch">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-tree-select style="width: 150px" [nzShowSearch]="true" [nzShowExpand]="true"
+                            [nzDropdownStyle]="{ 'max-height': '400px' }" [nzDefaultExpandedKeys]="defaultExpanded"
+              [nzNodes]="orgs" nzPlaceHolder="请选择机构" [nzDropdownMatchSelectWidth]="false" [(ngModel)]="filters.deptId">
+            </nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <input nzSize="default" [(ngModel)]="filters.name" nz-input type="text" style="width: 160px" placeholder="请输入用户名/登录名">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button (click)="pageChange(true)" nz-button nzType="primary"><i nz-icon type="search"></i>搜索</button>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button (click)="resetSearchInfo()" nz-button><i nz-icon type="reload"></i>重置</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <nz-table #thisTable nzShowSizeChanger [nzData]="listOfAllData" [nzTotal]="tableConfig.total"
+      [(nzPageIndex)]="tableConfig.pageNum" [(nzPageSize)]="tableConfig.pageSize" [nzFrontPagination]="false"
+      [nzLoading]="tableConfig.loading" (nzPageIndexChange)="pageChange()" (nzPageSizeChange)="pageChange(true)"
+      class="user-table table-list">
+      <thead>
+        <tr>
+          <th nzWidth="60px" nzShowCheckbox [(nzChecked)]="isAllChecked" (nzCheckedChange)="checkAll($event)"></th>
+          <th nzWidth="70px">序号</th>
+          <th>用户名称</th>
+          <th>登录名</th>
+          <th>所属机构</th>
+          <th>所属班组</th>
+          <th>用户类型</th>
+          <th>角色</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of thisTable.data; let i = index;">
+          <td nzShowCheckbox [(nzChecked)]="checkedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+          <td>{{(tableConfig.pageNum-1)*tableConfig.pageSize + i + 1}}</td>
+          <td>{{data?.workPersonnelDO?.workPersonnelName}}</td>
+          <td>{{data?.iusAccountDO?.loginName}}</td>
+          <td>{{data?.sysCompanyDO?.orgName}}</td>
+          <td>{{data?.workGroupDO?.workGroupName}}</td>
+          <td>{{data?.userTypeName}}</td>
+          <td>{{data?.iusRoleDO?.name}}</td>
+          <td>{{data?.remark}}</td>
+          <td>
+            <span *appAuthBtu="ActionCode.userManageDetail" (click)="viewInfo(data)" class="blue-txt transparen-btn">详情</span>
+            <ng-container *appAuthBtu="ActionCode.userManageEdit">
+              <i class="line"></i>
+              <span (click)="editInfo(data)" class="blue-txt transparen-btn">编辑</span>
+            </ng-container>
+            <ng-container *appAuthBtu="ActionCode.userManangePwdReset">
+              <i class="line"></i><span *appAuthBtu="ActionCode.userManageDetail" (click)="resetPwd(data)" class="blue-txt transparen-btn">重置密码</span>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="detailModal.title" [nzFooter]="modelFooter"
+  (nzOnCancel)="handleDetailCancel()" nzWidth="600px">
+  <form nz-form [formGroup]="validateForm">
+    <!--<div nz-row>-->
+      <!--<div nz-col>-->
+        <!--<nz-form-item nzFlex>-->
+          <!--<nz-form-label nz-col [nzRequired]="!isReadonly" [nzSpan]="6" nzFor="loginName">登录名</nz-form-label>-->
+          <!--<nz-form-control nz-col [nzSpan]="14">-->
+            <!--<input nz-input formControlName="loginName" placeholder="请输入登录名">-->
+            <!--<nz-form-explain-->
+              <!--*ngIf="getFormControl('loginName')?.dirty&&getFormControl('loginName')?.hasError('required')">-->
+              <!--这是必填字段-->
+            <!--</nz-form-explain>-->
+            <!--<nz-form-explain-->
+              <!--*ngIf="getFormControl('loginName')?.dirty&&getFormControl('loginName')?.hasError('maxlength')">-->
+              <!--已超出最大长度</nz-form-explain>-->
+          <!--</nz-form-control>-->
+        <!--</nz-form-item>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div nz-row>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="deptId">选择机构 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <nz-tree-select formControlName="deptId" style="width: 100%" [nzShowSearch]="true" (ngModelChange)="changeOrg($event)"
+                            [nzDropdownStyle]="{ 'max-height': '400px' }"  [nzDefaultExpandedKeys]="defaultExpanded"
+                            [nzShowExpand]="true"  [nzDropdownMatchSelectWidth]="false" [nzNodes]="orgs" nzPlaceHolder="请选择机构">
+            </nz-tree-select>
+            <nz-form-explain
+              *ngIf="getFormControl('deptId')?.dirty&&getFormControl('deptId')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{selectUserData?.sysCompanyDO?.orgName}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-row>
+        <div nz-col>
+          <nz-form-item nzFlex>
+            <nz-form-label nz-col [nzSpan]="4" nzFor="workGroupId">选择班组</nz-form-label>
+            <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+              <nz-select formControlName="workGroupId" nzPlaceHolder="请选择班组" nzAllowClear nzShowSearch style="width:100%" (ngModelChange)="changeWorkGroup($event)">
+                <nz-option *ngFor="let option of workGroups" [nzLabel]="option.workGroupName"
+                           [nzValue]="option.workGroupId">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+            <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+              {{selectUserData?.workGroupDO?.workGroupName}}
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="workPersonnelId">用户名称 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <nz-select formControlName="workPersonnelId" nzPlaceHolder="请选择员工" nzAllowClear nzShowSearch style="width:100%"  (nzOpenChange)="loadPersonnels($event)">
+              <nz-option *ngFor="let option of workPersonnels" [nzLabel]="option.workPersonnelName"
+                         [nzValue]="option.workPersonnelId">
+              </nz-option>
+            </nz-select>
+            <nz-form-explain
+              *ngIf="getFormControl('workPersonnelId')?.dirty&&getFormControl('workPersonnelId')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{selectUserData?.workPersonnelDO?.workPersonnelName}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="userType">用户类型 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <nz-select formControlName="userType" nzPlaceHolder="请选择用户类型" style="width:100%" nzShowSearch>
+              <nz-option *ngFor="let option of userTypeList" [nzLabel]="option.label"
+                [nzValue]="option.val">
+              </nz-option>
+            </nz-select>
+            <nz-form-explain
+              *ngIf="getFormControl('userType')?.dirty&&getFormControl('userType')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{selectUserData?.userTypeName}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="roleId">所属角色 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <nz-select formControlName="roleId" nzPlaceHolder="请选择所属角色" style="width:100%" nzShowSearch>
+              <nz-option *ngFor="let option of roles" [nzLabel]="option.name"
+                [nzValue]="option.id">
+              </nz-option>
+            </nz-select>
+            <nz-form-explain
+              *ngIf="getFormControl('roleId')?.dirty&&getFormControl('roleId')?.hasError('required')">
+              这是必填字段
+            </nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{selectUserData?.iusRoleDO?.name}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <!--<div nz-row>-->
+      <!--<div nz-col>-->
+        <!--<nz-form-item nzFlex>-->
+          <!--<nz-form-label nz-col [nzSpan]="4" nzFor="mobile">手机号码 <span class="red-txt" *ngIf="detailModal.showContinue||detailModal.showSaveBtn">*</span></nz-form-label>-->
+          <!--<nz-form-control nz-col [nzSpan]="20">-->
+            <!--<input nz-input formControlName="mobile" placeholder="请输入手机号码">-->
+            <!--&lt;!&ndash;<nz-form-explain&ndash;&gt;-->
+              <!--&lt;!&ndash;*ngIf="getFormControl('mobile')?.dirty&&getFormControl('mobile')?.hasError('required')">&ndash;&gt;-->
+              <!--&lt;!&ndash;这是必填字段&ndash;&gt;-->
+            <!--&lt;!&ndash;</nz-form-explain>&ndash;&gt;-->
+            <!--<nz-form-explain *ngIf="getFormControl('mobile')?.dirty&&getFormControl('mobile')?.hasError('maxlength')">-->
+              <!--已超出最大长度</nz-form-explain>-->
+          <!--</nz-form-control>-->
+        <!--</nz-form-item>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div nz-row>-->
+      <!--<div nz-col>-->
+        <!--<nz-form-item nzFlex>-->
+          <!--<nz-form-label nz-col [nzSpan]="4" nzFor="email">电子邮箱</nz-form-label>-->
+          <!--<nz-form-control nz-col [nzSpan]="20">-->
+            <!--<input nz-input formControlName="email" placeholder="请输入电子邮箱">-->
+            <!--<nz-form-explain *ngIf="getFormControl('email')?.dirty&&getFormControl('email')?.hasError('maxlength')">-->
+              <!--已超出最大长度</nz-form-explain>-->
+          <!--</nz-form-control>-->
+        <!--</nz-form-item>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div nz-row>
+      <div nz-col>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSpan]="4" nzFor="remark">备注</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="detailModal.showSaveBtn">
+            <textarea nz-input formControlName="remark" [nzAutosize]="{minRows: 2, maxRows: 6}" type="text"></textarea>
+            <nz-form-explain *ngIf="getFormControl('remark')?.dirty&&getFormControl('remark')?.hasError('maxlength')">
+              已超出最大长度</nz-form-explain>
+          </nz-form-control>
+          <nz-form-control nz-col [nzSpan]="20" *ngIf="!detailModal.showSaveBtn">
+            {{selectUserData?.remark}}
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-modal>
+
+<ng-template #modelFooter>
+  <label *ngIf="detailModal.showContinue" nz-checkbox [(ngModel)]="isContinue" class="pull-left">
+    <span>连续添加</span>
+  </label>
+  <button *ngIf="detailModal.showSaveBtn" nz-button nzType="primary" (click)="handleDetailSave()"
+    [nzLoading]="detailModal.loading"><i nz-icon type="save"></i>保存</button>
+  <button nz-button nzType="default" (click)="handleDetailCancel()"><i nz-icon type="undo"></i>取消</button>
+</ng-template>

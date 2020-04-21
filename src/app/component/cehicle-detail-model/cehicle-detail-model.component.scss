@@ -1,0 +1,48 @@
+.base-info{
+  display: flex;
+  height: 500px;
+  p{
+    margin-bottom: 5px;
+  }
+  .info-left{
+    flex: 250px 0;
+    padding: 0 16px 16px 24px;
+    background-color: rgba(242, 242, 242, 1);
+    h5{
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  }
+  .info-right{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .map{
+      flex: 1;
+      position: relative;
+      .ditu{
+        position: absolute;
+        top: 8px;
+        right: 8px;
+      }
+      .weixing{
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        width: 60px;
+        height: 60px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .pos-info{
+      flex: 46px 0;
+      padding: 16px;
+      p:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}

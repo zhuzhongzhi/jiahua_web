@@ -1,0 +1,168 @@
+@import "./variable";
+
+.marker-machine {
+  width: 72px;
+  height: 85px;
+  padding-top: 18px;
+  position: relative;
+}
+
+.marker-machine .machine-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}
+
+.marker-machine .machine-name {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  right: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.location-alarm .machine-name {
+  color: $warning-color;
+}
+.location-online .machine-name {
+  color: $online-color;
+}
+.location-outline .machine-name {
+  color: $outline-color;
+}
+
+.marker-machine-info-win {
+  position: relative;
+  width: 337px;
+  height: 253px;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: #ffffff;
+}
+
+.marker-machine-info-win .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  width: 15px;
+  height: 15px;
+  font-size: 12px;
+  background: #ccc;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  line-height: 15px;
+  box-shadow: -1px 1px 1px rgba(10, 10, 10, .2);
+}
+.marker-machine-info-win .close-btn:hover{
+  background: #666;
+}
+
+.triangle-dwon{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -8px;
+  transform: translateY(50%);
+  width:0;
+  height:0;
+  border-right:8px solid transparent;
+  border-left:8px solid transparent;
+  border-top:8px solid #ffffff;
+}
+
+
+.marker-machine-info-win .info-title {
+  display: flex;
+  padding-bottom: 16px;
+  border-bottom: 1px dotted #e5e5e5;
+  img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border:  1px solid rgba(0,0,0,0.1);
+  }
+  .right-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 72px;
+    margin-left: 16px;
+  }
+  .right-part .machine-name {
+    color: #00b4ed;
+    font-size: 14px;
+    font-weight: bold;;
+  }
+  .right-part .machine-address {
+    font-size: 12px;
+    color: #9b9b9b;
+  }
+  .right-part .machine-status {
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .right-part .online {
+    color: #ffffff;
+    background-color: $online-color;
+  }
+  .right-part .outline {
+    color: #9b9b9b;
+    background-color: $outline-color;
+  }
+}
+
+.marker-machine-info-win .info-content {
+  padding: 16px 0;
+  position: relative;
+  ul {
+    padding: 0;
+  }
+    ul li {
+      list-style: none;
+      margin-bottom: 16px;
+      font-size: 12px;
+      label {
+        color: #4a4a4a;
+        margin-right: 8px;
+      }
+      span {
+        color: #9b9b9b;
+      }
+    }
+  a {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 12px;
+  }
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: #00B4ED;
+  border-right: 4px solid #00B4ED;
+}
+
+.ant-layout-sider-trigger{
+  background: #2e3748;
+  position: absolute;
+}
+
+.ant-layout-sider {
+  background: #3f4a5e;
+}
+
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+  background: #3f4a5e;
+}

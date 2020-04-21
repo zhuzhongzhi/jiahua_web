@@ -1,0 +1,60 @@
+<div class="card">
+    <app-map-gaode-show #gaodeShow [hidden]="showGaoDe!==1" [showStye]=0 [status]="radioMapValue" [screenItem]="screenItem" (gaodeZoomOutEvent)="zoomOutFromChild($event)"></app-map-gaode-show>
+    <app-map-google-show #googleShow [hidden]="showGaoDe!==2" [showStye]=0 [status]="radioMapValue" [screenItem]="screenItem"
+        (googleZoomOutEvent)="zoomOutFromChild($event)"></app-map-google-show>
+    <!--地图切换-->
+    <div class="ditu">
+        <nz-radio-group [(ngModel)]="showGaoDe" [nzButtonStyle]="'solid'" nzSize="small">
+            <label nz-radio-button [nzValue]="1">高德地图</label>
+            <label nz-radio-button [nzValue]="2">谷歌地图</label>
+        </nz-radio-group>
+    </div>
+    <!--卫星与道路切换-->
+    <div class="weixing">
+        <img (click)="changeSelectedMap()" [src]="'/assets/image/'+(radioMapValue===0?'map_satellite':'map_standard')+'.jpg'" alt="">
+    </div>
+    <div class="bg-gray state">
+        <a style="color: #fff;" (click)="lookInfo(screenItem.vehiclePlaceInfo.license)">{{screenItem.vehiclePlaceInfo.license}}</a>
+        <div class="icons-list" style="position: relative;right: 10px;float: right;">
+            <i *appAuthBtu="ActionCode.screensSearch" nz-icon type="select" style="margin-right: 10px;" (click)="selectVehicle()"></i>
+            <i *appAuthBtu="ActionCode.screensdel" nz-icon type="close-circle" (click)="delScreenVehsLoc()"></i>
+        </div>
+    </div>
+</div>
+<!--弹框-->
+<nz-modal [(nzVisible)]="orgVehicleTree.show" [nzTitle]="'请选择变更车辆'" (nzOnCancel)="handleDetailCancel()" (nzOnOk)="handleOnModOk()"
+    nzWidth="500px">
+    <!-- <div class="org-veh-tree">
+        <nz-input-group [nzSuffix]="suffixIcon">
+            <input type="text" nz-input placeholder="请输入车牌号码..." [(ngModel)]="searchVehValue">
+        </nz-input-group>
+        <ng-template #suffixIcon>
+            <i nz-icon type="search"></i>
+        </ng-template>
+        <div style="max-height: 600px;overflow: auto;">
+            <nz-tree nzShowIcon [nzData]="nodes" [nzSearchValue]="searchVehValue" (nzClick)="nzOrgVehEvent($event)">
+            </nz-tree>
+        </div>
+    </div> -->
+    <div class="org-veh-tree">
+        <nz-input-group nzSearch>
+          <input type="text" nz-input placeholder="请输入车牌号..." (keypress)="onKeyEnter($event)" [(ngModel)]="searchVehValue" (input)="onInput($event.target?.value)"
+            [nzAutocomplete]="auto" />
+        </nz-input-group>
+        <!-- <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch (click)="selectVehicle()">
+            <i nz-icon type="search"></i>
+          </button>
+        </ng-template> -->
+        <nz-autocomplete nzBackfill #auto>
+          <nz-auto-option *ngFor="let option of options" [nzValue]="option">
+            {{ option }}
+          </nz-auto-option>
+        </nz-autocomplete>
+      </div>
+</nz-modal>
+<!--弹框-->
+<nz-modal [(nzVisible)]="detailModal.show" [nzTitle]="" (nzOnCancel)="handleDetailCancelForItem()" [nzFooter]="null" nzWidth="1000px"
+          class="padding-0">
+  <app-cehicle-model *ngIf="detailModal.show" [info]="detailInfo"></app-cehicle-model>
+</nz-modal>

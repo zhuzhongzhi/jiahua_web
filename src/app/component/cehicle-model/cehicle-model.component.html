@@ -1,0 +1,575 @@
+<nz-layout class="cehicle-model">
+  <nz-sider nzWidth="176px">
+    <div class="avatar" [ngSwitch]="infoShow.vehicleTypeName">
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='叉车'" src="../../../assets/image/chache.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='油罐车'" src="../../../assets/image/youguanche.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='渣包车'" src="../../../assets/image/zhabaoche.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='重型汽车'" src="../../../assets/image/zhongxingqiche.png" alt="">-->
+      <!--<img *ngIf="info.vehicleTypeName&&info.vehicleTypeName==='装载机'" src="../../../assets/image/zhuangzaiche.png" alt="">-->
+      <img *ngSwitchCase="'叉车'" src="../../../assets/image/chache.png" alt="">
+      <img *ngSwitchCase="'油罐车'" src="../../../assets/image/youguanche.png" alt="">
+      <img *ngSwitchCase="'渣包车'" src="../../../assets/image/zhabaoche.png" alt="">
+      <img *ngSwitchCase="'重型汽车'" src="../../../assets/image/zhongxingqiche.png" alt="">
+      <img *ngSwitchCase="'装载机'" src="../../../assets/image/zhuangzaiche.png" alt="">
+      <img *ngSwitchCase="'挖掘机'" src="../../../assets/image/wajueji.png" alt="">
+    </div>
+    <ul nz-menu [nzMode]="'inline'" nzTheme="dark" (nzClick)="openChange($event)">
+      <li nz-menu-item nz-tooltip nzPlacement="right" *ngFor="let menu of menulist" (click)="openChange(menu)" [nzSelected]="menu.id===menuActiveIndex">
+        <span title>{{menu.name}}</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-content class="display-flex">
+    <h4 class="model-title">{{title}}（{{infoShow.vehicleLicense}}）</h4>
+    <div class="model-content base-info" [ngClass]="menuActiveIndex === 1?'showRow':'hide'">
+      <div class="info-left">
+        <div class="info-avatar" [ngSwitch]="infoShow.vehicleTypeName">
+          <!--<img *ngIf="infoShow.vehicleTypeName&&infoShow.vehicleTypeName==='叉车'" src="../../../assets/image/chache.png" alt="">-->
+          <!--<img *ngIf="infoShow.vehicleTypeName&&infoShow.vehicleTypeName==='油罐车'" src="../../../assets/image/youguanche.png" alt="">-->
+          <!--<img *ngIf="infoShow.vehicleTypeName&&infoShow.vehicleTypeName==='渣包车'" src="../../../assets/image/zhabaoche.png" alt="">-->
+          <!--<img *ngIf="infoShow.vehicleTypeName&&infoShow.vehicleTypeName==='重型汽车'" src="../../../assets/image/zhongxingqiche.png" alt="">-->
+          <!--<img *ngIf="infoShow.vehicleTypeName&&infoShow.vehicleTypeName==='装载机'" src="../../../assets/image/zhuangzaiche.png" alt="">-->
+          <img *ngSwitchCase="'叉车'" src="../../../assets/image/chache.png" alt="">
+          <img *ngSwitchCase="'油罐车'" src="../../../assets/image/youguanche.png" alt="">
+          <img *ngSwitchCase="'渣包车'" src="../../../assets/image/zhabaoche.png" alt="">
+          <img *ngSwitchCase="'重型汽车'" src="../../../assets/image/zhongxingqiche.png" alt="">
+          <img *ngSwitchCase="'装载机'" src="../../../assets/image/zhuangzaiche.png" alt="">
+          <img *ngSwitchCase="'挖掘机'" src="../../../assets/image/wajueji.png" alt="">
+        </div>
+        <h5>基本信息</h5>
+        <p>车牌号码：{{infoShow.vehicleLicense}}</p>
+        <p>车辆类型：{{infoShow.vehicleTypeName}}</p>
+        <p>车辆型号：{{infoShow.vehicleModelName}}</p>
+        <p>所属机构：{{infoShow.deptName}}</p>
+        <p>当前班组：{{infoShow.workGroupName}}</p>
+        <p>ACC状态：{{infoShow?.acc==='1'?'打开':'关闭'}}</p>
+        <p>定位状态：{{infoShow?.position==='1'?'有效':'无效'}}</p>
+        <p>在线状态：{{infoShow.onlineState==='1'?'在线':'离线'}}</p>
+        <p>报警状态：{{infoShow.alarmTypeStr?infoShow.alarmTypeStr:'正常'}}</p>
+        <p>行驶速度：{{infoShow.speed?infoShow.speed:0}}km/h</p>
+        <p>车辆状态：{{infoShow.vehicleStateName}}</p>
+        <h5>注册信息</h5>
+        <p>终端编号：{{registerInfo.num}}</p>
+        <p>车架编号：{{infoShow?.carriageNo}}</p>
+        <p>发动机序列号：{{infoShow?.engineNo}}</p>
+        <!-- <p>SIM卡号：{{registerInfo.sim}}</p>
+        <p>注册时间：{{registerInfo.registerTime}}</p> -->
+      </div>
+      <div class="info-right">
+        <!-- <div id="baseMapDiv" style="width: 100%;height: 100%"></div> -->
+        <div style="width: 100%;flex: 1;">
+          <app-map-gaode-show #gaodeShow [hidden]="showGaoDe!==1" [showStye]=1 [status]="radioMapValue" [screenItem]="screenItem" (gaodeZoomOutEvent)="zoomOutFromChild($event)"></app-map-gaode-show>
+          <app-map-google-show #googleShow [hidden]="showGaoDe!==2" [showStye]=1 [status]="radioMapValue" [screenItem]="screenItem"
+            (googleZoomOutEvent)="zoomOutFromChild($event)"></app-map-google-show>
+        </div>
+        <!--地图切换-->
+        <div class="ditu">
+          <nz-radio-group [(ngModel)]="showGaoDe" [nzButtonStyle]="'solid'" nzSize="small">
+            <label nz-radio-button [nzValue]="1">高德地图</label>
+            <label nz-radio-button [nzValue]="2">谷歌地图</label>
+          </nz-radio-group>
+        </div>
+        <!--卫星与道路切换-->
+        <div class="weixing">
+          <img (click)="changeSelectedMap()" [src]="'/assets/image/'+(radioMapValue===0?'map_satellite':'map_standard')+'.jpg'" alt="">
+        </div>
+        <div class="pos-info">
+          <p id="lastLoc">最新位置：{{posInfo.address}}</p>
+          <p>更新时间：{{posInfo.updateTime}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="model-content scrol-style-hid" [ngClass]="menuActiveIndex === 2?'show':'hide'">
+      <div class="ant-form-inline">
+        <div class="pull-right display-flex-row">
+          <div class="hisloc-acc">
+            <nz-switch [(ngModel)]="isPositionFilter" nzCheckedChildren="定位有效" nzUnCheckedChildren="定位有效"></nz-switch>
+          </div>
+          <div class="hisloc-acc">
+            <nz-switch [(ngModel)]="isOpenAccFilter" nzCheckedChildren="ACC筛选" nzUnCheckedChildren="ACC筛选"></nz-switch>
+          </div>
+          <nz-form-item>
+            <nz-form-control>
+              <nz-range-picker [(ngModel)]="hisLocDateRange" nzFormat="yyyy-MM-dd HH:mm:ss"  [nzMode]="dateMode" (ngModelChange)="modelChange()"
+                (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="hisLocSearch()">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="map-container">
+        <div *ngIf="!isShowConPanel" class="caretl">
+          <i nz-icon type="caret-left" style="font-size: 28px" (click)="changeDisplayModelToF()" theme="outline"></i>
+        </div>
+        <div *ngIf="isShowConPanel" class="trail-option">
+          <div class="caretr">
+            <i nz-icon type="caret-right" style="font-size: 28px;color: white;" (click)="changeDisplayModel()" theme="outline"></i>
+          </div>
+          <div class="trail-option-tit">轨迹播放</div>
+          <div class="trail-option-con">
+            <ul>
+              <li class="range">
+                <span class="slider-range">慢</span>
+                <div *ngIf="showGaoDeLoc!==2" class="speedRangeSty">
+                  <!-- <input [(ngModel)]="speedRangeValue" (ngModelChange)="speedRangeChange(speedRangeValue)" type="range" name="range" id="speedRange" min="1000" max="100000" step="1000"> -->
+                  <nz-slider [(ngModel)]="speedRangeValue" (ngModelChange)="speedRangeChange(speedRangeValue)" [nzMin]="100" [nzMax]="10000"
+                    [nzStep]="100" [nzTipFormatter]=null></nz-slider>
+                </div>
+                <div *ngIf="showGaoDeLoc===2" class="speedRangeSty">
+                  <nz-slider [(ngModel)]="speedRangeValueForGoo" (ngModelChange)="speedRangeChangeForGoo(speedRangeValueForGoo)" [nzMin]="1"
+                    [nzMax]="100" [nzStep]="1" [nzTipFormatter]=null></nz-slider>
+                  <!-- [nzTipFormatter]=null -->
+                </div>
+                <span class="slider-range">快</span>
+              </li>
+              <li class="range-btn">
+                <div id="start" title="开始" (click)="startClick()">
+                  <i nz-icon type="play-circle" style="font-size: 25px;color: white" theme="outline"></i>
+                </div>
+                <div id="pause" class="pauseClass" title="暂停" (click)="pauseClick()">
+                  <i nz-icon type="pause-circle" class="range-btn-i" theme="outline"></i>
+                </div>
+                <div id="stop" title="重置" (click)="refreshClick()">
+                  <i nz-icon type="retweet" class="range-btn-i" theme="outline"></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!--轨迹信息说明 *ngIf="showGaoDeLoc!==2"-->
+          <div class="trail-option-tit">轨迹状态</div>
+          <div class="status" style="color: #ffffff; padding: 10px 20px;">
+            <!-- [(ngModel)]="devHisLocInfo" -->
+            <p id="gpstimep">时间：{{devHisLocInfo[0]}}</p>
+            <!-- {{devHisLocInfo[2]}} -->
+            <p id="vehState">ACC状态：{{devHisLocInfo[1]}}</p>
+            <!-- {{devHisLocInfo[3]}} -->
+            <p id="speedp">速度：{{devHisLocInfo[2]}}</p>
+            <!-- {{devHisLocInfo[4]}} -->
+            <!-- <p id="alarmState">怠速状态：{{devHisLocInfo[3]}}</p> -->
+            <!-- {{devHisLocInfo[5]}} -->
+            <p id="teamGroup">班组：{{devHisLocInfo[4]}}</p>
+            <!-- {{devHisLocInfo[6]}} -->
+            <p id="driver">司机：{{devHisLocInfo[5]}}</p>
+            <!-- {{devHisLocInfo[7]}} -->
+            <!-- <p id="statusp">位置：</p> -->
+          </div>
+        </div>
+        <app-map-gaode-loc-play #mapGaodeLocPlay [hidden]="showGaoDeLoc!==1" [statusLoc]="radioMapValueLoc" [screenItem]="screenItem"
+          [resultData]="resultData" (gaodeLocPlayDispOut)="hisLocDispDataFromChild($event)" (gaodeZoomOutEvent)="zoomOutFromChildForLoc($event)"></app-map-gaode-loc-play>
+        <app-map-google-loc-play #mapGoogleLocPlay [speedRangeValueLoc]="speedRangeValueForGoo" [hidden]="showGaoDeLoc!==2" [statusLoc]="radioMapValueLoc"
+          [screenItem]="screenItem" [resultData]="resultData" (gaodeLocPlayDispOut)="hisLocDispDataFromChild($event)" (googleZoomOutEvent)="zoomOutFromChildForLoc($event)"></app-map-google-loc-play>
+        <!--地图切换-->
+        <div class="ditu-hisloc">
+          <nz-radio-group [(ngModel)]="showGaoDeLoc" [nzButtonStyle]="'solid'" nzSize="small">
+            <label nz-radio-button [nzValue]="1">高德地图</label>
+            <label nz-radio-button [nzValue]="2">谷歌地图</label>
+          </nz-radio-group>
+        </div>
+        <!--卫星与道路切换-->
+        <div class="weixing-hisloc">
+          <img (click)="changeSelectedMapLoc()" [src]="'/assets/image/'+(radioMapValueLoc===0?'map_satellite':'map_standard')+'.jpg'"
+            alt="">
+        </div>
+      </div>
+    </div>
+    <div class="model-content" [ngClass]="menuActiveIndex === 3?'show':'hide'">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item>
+          <nz-form-control>
+            <!--     <button nz-button nzType="primary">
+               <i nz-icon type="export" theme="outline"></i>导出</button>-->
+          </nz-form-control>
+        </nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-select style="width: 150px;" [(ngModel)]="alertStatus" name="alertStatus" nzAllowClear nzPlaceHolder="请选择报警状态">
+                <nz-option *ngFor="let node of alertStatusNodes" [nzValue]="node.alarmTypeCode" [nzLabel]="node.alarmTypeName"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="alarmDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="alarmDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"  (ngModelChange)="modelChange()"
+                (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="getAlarmList()">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-table #alarmTable nzShowPagination [nzShowSizeChanger]="false"
+                [nzFrontPagination]="false"
+                [nzTotal]="alarmTotal" [(nzPageIndex)]="alarmPageNum" [nzPageSize]="alarmPageSize"
+                [nzData]="alarmList" [nzLoading]="alarmLoading"nzSize="small"
+                (nzPageIndexChange)="getAlarmList()">
+        <thead (nzSortChange)="alarmSort($event)">
+          <tr>
+            <th nzWidth="45px">序号</th>
+            <th nzShowSort nzSortKey="start_time">报警时间</th>
+            <th>报警类型</th>
+            <th>报警位置</th>
+            <th>持续时长</th>
+            <th>报警内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of alarmTable.data; let i = index;">
+            <td>{{(alarmPageNum - 1) * alarmPageSize + i + 1}}</td>
+            <td>{{data.startTime}}</td>
+            <td>{{data.alarmTypeName}}</td>
+            <td>{{data.province}}
+              <span *ngIf="data.city">，</span>{{data.city}}
+              <span *ngIf="data.area">，</span>{{data.area}}</td>
+            <td>{{data.range}}</td>
+            <td>{{data.alarmContent}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="model-content active-line" *ngIf="menuActiveIndex === 4">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item style="margin-right: 16px"><nz-form-control><b>工作时长：</b>{{actInfo.drive}}</nz-form-control></nz-form-item>
+        <nz-form-item style="margin-right: 16px"><nz-form-control><b>闲置时长：</b>{{actInfo.stop}}</nz-form-control></nz-form-item>
+        <nz-form-item><nz-form-control><b>维修时长：</b>{{actInfo.repairTime}}</nz-form-control></nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" []="{ nzFormat: 'HH:mm:ss' }"></nz-range-picker>-->
+              <nz-date-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getActLineInit()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="content">
+        <div class="chart">
+          <div echarts [options]="option" [autoResize]="true" style="height: 100px"></div>
+          <!--<div id="echart" style="height: 100px"></div>-->
+        </div>
+        <div class="info">
+          <nz-table #teamTallyTable nzSize="small"
+                    [nzFrontPagination]="false" [nzShowPagination]="false"
+                    [nzScroll]="{ y: '336px' }" [nzData]="actLineList" [nzLoading]="actLineLoading">
+            <thead>
+            <tr>
+              <th nzWidth="46px">序号</th>
+              <th nzWidth="174px">开始时间</th>
+              <th nzWidth="174px">结束时间</th>
+              <th nzWidth="160px">工作状态</th>
+              <th nzLeft="554px" nzRight="108px">持续时长</th>
+              <th nzWidth="108px">里程</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of teamTallyTable.data; let i = index;">
+              <td>{{i + 1}}</td>
+              <td>{{data?.startTime}}</td>
+              <td>{{data?.endTime}}</td>
+              <td>{{data.activityType===9?'维修':data.activityType===2?'工作':data.activityType===1?'怠速':'闲置'}}</td>
+              <td>{{data.range}}</td>
+              <td>{{data.mileage/1000}}千米</td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+    <div class="model-content" *ngIf="menuActiveIndex === 5">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item>
+          <nz-form-control>
+            <!--    <button nz-button nzType="primary">
+              <i nz-icon type="export" theme="outline"></i>导出</button>-->
+          </nz-form-control>
+        </nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="teamTallyDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="teamTallyDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"
+                               (ngModelChange)="modelChange()" (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getTeamTallyInfo()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-table #teamTallyTable nzShowPagination  [nzShowSizeChanger]="false" nzSize="small"
+                [nzData]="teamTallyList" [nzFrontPagination]="false"
+        [nzTotal]="teamTallyTotal" [(nzPageIndex)]="teamTallyPageNum" [nzPageSize]="teamTallyPageSize"
+                [nzLoading]="teamTallyLoading" (nzPageIndexChange)="getTeamTallyInfo()">
+        <thead>
+          <tr>
+            <th nzWidth="45px">序号</th>
+            <th>点检时间</th>
+            <th>检查类型</th>
+            <th>点检人</th>
+            <th>检查结构</th>
+            <th>问题描述</th>
+            <th>报修</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of teamTallyTable.data; let i = index;">
+            <td>{{(teamTallyPageNum - 1) * teamTallyPageSize + i + 1}}</td>
+            <td>{{data.checkDate}}</td>
+            <td>{{data.checkType===0?'使用前':data.checkType===1?'使用中':'其他'}}</td>
+            <td>{{data.createUserName}}</td>
+            <td>
+              <span *ngIf="data.checkResult===1">正常</span>
+              <span *ngIf="data.checkResult===2" class="red-txt">异常</span>
+            </td>
+            <td>{{data.checkTrouble}}</td>
+            <td>{{data.repairFlag===1 || data.repairFlag==='1'?'已报修':'未报修'}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="model-content" *ngIf="menuActiveIndex === 6">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item>
+          <nz-form-control>
+            <!--       <button nz-button nzType="primary">
+               <i nz-icon type="export" theme="outline"></i>导出</button>-->
+          </nz-form-control>
+        </nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="refuelDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="refuelDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"
+                               (ngModelChange)="modelChange()" (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getRefuelInfo()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-table #refuelTable nzShowPagination [nzShowSizeChanger]="false" nzSize="small"
+                [nzData]="refuelList" [nzFrontPagination]="false"
+                [nzTotal]="refuelTotal" [(nzPageIndex)]="refuelPageNum" [nzPageSize]="refuelPageSize"
+                [nzLoading]="refuelLoading" (nzPageIndexChange)="getRefuelInfo()">
+        <thead>
+          <tr>
+            <th nzWidth="45px">序号</th>
+            <th>加油卡号</th>
+            <th>司机</th>
+            <th>班组名称</th>
+            <th>加油时间</th>
+            <th>油号</th>
+<!--            <th>油价</th>-->
+            <th>加油量</th>
+<!--            <th>加油金额</th>-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of refuelTable.data; let i = index;">
+            <td>{{(refuelPageNum - 1) * refuelPageSize + i + 1}}</td>
+            <td>{{data.vice_no}}</td>
+            <td>{{data.workPersonnelName}}</td>
+            <td>{{data.workGroupName}}</td>
+            <td>{{data.trade_time}}</td>
+            <td>{{data.oil_name}}</td>
+<!--            <td>{{data.trade_price}}元/升</td>-->
+            <td>{{data.trade_num}}升</td>
+<!--            <td>{{data.trade_money}}元</td>-->
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="model-content" *ngIf="menuActiveIndex === 7">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item>
+          <nz-form-control>
+            <!--     <button nz-button nzType="primary">
+               <i nz-icon type="export" theme="outline"></i>导出</button>-->
+          </nz-form-control>
+        </nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="keepDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="keepDateRange" nzFormat="yyyy-MM-dd"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getkeepInfo()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-table #keepTable nzShowPagination [nzShowSizeChanger]="false" nzSize="small"
+                [nzTotal]="keepTotal" [(nzPageIndex)]="keepPageNum" [nzPageSize]="keepPageSize"
+                [nzFrontPagination]="false" [nzData]="keepList" [nzLoading]="keepLoading"
+                (nzPageIndexChange)="getkeepInfo()" >
+        <thead>
+          <tr>
+            <th nzWidth="45px">序号</th>
+            <th nzWidth="150px">保养时间</th>
+            <th>累计里程数</th>
+            <th>累计工作时长</th>
+            <th>保养费用</th>
+            <th nzWidth="350px">保养内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of keepTable.data; let i = index;">
+            <td>{{(refuelPageNum - 1) * refuelPageSize + i + 1}}</td>
+            <td>{{data.maintenanceDate}}</td>
+            <td>{{data.vehicleMileage}}千米</td>
+            <td>{{data.workTime}}小时</td>
+            <td>{{data.money}}元</td>
+            <td>
+              <span class="text-ellipsis width-350" nz-tooltip nzTitle="{{data.keepContent}}">{{data.keepContent}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="model-content" *ngIf="menuActiveIndex === 8">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item>
+          <nz-form-control>
+            <!--  <button nz-button nzType="primary">
+              <i nz-icon type="export" theme="outline"></i>导出</button>-->
+          </nz-form-control>
+        </nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-select style="width: 150px;" [(ngModel)]="requireStatus" name="alertStatus" nzAllowClear nzPlaceHolder="请选择维修状态">
+                <nz-option *ngFor="let node of requireStatusNodes" [nzValue]="node.val" [nzLabel]="node.label"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="requireDateRange" ></nz-range-picker>-->
+              <nz-range-picker [(ngModel)]="requireDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" [nzMode]="dateMode"
+                               [nzPlaceHolder]="['报修开始时间', '报修结束时间']"
+                               (ngModelChange)="modelChange()" (nzOnOpenChange)="openChangeDate()"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getRequireInfo()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-table #requireTable nzShowPagination [nzShowSizeChanger]="false" nzSize="small"
+                [nzTotal]="requireTotal" [(nzPageIndex)]="requirePageNum" [nzPageSize]="requirePageSize"
+                [nzFrontPagination]="false" [nzData]="requireList" [nzLoading]="requireLoading"
+                (nzPageIndexChange)="getRequireInfo()">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>维修单号</th>
+            <th>报修人</th>
+            <th>报修时间</th>
+            <!--<th>进厂时间</th>-->
+            <th>维修完成时间</th>
+            <th>维修工</th>
+            <th>维修费用</th>
+            <th>维修工时</th>
+            <th>维修状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of requireTable.data; let i = index;">
+            <td>{{(requirePageNum - 1) * requirePageSize + i + 1}}</td>
+            <td>{{data?.repairNo}}</td>
+            <td>{{data.createUserName && data.createUserName !== 'null' ? data.createUserName : ''}}</td>
+            <td>{{data?.createDate}}</td>
+            <!--<td>{{data.factoryTime}}</td>-->
+            <td>{{data?.finishDate}}</td>
+            <td>{{data?.workPersonnelNames!=null?data?.workPersonnelNames:data?.workPersonnel?.workPersonnelName}}</td>
+            <td>{{data?.repairMoney}}元</td>
+            <td>{{data?.repairWorkhours }}工时</td>
+            <td>{{getRepairStatusName(data.repairStatus)}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="model-content speed-line" *ngIf="menuActiveIndex === 9">
+      <div class="search-form clearfix ant-form-inline">
+        <nz-form-item>
+            <b>超速报警：</b>{{speedInfo?.numsOfOverSpeedAlarm}}次
+        </nz-form-item>
+        <nz-form-item>
+            <b>怠速报警：</b>{{speedInfo?.numsOfIdleAlarm}}次
+        </nz-form-item>
+        <nz-form-item>
+            <b>最高速度：</b>{{speedInfo?.maxSpeed}}千米/时
+        </nz-form-item>
+        <nz-form-item>
+            <b>平均速度：</b>{{speedInfo?.averageSpeed}}千米/时
+        </nz-form-item>
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <!--<nz-range-picker [(ngModel)]="actDateRange" nzFormat="yyyy-MM-dd HH:mm:ss" []="{ nzFormat: 'HH:mm:ss' }"></nz-range-picker>-->
+              <nz-date-picker [(ngModel)]="speedLineDate" nzFormat="yyyy-MM-dd"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getSpeedLine()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="chart">
+        <div echarts [options]="speedLineOption" [autoResize]="true" style="height: 100%"></div>
+      </div>
+    </div>
+    <div class="model-content oil-line" *ngIf="menuActiveIndex === 10">
+      <div class="search-form clearfix ant-form-inline">
+        <div class="pull-right">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-month-picker [(ngModel)]="oilLineDate"></nz-month-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button (click)="getOilLine()" nz-button nzType="primary">
+                <i nz-icon type="search"></i>搜索</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="chart">
+        <div echarts [options]="oilLineOption" [autoResize]="true" style="height: 100%"></div>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>
